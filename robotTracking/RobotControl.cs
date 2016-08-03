@@ -56,12 +56,6 @@ namespace robotTracking
                     currentPort.Write(instructionBuffer, 0, 2);
                     return true;
                 }
-                else if (servoNumber == 0)
-                {
-                    int startingServo = 1;
-                    testFullMotion(startingServo);
-                    return true;
-                }
                 else
                 {
 
@@ -75,6 +69,11 @@ namespace robotTracking
             return false;
         }
 
+        public void test()
+        {
+            int startingServo = 1;
+            testFullMotion(startingServo);
+        }
 
         private void testFullMotion(int startingServo)
         {

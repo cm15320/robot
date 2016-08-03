@@ -296,6 +296,7 @@
             this.testMovementButton.TabIndex = 21;
             this.testMovementButton.Text = "Test Movement";
             this.testMovementButton.UseVisualStyleBackColor = true;
+            this.testMovementButton.Click += new System.EventHandler(this.testMovementButton_Click);
             // 
             // runCalibrationButton
             // 

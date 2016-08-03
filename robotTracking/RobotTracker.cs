@@ -292,12 +292,12 @@ namespace robotTracking
 
                 connected = true;
                 connectButton.Text = "Disconnect";
+                onConnectRobotAttempt();
             }
             else
             {
                 OutputMessage("Error connecting");
             }
-
 
         }
 
@@ -851,6 +851,8 @@ namespace robotTracking
             {
                 robotConnectLabel.Text = "Connected";
                 connectRobotButton.Text = "Disconnect robot";
+                testMovementButton.Enabled = true;
+                if (connected)  runCalibrationButton.Enabled = true;
             }
             else
             {
@@ -872,21 +874,6 @@ namespace robotTracking
                 
                 
                 new Task(attemptRobotConnect).Start();
-                //connectedRobot = controller.initialise();
-                //if(connectedRobot)
-                //{
-                //    connectRobotButton.Text = "Disconnect";
-                //    robotConnectLabel.Text = "Connected";
-                //    OutputMessage("Successfully connected to robot");
-                //    connectingToRobot = false;
-                //}
-                //else
-                //{
-                //    robotConnectLabel.Text = "Not connected";
-                //    connectRobotButton.Text = "Connect";
-                //    OutputMessage("Error connecting to robot");
-                //    connectingToRobot = false;
-                //}
             }
             else if(connectedRobot && !connectingToRobot)
             {
@@ -894,6 +881,11 @@ namespace robotTracking
                 connectRobotButton.Text = "Connect";
                 robotConnectLabel.Text = "Not Connected";
             }
+        }
+
+        private void testMovementButton_Click(object sender, EventArgs e)
+        {
+            if(connectedRobot)  controller.test();
         }
 
         public int HighWord(int number)
