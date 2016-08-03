@@ -1,0 +1,20 @@
+c:\users\chris.chris-pc\documents\visual studio 2015\Projects\robotTracking\robotTracking\bin\Debug\robotTracking.exe.config
+c:\users\chris.chris-pc\documents\visual studio 2015\Projects\robotTracking\robotTracking\bin\Debug\robotTracking.exe
+c:\users\chris.chris-pc\documents\visual studio 2015\Projects\robotTracking\robotTracking\bin\Debug\robotTracking.pdb
+c:\users\chris.chris-pc\documents\visual studio 2015\Projects\robotTracking\robotTracking\obj\Debug\robotTracking.csprojResolveAssemblyReference.cache
+c:\users\chris.chris-pc\documents\visual studio 2015\Projects\robotTracking\robotTracking\obj\Debug\robotTracking.Properties.Resources.resources
+c:\users\chris.chris-pc\documents\visual studio 2015\Projects\robotTracking\robotTracking\obj\Debug\robotTracking.csproj.GenerateResource.Cache
+c:\users\chris.chris-pc\documents\visual studio 2015\Projects\robotTracking\robotTracking\obj\Debug\robotTracking.exe
+c:\users\chris.chris-pc\documents\visual studio 2015\Projects\robotTracking\robotTracking\obj\Debug\robotTracking.pdb
+c:\users\chris.chris-pc\documents\visual studio 2015\Projects\robotTracking\robotTracking\obj\Debug\robotTracking.RobotTracker.resources
+c:\users\chris.chris-pc\documents\visual studio 2015\Projects\robotTracking\robotTracking\bin\Debug\NatNetML.dll
+E:\Users\Chris\Documents\robotTracking\robotTracking\bin\Debug\robotTracking.exe.config
+E:\Users\Chris\Documents\robotTracking\robotTracking\obj\Debug\robotTracking.exe
+E:\Users\Chris\Documents\robotTracking\robotTracking\obj\Debug\robotTracking.pdb
+E:\Users\Chris\Documents\robotTracking\robotTracking\bin\Debug\robotTracking.exe
+E:\Users\Chris\Documents\robotTracking\robotTracking\bin\Debug\robotTracking.pdb
+E:\Users\Chris\Documents\robotTracking\robotTracking\bin\Debug\NatNetML.dll
+E:\Users\Chris\Documents\robotTracking\robotTracking\obj\Debug\robotTracking.csprojResolveAssemblyReference.cache
+E:\Users\Chris\Documents\robotTracking\robotTracking\obj\Debug\robotTracking.RobotTracker.resources
+E:\Users\Chris\Documents\robotTracking\robotTracking\obj\Debug\robotTracking.Properties.Resources.resources
+E:\Users\Chris\Documents\robotTracking\robotTracking\obj\Debug\robotTracking.csproj.GenerateResource.Cache
