@@ -11,9 +11,10 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using System.Linq;
 
 using NatNetML;
-
+using System.Linq;
 
 namespace robotTracking
 {   
@@ -40,6 +41,10 @@ namespace robotTracking
         private RobotControl controller = new RobotControl();
         private bool connectedRobot = false;
         private bool connectingToRobot = false;
+
+        private Experiment experiment;
+        private bool experimentRunning = false;
+        
 
         // The current frame of mocap date
         private NatNetML.FrameOfMocapData m_CurrentFrameOfData = new NatNetML.FrameOfMocapData();
@@ -361,8 +366,8 @@ namespace robotTracking
         }
 
 
-        // This is a key function that updates the display of the 
-        // data (in this case just printed), it will be called by the update UI function
+        // This is a key function that updates the display of the data 
+        // It is called by the update UI function
 
         private void updateData()
         {
@@ -690,10 +695,16 @@ namespace robotTracking
                         // update the data
                         updateData();
 
+                        // timing information
                         uiIntraFrameTimer.Stop();
                         double uiIntraFrameDuration = uiIntraFrameTimer.Duration();
                         m_UIUpdateTimer.Start();
 
+                        // experiment stages
+                        if(experimentRunning)
+                        {
+                            experiment.update(m_CurrentFrameOfData);
+                        }
                     }
                 }
             }
@@ -886,6 +897,33 @@ namespace robotTracking
         private void testMovementButton_Click(object sender, EventArgs e)
         {
             if(connectedRobot)  controller.test();
+        }
+
+        private void experimentButton_Click(object sender, EventArgs e)
+        {
+            if(requiredObjectsTracked())
+            {
+                experimentRunning = true;
+            }
+        }
+
+        private bool requiredObjectsTracked()
+        {
+            int cnt = 0;
+            string[] requiredObjects = new string[] { "robotBase", "robotTip" };
+            foreach(RigidBody rb in mRigidBodies)
+            {
+                if (requiredObjects.Contains(rb.Name)) cnt++;
+            }
+
+            if(cnt == requiredObjects.Length)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public int HighWord(int number)

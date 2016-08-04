@@ -56,6 +56,7 @@
             this.robotConnectLabel = new System.Windows.Forms.Label();
             this.testMovementButton = new System.Windows.Forms.Button();
             this.runCalibrationButton = new System.Windows.Forms.Button();
+            this.experimentButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -308,11 +309,23 @@
             this.runCalibrationButton.Text = "Run calibration";
             this.runCalibrationButton.UseVisualStyleBackColor = true;
             // 
+            // experimentButton
+            // 
+            this.experimentButton.Enabled = false;
+            this.experimentButton.Location = new System.Drawing.Point(590, 136);
+            this.experimentButton.Name = "experimentButton";
+            this.experimentButton.Size = new System.Drawing.Size(93, 23);
+            this.experimentButton.TabIndex = 23;
+            this.experimentButton.Text = "Start experiment";
+            this.experimentButton.UseVisualStyleBackColor = true;
+            this.experimentButton.Click += new System.EventHandler(this.experimentButton_Click);
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.experimentButton);
             this.Controls.Add(this.runCalibrationButton);
             this.Controls.Add(this.testMovementButton);
             this.Controls.Add(this.robotConnectLabel);
@@ -372,6 +385,7 @@
         private System.Windows.Forms.Label robotConnectLabel;
         private System.Windows.Forms.Button testMovementButton;
         private System.Windows.Forms.Button runCalibrationButton;
+        private System.Windows.Forms.Button experimentButton;
     }
 }
 
