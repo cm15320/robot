@@ -340,6 +340,7 @@
             this.buttonTestRetrieval.TabIndex = 25;
             this.buttonTestRetrieval.Text = "test retrieval";
             this.buttonTestRetrieval.UseVisualStyleBackColor = true;
+            this.buttonTestRetrieval.Click += new System.EventHandler(this.buttonTestRetrieval_Click);
             // 
             // RobotTracker
             // 

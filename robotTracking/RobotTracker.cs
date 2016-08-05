@@ -943,6 +943,17 @@ namespace robotTracking
             ser.Serialize(writer, testDataPoint);
             Console.WriteLine("should have written data.xml");
 
+            writer.Close();
+
+        }
+
+        private void buttonTestRetrieval_Click(object sender, EventArgs e)
+        {
+            XmlSerializer reader = new XmlSerializer(typeof(DataPoint));
+            StreamReader file = new StreamReader("data.xml");
+            DataPoint testDataPoint = (DataPoint)reader.Deserialize(file);
+            file.Close();
+            Console.WriteLine("motor angle[1] is " + testDataPoint.motorAngles[1]);
         }
 
         public int HighWord(int number)
