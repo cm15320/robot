@@ -11,7 +11,7 @@ namespace robotTracking
     {
         private RobotControl controller;
         private RigidBody robotBase, robotTip;
-        private List<RigidBody> blocks;
+        // private List<RigidBody> blocks;
 
         public Experiment(RobotControl controller)
         {
@@ -19,6 +19,11 @@ namespace robotTracking
         }
 
         public void update(NatNetML.FrameOfMocapData currentFrame)
+        {
+
+        }
+
+        public void calibrate()
         {
 
         }

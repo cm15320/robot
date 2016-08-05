@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 using System.Linq;
 
 using NatNetML;
-using System.Linq;
+using System.Xml.Serialization;
 
 namespace robotTracking
 {   
@@ -924,6 +924,25 @@ namespace robotTracking
             {
                 return false;
             }
+        }
+
+        private void buttonTestStorage_Click(object sender, EventArgs e)
+        {
+            float[] motorAngles = new float[4] { 12.5f, 31.4f, 24.5f, 54.1f };
+            float[] tipPos = new float[3] { 13.4f, 51.5f, 145f };
+            float[] tipAngle = new float[3] { 43.4f, 35f, 255f };
+
+            DataPoint testDataPoint = new DataPoint();
+            testDataPoint.setMotorAngles(motorAngles);
+            testDataPoint.setTipPos(tipPos);
+            testDataPoint.setTipOrientation(tipAngle);
+
+            XmlSerializer ser = new XmlSerializer(typeof(DataPoint));
+            string filename = "data.xml";
+            TextWriter writer = new StreamWriter(filename);
+            ser.Serialize(writer, testDataPoint);
+            Console.WriteLine("should have written data.xml");
+
         }
 
         public int HighWord(int number)

@@ -57,6 +57,8 @@
             this.testMovementButton = new System.Windows.Forms.Button();
             this.runCalibrationButton = new System.Windows.Forms.Button();
             this.experimentButton = new System.Windows.Forms.Button();
+            this.buttonTestStorage = new System.Windows.Forms.Button();
+            this.buttonTestRetrieval = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -320,11 +322,32 @@
             this.experimentButton.UseVisualStyleBackColor = true;
             this.experimentButton.Click += new System.EventHandler(this.experimentButton_Click);
             // 
+            // buttonTestStorage
+            // 
+            this.buttonTestStorage.Location = new System.Drawing.Point(647, 203);
+            this.buttonTestStorage.Name = "buttonTestStorage";
+            this.buttonTestStorage.Size = new System.Drawing.Size(75, 23);
+            this.buttonTestStorage.TabIndex = 24;
+            this.buttonTestStorage.Text = "test storage";
+            this.buttonTestStorage.UseVisualStyleBackColor = true;
+            this.buttonTestStorage.Click += new System.EventHandler(this.buttonTestStorage_Click);
+            // 
+            // buttonTestRetrieval
+            // 
+            this.buttonTestRetrieval.Location = new System.Drawing.Point(647, 244);
+            this.buttonTestRetrieval.Name = "buttonTestRetrieval";
+            this.buttonTestRetrieval.Size = new System.Drawing.Size(75, 23);
+            this.buttonTestRetrieval.TabIndex = 25;
+            this.buttonTestRetrieval.Text = "test retrieval";
+            this.buttonTestRetrieval.UseVisualStyleBackColor = true;
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.buttonTestRetrieval);
+            this.Controls.Add(this.buttonTestStorage);
             this.Controls.Add(this.experimentButton);
             this.Controls.Add(this.runCalibrationButton);
             this.Controls.Add(this.testMovementButton);
@@ -386,6 +409,8 @@
         private System.Windows.Forms.Button testMovementButton;
         private System.Windows.Forms.Button runCalibrationButton;
         private System.Windows.Forms.Button experimentButton;
+        private System.Windows.Forms.Button buttonTestStorage;
+        private System.Windows.Forms.Button buttonTestRetrieval;
     }
 }
 

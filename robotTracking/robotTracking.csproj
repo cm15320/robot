@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataPoint.cs" />
     <Compile Include="Experiment.cs" />
     <Compile Include="RobotControl.cs" />
     <Compile Include="RobotTracker.cs">
