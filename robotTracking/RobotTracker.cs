@@ -297,6 +297,7 @@ namespace robotTracking
 
                 connected = true;
                 connectButton.Text = "Disconnect";
+                getDataDescriptions();
                 onConnectRobotAttempt();
             }
             else
@@ -365,6 +366,113 @@ namespace robotTracking
             }
         }
 
+        // This method, unlike with the original natnet version, is used at the start in order
+        // to get the rigid body descriptions into the mRigidBodies list so that they can then
+        // be used to check for the required rigid body names (robotBase and robotTip)
+        private void getDataDescriptions()
+        {
+            mRigidBodies.Clear();
+            dataGridView1.Rows.Clear();
+            htMarkers.Clear();
+            htRigidBodies.Clear();
+            htSkelRBs.Clear();
+            //needMarkerListUpdate = true;
+
+            List<NatNetML.DataDescriptor> descs = new List<NatNetML.DataDescriptor>();
+            bool bSuccess = m_NatNet.GetDataDescriptions(out descs);
+            if (bSuccess)
+            {
+                OutputMessage(String.Format("Retrieved {0} Data Descriptions....", descs.Count));
+                int iObject = 0;
+                foreach (NatNetML.DataDescriptor d in descs)
+                {
+                    iObject++;
+
+                    // MarkerSets
+                    if (d.type == (int)NatNetML.DataDescriptorType.eMarkerSetData)
+                    {
+                        NatNetML.MarkerSet ms = (NatNetML.MarkerSet)d;
+                        OutputMessage("Data Def " + iObject.ToString() + " [MarkerSet]");
+
+                        OutputMessage(" Name : " + ms.Name);
+                        OutputMessage(String.Format(" Markers ({0}) ", ms.nMarkers));
+                        dataGridView1.Rows.Add("MarkerSet: " + ms.Name);
+                        for (int i = 0; i < ms.nMarkers; i++)
+                        {
+                            OutputMessage(("  " + ms.MarkerNames[i]));
+                            int rowIndex = dataGridView1.Rows.Add("  " + ms.MarkerNames[i]);
+                            // MarkerNameIndexToRow map
+                            String strUniqueName = ms.Name + i.ToString();
+                            int key = strUniqueName.GetHashCode();
+                            htMarkers.Add(key, rowIndex);
+                        }
+                    }
+                    // RigidBodies
+                    else if (d.type == (int)NatNetML.DataDescriptorType.eRigidbodyData)
+                    {
+                        NatNetML.RigidBody rb = (NatNetML.RigidBody)d;
+
+                        OutputMessage("Data Def " + iObject.ToString() + " [RigidBody]");
+                        OutputMessage(" Name : " + rb.Name);
+                        OutputMessage(" ID : " + rb.ID);
+                        OutputMessage(" ParentID : " + rb.parentID);
+                        OutputMessage(" OffsetX : " + rb.offsetx);
+                        OutputMessage(" OffsetY : " + rb.offsety);
+                        OutputMessage(" OffsetZ : " + rb.offsetz);
+
+                        mRigidBodies.Add(rb);
+
+                        int rowIndex = dataGridView1.Rows.Add("RigidBody: " + rb.Name);
+                        // RigidBodyIDToRow map
+                        int key = rb.ID.GetHashCode();
+                        try
+                        {
+                            htRigidBodies.Add(key, rowIndex);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Duplicate RigidBody ID Detected : " + ex.Message);
+                        }
+
+                    }
+                    // Skeletons
+                    else if (d.type == (int)NatNetML.DataDescriptorType.eSkeletonData)
+                    {
+                        NatNetML.Skeleton sk = (NatNetML.Skeleton)d;
+
+                        OutputMessage("Data Def " + iObject.ToString() + " [Skeleton]");
+                        OutputMessage(" Name : " + sk.Name);
+                        OutputMessage(" ID : " + sk.ID);
+                        dataGridView1.Rows.Add("Skeleton: " + sk.Name);
+                        for (int i = 0; i < sk.nRigidBodies; i++)
+                        {
+                            RigidBody rb = sk.RigidBodies[i];
+                            OutputMessage(" RB Name  : " + rb.Name);
+                            OutputMessage(" RB ID    : " + rb.ID);
+                            OutputMessage(" ParentID : " + rb.parentID);
+                            OutputMessage(" OffsetX  : " + rb.offsetx);
+                            OutputMessage(" OffsetY  : " + rb.offsety);
+                            OutputMessage(" OffsetZ  : " + rb.offsetz);
+
+                            //mRigidBodies.Add(rb);
+                            int key = sk.ID * 1000 + rb.ID;
+                            htSkelRBs.Add(key, rb);
+
+                        }
+                    }
+                    else
+                    {
+                        OutputMessage("Unknown DataType");
+                    }
+                }
+            }
+            else
+            {
+                OutputMessage("Unable to retrieve DataDescriptions");
+            }
+        }
+
+
 
         // This is a key function that updates the display of the data 
         // It is called by the update UI function
@@ -420,8 +528,7 @@ namespace robotTracking
                             name = rb.ID.ToString();
                         }
 
-                        //uncomment this if wanting to actually
-                        // add to hash table based on the row index
+                        // add to the rigid bodies hash table, the key based on the hash code of the id versus the row index
                         int rowIndex = dataGridView1.Rows.Add("RigidBody: " + name);
                         key = rb.ID.GetHashCode();
                         htRigidBodies.Add(key, rowIndex);
@@ -863,6 +970,8 @@ namespace robotTracking
                 robotConnectLabel.Text = "Connected";
                 connectRobotButton.Text = "Disconnect robot";
                 testMovementButton.Enabled = true;
+                experimentButton.Enabled = true;
+                getDataDescriptions();
                 if (connected)  runCalibrationButton.Enabled = true;
             }
             else
@@ -879,7 +988,6 @@ namespace robotTracking
                 // make new thread to connect to arduino port with a callback for when it is done that changes the button
 
                 robotConnectLabel.Text = "Connecting...";
-                connectRobotButton.Text = "Connecting...";
                 connectRobotButton.Enabled = false;
                 connectingToRobot = true;
                 
@@ -889,23 +997,38 @@ namespace robotTracking
             else if(connectedRobot && !connectingToRobot)
             {
                 controller.uninitialise();
+                experimentButton.Enabled = false;
                 connectRobotButton.Text = "Connect";
                 robotConnectLabel.Text = "Not Connected";
             }
         }
+
 
         private void testMovementButton_Click(object sender, EventArgs e)
         {
             if(connectedRobot)  controller.test();
         }
 
+
         private void experimentButton_Click(object sender, EventArgs e)
         {
-            if(requiredObjectsTracked())
+            if(requiredObjectsTracked() && !experimentRunning && connectedRobot)
             {
                 experimentRunning = true;
+                experiment = new Experiment(controller, mRigidBodies);
+                experimentButton.Text = "Stop experiment";
+            }
+            else if (experimentRunning)
+            {
+                experimentRunning = false;
+                experimentButton.Text = "Start experiment";
+            }
+            else if (!requiredObjectsTracked())
+            {
+                OutputMessage("Cannot locate all the required bodies (robotBase and robotTip)");
             }
         }
+
 
         private bool requiredObjectsTracked()
         {
@@ -932,15 +1055,35 @@ namespace robotTracking
             float[] tipPos = new float[3] { 13.4f, 51.5f, 145f };
             float[] tipAngle = new float[3] { 43.4f, 35f, 255f };
 
-            DataPoint testDataPoint = new DataPoint();
-            testDataPoint.setMotorAngles(motorAngles);
-            testDataPoint.setTipPos(tipPos);
-            testDataPoint.setTipOrientation(tipAngle);
+            float[] motorAngles2 = new float[4] { 22.5f, 21.4f, 24.5f, 24.1f };
+            float[] tipPos2 = new float[3] { 23.4f, 21.5f, 245f };
+            float[] tipAngle2 = new float[3] { 23.4f, 25f, 255f };
 
-            XmlSerializer ser = new XmlSerializer(typeof(DataPoint));
-            string filename = "data.xml";
+
+            CalibrationData testData = new CalibrationData();
+
+            DataPoint testDataPoint1 = new DataPoint();
+            testDataPoint1.setMotorAngles(motorAngles);
+            testDataPoint1.setTipPos(tipPos);
+            testDataPoint1.setTipOrientation(tipAngle);
+
+            DataPoint testDataPoint2 = new DataPoint();
+            testDataPoint2.setMotorAngles(motorAngles2);
+            testDataPoint2.setTipPos(tipPos2);
+            testDataPoint2.setTipOrientation(tipAngle2);
+
+            testData.Add(testDataPoint1);
+            testData.Add(testDataPoint2);
+
+
+            XmlSerializer ser = new XmlSerializer(typeof(CalibrationData));
+            string filename = "calibrationData.xml";
             TextWriter writer = new StreamWriter(filename);
-            ser.Serialize(writer, testDataPoint);
+            ser.Serialize(writer, testData);
+
+
+
+
             Console.WriteLine("should have written data.xml");
 
             writer.Close();
@@ -949,11 +1092,22 @@ namespace robotTracking
 
         private void buttonTestRetrieval_Click(object sender, EventArgs e)
         {
-            XmlSerializer reader = new XmlSerializer(typeof(DataPoint));
-            StreamReader file = new StreamReader("data.xml");
-            DataPoint testDataPoint = (DataPoint)reader.Deserialize(file);
+            XmlSerializer reader = new XmlSerializer(typeof(CalibrationData));
+            StreamReader file = new StreamReader("calibrationData.xml");
+            CalibrationData testData = (CalibrationData)reader.Deserialize(file);
             file.Close();
-            Console.WriteLine("motor angle[1] is " + testDataPoint.motorAngles[1]);
+            for(int i = 0; i < testData.Count; i++)
+            {
+                Console.WriteLine("for data point number " + i);
+                Console.WriteLine("motor angles:");
+                for(int j = 0; j < testData[i].motorAngles.Length; j++)
+                {
+                    Console.Write(testData[i].motorAngles[j] + "   ");
+                }
+                Console.WriteLine();
+            }
+
+
         }
 
         public int HighWord(int number)
@@ -965,6 +1119,49 @@ namespace robotTracking
 
     }
 
+    [Serializable]
+    public class CalibrationData : ICollection
+    {
+        [XmlArrayAttribute("tableData")]
+        private List<DataPoint> tableData = new List<DataPoint>();
+
+        public DataPoint this[int index]
+        {
+            get { return (DataPoint)tableData[index]; }
+        }
+
+        public void CopyTo(Array a, int index)
+        {
+            Array tableDataArray = tableData.ToArray();
+            tableDataArray.CopyTo(a, index);
+        }
+
+        public int Count
+        {
+            get { return tableData.Count; }
+        }
+
+        public object SyncRoot
+        {
+            get { return this; }
+        }
+
+        public bool IsSynchronized
+        {
+            get { return false; }
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return tableData.GetEnumerator();
+        }
+
+        public void Add(DataPoint newDataPoint)
+        {
+            tableData.Add(newDataPoint);
+        }
+
+    }
 
     public class QueryPerfCounter
     {
