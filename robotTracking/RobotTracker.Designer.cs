@@ -59,6 +59,9 @@
             this.experimentButton = new System.Windows.Forms.Button();
             this.buttonTestStorage = new System.Windows.Forms.Button();
             this.buttonTestRetrieval = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tipToBaseTestLabel = new System.Windows.Forms.Label();
+            this.zeroMotorsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -342,11 +345,44 @@
             this.buttonTestRetrieval.UseVisualStyleBackColor = true;
             this.buttonTestRetrieval.Click += new System.EventHandler(this.buttonTestRetrieval_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(589, 175);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(87, 13);
+            this.label7.TabIndex = 26;
+            this.label7.Text = "Tip to Base (test)";
+            // 
+            // tipToBaseTestLabel
+            // 
+            this.tipToBaseTestLabel.AutoSize = true;
+            this.tipToBaseTestLabel.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.tipToBaseTestLabel.Location = new System.Drawing.Point(686, 175);
+            this.tipToBaseTestLabel.Name = "tipToBaseTestLabel";
+            this.tipToBaseTestLabel.Size = new System.Drawing.Size(43, 13);
+            this.tipToBaseTestLabel.TabIndex = 27;
+            this.tipToBaseTestLabel.Text = "<none>";
+            // 
+            // zeroMotorsButton
+            // 
+            this.zeroMotorsButton.Enabled = false;
+            this.zeroMotorsButton.Location = new System.Drawing.Point(689, 52);
+            this.zeroMotorsButton.Name = "zeroMotorsButton";
+            this.zeroMotorsButton.Size = new System.Drawing.Size(75, 23);
+            this.zeroMotorsButton.TabIndex = 28;
+            this.zeroMotorsButton.Text = "Zero motors";
+            this.zeroMotorsButton.UseVisualStyleBackColor = true;
+            this.zeroMotorsButton.Click += new System.EventHandler(this.zeroMotorsButton_Click);
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.zeroMotorsButton);
+            this.Controls.Add(this.tipToBaseTestLabel);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.buttonTestRetrieval);
             this.Controls.Add(this.buttonTestStorage);
             this.Controls.Add(this.experimentButton);
@@ -412,6 +448,9 @@
         private System.Windows.Forms.Button experimentButton;
         private System.Windows.Forms.Button buttonTestStorage;
         private System.Windows.Forms.Button buttonTestRetrieval;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label tipToBaseTestLabel;
+        private System.Windows.Forms.Button zeroMotorsButton;
     }
 }
 

@@ -811,6 +811,8 @@ namespace robotTracking
                         if(experimentRunning)
                         {
                             experiment.update(m_CurrentFrameOfData);
+                            double distanceBetween = experiment.getDistanceBetween();
+                            distanceFromTipLabel.Text = distanceBetween.ToString();
                         }
                     }
                 }
@@ -971,6 +973,7 @@ namespace robotTracking
                 connectRobotButton.Text = "Disconnect robot";
                 testMovementButton.Enabled = true;
                 experimentButton.Enabled = true;
+                zeroMotorsButton.Enabled = true;
                 getDataDescriptions();
                 if (connected)  runCalibrationButton.Enabled = true;
             }
@@ -997,6 +1000,7 @@ namespace robotTracking
             else if(connectedRobot && !connectingToRobot)
             {
                 controller.uninitialise();
+                connectedRobot = false;
                 experimentButton.Enabled = false;
                 connectRobotButton.Text = "Connect";
                 robotConnectLabel.Text = "Not Connected";
@@ -1108,6 +1112,21 @@ namespace robotTracking
             }
 
 
+        }
+
+        private void zeroMotorsButton_Click(object sender, EventArgs e)
+        {
+            if(connectedRobot)
+            {
+                if(controller.zeroMotors())
+                {
+                    OutputMessage("Zeroed Motors");
+                }
+                else
+                {
+                    OutputMessage("Error trying to zero motors, may not be connected");
+                }
+            }
         }
 
         public int HighWord(int number)

@@ -1,0 +1,12 @@
+e:\users\chris\documents\visual studio 2015\Projects\arduinoControl\arduinoControl\bin\Debug\arduinoControl.exe.config
+e:\users\chris\documents\visual studio 2015\Projects\arduinoControl\arduinoControl\bin\Debug\arduinoControl.exe
+e:\users\chris\documents\visual studio 2015\Projects\arduinoControl\arduinoControl\bin\Debug\arduinoControl.pdb
+e:\users\chris\documents\visual studio 2015\Projects\arduinoControl\arduinoControl\obj\Debug\arduinoControl.csprojResolveAssemblyReference.cache
+e:\users\chris\documents\visual studio 2015\Projects\arduinoControl\arduinoControl\obj\Debug\arduinoControl.exe
+e:\users\chris\documents\visual studio 2015\Projects\arduinoControl\arduinoControl\obj\Debug\arduinoControl.pdb
+C:\Users\Chris.Chris-PC\Documents\arduinoControl\arduinoControl\bin\Debug\arduinoControl.exe.config
+C:\Users\Chris.Chris-PC\Documents\arduinoControl\arduinoControl\obj\Debug\arduinoControl.exe
+C:\Users\Chris.Chris-PC\Documents\arduinoControl\arduinoControl\obj\Debug\arduinoControl.pdb
+C:\Users\Chris.Chris-PC\Documents\arduinoControl\arduinoControl\bin\Debug\arduinoControl.exe
+C:\Users\Chris.Chris-PC\Documents\arduinoControl\arduinoControl\bin\Debug\arduinoControl.pdb
+C:\Users\Chris.Chris-PC\Documents\arduinoControl\arduinoControl\obj\Debug\arduinoControl.csprojResolveAssemblyReference.cache

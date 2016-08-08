@@ -1,136 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
-using System.IO.Ports;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace robotTracking
+namespace arduinoControl
 {
-    class RobotControl
+
+    class Controller
     {
+
         private SerialPort currentPort;
         private bool connectedToPort;
         private int cnt = 0;
-        private bool running;
 
-        public bool initialise()
+        public void run()
         {
             getComPort();
-            if (connectedToPort == false)
+            if(connectedToPort == false)
             {
                 Console.WriteLine("Could not locate arduino port");
-                return false;
+                return;
             }
             else
             {
                 Console.WriteLine("Arduino port is " + currentPort.PortName);
-                currentPort.Open();
-                running = true;
-                return true;
+                controlArduino();
             }
         }
 
-        
 
-
-
-        public void uninitialise()
+        private void controlArduino()
         {
-            currentPort.Close();
-        }
+            bool running = true;
+            currentPort.Open();
 
-        public bool zeroMotors()
-        {
-            if (running)
+            while (running)
             {
-                byte[] instructionBuffer = new byte[2];
-                //instructionBuffer[0] = Convert.ToByte(90);
-                //instructionBuffer[1] = Convert.ToByte(90);
-                //instructionBuffer[2] = Convert.ToByte(90);
-                //instructionBuffer[3] = Convert.ToByte(90);
-
-                //currentPort.Write(instructionBuffer, 0, 4);
-                for (int i = 0; i < 4; i++)
+                string entered = Console.ReadLine();
+                int num;
+                if(Int32.TryParse(entered, out num) == false)
                 {
-                    instructionBuffer[0] = Convert.ToByte(i + 1);
-                    instructionBuffer[1] = Convert.ToByte(90);
-
-                    currentPort.Write(instructionBuffer, 0, 2);
-                    Thread.Sleep(25);
-
+                    Console.WriteLine("could not parse entered text"); ;
+                    running = false;
                 }
-
-                return true;
-
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
-        private bool controlArduino(int servoNumber, int angle)
-        {
-
-            if (running)
-            {
-
-                if (angle >= 20 && angle <= 165 && servoNumber > 0 && servoNumber < 5)
+                //if(entered== "1")
+                //{
+                //    turnLedOn();
+                //}
+                //else if(entered == "0")
+                //{
+                //    turnLedOff();
+                //}
+                if(num > 0 && num < 180)
                 {
-                    byte[] instructionBuffer = new byte[2];
-                    instructionBuffer[0] = Convert.ToByte(servoNumber);
-                    instructionBuffer[1] = Convert.ToByte(angle);
-                    currentPort.Write(instructionBuffer, 0, 2);
-                    return true;
+                    byte[] instructionBuffer = new byte[1];
+                    instructionBuffer[0] = Convert.ToByte(num);
+                    currentPort.Write(instructionBuffer, 0, 1);
                 }
-                else
+                else if(num == 0)
                 {
-
+                    testFullMotion(1);
+                }
+                else {
                     running = false;
                     currentPort.Close();
-                    Console.WriteLine("Bad instruction, closing port");
-                    return false;
-                }   
+                }
             }
-
-            return false;
-        }
-
-        public void test()
-        {
-            int startingServo = 1;
-            testPartMotion();
-            //testFullMotion(startingServo);
-        }
-
-        private void testPartMotion()
-        {
-            byte[] instructionBuffer = new byte[2];
-
-            for (int i = 0; i < 4; i++)
-            {
-                instructionBuffer[0] = Convert.ToByte(i + 1);
-                instructionBuffer[1] = Convert.ToByte(140);
-
-                currentPort.Write(instructionBuffer, 0, 2);
-
-                Thread.Sleep(25);
-
-            }
-
-            //Thread.Sleep(20);
-
-            //instructionBuffer[0] = Convert.ToByte(70);
-            //instructionBuffer[1] = Convert.ToByte(70);
-            //instructionBuffer[2] = Convert.ToByte(70);
-            //instructionBuffer[3] = Convert.ToByte(70);
-
-            //currentPort.Write(instructionBuffer, 0, 4);
-
-
         }
 
         private void testFullMotion(int startingServo)
@@ -138,7 +76,7 @@ namespace robotTracking
             byte[] instructionBuffer = new byte[2];
             instructionBuffer[0] = Convert.ToByte(startingServo);
 
-            for (int i = 6; i < 13; i++)
+            for (int i = 6; i < 13; i++ )
             {
                 int angle = i * 10;
                 instructionBuffer[1] = Convert.ToByte(angle);
@@ -147,7 +85,7 @@ namespace robotTracking
                 Thread.Sleep(1000);
                 cnt++;
 
-                if (startingServo < 4)
+                if(startingServo < 4)
                 {
                     testFullMotion(startingServo + 1);
                 }
@@ -156,7 +94,7 @@ namespace robotTracking
             }
         }
 
-
+        
 
 
         private void turnLedOn()
@@ -225,7 +163,7 @@ namespace robotTracking
                 int numReturningBytes = currentPort.BytesToRead;
                 StringBuilder sb = new StringBuilder();
 
-                while (numReturningBytes > 0)
+                while(numReturningBytes > 0 )
                 {
                     returnedASCIIint = currentPort.ReadByte();
                     returnedASCIIchar = Convert.ToChar(returnedASCIIint);
@@ -236,7 +174,7 @@ namespace robotTracking
                 currentPort.Close();
                 string returnedMessage = sb.ToString();
 
-                if (returnedMessage.Contains("HELLO FROM ARDUINO"))
+                if(returnedMessage.Contains("HELLO FROM ARDUINO"))
                 {
                     Console.WriteLine(returnedMessage);
                     return true;
@@ -245,12 +183,13 @@ namespace robotTracking
                 {
                     return false;
                 }
-
+        
             }
             catch
             {
                 return false;
             }
         }
+
     }
 }
