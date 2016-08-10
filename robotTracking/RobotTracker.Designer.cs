@@ -316,7 +316,6 @@
             // 
             // experimentButton
             // 
-            this.experimentButton.Enabled = false;
             this.experimentButton.Location = new System.Drawing.Point(590, 136);
             this.experimentButton.Name = "experimentButton";
             this.experimentButton.Size = new System.Drawing.Size(93, 23);

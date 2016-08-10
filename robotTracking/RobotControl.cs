@@ -113,13 +113,27 @@ namespace robotTracking
             for (int i = 0; i < 4; i++)
             {
                 instructionBuffer[0] = Convert.ToByte(i + 1);
-                instructionBuffer[1] = Convert.ToByte(140);
+                instructionBuffer[1] = Convert.ToByte(130);
 
                 currentPort.Write(instructionBuffer, 0, 2);
 
                 Thread.Sleep(25);
 
             }
+
+            Thread.Sleep(2000);
+
+            for (int i = 0; i < 4; i++)
+            {
+                instructionBuffer[0] = Convert.ToByte(i + 1);
+                instructionBuffer[1] = Convert.ToByte(60);
+
+                currentPort.Write(instructionBuffer, 0, 2);
+
+                Thread.Sleep(25);
+
+            }
+
 
             //Thread.Sleep(20);
 

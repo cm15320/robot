@@ -812,7 +812,8 @@ namespace robotTracking
                         {
                             experiment.update(m_CurrentFrameOfData);
                             double distanceBetween = experiment.getDistanceBetween();
-                            distanceFromTipLabel.Text = distanceBetween.ToString();
+                            //OutputMessage("distance between is " + distanceBetween);
+                            tipToBaseTestLabel.Text = distanceBetween.ToString();
                         }
                     }
                 }
@@ -1016,7 +1017,9 @@ namespace robotTracking
 
         private void experimentButton_Click(object sender, EventArgs e)
         {
-            if(requiredObjectsTracked() && !experimentRunning && connectedRobot)
+            // will also need to be connected to the robot in the future
+            // (leave as is just to test the opti track distance between objects)
+            if(requiredObjectsTracked() && !experimentRunning && connected)
             {
                 experimentRunning = true;
                 experiment = new Experiment(controller, mRigidBodies);

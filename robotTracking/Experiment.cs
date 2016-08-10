@@ -11,7 +11,9 @@ namespace robotTracking
     class Experiment
     {
         private RobotControl controller;
-        //private RigidBodyData robotBase, robotTip;
+        private RigidBodyData robotBase = new RigidBodyData();
+        private RigidBodyData robotTip = new RigidBodyData();
+
         private Hashtable htRigidBodiesNameToBody;
         private double distanceBetween;
         
@@ -24,16 +26,17 @@ namespace robotTracking
 
         public Experiment(RobotControl controller, List<RigidBody> mRigidBodies)
         {
-            htRigidBodiesNameToBody.Add("robotBase", new RigidBodyData());
-            htRigidBodiesNameToBody.Add("robotTip", new RigidBodyData());
+            
             this.controller = controller;
+            string[] requiredNames = new string[] { "robotBase", "robotTip" };
             if(mRigidBodies.Count == 0)
             {
                 Console.WriteLine("Error, no rigid body info stored");
             }
             foreach(RigidBody rb in mRigidBodies)
             {
-                if(htRigidBodiesNameToBody.ContainsKey(rb.Name))
+                // if bodies to id ht contatins key (rb. name) then add it to ID to Name ht
+                if(requiredNames.Contains(rb.Name))
                 {
                     int key = rb.ID.GetHashCode();
                     rigidBodiesIDtoName.Add(key, rb.Name);
@@ -48,13 +51,18 @@ namespace robotTracking
         public void update(NatNetML.FrameOfMocapData currentFrame)
         {
             // get the correct rigid body data objects from the frame
-            foreach(RigidBodyData rb in currentFrame.RigidBodies)
+            // loop through RigidBody data
+            for (int i = 0; i < currentFrame.nRigidBodies; i++)
             {
+                NatNetML.RigidBodyData rb = currentFrame.RigidBodies[i];
+                // get the hashcode of the id for later displaying in grid form
                 int keyID = rb.ID.GetHashCode();
                 if(rigidBodiesIDtoName.ContainsKey(keyID))
                 {
                     string name = (string)rigidBodiesIDtoName[keyID];
-                    htRigidBodiesNameToBody[name] = rb;
+                    //htRigidBodiesNameToBody[name] = rb;
+                    if (name.Equals("robotBase")) robotBase = rb;
+                    else if (name.Equals("robotTip")) robotTip = rb;
                 }
             }
 
@@ -64,8 +72,8 @@ namespace robotTracking
         private void calculateDistanceBetween()
         {
             // If this doesn't work then get hash code from the string and use that instead
-            RigidBodyData robotBase = (RigidBodyData)htRigidBodiesNameToBody["robotBase"];
-            RigidBodyData robotTip = (RigidBodyData)htRigidBodiesNameToBody["robotTip"];
+            //RigidBodyData robotBase = (RigidBodyData)htRigidBodiesNameToBody["robotBase"];
+            //RigidBodyData robotTip = (RigidBodyData)htRigidBodiesNameToBody["robotTip"];
 
             float x1 = robotBase.x;
             float y1 = robotBase.y;
