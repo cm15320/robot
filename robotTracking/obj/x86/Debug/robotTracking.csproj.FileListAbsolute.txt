@@ -18,16 +18,6 @@ C:\Users\Chris.Chris-PC\Documents\robotTracking\robotTracking\obj\x86\Debug\robo
 C:\Users\Chris.Chris-PC\Documents\robotTracking\robotTracking\obj\x86\Debug\robotTracking.RobotTracker.resources
 C:\Users\Chris.Chris-PC\Documents\robotTracking\robotTracking\obj\x86\Debug\robotTracking.Properties.Resources.resources
 C:\Users\Chris.Chris-PC\Documents\robotTracking\robotTracking\obj\x86\Debug\robotTracking.csproj.GenerateResource.Cache
-C:\Users\Chris.Chris-PC\Documents\robotLive\robot\robotTracking\bin\x86\Debug\robotTracking.exe.config
-C:\Users\Chris.Chris-PC\Documents\robotLive\robot\robotTracking\obj\x86\Debug\robotTracking.exe
-C:\Users\Chris.Chris-PC\Documents\robotLive\robot\robotTracking\obj\x86\Debug\robotTracking.pdb
-C:\Users\Chris.Chris-PC\Documents\robotLive\robot\robotTracking\bin\x86\Debug\robotTracking.exe
-C:\Users\Chris.Chris-PC\Documents\robotLive\robot\robotTracking\bin\x86\Debug\robotTracking.pdb
-C:\Users\Chris.Chris-PC\Documents\robotLive\robot\robotTracking\bin\x86\Debug\NatNetML.dll
-C:\Users\Chris.Chris-PC\Documents\robotLive\robot\robotTracking\obj\x86\Debug\robotTracking.csprojResolveAssemblyReference.cache
-C:\Users\Chris.Chris-PC\Documents\robotLive\robot\robotTracking\obj\x86\Debug\robotTracking.RobotTracker.resources
-C:\Users\Chris.Chris-PC\Documents\robotLive\robot\robotTracking\obj\x86\Debug\robotTracking.Properties.Resources.resources
-C:\Users\Chris.Chris-PC\Documents\robotLive\robot\robotTracking\obj\x86\Debug\robotTracking.csproj.GenerateResource.Cache
 E:\Users\Chris\Documents\robotLive\robot\robotTracking\bin\x86\Debug\robotTracking.exe.config
 E:\Users\Chris\Documents\robotLive\robot\robotTracking\bin\x86\Debug\robotTracking.exe
 E:\Users\Chris\Documents\robotLive\robot\robotTracking\bin\x86\Debug\robotTracking.pdb

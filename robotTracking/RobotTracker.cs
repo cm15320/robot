@@ -223,13 +223,18 @@ namespace robotTracking
             if(!connected)
             {
                 Connect();
+                if(connected) connectButton.Text = "Disconnect";
+
             }
             else
             {
                 Disconnect();
+                connectButton.Text = "Connect";
+
             }
 
         }
+
 
 
         // Connects to a NatNet server (Motive in this case)
@@ -296,7 +301,6 @@ namespace robotTracking
                 mDroppedFrames = 0;
 
                 connected = true;
-                connectButton.Text = "Disconnect";
                 getDataDescriptions();
                 onConnectRobotAttempt();
             }
@@ -340,7 +344,6 @@ namespace robotTracking
             // shutdown our client socket
             m_NatNet.Uninitialize();
             connected = false;
-            connectButton.Text = "Connect";
         }
 
 
@@ -1022,7 +1025,7 @@ namespace robotTracking
             if(requiredObjectsTracked() && !experimentRunning && connected)
             {
                 experimentRunning = true;
-                experiment = new Experiment(controller, mRigidBodies);
+                experiment = new Experiment(controller, mRigidBodies, m_CurrentFrameOfData);
                 experimentButton.Text = "Stop experiment";
             }
             else if (experimentRunning)
@@ -1058,11 +1061,11 @@ namespace robotTracking
 
         private void buttonTestStorage_Click(object sender, EventArgs e)
         {
-            float[] motorAngles = new float[4] { 12.5f, 31.4f, 24.5f, 54.1f };
+            int[] motorAngles = new int[4] { 12, 31, 24, 54};
             float[] tipPos = new float[3] { 13.4f, 51.5f, 145f };
             float[] tipAngle = new float[3] { 43.4f, 35f, 255f };
 
-            float[] motorAngles2 = new float[4] { 22.5f, 21.4f, 24.5f, 24.1f };
+            int[] motorAngles2 = new int[4] { 22, 21, 24, 24};
             float[] tipPos2 = new float[3] { 23.4f, 21.5f, 245f };
             float[] tipAngle2 = new float[3] { 23.4f, 25f, 255f };
 
@@ -1132,6 +1135,28 @@ namespace robotTracking
             }
         }
 
+        private void runCalibrationButton_Click(object sender, EventArgs e)
+        {
+            if (experiment == null) experiment = new Experiment(controller, mRigidBodies, m_CurrentFrameOfData);
+            //if(connectedRobot && connected)
+            //{
+                if (experimentRunning) experimentRunning = false;
+                runCalibrationButton.Enabled = false;
+                // run the calibration by calling the calibrate method in a new thread 
+                
+                new Task(experiment.calibrate).Start();
+            //}
+
+
+        }
+
+        private void runCalibration()
+        {
+            experiment.calibrate();
+
+            runCalibrationButton.Enabled = true;
+        }
+
         public int HighWord(int number)
         {
             return ((number >> 16) & 0xFFFF);
@@ -1140,6 +1165,33 @@ namespace robotTracking
 
 
     }
+
+    [Serializable]
+    public struct structDataPoint
+    {
+        public int[] motorAngles;
+        public float[] relativeTipPosition;
+        public float[] relativeTipOrientation;
+
+        public void setMotorAngles(int[] motorAngles)
+        {
+            this.motorAngles[0] = motorAngles[0];
+            this.motorAngles[1] = motorAngles[1];
+            this.motorAngles[2] = motorAngles[2];
+            this.motorAngles[3] = motorAngles[3];
+
+        }
+        public void setTipPos(float[] relativeTipPosition)
+        {
+            this.relativeTipPosition = relativeTipPosition;
+        }
+        public void setTipOrientation(float[] relativeTipOrientation)
+        {
+            this.relativeTipOrientation = relativeTipOrientation;
+        }
+
+    }
+
 
     [Serializable]
     public class CalibrationData : ICollection

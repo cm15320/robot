@@ -306,13 +306,13 @@
             // 
             // runCalibrationButton
             // 
-            this.runCalibrationButton.Enabled = false;
             this.runCalibrationButton.Location = new System.Drawing.Point(590, 80);
             this.runCalibrationButton.Name = "runCalibrationButton";
             this.runCalibrationButton.Size = new System.Drawing.Size(90, 21);
             this.runCalibrationButton.TabIndex = 22;
             this.runCalibrationButton.Text = "Run calibration";
             this.runCalibrationButton.UseVisualStyleBackColor = true;
+            this.runCalibrationButton.Click += new System.EventHandler(this.runCalibrationButton_Click);
             // 
             // experimentButton
             // 
