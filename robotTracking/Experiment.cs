@@ -19,12 +19,13 @@ namespace robotTracking
         private CalibrationData testData = new CalibrationData();
         private int calibrationStep = 0;
         private int[] motorAngles = new int[] { 90, 90, 90, 90 };
-        private int numCalibrationSteps = 6;
-        private int maxAngle = 140;
+        private int numCalibrationSteps = 8;
+        private int maxAngle = 160;
         private float[] relativeTipAngles = new float[] { 0.0f, 0.0f, 0.0f };
         private float[] relativeTipPos = new float[] { 0.0f, 0.0f, 0.0f };
         private FrameOfMocapData currentFrame;
         private object syncLock;
+        private bool calibrating = false;
 
 
         private Hashtable htRigidBodiesNameToBody = new Hashtable();
@@ -93,6 +94,12 @@ namespace robotTracking
             calculateDistanceBetween();
         }
 
+        
+        public void stopCalibration()
+        {
+            calibrating = false;
+        }
+
         private void calculateDistanceBetween()
         {
             // If this doesn't work then get hash code from the string and use that instead
@@ -121,6 +128,7 @@ namespace robotTracking
         {
             int startingServoIndex = 0;
             controller.shareMotorAngles(motorAngles);
+            calibrating = true;
             calibrate(startingServoIndex);
             Console.WriteLine("calibration finished");
 
@@ -193,6 +201,8 @@ namespace robotTracking
 
                 motorAngles[motorIndex] = angle;
 
+                if (!calibrating) return;
+
                 Console.WriteLine("motor angles are {0} {1} {2} {3}", motorAngles[0], motorAngles[1], motorAngles[2], motorAngles[3]);
                 if(motorIndex < 3)
                 {
@@ -201,8 +211,8 @@ namespace robotTracking
                 else if (motorIndex == 3)
                 {
                     // move the motors to new positions
-                    // sleep for half a second
-                    Thread.Sleep(500);
+                    // sleep for about a second
+                    Thread.Sleep(800);
                     controller.setMotorAngles();
                     // log the new data to the list, it will be already updated every time update is called from another thread
                     logCalibrationData();

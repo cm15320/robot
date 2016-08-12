@@ -1147,10 +1147,10 @@ namespace robotTracking
             //if(connectedRobot && connected)
             //{
             // if task is running then stop the task ( but the experiment itself must of course be running )
-            runCalibrationButton.Enabled = false;
+            //runCalibrationButton.Enabled = false;
                 // run the calibration by calling the calibrate method in a new thread 
                 
-                new Task(experiment.calibrate).Start();
+                new Task(runCalibration).Start();
             //}
 
 
@@ -1158,9 +1158,19 @@ namespace robotTracking
 
         private void runCalibration()
         {
+            // need to then set a variable 'calibrating' to true and change the text to 'stop calibration'
+            // then call the stopCalibration method if the button is clicked while calibrating
+            // will of course need to use the invokeRequired technique if changing the text as it is on a different thread
             experiment.calibrate();
 
-            runCalibrationButton.Enabled = true;
+        }
+
+        private void stopCalibrationButton_Click(object sender, EventArgs e)
+        {
+            if(experiment != null && connectedRobot)
+            {
+                experiment.stopCalibration();
+            }
         }
 
         public int HighWord(int number)
