@@ -23,11 +23,15 @@ namespace robotTracking
         }
         public void setTipPos(float[] relativeTipPosition)
         {
-            this.relativeTipPosition = relativeTipPosition;
+            this.relativeTipPosition[0] = relativeTipPosition[0];
+            this.relativeTipPosition[1] = relativeTipPosition[1];
+            this.relativeTipPosition[2] = relativeTipPosition[2];
         }
         public void setTipOrientation(float[] relativeTipOrientation)
         {
-            this.relativeTipOrientation = relativeTipOrientation;
+            this.relativeTipOrientation[0] = relativeTipOrientation[0];
+            this.relativeTipOrientation[1] = relativeTipOrientation[1];
+            this.relativeTipOrientation[2] = relativeTipOrientation[2];
         }
 
 

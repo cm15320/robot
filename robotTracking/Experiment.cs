@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using NatNetML;
 using System.Collections;
@@ -20,8 +21,10 @@ namespace robotTracking
         private int[] motorAngles = new int[] { 90, 90, 90, 90 };
         private int numCalibrationSteps = 6;
         private int maxAngle = 140;
-        private float[] relativeTipAngles = new float[] { 0.0f, 0.0f, 0.0f, 0.0f };
-        private float[] relativeTipPos = new float[] { 0.0f, 0.0f, 0.0f, 0.0f };
+        private float[] relativeTipAngles = new float[] { 0.0f, 0.0f, 0.0f };
+        private float[] relativeTipPos = new float[] { 0.0f, 0.0f, 0.0f };
+        private FrameOfMocapData currentFrame;
+        private object syncLock;
 
 
         private Hashtable htRigidBodiesNameToBody = new Hashtable();
@@ -31,6 +34,8 @@ namespace robotTracking
         private string filename = "calibrationDataNew.xml";
         private TextWriter writer;
 
+        private NatNetClientML m_NatNet;
+
 
 
         //private string[] bodyNames = new string[] { "robotBase", "robotTip" };
@@ -38,11 +43,12 @@ namespace robotTracking
         private Hashtable rigidBodiesIDtoName = new Hashtable();
         // private List<RigidBody> blocks;
 
-
-        public Experiment(RobotControl controller, List<RigidBody> mRigidBodies, FrameOfMocapData currentFrame)
+        // can just have one RobotControl controller in the future, in this class only, not needed from RobotTracker
+        public Experiment(RobotControl controller, List<RigidBody> mRigidBodies, object syncLock, NatNetML.NatNetClientML m_NatNet)
         {
-            
+            this.syncLock = syncLock;
             this.controller = controller;
+            this.m_NatNet = m_NatNet;
             writer = new StreamWriter(filename);
 
             //for(int i = 0; i < currentFrame.nRigidBodies; i++ )
@@ -77,23 +83,12 @@ namespace robotTracking
             }
         }
 
-        public void update(NatNetML.FrameOfMocapData currentFrame)
+        // perhaps put a lock on this in case the currentFrame object is changed mid-read???????
+        public void update(NatNetML.FrameOfMocapData newCurrentFrame)
         {
             // get the correct rigid body data objects from the frame
-            // loop through RigidBody data
-            for (int i = 0; i < currentFrame.nRigidBodies; i++)
-            {
-                NatNetML.RigidBodyData rb = currentFrame.RigidBodies[i];
-                // get the hashcode of the id for later displaying in grid form
-                int keyID = rb.ID.GetHashCode();
-                if(rigidBodiesIDtoName.ContainsKey(keyID))
-                {
-                    string name = (string)rigidBodiesIDtoName[keyID];
-                    htRigidBodiesNameToBody[name] = rb;
-                    //if (name.Equals("robotBase")) robotBase = rb;
-                    //else if (name.Equals("robotTip")) robotTip = rb;
-                }
-            }
+            this.currentFrame = newCurrentFrame;
+            getCurrentData();
 
             calculateDistanceBetween();
         }
@@ -125,10 +120,63 @@ namespace robotTracking
         public void calibrate()
         {
             int startingServoIndex = 0;
+            controller.shareMotorAngles(motorAngles);
             calibrate(startingServoIndex);
             Console.WriteLine("calibration finished");
 
             saveDataXML();
+        }
+
+        private void getCurrentData()
+        {
+            lock(syncLock)
+            {
+                // loop through RigidBody data
+                for (int i = 0; i < currentFrame.nRigidBodies; i++)
+                {
+                    NatNetML.RigidBodyData rb = currentFrame.RigidBodies[i];
+                    // get the hashcode of the id for later displaying in grid form
+                    int keyID = rb.ID.GetHashCode();
+                    if (rigidBodiesIDtoName.ContainsKey(keyID))
+                    {
+                        string name = (string)rigidBodiesIDtoName[keyID];
+                        htRigidBodiesNameToBody[name] = rb;
+                        if (name.Equals("robotBase")) robotBase = rb;
+                        else if (name.Equals("robotTip")) robotTip = rb;
+
+                    }
+                }
+                getRelativeTipInfo();
+
+            }
+        }
+
+
+        private void getRelativeTipInfo()
+        {
+            float xDiff = robotTip.x - robotBase.x;
+            float yDiff = robotTip.y - robotBase.y;
+            float zDiff = robotTip.z - robotBase.z;
+
+            // Convert quaternion to eulers.  Motive coordinate conventions: X(Pitch), Y(Yaw), Z(Roll), Relative, RHS
+            float[] quatRobotTip = new float[4] { robotTip.qx, robotTip.qy, robotTip.qz, robotTip.qw };
+            float[] quatRobotBase = new float[4] { robotBase.qx, robotBase.qy, robotBase.qz, robotBase.qw };
+            float[] eulersRobotTip = new float[3];
+            float[] eulersRobotBase = new float[3];
+            eulersRobotTip = m_NatNet.QuatToEuler(quatRobotTip, (int)NATEulerOrder.NAT_XYZr);
+            eulersRobotBase = m_NatNet.QuatToEuler(quatRobotBase, (int)NATEulerOrder.NAT_XYZr);
+
+            float xRDiff = (float)RobotTracker.RadiansToDegrees(eulersRobotTip[0] - eulersRobotBase[0]);     // convert to degrees
+            float yRDiff = (float)RobotTracker.RadiansToDegrees(eulersRobotTip[1] - eulersRobotBase[1]);
+            float zRDiff = (float)RobotTracker.RadiansToDegrees(eulersRobotTip[2] - eulersRobotBase[2]);
+
+            relativeTipPos[0] = xDiff;
+            relativeTipPos[1] = yDiff;
+            relativeTipPos[2] = zDiff;
+
+            relativeTipAngles[0] = xRDiff;
+            relativeTipAngles[1] = yRDiff;
+            relativeTipAngles[2] = zRDiff;
         }
 
 
@@ -146,18 +194,24 @@ namespace robotTracking
                 motorAngles[motorIndex] = angle;
 
                 Console.WriteLine("motor angles are {0} {1} {2} {3}", motorAngles[0], motorAngles[1], motorAngles[2], motorAngles[3]);
-                
                 if(motorIndex < 3)
                 {
                     calibrate(motorIndex + 1);
                 }
                 else if (motorIndex == 3)
                 {
+                    // move the motors to new positions
+                    // sleep for half a second
+                    Thread.Sleep(500);
+                    controller.setMotorAngles();
+                    // log the new data to the list, it will be already updated every time update is called from another thread
                     logCalibrationData();
                 }
             }
             
         }
+
+
 
         //private void testFullMotion(int startingServo)
         //{
@@ -186,12 +240,15 @@ namespace robotTracking
         private void logCalibrationData() { 
 
             DataPoint newDataPoint = new DataPoint();
+            // lock so it doesn't change as adding it to the list of data points
+            lock(syncLock)
+            {
+                newDataPoint.setMotorAngles(motorAngles);
+                newDataPoint.setTipOrientation(relativeTipAngles);
+                newDataPoint.setTipPos(relativeTipPos);
 
-            newDataPoint.setMotorAngles(motorAngles);
-            newDataPoint.setTipOrientation(relativeTipAngles);
-            newDataPoint.setTipPos(relativeTipPos);
-
-            testData.Add(newDataPoint);
+                testData.Add(newDataPoint);
+            }
         }
 
         private void saveDataXML()

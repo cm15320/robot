@@ -14,6 +14,7 @@ namespace robotTracking
         private bool connectedToPort;
         private int cnt = 0;
         private bool running;
+        private int[] motorAngles;
 
         public bool initialise()
         {
@@ -106,6 +107,28 @@ namespace robotTracking
             //testFullMotion(startingServo);
         }
 
+        public void shareMotorAngles(int[] motorAngles)
+        {
+            this.motorAngles = motorAngles;
+        }
+
+
+        public void setMotorAngles()
+        {
+            byte[] instructionBuffer = new byte[2];
+            for (int i = 0; i < 4; i++)
+            {
+                instructionBuffer[0] = Convert.ToByte(i + 1);
+                instructionBuffer[1] = Convert.ToByte(motorAngles[i]);
+
+                currentPort.Write(instructionBuffer, 0, 2);
+
+                Thread.Sleep(25);
+
+            }
+
+        }
+
         private void testPartMotion()
         {
             byte[] instructionBuffer = new byte[2];
@@ -113,7 +136,7 @@ namespace robotTracking
             for (int i = 0; i < 4; i++)
             {
                 instructionBuffer[0] = Convert.ToByte(i + 1);
-                instructionBuffer[1] = Convert.ToByte(130);
+                instructionBuffer[1] = Convert.ToByte(110);
 
                 currentPort.Write(instructionBuffer, 0, 2);
 
@@ -126,7 +149,7 @@ namespace robotTracking
             for (int i = 0; i < 4; i++)
             {
                 instructionBuffer[0] = Convert.ToByte(i + 1);
-                instructionBuffer[1] = Convert.ToByte(60);
+                instructionBuffer[1] = Convert.ToByte(80);
 
                 currentPort.Write(instructionBuffer, 0, 2);
 

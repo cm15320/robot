@@ -296,9 +296,9 @@
             // 
             this.testMovementButton.AllowDrop = true;
             this.testMovementButton.Enabled = false;
-            this.testMovementButton.Location = new System.Drawing.Point(590, 53);
+            this.testMovementButton.Location = new System.Drawing.Point(590, 52);
             this.testMovementButton.Name = "testMovementButton";
-            this.testMovementButton.Size = new System.Drawing.Size(90, 21);
+            this.testMovementButton.Size = new System.Drawing.Size(90, 23);
             this.testMovementButton.TabIndex = 21;
             this.testMovementButton.Text = "Test Movement";
             this.testMovementButton.UseVisualStyleBackColor = true;
@@ -306,9 +306,9 @@
             // 
             // runCalibrationButton
             // 
-            this.runCalibrationButton.Location = new System.Drawing.Point(590, 80);
+            this.runCalibrationButton.Location = new System.Drawing.Point(590, 123);
             this.runCalibrationButton.Name = "runCalibrationButton";
-            this.runCalibrationButton.Size = new System.Drawing.Size(90, 21);
+            this.runCalibrationButton.Size = new System.Drawing.Size(93, 21);
             this.runCalibrationButton.TabIndex = 22;
             this.runCalibrationButton.Text = "Run calibration";
             this.runCalibrationButton.UseVisualStyleBackColor = true;
@@ -316,7 +316,7 @@
             // 
             // experimentButton
             // 
-            this.experimentButton.Location = new System.Drawing.Point(590, 136);
+            this.experimentButton.Location = new System.Drawing.Point(590, 94);
             this.experimentButton.Name = "experimentButton";
             this.experimentButton.Size = new System.Drawing.Size(93, 23);
             this.experimentButton.TabIndex = 23;

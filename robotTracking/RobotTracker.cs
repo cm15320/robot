@@ -835,7 +835,7 @@ namespace robotTracking
         }
 
 
-        public double RadiansToDegrees(double rad)
+        public static double RadiansToDegrees(double rad)
         {
             return rad * (180.0f / Math.PI);
 
@@ -1017,15 +1017,15 @@ namespace robotTracking
             if(connectedRobot)  controller.test();
         }
 
-
+        // will eventually have the controller object just part of the Experiment class 
         private void experimentButton_Click(object sender, EventArgs e)
         {
             // will also need to be connected to the robot in the future
             // (leave as is just to test the opti track distance between objects)
-            if(requiredObjectsTracked() && !experimentRunning && connected)
+            if(requiredObjectsTracked() && !experimentRunning && connected && connectedRobot)
             {
                 experimentRunning = true;
-                experiment = new Experiment(controller, mRigidBodies, m_CurrentFrameOfData);
+                experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
                 experimentButton.Text = "Stop experiment";
             }
             else if (experimentRunning)
@@ -1137,11 +1137,17 @@ namespace robotTracking
 
         private void runCalibrationButton_Click(object sender, EventArgs e)
         {
-            if (experiment == null) experiment = new Experiment(controller, mRigidBodies, m_CurrentFrameOfData);
+            // get rid of this line eventually - calibration should not be an option unless experiment already running
+            if (!connectedRobot)
+            {
+                OutputMessage("Must be connected to robot");
+                return;
+            }
+            if (experiment == null) experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
             //if(connectedRobot && connected)
             //{
-                if (experimentRunning) experimentRunning = false;
-                runCalibrationButton.Enabled = false;
+            // if task is running then stop the task ( but the experiment itself must of course be running )
+            runCalibrationButton.Enabled = false;
                 // run the calibration by calling the calibrate method in a new thread 
                 
                 new Task(experiment.calibrate).Start();
