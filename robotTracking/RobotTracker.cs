@@ -12,27 +12,28 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Linq;
+using System.Windows;
 
 using NatNetML;
 using System.Xml.Serialization;
+using System.Windows.Media;
 
 namespace robotTracking
-{   
+{
+
     public partial class RobotTracker : Form
     {
+
         public RobotTracker()
         {
             InitializeComponent();
             ConnectedToRobotOutcome += robotConnectResult;
+
         }
 
         public delegate void connectedRobotEventHandler(object source, EventArgs args);
         public event connectedRobotEventHandler ConnectedToRobotOutcome;
-
         private delegate void RobotConnectResultCallback(object sender, EventArgs e);
-
-
-
 
 
         private NatNetML.NatNetClientML m_NatNet;
@@ -1069,7 +1070,6 @@ namespace robotTracking
             float[] tipPos2 = new float[3] { 23.4f, 21.5f, 245f };
             float[] tipAngle2 = new float[3] { 23.4f, 25f, 255f };
 
-
             CalibrationData testData = new CalibrationData();
 
             DataPoint testDataPoint1 = new DataPoint();
@@ -1143,6 +1143,7 @@ namespace robotTracking
                 OutputMessage("Must be connected to robot");
                 return;
             }
+            //make a dummy experiment, for testing only
             if (experiment == null) experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
             //if(connectedRobot && connected)
             //{
@@ -1170,6 +1171,18 @@ namespace robotTracking
             if(experiment != null && connectedRobot)
             {
                 experiment.stopCalibration();
+            }
+        }
+
+        private void getCalibrationButton_Click(object sender, EventArgs e)
+        {
+            //make a dummy experiment, for testing only
+            if (experiment == null) experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
+
+            bool success = experiment.getCalibrationData();
+            if(!success)
+            {
+                OutputMessage("Cannot read calibration data, must calibrate");
             }
         }
 

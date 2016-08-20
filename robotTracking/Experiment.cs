@@ -19,21 +19,20 @@ namespace robotTracking
         private CalibrationData testData = new CalibrationData();
         private int calibrationStep = 0;
         private int[] motorAngles = new int[] { 90, 90, 90, 90 };
-        private int numCalibrationSteps = 8;
-        private int maxAngle = 160;
+        private int numCalibrationSteps = 6;
+        private int maxAngle = 140;
         private float[] relativeTipAngles = new float[] { 0.0f, 0.0f, 0.0f };
         private float[] relativeTipPos = new float[] { 0.0f, 0.0f, 0.0f };
         private FrameOfMocapData currentFrame;
         private object syncLock;
         private bool calibrating = false;
-
+        private CalibrationData activeCalibrationData;
 
         private Hashtable htRigidBodiesNameToBody = new Hashtable();
         private double distanceBetween;
 
         private XmlSerializer ser = new XmlSerializer(typeof(CalibrationData));
         private string filename = "calibrationDataNew.xml";
-        private TextWriter writer;
 
         private NatNetClientML m_NatNet;
 
@@ -50,7 +49,6 @@ namespace robotTracking
             this.syncLock = syncLock;
             this.controller = controller;
             this.m_NatNet = m_NatNet;
-            writer = new StreamWriter(filename);
 
             //for(int i = 0; i < currentFrame.nRigidBodies; i++ )
             //{
@@ -135,6 +133,43 @@ namespace robotTracking
             saveDataXML();
         }
 
+        public bool getCalibrationData()
+        {
+            XmlSerializer reader = new XmlSerializer(typeof(CalibrationData));
+            StreamReader file;
+            try
+            {
+                file = new StreamReader(filename);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Could not open " + filename);
+                return false;
+            }
+            activeCalibrationData = (CalibrationData)reader.Deserialize(file);
+            file.Close();
+            for (int i = 0; i < activeCalibrationData.Count; i++)
+            {
+                Console.WriteLine("for data point number " + i);
+                Console.WriteLine("motor angles:");
+                for (int j = 0; j < activeCalibrationData[i].motorAngles.Length; j++)
+                {
+                    Console.Write(activeCalibrationData[i].motorAngles[j] + "   ");
+                }
+                Console.WriteLine();
+            }
+
+            if(activeCalibrationData.Count <= 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+
         private void getCurrentData()
         {
             lock(syncLock)
@@ -201,8 +236,11 @@ namespace robotTracking
 
                 motorAngles[motorIndex] = angle;
 
-                if (!calibrating) return;
-
+                if (!calibrating)
+                {
+                    saveDataXML();
+                    return;
+                }
                 Console.WriteLine("motor angles are {0} {1} {2} {3}", motorAngles[0], motorAngles[1], motorAngles[2], motorAngles[3]);
                 if(motorIndex < 3)
                 {
@@ -212,8 +250,8 @@ namespace robotTracking
                 {
                     // move the motors to new positions
                     // sleep for about a second
-                    Thread.Sleep(800);
                     controller.setMotorAngles();
+                    Thread.Sleep(1200);
                     // log the new data to the list, it will be already updated every time update is called from another thread
                     logCalibrationData();
                 }
@@ -263,7 +301,11 @@ namespace robotTracking
 
         private void saveDataXML()
         {
+            TextWriter writer = new StreamWriter(filename);
             ser.Serialize(writer, testData);
+            Console.WriteLine("should have written data.xml");
+
+            writer.Close();
         }
 
         public static T DeepClone<T>(T obj)

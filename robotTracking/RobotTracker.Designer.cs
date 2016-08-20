@@ -63,6 +63,7 @@
             this.tipToBaseTestLabel = new System.Windows.Forms.Label();
             this.zeroMotorsButton = new System.Windows.Forms.Button();
             this.stopCalibrationButton = new System.Windows.Forms.Button();
+            this.getCalibrationButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -307,7 +308,7 @@
             // 
             // runCalibrationButton
             // 
-            this.runCalibrationButton.Location = new System.Drawing.Point(590, 123);
+            this.runCalibrationButton.Location = new System.Drawing.Point(590, 141);
             this.runCalibrationButton.Name = "runCalibrationButton";
             this.runCalibrationButton.Size = new System.Drawing.Size(93, 21);
             this.runCalibrationButton.TabIndex = 22;
@@ -377,7 +378,7 @@
             // 
             // stopCalibrationButton
             // 
-            this.stopCalibrationButton.Location = new System.Drawing.Point(689, 121);
+            this.stopCalibrationButton.Location = new System.Drawing.Point(689, 139);
             this.stopCalibrationButton.Name = "stopCalibrationButton";
             this.stopCalibrationButton.Size = new System.Drawing.Size(93, 23);
             this.stopCalibrationButton.TabIndex = 29;
@@ -385,11 +386,22 @@
             this.stopCalibrationButton.UseVisualStyleBackColor = true;
             this.stopCalibrationButton.Click += new System.EventHandler(this.stopCalibrationButton_Click);
             // 
+            // getCalibrationButton
+            // 
+            this.getCalibrationButton.Location = new System.Drawing.Point(689, 94);
+            this.getCalibrationButton.Name = "getCalibrationButton";
+            this.getCalibrationButton.Size = new System.Drawing.Size(93, 39);
+            this.getCalibrationButton.TabIndex = 30;
+            this.getCalibrationButton.Text = "Get calibration data";
+            this.getCalibrationButton.UseVisualStyleBackColor = true;
+            this.getCalibrationButton.Click += new System.EventHandler(this.getCalibrationButton_Click);
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.getCalibrationButton);
             this.Controls.Add(this.stopCalibrationButton);
             this.Controls.Add(this.zeroMotorsButton);
             this.Controls.Add(this.tipToBaseTestLabel);
@@ -463,6 +475,7 @@
         private System.Windows.Forms.Label tipToBaseTestLabel;
         private System.Windows.Forms.Button zeroMotorsButton;
         private System.Windows.Forms.Button stopCalibrationButton;
+        private System.Windows.Forms.Button getCalibrationButton;
     }
 }
 

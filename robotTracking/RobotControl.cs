@@ -112,7 +112,6 @@ namespace robotTracking
             this.motorAngles = motorAngles;
         }
 
-
         public void setMotorAngles()
         {
             byte[] instructionBuffer = new byte[2];
