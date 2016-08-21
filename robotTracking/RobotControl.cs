@@ -102,8 +102,8 @@ namespace robotTracking
 
         public void test()
         {
-            int startingServo = 1;
             testPartMotion();
+            // int startingServo = 1;
             //testFullMotion(startingServo);
         }
 

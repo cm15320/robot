@@ -64,6 +64,7 @@
             this.zeroMotorsButton = new System.Windows.Forms.Button();
             this.stopCalibrationButton = new System.Windows.Forms.Button();
             this.getCalibrationButton = new System.Windows.Forms.Button();
+            this.testRegression = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -396,11 +397,22 @@
             this.getCalibrationButton.UseVisualStyleBackColor = true;
             this.getCalibrationButton.Click += new System.EventHandler(this.getCalibrationButton_Click);
             // 
+            // testRegression
+            // 
+            this.testRegression.Location = new System.Drawing.Point(590, 294);
+            this.testRegression.Name = "testRegression";
+            this.testRegression.Size = new System.Drawing.Size(97, 23);
+            this.testRegression.TabIndex = 31;
+            this.testRegression.Text = "test regression";
+            this.testRegression.UseVisualStyleBackColor = true;
+            this.testRegression.Click += new System.EventHandler(this.testRegression_Click);
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.testRegression);
             this.Controls.Add(this.getCalibrationButton);
             this.Controls.Add(this.stopCalibrationButton);
             this.Controls.Add(this.zeroMotorsButton);
@@ -476,6 +488,7 @@
         private System.Windows.Forms.Button zeroMotorsButton;
         private System.Windows.Forms.Button stopCalibrationButton;
         private System.Windows.Forms.Button getCalibrationButton;
+        private System.Windows.Forms.Button testRegression;
     }
 }
 

@@ -1186,6 +1186,18 @@ namespace robotTracking
             }
         }
 
+        private void testRegression_Click(object sender, EventArgs e)
+        {
+            // test the regression function
+            // make a dummy experiment if there isn't a proper one
+            if (experiment == null) experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
+
+            float[] desiredPosition = new float[] { 0.0391f, 0.3557f, 0.01926f };
+            float[] output = experiment.testRegression(desiredPosition, Experiment.RegressionInput.POSITION);
+
+            Console.WriteLine("output motor angles are {0}, {1}, {2}, {3}", output[0], output[1], output[2], output[3]);
+        }
+
         public int HighWord(int number)
         {
             return ((number >> 16) & 0xFFFF);

@@ -14,10 +14,11 @@ namespace robotTracking
 {
     class Experiment
     {
+        public float inverseSqrt2Pi = 1f / (float)Math.Sqrt(2 * Math.PI);
         private RobotControl controller;
         private RigidBodyData robotBase, robotTip;
         private CalibrationData testData = new CalibrationData();
-        private int calibrationStep = 0;
+        //private int calibrationStep = 0;
         private int[] motorAngles = new int[] { 90, 90, 90, 90 };
         private int numCalibrationSteps = 6;
         private int maxAngle = 140;
@@ -121,6 +122,163 @@ namespace robotTracking
             return distanceBetween;
         }
 
+        public float[] testRegression(float[] inputVectorTarget, RegressionInput inputType)
+        {
+            float[] output = NWRegression(inputVectorTarget, inputType);
+
+            return output;
+        }
+
+        private float[] NWRegression(float[] inputVectorTarget, RegressionInput inputType)
+        {
+            float alpha = 0.005f;
+            int numOutputDimensions = getNumOutputDimensions(inputType);
+            float[] sumNumerator = new float[numOutputDimensions];
+            float[] outputVector = new float[numOutputDimensions];
+            float sumDenominator = 0;
+
+            // If not using KD tree, loop through entire set of data
+            for(int i = 0; i < activeCalibrationData.Count; i++)
+            {
+                float kernelInput = getKernelInput(i, inputType, alpha, inputVectorTarget);
+                float[] currentVectorOutput = getCurrentVectorOutput(i, inputType);
+                Console.WriteLine("current vector output is  :");
+                for(int n = 0; n< currentVectorOutput.Length; n++)
+                {
+                    Console.Write(currentVectorOutput[n] + "   ");
+                }
+                Console.WriteLine();
+
+                // work out the values for the numerator and denominator to be added to sum
+                Console.WriteLine("output of kernel function is " + kernelFunction(kernelInput));
+                for (int k = 0; k < currentVectorOutput.Length; k++)
+                {
+                    sumNumerator[k] += currentVectorOutput[k] * kernelFunction(kernelInput);
+                }
+                sumDenominator += kernelFunction(kernelInput);
+            }
+            
+            for(int k = 0; k < numOutputDimensions; k++)
+            {
+                outputVector[k] = sumNumerator[k] / sumDenominator;
+            }
+
+            return outputVector;
+
+        }
+
+
+        private float kernelFunction(float kernelInput)
+        {
+            float exponenet = -0.5f * (float)Math.Pow(kernelInput, 2);
+            float output = inverseSqrt2Pi * (float)Math.Exp(exponenet);
+
+            return output;
+        }
+
+
+        private float[] getCurrentVectorOutput(int i, RegressionInput inputType)
+        {
+            DataPoint currentDataPoint = activeCalibrationData[i];
+            float[] currentVector;
+            if(inputType == RegressionInput.MOTORS)
+            {
+                // If want to find a given config that yields certain motor angles, could use tip position, orientation or both
+                // just use tip position for now (will very rarely want to know what position matches to motor angles anyway, will be the other way round)
+                currentVector = currentDataPoint.relativeTipPosition;
+            }
+            else
+            {
+                // Otherwise of course the output will need to be the motor angle vector so this will be the yi value
+
+                // again have to do this temporary conversion but will change this of course!!!!!!!!!!!!!
+                currentVector = new float[4];
+                currentVector[0] = currentDataPoint.motorAngles[0];
+                currentVector[1] = currentDataPoint.motorAngles[1];
+                currentVector[2] = currentDataPoint.motorAngles[2];
+                currentVector[3] = currentDataPoint.motorAngles[3];
+            }
+
+            return currentVector;
+        }
+
+        
+        private float getKernelInput(int i, RegressionInput inputType, float alpha, float[] inputVectorTarget)
+        {
+            DataPoint currentDataPoint = activeCalibrationData[i];
+            float[] currentVector;
+            float difference = 0, kernelInput;
+            // this will be a lot shorter!!!!!!!!!!!!!!!!!!!!!!
+            if (inputType == RegressionInput.MOTORS)
+            {
+                // Need to use motor angles if they are not the input used to find what matches them
+
+                // convert to float here (don't need to do this in the future as can just save the motor angles as float array anyway)
+                currentVector = new float[4];
+                currentVector[0] = currentDataPoint.motorAngles[0];
+                currentVector[1] = currentDataPoint.motorAngles[1];
+                currentVector[2] = currentDataPoint.motorAngles[2];
+                currentVector[3] = currentDataPoint.motorAngles[3];
+            }
+            else if (inputType == RegressionInput.POSITION)
+            {
+                // Need to use position and orientation vector to get what matches the motors
+
+                // will eventually just use the combined array that will be in the DataPoint, but doing testing
+                currentVector = currentDataPoint.relativeTipPosition;
+                //currentVector = new float[3];
+                //currentVector[0] = currentDataPoint.relativeTipPosition[0];
+                //currentVector[1] = currentDataPoint.relativeTipPosition[1];
+                //currentVector[2] = currentDataPoint.relativeTipPosition[2];
+                //currentVector[3] = currentDataPoint.relativeTipOrientation[0];
+                //currentVector[4] = currentDataPoint.relativeTipOrientation[1];
+                //currentVector[5] = currentDataPoint.relativeTipOrientation[2];
+            }
+            else if (inputType == RegressionInput.ORIENTATION)
+            {
+                currentVector = currentDataPoint.relativeTipOrientation;
+            }
+            // temporary while testing, should be the combination of both
+            else currentVector = currentDataPoint.relativeTipPosition;
+            
+            // Work out the difference between the vectors
+            for (int j = 0; j < currentVector.Length; j++)
+            {
+                difference += (float)Math.Pow((inputVectorTarget[j] - currentVector[j]), 2);
+            }
+            difference = (float)Math.Sqrt(difference);
+
+            kernelInput = difference / alpha;
+
+            Console.WriteLine("the kernel parameters are:");
+            for(int m = 0; m < inputVectorTarget.Length; m++)
+            {
+                Console.WriteLine(inputVectorTarget[m] + " : " + currentVector[m]);
+            }
+
+            Console.WriteLine("and the kernel input was   " + kernelInput);
+
+
+            return kernelInput;
+            
+        }
+
+
+        // can just make simpler by only needing the input type really
+        private int getNumOutputDimensions(RegressionInput inputType)
+        {
+            if (inputType == RegressionInput.MOTORS)
+            {
+                // If given motor angles as target, return 3 dimensions (for position corresponding to this, in reality this will be rare as will be given something else for target)
+                return 3;
+            }
+            else 
+            {
+                // If given position or orientation vectors or both, return 4 dimensions for the motor
+                return 4;
+            }
+        }
+
 
         public void calibrate()
         {
@@ -143,7 +301,7 @@ namespace robotTracking
             }
             catch(Exception ex)
             {
-                Console.WriteLine("Could not open " + filename);
+                Console.WriteLine("Could not open " + filename + " message: " + ex.Message);
                 return false;
             }
             activeCalibrationData = (CalibrationData)reader.Deserialize(file);
@@ -155,6 +313,11 @@ namespace robotTracking
                 for (int j = 0; j < activeCalibrationData[i].motorAngles.Length; j++)
                 {
                     Console.Write(activeCalibrationData[i].motorAngles[j] + "   ");
+                }
+                Console.WriteLine("tip position:");
+                for (int j = 0; j < activeCalibrationData[i].relativeTipPosition.Length; j++)
+                {
+                    Console.WriteLine(activeCalibrationData[i].relativeTipPosition[j] + "   ");
                 }
                 Console.WriteLine();
             }
@@ -223,7 +386,7 @@ namespace robotTracking
         }
 
 
-        public void calibrate(int motorIndex) {
+        private void calibrate(int motorIndex) {
             int activeRange = (maxAngle - 90) * 2;
             int step = activeRange / numCalibrationSteps;
             int shiftAngle = 90 - (step * (numCalibrationSteps / 2));
@@ -318,6 +481,14 @@ namespace robotTracking
 
                 return (T)formatter.Deserialize(ms);
             }
+        }
+
+        public enum RegressionInput
+        {
+            MOTORS,
+            POSITION,
+            ORIENTATION,
+            BOTH
         }
     }
 }
