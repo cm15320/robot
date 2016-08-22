@@ -34,6 +34,10 @@ namespace robotTracking
         }
 
         
+        public bool isConnected()
+        {
+            return connectedToPort;
+        }
 
 
 
