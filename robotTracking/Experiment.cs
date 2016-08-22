@@ -14,6 +14,8 @@ namespace robotTracking
 {
     class Experiment
     {
+        private bool dummyExperiment = false;
+
         public float inverseSqrt2Pi = 1f / (float)Math.Sqrt(2 * Math.PI);
         private RobotControl controller;
         private RigidBodyData robotBase, robotTip;
@@ -28,6 +30,7 @@ namespace robotTracking
         private object syncLock;
         private bool calibrating = false;
         private CalibrationData activeCalibrationData;
+        private bool pausedCalibration = false;
 
         private Hashtable htRigidBodiesNameToBody = new Hashtable();
         private double distanceBetween;
@@ -43,6 +46,17 @@ namespace robotTracking
         // need to store the name of the rigid bodies mapped against their ID
         private Hashtable rigidBodiesIDtoName = new Hashtable();
         // private List<RigidBody> blocks;
+
+        public Experiment(bool realExperiment)
+        {
+            if(!realExperiment)
+            {
+                dummyExperiment = true;
+                controller = new RobotControl();
+                syncLock = new object();
+                m_NatNet = new NatNetClientML();
+            }
+        }
 
         // can just have one RobotControl controller in the future, in this class only, not needed from RobotTracker
         public Experiment(RobotControl controller, List<RigidBody> mRigidBodies, object syncLock, NatNetML.NatNetClientML m_NatNet)
@@ -142,15 +156,15 @@ namespace robotTracking
             {
                 float kernelInput = getKernelInput(i, inputType, alpha, inputVectorTarget);
                 float[] currentVectorOutput = getCurrentVectorOutput(i, inputType);
-                Console.WriteLine("current vector output is  :");
-                for(int n = 0; n< currentVectorOutput.Length; n++)
-                {
-                    Console.Write(currentVectorOutput[n] + "   ");
-                }
-                Console.WriteLine();
+                //Console.WriteLine("current vector output is  :");
+                //for(int n = 0; n< currentVectorOutput.Length; n++)
+                //{
+                //    Console.Write(currentVectorOutput[n] + "   ");
+                //}
+                //Console.WriteLine();
 
                 // work out the values for the numerator and denominator to be added to sum
-                Console.WriteLine("output of kernel function is " + kernelFunction(kernelInput));
+                //Console.WriteLine("output of kernel function is " + kernelFunction(kernelInput));
                 for (int k = 0; k < currentVectorOutput.Length; k++)
                 {
                     sumNumerator[k] += currentVectorOutput[k] * kernelFunction(kernelInput);
@@ -250,13 +264,13 @@ namespace robotTracking
 
             kernelInput = difference / alpha;
 
-            Console.WriteLine("the kernel parameters are:");
-            for(int m = 0; m < inputVectorTarget.Length; m++)
-            {
-                Console.WriteLine(inputVectorTarget[m] + " : " + currentVector[m]);
-            }
+            //Console.WriteLine("the kernel parameters are:");
+            //for(int m = 0; m < inputVectorTarget.Length; m++)
+            //{
+            //    Console.WriteLine(inputVectorTarget[m] + " : " + currentVector[m]);
+            //}
 
-            Console.WriteLine("and the kernel input was   " + kernelInput);
+            //Console.WriteLine("and the kernel input was   " + kernelInput);
 
 
             return kernelInput;
@@ -308,18 +322,18 @@ namespace robotTracking
             file.Close();
             for (int i = 0; i < activeCalibrationData.Count; i++)
             {
-                Console.WriteLine("for data point number " + i);
-                Console.WriteLine("motor angles:");
-                for (int j = 0; j < activeCalibrationData[i].motorAngles.Length; j++)
-                {
-                    Console.Write(activeCalibrationData[i].motorAngles[j] + "   ");
-                }
-                Console.WriteLine("tip position:");
-                for (int j = 0; j < activeCalibrationData[i].relativeTipPosition.Length; j++)
-                {
-                    Console.WriteLine(activeCalibrationData[i].relativeTipPosition[j] + "   ");
-                }
-                Console.WriteLine();
+                //Console.WriteLine("for data point number " + i);
+                //Console.WriteLine("motor angles:");
+                //for (int j = 0; j < activeCalibrationData[i].motorAngles.Length; j++)
+                //{
+                //    Console.Write(activeCalibrationData[i].motorAngles[j] + "   ");
+                //}
+                //Console.WriteLine("tip position:");
+                //for (int j = 0; j < activeCalibrationData[i].relativeTipPosition.Length; j++)
+                //{
+                //    Console.WriteLine(activeCalibrationData[i].relativeTipPosition[j] + "   ");
+                //}
+                //Console.WriteLine();
             }
 
             if(activeCalibrationData.Count <= 0)
@@ -417,9 +431,62 @@ namespace robotTracking
                     Thread.Sleep(1200);
                     // log the new data to the list, it will be already updated every time update is called from another thread
                     logCalibrationData();
+                    checkForPause();
                 }
             }
             
+        }
+
+
+        // This method checks to see if the calibration should be paused, whether from user or if batteries run out
+        private void checkForPause()
+        {
+            // If not moving then should pause
+            if( !pausedCalibration && notMoving())
+            {
+                pausedCalibration = true;
+                // trim the last value from the calibration data as it shouldn't count
+                testData.RemoveAt(testData.Count - 1);
+            }
+
+            while(pausedCalibration && calibrating)
+            {
+                Thread.Sleep(5000);
+            }
+
+            return;
+        }
+
+
+        // Check if not moving by taking the last two data points and checking if the difference is minimal
+        private bool notMoving()
+        {
+            if (testData.Count < 2) return false;
+
+            DataPoint currentDataPoint = testData[testData.Count - 1];
+            DataPoint lastDataPoint = testData[testData.Count - 2];
+
+            float xdiff = Math.Abs(currentDataPoint.relativeTipPosition[0] - lastDataPoint.relativeTipPosition[0]);
+            float ydiff = Math.Abs(currentDataPoint.relativeTipPosition[1] - lastDataPoint.relativeTipPosition[1]);
+            float zdiff = Math.Abs(currentDataPoint.relativeTipPosition[2] - lastDataPoint.relativeTipPosition[2]);
+
+            if(xdiff < 0.0001 && ydiff < 0.0001 && zdiff < 0.0001)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
+        public void pauseCalibration()
+        {
+            pausedCalibration = true;
+        }
+
+        public void resumeCalibration()
+        {
+            pausedCalibration = false;
         }
 
 

@@ -65,6 +65,8 @@
             this.stopCalibrationButton = new System.Windows.Forms.Button();
             this.getCalibrationButton = new System.Windows.Forms.Button();
             this.testRegression = new System.Windows.Forms.Button();
+            this.pauseCalibrationButton = new System.Windows.Forms.Button();
+            this.continueCalibrationButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -329,7 +331,7 @@
             // 
             // buttonTestStorage
             // 
-            this.buttonTestStorage.Location = new System.Drawing.Point(647, 203);
+            this.buttonTestStorage.Location = new System.Drawing.Point(651, 241);
             this.buttonTestStorage.Name = "buttonTestStorage";
             this.buttonTestStorage.Size = new System.Drawing.Size(75, 23);
             this.buttonTestStorage.TabIndex = 24;
@@ -339,7 +341,7 @@
             // 
             // buttonTestRetrieval
             // 
-            this.buttonTestRetrieval.Location = new System.Drawing.Point(647, 244);
+            this.buttonTestRetrieval.Location = new System.Drawing.Point(651, 282);
             this.buttonTestRetrieval.Name = "buttonTestRetrieval";
             this.buttonTestRetrieval.Size = new System.Drawing.Size(75, 23);
             this.buttonTestRetrieval.TabIndex = 25;
@@ -350,7 +352,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(589, 175);
+            this.label7.Location = new System.Drawing.Point(593, 213);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(87, 13);
             this.label7.TabIndex = 26;
@@ -360,7 +362,7 @@
             // 
             this.tipToBaseTestLabel.AutoSize = true;
             this.tipToBaseTestLabel.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.tipToBaseTestLabel.Location = new System.Drawing.Point(686, 175);
+            this.tipToBaseTestLabel.Location = new System.Drawing.Point(690, 213);
             this.tipToBaseTestLabel.Name = "tipToBaseTestLabel";
             this.tipToBaseTestLabel.Size = new System.Drawing.Size(43, 13);
             this.tipToBaseTestLabel.TabIndex = 27;
@@ -379,6 +381,7 @@
             // 
             // stopCalibrationButton
             // 
+            this.stopCalibrationButton.Enabled = false;
             this.stopCalibrationButton.Location = new System.Drawing.Point(689, 139);
             this.stopCalibrationButton.Name = "stopCalibrationButton";
             this.stopCalibrationButton.Size = new System.Drawing.Size(93, 23);
@@ -399,7 +402,7 @@
             // 
             // testRegression
             // 
-            this.testRegression.Location = new System.Drawing.Point(590, 294);
+            this.testRegression.Location = new System.Drawing.Point(594, 332);
             this.testRegression.Name = "testRegression";
             this.testRegression.Size = new System.Drawing.Size(97, 23);
             this.testRegression.TabIndex = 31;
@@ -407,11 +410,35 @@
             this.testRegression.UseVisualStyleBackColor = true;
             this.testRegression.Click += new System.EventHandler(this.testRegression_Click);
             // 
+            // pauseCalibrationButton
+            // 
+            this.pauseCalibrationButton.Enabled = false;
+            this.pauseCalibrationButton.Location = new System.Drawing.Point(587, 168);
+            this.pauseCalibrationButton.Name = "pauseCalibrationButton";
+            this.pauseCalibrationButton.Size = new System.Drawing.Size(93, 42);
+            this.pauseCalibrationButton.TabIndex = 32;
+            this.pauseCalibrationButton.Text = "Pause calibration";
+            this.pauseCalibrationButton.UseVisualStyleBackColor = true;
+            this.pauseCalibrationButton.Click += new System.EventHandler(this.pauseCalibrationButton_Click);
+            // 
+            // continueCalibrationButton
+            // 
+            this.continueCalibrationButton.Enabled = false;
+            this.continueCalibrationButton.Location = new System.Drawing.Point(689, 168);
+            this.continueCalibrationButton.Name = "continueCalibrationButton";
+            this.continueCalibrationButton.Size = new System.Drawing.Size(93, 42);
+            this.continueCalibrationButton.TabIndex = 33;
+            this.continueCalibrationButton.Text = "Continue calibration";
+            this.continueCalibrationButton.UseVisualStyleBackColor = true;
+            this.continueCalibrationButton.Click += new System.EventHandler(this.continueCalibrationButton_Click);
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.continueCalibrationButton);
+            this.Controls.Add(this.pauseCalibrationButton);
             this.Controls.Add(this.testRegression);
             this.Controls.Add(this.getCalibrationButton);
             this.Controls.Add(this.stopCalibrationButton);
@@ -489,6 +516,8 @@
         private System.Windows.Forms.Button stopCalibrationButton;
         private System.Windows.Forms.Button getCalibrationButton;
         private System.Windows.Forms.Button testRegression;
+        private System.Windows.Forms.Button pauseCalibrationButton;
+        private System.Windows.Forms.Button continueCalibrationButton;
     }
 }
 

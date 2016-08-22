@@ -45,6 +45,8 @@ namespace robotTracking
 
         private Experiment experiment;
         private bool experimentRunning = false;
+        private bool calibrating = false;
+        private bool pausedCalibration = false;
         
 
         // The current frame of mocap date
@@ -1144,7 +1146,7 @@ namespace robotTracking
                 return;
             }
             //make a dummy experiment, for testing only
-            if (experiment == null) experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
+            if (experiment == null) experiment = new Experiment(false);
             //if(connectedRobot && connected)
             //{
             // if task is running then stop the task ( but the experiment itself must of course be running )
@@ -1162,22 +1164,33 @@ namespace robotTracking
             // need to then set a variable 'calibrating' to true and change the text to 'stop calibration'
             // then call the stopCalibration method if the button is clicked while calibrating
             // will of course need to use the invokeRequired technique if changing the text as it is on a different thread
+            calibrating = true;
+            pauseCalibrationButton.Enabled = true;
+            stopCalibrationButton.Enabled = true;
+
             experiment.calibrate();
+
+            calibrating = false;
+            OutputMessage("Finished Calibrating");
+            pauseCalibrationButton.Enabled = false;
+            continueCalibrationButton.Enabled = false;
+
 
         }
 
         private void stopCalibrationButton_Click(object sender, EventArgs e)
         {
-            if(experiment != null && connectedRobot)
+            if(experiment != null && connectedRobot && calibrating)
             {
                 experiment.stopCalibration();
+                stopCalibrationButton.Enabled = false;
             }
         }
 
         private void getCalibrationButton_Click(object sender, EventArgs e)
         {
             //make a dummy experiment, for testing only
-            if (experiment == null) experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
+            if (experiment == null) experiment = new Experiment(false);
 
             bool success = experiment.getCalibrationData();
             if(!success)
@@ -1190,12 +1203,36 @@ namespace robotTracking
         {
             // test the regression function
             // make a dummy experiment if there isn't a proper one
-            if (experiment == null) experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
+            if (experiment == null) experiment = new Experiment(false);
 
             float[] desiredPosition = new float[] { 0.0391f, 0.3557f, 0.01926f };
             float[] output = experiment.testRegression(desiredPosition, Experiment.RegressionInput.POSITION);
 
             Console.WriteLine("output motor angles are {0}, {1}, {2}, {3}", output[0], output[1], output[2], output[3]);
+        }
+
+        private void pauseCalibrationButton_Click(object sender, EventArgs e)
+        {
+            if(calibrating)
+            {
+                pausedCalibration = true;
+
+                experiment.pauseCalibration();
+                pauseCalibrationButton.Enabled = false;
+
+                continueCalibrationButton.Enabled = true;
+            }
+        }
+
+        private void continueCalibrationButton_Click(object sender, EventArgs e)
+        {
+            if(pausedCalibration && calibrating)
+            {
+                pausedCalibration = false;
+                pauseCalibrationButton.Enabled = true;
+                continueCalibrationButton.Enabled = false;
+                experiment.resumeCalibration();
+            }
         }
 
         public int HighWord(int number)
@@ -1274,6 +1311,11 @@ namespace robotTracking
         public void Add(DataPoint newDataPoint)
         {
             tableData.Add(newDataPoint);
+        }
+
+        public void RemoveAt(int index)
+        {
+            tableData.RemoveAt(index);
         }
 
     }
