@@ -32,6 +32,7 @@ namespace robotTracking
         private bool calibrating = false;
         private CalibrationData activeCalibrationData;
         private bool pausedCalibration = false;
+        private const float startingAlpha = 0.005f;
 
         private Hashtable htRigidBodiesNameToBody = new Hashtable();
         private double distanceBetween;
@@ -144,9 +145,8 @@ namespace robotTracking
             return output;
         }
 
-        private float[] NWRegression(float[] inputVectorTarget, RegressionInput inputType)
+        private float[] NWRegression(float[] inputVectorTarget, RegressionInput inputType, float alpha = startingAlpha)
         {
-            float alpha = 0.005f;
             int numOutputDimensions = getNumOutputDimensions(inputType);
             float[] sumNumerator = new float[numOutputDimensions];
             float[] outputVector = new float[numOutputDimensions];
