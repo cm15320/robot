@@ -14,7 +14,7 @@ namespace robotTracking
         private bool connectedToPort;
         private int cnt = 0;
         private bool running;
-        private int[] motorAngles;
+        private int[] motorAngles, oldMotorAngles;
 
         public bool initialise()
         {
@@ -66,7 +66,7 @@ namespace robotTracking
                     Thread.Sleep(25);
 
                 }
-
+                oldMotorAngles = new int[] { 90, 90, 90, 90 };
                 return true;
 
             }
@@ -113,52 +113,98 @@ namespace robotTracking
 
         public void shareMotorAngles(int[] motorAngles)
         {
+            zeroMotors();
             this.motorAngles = motorAngles;
+        }
+
+        private void updateOldMotorAngles(int i, int angle)
+        {
+            oldMotorAngles[i] = angle;
+            //oldMotorAngles[1] = motorAngles[1];
+            //oldMotorAngles[2] = motorAngles[2];
+            //oldMotorAngles[3] = motorAngles[3];
+
         }
 
         public void setMotorAngles()
         {
             byte[] instructionBuffer = new byte[2];
+
+            while (anglesNotEqual())
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    instructionBuffer[0] = Convert.ToByte(i + 1);
+                    int oldAngle = oldMotorAngles[i];
+                    int newAngle = motorAngles[i];
+
+                    if (oldAngle < newAngle) oldAngle++;
+                    else if (oldAngle > newAngle) oldAngle--;
+                    else continue;
+
+                    instructionBuffer[1] = Convert.ToByte(oldAngle);
+
+                    currentPort.Write(instructionBuffer, 0, 2);
+                    //Console.WriteLine("writing motor angles");
+
+                    Thread.Sleep(6);
+                    updateOldMotorAngles(i, oldAngle);
+
+                }
+            }
+            //Console.WriteLine("finished writing");
+
+        }
+
+        private bool anglesNotEqual()
+        {
+            int cnt = 0;
             for (int i = 0; i < 4; i++)
             {
-                instructionBuffer[0] = Convert.ToByte(i + 1);
-                instructionBuffer[1] = Convert.ToByte(motorAngles[i]);
-
-                currentPort.Write(instructionBuffer, 0, 2);
-
-                Thread.Sleep(25);
-
+                if (motorAngles[i] == oldMotorAngles[i]) cnt++;
             }
-
+            if (cnt == 4) return false;
+            else return true;
         }
 
         private void testPartMotion()
         {
             byte[] instructionBuffer = new byte[2];
+            int[] startingPosition = new int[] { 90, 90, 90, 90 };
+            shareMotorAngles(startingPosition);
+            motorAngles = new int[] { 110, 110, 110, 110 };
+            setMotorAngles();
 
-            for (int i = 0; i < 4; i++)
-            {
-                instructionBuffer[0] = Convert.ToByte(i + 1);
-                instructionBuffer[1] = Convert.ToByte(110);
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    instructionBuffer[0] = Convert.ToByte(i + 1);
+            //    instructionBuffer[1] = Convert.ToByte(110);
 
-                currentPort.Write(instructionBuffer, 0, 2);
+            //    currentPort.Write(instructionBuffer, 0, 2);
 
-                Thread.Sleep(25);
+            //    Thread.Sleep(25);
 
-            }
+            //}
 
             Thread.Sleep(2000);
+            motorAngles = new int[] { 80, 80, 80, 80 };
+            setMotorAngles();
 
-            for (int i = 0; i < 4; i++)
-            {
-                instructionBuffer[0] = Convert.ToByte(i + 1);
-                instructionBuffer[1] = Convert.ToByte(80);
+            Thread.Sleep(500);
 
-                currentPort.Write(instructionBuffer, 0, 2);
+            motorAngles = new int[] { 120, 90, 60, 90 };
+            setMotorAngles();
 
-                Thread.Sleep(25);
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    instructionBuffer[0] = Convert.ToByte(i + 1);
+            //    instructionBuffer[1] = Convert.ToByte(80);
 
-            }
+            //    currentPort.Write(instructionBuffer, 0, 2);
+
+            //    Thread.Sleep(25);
+
+            //}
 
 
             //Thread.Sleep(20);

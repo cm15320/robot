@@ -985,6 +985,9 @@ namespace robotTracking
                 zeroMotorsButton.Enabled = true;
                 getDataDescriptions();
                 if (connected)  runCalibrationButton.Enabled = true;
+                // make a dummy experiment just so can move the robot
+                experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
+                experiment.makeDummy();
             }
             else
             {

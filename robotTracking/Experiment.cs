@@ -24,7 +24,7 @@ namespace robotTracking
         private int[] motorAngles = new int[] { 90, 90, 90, 90 };
         private int numIterationPoints = 7;
         private int numCalibrationSteps;
-        private int maxAngle = 140;
+        private int maxAngle = 120;
         private float[] relativeTipAngles = new float[] { 0.0f, 0.0f, 0.0f };
         private float[] relativeTipPos = new float[] { 0.0f, 0.0f, 0.0f };
         private FrameOfMocapData currentFrame;
@@ -298,7 +298,7 @@ namespace robotTracking
         public void calibrate()
         {
             int startingServoIndex = 0;
-            if(!dummyExperiment)    controller.shareMotorAngles(motorAngles);
+            if(controller.isConnected())    controller.shareMotorAngles(motorAngles);
             calibrating = true;
             calibrate(startingServoIndex, true);
             Console.WriteLine("calibration finished");
@@ -407,15 +407,21 @@ namespace robotTracking
 
 
         private void calibrate(int motorIndex, bool rising) {
-            int activeRange = (maxAngle - 90) * 2;
+            int localMaxAngle = maxAngle;
+            // move greater angles if it is one of the DOF at the tip???
+            //if(motorIndex > 1)
+            //{
+            //    localMaxAngle += 20;
+            //}
+            int activeRange = (localMaxAngle - 90) * 2;
             numCalibrationSteps = numIterationPoints - 1;
             int step = activeRange / numCalibrationSteps;
             //int shiftAngle = 90 - (step * (numCalibrationSteps / 2));
             int angle;
             int startingAngle = 90 - (maxAngle - 90);
             int cnt = 1; // could make this start at 2 if want angles to begin opposed (may make more smooth to start)
-            
-            if(!rising)
+
+            if (!rising)
             {
                 startingAngle += numCalibrationSteps * step;
             }
@@ -448,14 +454,17 @@ namespace robotTracking
                     Console.WriteLine("motor angles are {0} {1} {2} {3}", motorAngles[0], motorAngles[1], motorAngles[2], motorAngles[3]);
                     // move the motors to new positions
                     // sleep for about a second
-                    if (!dummyExperiment && controller.isConnected())
+                    if (controller.isConnected())
                     {
+                        //Console.WriteLine("setting motor angles");
                         controller.setMotorAngles();
                     }
-                    Thread.Sleep(1200);
+                    Thread.Sleep(1000);
                     // log the new data to the list, it will be already updated every time update is called from another thread
-                    if(!dummyExperiment)    logCalibrationData();
+                    if (!dummyExperiment) logCalibrationData();
+
                     checkForPause();
+                    
                 }
             }
             
