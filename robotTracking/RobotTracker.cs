@@ -35,6 +35,8 @@ namespace robotTracking
         public event connectedRobotEventHandler ConnectedToRobotOutcome;
         private delegate void RobotConnectResultCallback(object sender, EventArgs e);
 
+        private delegate void ChangeButtonsCallback(object sender, EventArgs e);
+
 
         private NatNetML.NatNetClientML m_NatNet;
         private bool connected = false;
@@ -1142,11 +1144,19 @@ namespace robotTracking
             // get rid of this line eventually - calibration should not be an option unless experiment already running
             if (!connectedRobot)
             {
-                OutputMessage("Must be connected to robot");
-                return;
+                OutputMessage("Must be connected to robot for proper calibration");
+                // make a dummy experiment for testing only
+                if (experiment == null) experiment = new Experiment(false);
             }
-            //make a dummy experiment, for testing only
-            if (experiment == null) experiment = new Experiment(false);
+            //make a false experiment, but still want to move robot so pass in parameters
+            else
+            {
+                if (experiment == null)
+                {
+                    experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
+                    experiment.makeDummy();
+                }
+            }
             //if(connectedRobot && connected)
             //{
             // if task is running then stop the task ( but the experiment itself must of course be running )
@@ -1165,25 +1175,46 @@ namespace robotTracking
             // then call the stopCalibration method if the button is clicked while calibrating
             // will of course need to use the invokeRequired technique if changing the text as it is on a different thread
             calibrating = true;
-            pauseCalibrationButton.Enabled = true;
-            stopCalibrationButton.Enabled = true;
+            changeCalibrationButtons(this, EventArgs.Empty);
 
             experiment.calibrate();
 
             calibrating = false;
+            changeCalibrationButtons(this, EventArgs.Empty);
             OutputMessage("Finished Calibrating");
-            pauseCalibrationButton.Enabled = false;
-            continueCalibrationButton.Enabled = false;
 
+        }
+
+        private void changeCalibrationButtons(object sender, EventArgs e)
+        {
+            if (pauseCalibrationButton.InvokeRequired)
+            {
+                ChangeButtonsCallback cb = new ChangeButtonsCallback(changeCalibrationButtons);
+                this.Invoke(cb, new object[] { this, EventArgs.Empty });
+                return;
+            }
+
+            if(calibrating)
+            {
+                runCalibrationButton.Enabled = false;
+                pauseCalibrationButton.Enabled = true;
+                stopCalibrationButton.Enabled = true;
+            }
+            else
+            {
+                pauseCalibrationButton.Enabled = false;
+                continueCalibrationButton.Enabled = false;
+            }
 
         }
 
         private void stopCalibrationButton_Click(object sender, EventArgs e)
         {
-            if(experiment != null && connectedRobot && calibrating)
+            if(experiment != null && calibrating)
             {
                 experiment.stopCalibration();
                 stopCalibrationButton.Enabled = false;
+                runCalibrationButton.Enabled = true;
             }
         }
 
