@@ -1,0 +1,24 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: thesis.aux
+The style file: unsrt.bst
+Database file #1: mybib.bib
+I was expecting a `,' or a `}'---line 157 of file mybib.bib
+ :   
+ :   organization={Institute of Robotics and Mechatronics}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 182 of file mybib.bib
+ :   
+ :   booktitle="Robotics: Science and Systems II (R:SS)"
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 188 of file mybib.bib
+ :   
+ :   booktitle={Mars Society Conference}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 386 of file mybib.bib
+ :   
+ :   year={2015},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+(There were 4 error messages)
