@@ -4,10 +4,10 @@
 \geometry{a4paper, portrait, margin=2cm}
 \usepackage[english]{babel} 
 \usepackage{parskip}
-\usepackage[noadjust]{cite}
 \usepackage{chngcntr}
 \counterwithin{figure}{section}
 \usepackage{url}
+\usepackage[noadjust]{cite}
 \usepackage{mathtools}
 \usepackage[nottoc,numbib]{tocbibind}
 \usepackage{graphicx}
@@ -61,6 +61,16 @@
 \section{Handheld Robot Design}
 \subsection{Flexible Robotic Arms}
 \subsection{Design Process of Four Degrees-Of-Freedom Device}
+\begin{itemize}
+\item{The initial design took direction based on the use of four Hi-Tec MS7980 servomotors to provide a degree of freedom each, driving the arm via some form of lightweight cable.}
+\item{A flexible foam tube was provided to act as the arm of the robot with outer diameter 42mm and inner diameter 19mm}
+\item{Early design was based around a single solid part, where two servos were mounted at the back and another two slightly offset. A tubular section was also present to attach the foam arm. However, after attempting to 3D print this, the quality was severely hindered by the need for excessive scaffolding to support the overhanging elements of the design}
+\item{As a result, the base was designed in two halves, with a separate piece for the tubular mount for the arm. These three parts could then be printed separately in an orientation that didn't result in any overhanging sections. As such, a much higher 3D print quality could be achieved.}
+\item{At this point, alternate shapes were explored based around this fundamental design, with compactness being a priority. One such design would entail a cubic section, where all servomotors would be at the same level, reducing the required moment arm to hold the device}
+\item{The cable management was then accounted for in order to drive the arm. Tubular linkages are attached to the arm with holes to connect the cables to the servomotors. When connecting the cables from the servomotors to the tubular linkages, the orientation of the cables in 3D space must be considered in order to determine how the arm will move in response to servomotor angle changes. Initially, the cables were planned to be connected in a straight line direct from the servomotor to the arm linkages, eliminating the need to account for friction}
+\item{INSERT IMAGE OF THE CAD OF THE CUBIC DESIGN WITH CONNECTING LINES}
+\item{However, by connecting the cables directly, in a manner with a relative angle between the axis of the arm, the motion of the arm in response to a servo angle change is unpredictable, and a single } 
+\end{itemize}
 \subsection{Interfacing With NatNet Optical Tracking System}
 \subsection{Controlling The Device}
 \subsection{Calibrating Device Using Kernel Regression Method}
