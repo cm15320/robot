@@ -22,7 +22,7 @@ namespace robotTracking
         private CalibrationData testData = new CalibrationData();
         //private int calibrationStep = 0;
         private int[] motorAngles = new int[] { 90, 90, 90, 90 };
-        private int numIterationPoints = 7;
+        private int numIterationPoints = 5;
         private int numCalibrationSteps;
         private int maxAngle = 120;
         private float[] relativeTipAngles = new float[] { 0.0f, 0.0f, 0.0f };
@@ -97,6 +97,8 @@ namespace robotTracking
             {
                 Console.WriteLine("Error, not added necessary rigid bodies to the hash table");
             }
+
+            initialiseMotors();
         }
 
         // perhaps put a lock on this in case the currentFrame object is changed mid-read???????
@@ -107,6 +109,14 @@ namespace robotTracking
             getCurrentData();
 
             calculateDistanceBetween();
+        }
+
+        private void initialiseMotors()
+        {
+            if(controller.isConnected())
+            {
+                controller.zeroMotors();
+            }
         }
 
         
@@ -141,6 +151,10 @@ namespace robotTracking
         public float[] testRegression(float[] inputVectorTarget, RegressionInput inputType)
         {
             float[] output = NWRegression(inputVectorTarget, inputType);
+            if(controller.isConnected())
+            {
+                controller.setMotorAnglesTest(output);
+            }
 
             return output;
         }
@@ -207,11 +221,12 @@ namespace robotTracking
                 // Otherwise of course the output will need to be the motor angle vector so this will be the yi value
 
                 // again have to do this temporary conversion but will change this of course!!!!!!!!!!!!!
-                currentVector = new float[4];
-                currentVector[0] = currentDataPoint.motorAngles[0];
-                currentVector[1] = currentDataPoint.motorAngles[1];
-                currentVector[2] = currentDataPoint.motorAngles[2];
-                currentVector[3] = currentDataPoint.motorAngles[3];
+                //currentVector = new float[4];
+                //currentVector[0] = currentDataPoint.motorAngles[0];
+                //currentVector[1] = currentDataPoint.motorAngles[1];
+                //currentVector[2] = currentDataPoint.motorAngles[2];
+                //currentVector[3] = currentDataPoint.motorAngles[3];
+                currentVector = currentDataPoint.motorAngles;
             }
 
             return currentVector;
@@ -480,6 +495,7 @@ namespace robotTracking
                 pausedCalibration = true;
                 // trim the last value from the calibration data as it shouldn't count
                 testData.RemoveAt(testData.Count - 1);
+                Console.WriteLine("Calibration has been paused due to lack of motion");
             }
 
             while(pausedCalibration && calibrating)

@@ -67,6 +67,7 @@
             this.testRegression = new System.Windows.Forms.Button();
             this.pauseCalibrationButton = new System.Windows.Forms.Button();
             this.continueCalibrationButton = new System.Windows.Forms.Button();
+            this.logZeroButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -402,6 +403,7 @@
             // 
             // testRegression
             // 
+            this.testRegression.Enabled = false;
             this.testRegression.Location = new System.Drawing.Point(594, 332);
             this.testRegression.Name = "testRegression";
             this.testRegression.Size = new System.Drawing.Size(97, 23);
@@ -432,11 +434,22 @@
             this.continueCalibrationButton.UseVisualStyleBackColor = true;
             this.continueCalibrationButton.Click += new System.EventHandler(this.continueCalibrationButton_Click);
             // 
+            // logZeroButton
+            // 
+            this.logZeroButton.Enabled = false;
+            this.logZeroButton.Location = new System.Drawing.Point(594, 371);
+            this.logZeroButton.Name = "logZeroButton";
+            this.logZeroButton.Size = new System.Drawing.Size(75, 23);
+            this.logZeroButton.TabIndex = 34;
+            this.logZeroButton.Text = "log zero pos";
+            this.logZeroButton.UseVisualStyleBackColor = true;
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.logZeroButton);
             this.Controls.Add(this.continueCalibrationButton);
             this.Controls.Add(this.pauseCalibrationButton);
             this.Controls.Add(this.testRegression);
@@ -518,6 +531,7 @@
         private System.Windows.Forms.Button testRegression;
         private System.Windows.Forms.Button pauseCalibrationButton;
         private System.Windows.Forms.Button continueCalibrationButton;
+        private System.Windows.Forms.Button logZeroButton;
     }
 }
 

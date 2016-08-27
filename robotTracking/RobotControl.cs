@@ -50,6 +50,13 @@ namespace robotTracking
         {
             if (running)
             {
+                if(oldMotorAngles != null)
+                {
+                    // If the motors are already at a position
+                    motorAngles = new int[] { 90, 90, 90, 90 };
+                    setMotorAngles();
+                    return true;
+                }
                 byte[] instructionBuffer = new byte[2];
                 //instructionBuffer[0] = Convert.ToByte(90);
                 //instructionBuffer[1] = Convert.ToByte(90);
@@ -76,6 +83,18 @@ namespace robotTracking
             }
         }
 
+
+        public void setMotorAnglesTest(float[] testMotorAngles)
+        {
+            motorAngles = new int[4];
+            motorAngles[0] = (int)testMotorAngles[0];
+            motorAngles[1] = (int)testMotorAngles[1];
+            motorAngles[2] = (int)testMotorAngles[2];
+            motorAngles[3] = (int)testMotorAngles[3];
+
+            setMotorAngles();
+
+        }
 
         private bool controlArduino(int servoNumber, int angle)
         {
@@ -172,7 +191,7 @@ namespace robotTracking
             byte[] instructionBuffer = new byte[2];
             int[] startingPosition = new int[] { 90, 90, 90, 90 };
             shareMotorAngles(startingPosition);
-            motorAngles = new int[] { 110, 110, 110, 110 };
+            //motorAngles = new int[] { 110, 110, 110, 110 };
             setMotorAngles();
 
             //for (int i = 0; i < 4; i++)

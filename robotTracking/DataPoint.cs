@@ -9,7 +9,7 @@ namespace robotTracking
     [Serializable]
     public class DataPoint
     {
-        public int[] motorAngles = new int[4];
+        public float[] motorAngles = new float[4];
         public float[] relativeTipPosition = new float[3];
         public float[] relativeTipOrientation = new float[3];
         // will use this eventually just testing with old calibration data

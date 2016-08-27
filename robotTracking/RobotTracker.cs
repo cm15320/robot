@@ -1227,10 +1227,16 @@ namespace robotTracking
             if (experiment == null) experiment = new Experiment(false);
 
             bool success = experiment.getCalibrationData();
-            if(!success)
+            if (success)
+            {
+                OutputMessage("Calibration data read in successdully");
+                testRegression.Enabled = true;
+            }
+            else
             {
                 OutputMessage("Cannot read calibration data, must calibrate");
             }
+            
         }
 
         private void testRegression_Click(object sender, EventArgs e)
@@ -1239,7 +1245,7 @@ namespace robotTracking
             // make a dummy experiment if there isn't a proper one
             if (experiment == null) experiment = new Experiment(false);
 
-            float[] desiredPosition = new float[] { 0.0391f, 0.3557f, 0.01926f };
+            float[] desiredPosition = new float[] { 0.2942f, 0.0680f, -0.1095f };
             float[] output = experiment.testRegression(desiredPosition, Experiment.RegressionInput.POSITION);
 
             Console.WriteLine("output motor angles are {0}, {1}, {2}, {3}", output[0], output[1], output[2], output[3]);
