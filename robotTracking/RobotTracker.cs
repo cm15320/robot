@@ -49,7 +49,7 @@ namespace robotTracking
         private bool experimentRunning = false;
         private bool calibrating = false;
         private bool pausedCalibration = false;
-        
+
 
         // The current frame of mocap date
         private NatNetML.FrameOfMocapData m_CurrentFrameOfData = new NatNetML.FrameOfMocapData();
@@ -80,7 +80,7 @@ namespace robotTracking
         double m_ServerFramerate = 1.0f;
         float m_ServerToMillimeters = 1.0f;
         int m_UpAxis = 1;   // 0=x, 1=y, 2=z (Y default)
-        int mAnalogSamplesPerMocpaFrame = 0;
+        int mAnalogSamplesPerMocapFrame = 0;
         int mDroppedFrames = 0;
         int mLastFrame = 0;
 
@@ -180,7 +180,7 @@ namespace robotTracking
 
             m_NatNet = new NatNetML.NatNetClientML(iConnectionType);
 
-            
+
 
             // set a "frame ready" callback fn (event handler) that will be called by
             // NatNet when it receives a frame of data from the server application
@@ -225,10 +225,10 @@ namespace robotTracking
 
         private void connectButton_Click(object sender, EventArgs e)
         {
-            if(!connected)
+            if (!connected)
             {
                 Connect();
-                if(connected) connectButton.Text = "Disconnect";
+                if (connected) connectButton.Text = "Disconnect";
 
             }
             else
@@ -816,7 +816,7 @@ namespace robotTracking
                         m_UIUpdateTimer.Start();
 
                         // experiment stages
-                        if(experimentRunning)
+                        if (experimentRunning)
                         {
                             experiment.update(m_CurrentFrameOfData);
                             double distanceBetween = experiment.getDistanceBetween();
@@ -949,7 +949,7 @@ namespace robotTracking
         protected virtual void onConnectRobotAttempt()
         {
 
-            if(ConnectedToRobotOutcome != null)
+            if (ConnectedToRobotOutcome != null)
             {
                 ConnectedToRobotOutcome(this, EventArgs.Empty);
             }
@@ -966,17 +966,17 @@ namespace robotTracking
         {
 
             // if on a different thread then must deal with it from main thread
-            if(connectRobotButton.InvokeRequired)
+            if (connectRobotButton.InvokeRequired)
             {
                 RobotConnectResultCallback d = new RobotConnectResultCallback(robotConnectResult);
-                this.Invoke(d, new object[] {this, EventArgs.Empty });
+                this.Invoke(d, new object[] { this, EventArgs.Empty });
                 return;
             }
 
             connectingToRobot = false;
             connectRobotButton.Enabled = true;
 
-            if(connectedRobot)
+            if (connectedRobot)
             {
                 robotConnectLabel.Text = "Connected";
                 connectRobotButton.Text = "Disconnect robot";
@@ -984,7 +984,7 @@ namespace robotTracking
                 experimentButton.Enabled = true;
                 zeroMotorsButton.Enabled = true;
                 getDataDescriptions();
-                if (connected)  runCalibrationButton.Enabled = true;
+                if (connected) runCalibrationButton.Enabled = true;
                 // make a dummy experiment just so can move the robot
                 experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
                 experiment.makeDummy();
@@ -998,18 +998,18 @@ namespace robotTracking
 
         private void connectRobotButton_Click(object sender, EventArgs e)
         {
-            if(!connectedRobot && !connectingToRobot)
+            if (!connectedRobot && !connectingToRobot)
             {
                 // make new thread to connect to arduino port with a callback for when it is done that changes the button
 
                 robotConnectLabel.Text = "Connecting...";
                 connectRobotButton.Enabled = false;
                 connectingToRobot = true;
-                
-                
+
+
                 new Task(attemptRobotConnect).Start();
             }
-            else if(connectedRobot && !connectingToRobot)
+            else if (connectedRobot && !connectingToRobot)
             {
                 controller.uninitialise();
                 connectedRobot = false;
@@ -1022,7 +1022,7 @@ namespace robotTracking
 
         private void testMovementButton_Click(object sender, EventArgs e)
         {
-            if(connectedRobot)  controller.test();
+            if (connectedRobot) controller.test();
         }
 
         // will eventually have the controller object just part of the Experiment class 
@@ -1030,7 +1030,7 @@ namespace robotTracking
         {
             // will also need to be connected to the robot in the future
             // (leave as is just to test the opti track distance between objects)
-            if(requiredObjectsTracked() && !experimentRunning && connected && connectedRobot)
+            if (requiredObjectsTracked() && !experimentRunning && connected && connectedRobot)
             {
                 experimentRunning = true;
                 experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
@@ -1052,12 +1052,12 @@ namespace robotTracking
         {
             int cnt = 0;
             string[] requiredObjects = new string[] { "robotBase", "robotTip" };
-            foreach(RigidBody rb in mRigidBodies)
+            foreach (RigidBody rb in mRigidBodies)
             {
                 if (requiredObjects.Contains(rb.Name)) cnt++;
             }
 
-            if(cnt == requiredObjects.Length)
+            if (cnt == requiredObjects.Length)
             {
                 return true;
             }
@@ -1069,11 +1069,11 @@ namespace robotTracking
 
         private void buttonTestStorage_Click(object sender, EventArgs e)
         {
-            int[] motorAngles = new int[4] { 12, 31, 24, 54};
+            int[] motorAngles = new int[4] { 12, 31, 24, 54 };
             float[] tipPos = new float[3] { 13.4f, 51.5f, 145f };
             float[] tipAngle = new float[3] { 43.4f, 35f, 255f };
 
-            int[] motorAngles2 = new int[4] { 22, 21, 24, 24};
+            int[] motorAngles2 = new int[4] { 22, 21, 24, 24 };
             float[] tipPos2 = new float[3] { 23.4f, 21.5f, 245f };
             float[] tipAngle2 = new float[3] { 23.4f, 25f, 255f };
 
@@ -1113,11 +1113,11 @@ namespace robotTracking
             StreamReader file = new StreamReader("calibrationData.xml");
             CalibrationData testData = (CalibrationData)reader.Deserialize(file);
             file.Close();
-            for(int i = 0; i < testData.Count; i++)
+            for (int i = 0; i < testData.Count; i++)
             {
                 Console.WriteLine("for data point number " + i);
                 Console.WriteLine("motor angles:");
-                for(int j = 0; j < testData[i].motorAngles.Length; j++)
+                for (int j = 0; j < testData[i].motorAngles.Length; j++)
                 {
                     Console.Write(testData[i].motorAngles[j] + "   ");
                 }
@@ -1129,9 +1129,9 @@ namespace robotTracking
 
         private void zeroMotorsButton_Click(object sender, EventArgs e)
         {
-            if(connectedRobot)
+            if (connectedRobot)
             {
-                if(controller.zeroMotors())
+                if (controller.zeroMotors())
                 {
                     OutputMessage("Zeroed Motors");
                 }
@@ -1144,49 +1144,24 @@ namespace robotTracking
 
         private void runCalibrationButton_Click(object sender, EventArgs e)
         {
-            // get rid of this line eventually - calibration should not be an option unless experiment already running
-            if (!connectedRobot)
-            {
-                OutputMessage("Must be connected to robot for proper calibration");
-                // make a dummy experiment for testing only
-                if (experiment == null) experiment = new Experiment(false);
-            }
-            //make a false experiment, but still want to move robot so pass in parameters
-            else
-            {
-                if (experiment == null)
-                {
-                    experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
-                    experiment.makeDummy();
-                }
-            }
-            //if(connectedRobot && connected)
-            //{
-            // if task is running then stop the task ( but the experiment itself must of course be running )
-            //runCalibrationButton.Enabled = false;
-                // run the calibration by calling the calibrate method in a new thread 
-                
-                new Task(runCalibration).Start();
-            //}
-
-
+            startCalibration(false);
         }
 
-        private void runCalibration()
-        {
-            // need to then set a variable 'calibrating' to true and change the text to 'stop calibration'
-            // then call the stopCalibration method if the button is clicked while calibrating
-            // will of course need to use the invokeRequired technique if changing the text as it is on a different thread
-            calibrating = true;
-            changeCalibrationButtons(this, EventArgs.Empty);
+        //private void runCalibration()
+        //{
+        //    // need to then set a variable 'calibrating' to true and change the text to 'stop calibration'
+        //    // then call the stopCalibration method if the button is clicked while calibrating
+        //    // will of course need to use the invokeRequired technique if changing the text as it is on a different thread
+        //    calibrating = true;
+        //    changeCalibrationButtons(this, EventArgs.Empty);
 
-            experiment.calibrate();
+        //    experiment.calibrate();
 
-            calibrating = false;
-            changeCalibrationButtons(this, EventArgs.Empty);
-            OutputMessage("Finished Calibrating");
+        //    calibrating = false;
+        //    changeCalibrationButtons(this, EventArgs.Empty);
+        //    OutputMessage("Finished Calibrating");
 
-        }
+        //}
 
         private void changeCalibrationButtons(object sender, EventArgs e)
         {
@@ -1197,27 +1172,29 @@ namespace robotTracking
                 return;
             }
 
-            if(calibrating)
+            if (calibrating)
             {
                 runCalibrationButton.Enabled = false;
+                runTestPointsButton.Enabled = false;
                 pauseCalibrationButton.Enabled = true;
                 stopCalibrationButton.Enabled = true;
             }
             else
             {
+                runCalibrationButton.Enabled = true;
+                runTestPointsButton.Enabled = true;
                 pauseCalibrationButton.Enabled = false;
                 continueCalibrationButton.Enabled = false;
+
             }
 
         }
 
         private void stopCalibrationButton_Click(object sender, EventArgs e)
         {
-            if(experiment != null && calibrating)
+            if (experiment != null && calibrating)
             {
                 experiment.stopCalibration();
-                stopCalibrationButton.Enabled = false;
-                runCalibrationButton.Enabled = true;
             }
         }
 
@@ -1236,7 +1213,7 @@ namespace robotTracking
             {
                 OutputMessage("Cannot read calibration data, must calibrate");
             }
-            
+
         }
 
         private void testRegression_Click(object sender, EventArgs e)
@@ -1253,7 +1230,7 @@ namespace robotTracking
 
         private void pauseCalibrationButton_Click(object sender, EventArgs e)
         {
-            if(calibrating)
+            if (calibrating)
             {
                 pausedCalibration = true;
 
@@ -1266,7 +1243,7 @@ namespace robotTracking
 
         private void continueCalibrationButton_Click(object sender, EventArgs e)
         {
-            if(pausedCalibration && calibrating)
+            if (pausedCalibration && calibrating)
             {
                 pausedCalibration = false;
                 pauseCalibrationButton.Enabled = true;
@@ -1274,6 +1251,61 @@ namespace robotTracking
                 experiment.resumeCalibration();
             }
         }
+
+        private void runTestPointsButton_Click(object sender, EventArgs e)
+        {
+            startCalibration(true);
+        }
+
+        private void startCalibration(bool testPoints)
+        {
+
+            // get rid of this line eventually - calibration should not be an option unless experiment already running
+            if (!connectedRobot)
+            {
+                OutputMessage("Must be connected to robot for proper calibration");
+                // make a dummy experiment for testing only
+                if (experiment == null) experiment = new Experiment(false);
+            }
+            //make a false experiment, but still want to move robot for test so pass in parameters
+            else
+            {
+                if (experiment == null)
+                {
+                    experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
+                    experiment.makeDummy();
+                }
+            }
+            //if(connectedRobot && connected)
+            //{
+            // if task is running then stop the task ( but the experiment itself must of course be running )
+            //runCalibrationButton.Enabled = false;
+            // run the calibration by calling the calibrate method in a new thread 
+
+            new Task(() =>
+            {
+                runCalibration(testPoints);
+            }).Start();
+
+        }
+
+
+        private void runCalibration(bool testPoints)
+        {
+            // need to then set a variable 'calibrating' to true and change the text to 'stop calibration'
+            // then call the stopCalibration method if the button is clicked while calibrating
+            // will of course need to use the invokeRequired technique if changing the text as it is on a different thread
+            calibrating = true;
+            changeCalibrationButtons(this, EventArgs.Empty);
+
+            experiment.calibrate(testPoints);
+
+            calibrating = false;
+            changeCalibrationButtons(this, EventArgs.Empty);
+            OutputMessage("Finished running test points");
+
+        }
+
 
         public int HighWord(int number)
         {

@@ -23,7 +23,8 @@ namespace robotTracking
         //private int calibrationStep = 0;
         private int[] motorAngles = new int[] { 90, 90, 90, 90 };
         private int numIterationPoints = 5;
-        private int numCalibrationSteps;
+        private int numTestPoints = 3;
+        private int numPoints;
         private int maxAngle = 120;
         private float[] relativeTipAngles = new float[] { 0.0f, 0.0f, 0.0f };
         private float[] relativeTipPos = new float[] { 0.0f, 0.0f, 0.0f };
@@ -31,7 +32,7 @@ namespace robotTracking
         private object syncLock;
         private bool calibrating = false;
         private CalibrationData activeCalibrationData;
-        private bool pausedCalibration = false;
+        private bool pausedCalibration = false; // this can indicate the pause of the calibration and the test stage
         private const float startingAlpha = 0.005f;
 
         private Hashtable htRigidBodiesNameToBody = new Hashtable();
@@ -118,6 +119,7 @@ namespace robotTracking
                 controller.zeroMotors();
             }
         }
+
 
         
         public void stopCalibration()
@@ -310,16 +312,174 @@ namespace robotTracking
         }
 
 
-        public void calibrate()
+        public void calibrate(bool testPoints)
         {
             int startingServoIndex = 0;
-            if(controller.isConnected())    controller.shareMotorAngles(motorAngles);
+            string filename;
+            if (controller.isConnected()) controller.shareMotorAngles(motorAngles);
             calibrating = true;
-            calibrate(startingServoIndex, true);
-            Console.WriteLine("calibration finished");
 
-            if(!dummyExperiment)    saveDataXML();
+            if (testPoints) filename = "testPoints.xml";
+            else filename = "calibrationData.xml";
+
+            calibrate(startingServoIndex, true, testPoints);
+            
+            Console.WriteLine("finished");
+
+            if (!dummyExperiment) saveDataXML(filename);
+
+
         }
+
+        // calibrate function and this one can be the same thing with different parameters passed in or
+        // something to indicate whether it is calibrating or testing
+
+        private void calibrate(int motorIndex, bool rising, bool testPoints)
+        {
+            int numPoints, numSteps, localMaxAngle, activeRange, step;
+            int angle, startingAngle;
+            string filename;
+
+            if (testPoints) filename = "testPoints.xml";
+            else filename = "calibrationData.xml";
+            // similar to calibrate funtion, but instead does a much smaller subset of points and aims to deliberately 'miss'
+            // points covered by the calibration function
+            if (testPoints) localMaxAngle = maxAngle - 10; // smaller than the real max angle as that will be covered by calibrate
+            else localMaxAngle = maxAngle;
+
+            activeRange = (localMaxAngle - 90) * 2; // active range will thus be 10 smaller on each side if testPoints
+
+            if (testPoints) numPoints = numTestPoints;
+            else numPoints = numIterationPoints;
+
+            numSteps = numPoints - 1;
+            step = activeRange / numSteps;
+            startingAngle = 90 - (localMaxAngle - 90);
+            if(testPoints) startingAngle -= 5; // offset it by 5 degrees to the left to cover angles not covered by calibration alone
+
+
+            // if should be descending then just start at the extreme and come down
+            if (!rising)    startingAngle += numSteps * step;
+
+            for (int i = 0; i < numPoints; i++)
+            {
+                if (rising) angle = startingAngle + (i * step); // rise up
+                else angle = startingAngle - (i * step); // come down
+
+                motorAngles[motorIndex] = angle;
+
+                if (!calibrating)
+                {
+                    saveDataXML(filename);
+                    return;
+                }
+                if (motorIndex < 3)     calibrate(motorIndex + 1, !rising, testPoints);
+                else if (motorIndex == 3)
+                {
+                    Console.WriteLine("motor angles are {0} {1} {2} {3}", motorAngles[0], motorAngles[1], motorAngles[2], motorAngles[3]);
+                    // move the motors to new positions
+                    // sleep for about a second
+
+                    //Console.WriteLine("setting motor angles");
+                    setMotorAngles();
+                    Thread.Sleep(1000);
+                    // log the new data to the list, it will be already updated every time update is called from another thread
+                    logCalibrationData();
+
+                    checkForPause();
+                }
+            }
+
+        }
+
+        private void setMotorAngles()
+        {
+            if(controller.isConnected())
+            {
+                controller.setMotorAngles();
+            } 
+        }
+
+
+        //public void calibrate()
+        //{
+        //    int startingServoIndex = 0;
+        //    if(controller.isConnected())    controller.shareMotorAngles(motorAngles);
+        //    calibrating = true;
+        //    calibrate(startingServoIndex, true);
+        //    Console.WriteLine("calibration finished");
+
+        //    if(!dummyExperiment)    saveDataXML("calibrationData.xml");
+        //}
+
+        // make this a LOT neater
+        //private void calibrate(int motorIndex, bool rising)
+        //{
+        //    int localMaxAngle = maxAngle;
+        //    // move greater angles if it is one of the DOF at the tip???
+        //    //if(motorIndex > 1)
+        //    //{
+        //    //    localMaxAngle += 20;
+        //    //}
+        //    int activeRange = (localMaxAngle - 90) * 2;
+        //    int numCalibrationSteps = numIterationPoints - 1;
+        //    int step = activeRange / numCalibrationSteps;
+        //    //int shiftAngle = 90 - (step * (numCalibrationSteps / 2));
+        //    int angle;
+        //    int startingAngle = 90 - (localMaxAngle - 90);
+        //    int cnt = 1; // could make this start at 2 if want angles to begin opposed (may make more smooth to start)
+
+        //    if (!rising)
+        //    {
+        //        startingAngle += numCalibrationSteps * step;
+        //    }
+
+        //    for (int i = 0; i < numIterationPoints; i++)
+        //    {
+        //        cnt++;
+        //        //int angle = 90 + (i * step);
+        //        //angle = angle % maxAngle;
+        //        //if (angle < 90) angle += shiftAngle;
+        //        if (rising) angle = startingAngle + (i * step);
+        //        else angle = startingAngle - (i * step);
+
+        //        motorAngles[motorIndex] = angle;
+
+        //        if (!calibrating)
+        //        {
+        //            if (!dummyExperiment) saveDataXML("calibrationData.xml");
+        //            return;
+        //        }
+        //        if (motorIndex < 3)
+        //        {
+        //            bool newRising;
+        //            if (cnt % 2 == 0) newRising = true;
+        //            else newRising = false;
+        //            calibrate(motorIndex + 1, newRising);
+        //        }
+        //        else if (motorIndex == 3)
+        //        {
+        //            Console.WriteLine("motor angles are {0} {1} {2} {3}", motorAngles[0], motorAngles[1], motorAngles[2], motorAngles[3]);
+        //            // move the motors to new positions
+        //            // sleep for about a second
+        //            if (controller.isConnected())
+        //            {
+        //                //Console.WriteLine("setting motor angles");
+        //                controller.setMotorAngles();
+        //            }
+        //            Thread.Sleep(1000);
+        //            // log the new data to the list, it will be already updated every time update is called from another thread
+        //            if (!dummyExperiment) logCalibrationData();
+
+        //            checkForPause();
+
+        //        }
+        //    }
+
+        //}
+
+
+
 
         public void makeDummy()
         {
@@ -421,69 +581,6 @@ namespace robotTracking
         }
 
 
-        private void calibrate(int motorIndex, bool rising) {
-            int localMaxAngle = maxAngle;
-            // move greater angles if it is one of the DOF at the tip???
-            //if(motorIndex > 1)
-            //{
-            //    localMaxAngle += 20;
-            //}
-            int activeRange = (localMaxAngle - 90) * 2;
-            numCalibrationSteps = numIterationPoints - 1;
-            int step = activeRange / numCalibrationSteps;
-            //int shiftAngle = 90 - (step * (numCalibrationSteps / 2));
-            int angle;
-            int startingAngle = 90 - (maxAngle - 90);
-            int cnt = 1; // could make this start at 2 if want angles to begin opposed (may make more smooth to start)
-
-            if (!rising)
-            {
-                startingAngle += numCalibrationSteps * step;
-            }
-
-            for (int i = 0; i < numIterationPoints; i++)
-            {
-                cnt++;
-                //int angle = 90 + (i * step);
-                //angle = angle % maxAngle;
-                //if (angle < 90) angle += shiftAngle;
-                if (rising) angle = startingAngle + (i * step);
-                else angle = startingAngle - (i * step);
-
-                motorAngles[motorIndex] = angle;
-
-                if (!calibrating)
-                {
-                    if(!dummyExperiment)    saveDataXML();
-                    return;
-                }
-                if(motorIndex < 3)
-                {
-                    bool newRising;
-                    if (cnt % 2 == 0) newRising = true;
-                    else newRising = false;
-                    calibrate(motorIndex + 1, newRising);
-                }
-                else if (motorIndex == 3)
-                {
-                    Console.WriteLine("motor angles are {0} {1} {2} {3}", motorAngles[0], motorAngles[1], motorAngles[2], motorAngles[3]);
-                    // move the motors to new positions
-                    // sleep for about a second
-                    if (controller.isConnected())
-                    {
-                        //Console.WriteLine("setting motor angles");
-                        controller.setMotorAngles();
-                    }
-                    Thread.Sleep(1000);
-                    // log the new data to the list, it will be already updated every time update is called from another thread
-                    if (!dummyExperiment) logCalibrationData();
-
-                    checkForPause();
-                    
-                }
-            }
-            
-        }
 
 
         // This method checks to see if the calibration should be paused, whether from user or if batteries run out
@@ -564,7 +661,9 @@ namespace robotTracking
         //}
 
 
-        private void logCalibrationData() { 
+        private void logCalibrationData() {
+
+            if (dummyExperiment) return;
 
             DataPoint newDataPoint = new DataPoint();
             // lock so it doesn't change as adding it to the list of data points
@@ -578,11 +677,14 @@ namespace robotTracking
             }
         }
 
-        private void saveDataXML()
+        private void saveDataXML(string filename)
         {
             TextWriter writer = new StreamWriter(filename);
-            ser.Serialize(writer, testData);
-            Console.WriteLine("should have written data.xml");
+            if(!dummyExperiment)
+            {
+                ser.Serialize(writer, testData);
+                Console.WriteLine("should have written " + filename);
+            }
 
             writer.Close();
         }
