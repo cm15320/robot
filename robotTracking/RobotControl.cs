@@ -191,7 +191,7 @@ namespace robotTracking
             byte[] instructionBuffer = new byte[2];
             int[] startingPosition = new int[] { 90, 90, 90, 90 };
             shareMotorAngles(startingPosition);
-            //motorAngles = new int[] { 110, 110, 110, 110 };
+            motorAngles = new int[] { 110, 110, 110, 110 };
             setMotorAngles();
 
             //for (int i = 0; i < 4; i++)
@@ -209,10 +209,13 @@ namespace robotTracking
             motorAngles = new int[] { 80, 80, 80, 80 };
             setMotorAngles();
 
+
             Thread.Sleep(500);
 
-            motorAngles = new int[] { 120, 90, 60, 90 };
-            setMotorAngles();
+            zeroMotors();
+
+            //motorAngles = new int[] { 120, 90, 60, 90 };
+            //setMotorAngles();
 
             //for (int i = 0; i < 4; i++)
             //{

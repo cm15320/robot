@@ -19,7 +19,8 @@ namespace robotTracking
         public float inverseSqrt2Pi = 1f / (float)Math.Sqrt(2 * Math.PI);
         private RobotControl controller;
         private RigidBodyData robotBase, robotTip;
-        private CalibrationData testData = new CalibrationData();
+        private CalibrationData newCalibrationData = new CalibrationData();
+        private CalibrationData storedCalibrationData, storedTestData;
         //private int calibrationStep = 0;
         private int[] motorAngles = new int[] { 90, 90, 90, 90 };
         private int numIterationPoints = 5;
@@ -31,7 +32,6 @@ namespace robotTracking
         private FrameOfMocapData currentFrame;
         private object syncLock;
         private bool calibrating = false;
-        private CalibrationData activeCalibrationData;
         private bool pausedCalibration = false; // this can indicate the pause of the calibration and the test stage
         private const float startingAlpha = 0.005f;
 
@@ -39,7 +39,9 @@ namespace robotTracking
         private double distanceBetween;
 
         private XmlSerializer ser = new XmlSerializer(typeof(CalibrationData));
-        private string filename = "calibrationDataNew.xml";
+        private string calibrationFilename = "calibrationData.xml";
+        private string testDataFilename = "testData.xml";
+        private bool currentlyTracked;
 
         private NatNetClientML m_NatNet;
 
@@ -164,12 +166,12 @@ namespace robotTracking
         private float[] NWRegression(float[] inputVectorTarget, RegressionInput inputType, float alpha = startingAlpha)
         {
             int numOutputDimensions = getNumOutputDimensions(inputType);
-            float[] sumNumerator = new float[numOutputDimensions];
             float[] outputVector = new float[numOutputDimensions];
+            float[] sumNumerator = new float[numOutputDimensions];
             float sumDenominator = 0;
 
             // If not using KD tree, loop through entire set of data
-            for(int i = 0; i < activeCalibrationData.Count; i++)
+            for(int i = 0; i < storedCalibrationData.Count; i++)
             {
                 float kernelInput = getKernelInput(i, inputType, alpha, inputVectorTarget);
                 float[] currentVectorOutput = getCurrentVectorOutput(i, inputType);
@@ -210,7 +212,7 @@ namespace robotTracking
 
         private float[] getCurrentVectorOutput(int i, RegressionInput inputType)
         {
-            DataPoint currentDataPoint = activeCalibrationData[i];
+            DataPoint currentDataPoint = storedCalibrationData[i];
             float[] currentVector;
             if(inputType == RegressionInput.MOTORS)
             {
@@ -237,7 +239,7 @@ namespace robotTracking
         
         private float getKernelInput(int i, RegressionInput inputType, float alpha, float[] inputVectorTarget)
         {
-            DataPoint currentDataPoint = activeCalibrationData[i];
+            DataPoint currentDataPoint = storedCalibrationData[i];
             float[] currentVector;
             float difference = 0, kernelInput;
             // this will be a lot shorter!!!!!!!!!!!!!!!!!!!!!!
@@ -326,7 +328,7 @@ namespace robotTracking
             
             Console.WriteLine("finished");
 
-            if (!dummyExperiment) saveDataXML(filename);
+            saveDataXML(filename);
 
 
         }
@@ -336,9 +338,10 @@ namespace robotTracking
 
         private void calibrate(int motorIndex, bool rising, bool testPoints)
         {
-            int numPoints, numSteps, localMaxAngle, activeRange, step;
+            int numPoints, numSteps, localMaxAngle, activeRange, step, cnt = 1;
             int angle, startingAngle;
             string filename;
+            bool newRising;
 
             if (testPoints) filename = "testPoints.xml";
             else filename = "calibrationData.xml";
@@ -366,6 +369,9 @@ namespace robotTracking
                 if (rising) angle = startingAngle + (i * step); // rise up
                 else angle = startingAngle - (i * step); // come down
 
+                cnt++;
+                if (cnt % 2 == 0)   newRising = true;
+                else    newRising = false;
                 motorAngles[motorIndex] = angle;
 
                 if (!calibrating)
@@ -373,7 +379,7 @@ namespace robotTracking
                     saveDataXML(filename);
                     return;
                 }
-                if (motorIndex < 3)     calibrate(motorIndex + 1, !rising, testPoints);
+                if (motorIndex < 3)     calibrate(motorIndex + 1, newRising, testPoints);
                 else if (motorIndex == 3)
                 {
                     Console.WriteLine("motor angles are {0} {1} {2} {3}", motorAngles[0], motorAngles[1], motorAngles[2], motorAngles[3]);
@@ -486,7 +492,8 @@ namespace robotTracking
             dummyExperiment = true;
         }
 
-        public bool getCalibrationData()
+
+        private bool getData(string filename)
         {
             XmlSerializer reader = new XmlSerializer(typeof(CalibrationData));
             StreamReader file;
@@ -494,30 +501,39 @@ namespace robotTracking
             {
                 file = new StreamReader(filename);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Could not open " + filename + " message: " + ex.Message);
                 return false;
             }
-            activeCalibrationData = (CalibrationData)reader.Deserialize(file);
+            CalibrationData dataReadIn = (CalibrationData)reader.Deserialize(file);
+            if (filename.Equals(calibrationFilename))
+            {
+                storedCalibrationData = dataReadIn;
+            }
+            else if (filename.Equals(testDataFilename))
+            {
+                storedTestData = dataReadIn;
+            }
+            else return false;
             file.Close();
-            for (int i = 0; i < activeCalibrationData.Count; i++)
+            for (int i = 0; i < storedCalibrationData.Count; i++)
             {
                 //Console.WriteLine("for data point number " + i);
                 //Console.WriteLine("motor angles:");
-                //for (int j = 0; j < activeCalibrationData[i].motorAngles.Length; j++)
+                //for (int j = 0; j < storedCalibrationData[i].motorAngles.Length; j++)
                 //{
-                //    Console.Write(activeCalibrationData[i].motorAngles[j] + "   ");
+                //    Console.Write(storedCalibrationData[i].motorAngles[j] + "   ");
                 //}
                 //Console.WriteLine("tip position:");
-                //for (int j = 0; j < activeCalibrationData[i].relativeTipPosition.Length; j++)
+                //for (int j = 0; j < storedCalibrationData[i].relativeTipPosition.Length; j++)
                 //{
-                //    Console.WriteLine(activeCalibrationData[i].relativeTipPosition[j] + "   ");
+                //    Console.WriteLine(storedCalibrationData[i].relativeTipPosition[j] + "   ");
                 //}
                 //Console.WriteLine();
             }
 
-            if(activeCalibrationData.Count <= 0)
+            if (storedCalibrationData.Count <= 0)
             {
                 return false;
             }
@@ -525,6 +541,72 @@ namespace robotTracking
             {
                 return true;
             }
+
+        }
+
+        //public bool getAllData()
+        //{
+        //    bool gotCalibrationData = getCalibrationData();
+        //    bool gotTestData = getTestData();
+
+        //    if(gotCalibrationData && gotTestData)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
+
+        public bool getTestData()
+        {
+            return getData(testDataFilename);
+        }
+
+        public bool getCalibrationData()
+        {
+
+            return getData(calibrationFilename);
+
+
+            //XmlSerializer reader = new XmlSerializer(typeof(CalibrationData));
+            //StreamReader file;
+            //try
+            //{
+            //    file = new StreamReader(calibrationFilename);
+            //}
+            //catch(Exception ex)
+            //{
+            //    Console.WriteLine("Could not open " + calibrationFilename + " message: " + ex.Message);
+            //    return false;
+            //}
+            //storedCalibrationData = (CalibrationData)reader.Deserialize(file);
+            //file.Close();
+            //for (int i = 0; i < storedCalibrationData.Count; i++)
+            //{
+            //    //Console.WriteLine("for data point number " + i);
+            //    //Console.WriteLine("motor angles:");
+            //    //for (int j = 0; j < storedCalibrationData[i].motorAngles.Length; j++)
+            //    //{
+            //    //    Console.Write(storedCalibrationData[i].motorAngles[j] + "   ");
+            //    //}
+            //    //Console.WriteLine("tip position:");
+            //    //for (int j = 0; j < storedCalibrationData[i].relativeTipPosition.Length; j++)
+            //    //{
+            //    //    Console.WriteLine(storedCalibrationData[i].relativeTipPosition[j] + "   ");
+            //    //}
+            //    //Console.WriteLine();
+            //}
+
+            //if(storedCalibrationData.Count <= 0)
+            //{
+            //    return false;
+            //}
+            //else
+            //{
+            //    return true;
+            //}
 
         }
 
@@ -536,12 +618,14 @@ namespace robotTracking
                 for (int i = 0; i < currentFrame.nRigidBodies; i++)
                 {
                     NatNetML.RigidBodyData rb = currentFrame.RigidBodies[i];
+                    currentlyTracked = rb.Tracked;
                     // get the hashcode of the id for later displaying in grid form
                     int keyID = rb.ID.GetHashCode();
                     if (rigidBodiesIDtoName.ContainsKey(keyID))
                     {
                         string name = (string)rigidBodiesIDtoName[keyID];
                         htRigidBodiesNameToBody[name] = rb;
+                        // THIS MAY NOT BE NEEDED NOW AS JUST UPDATING THE HT WITH THE STRING EQUAL TO THE NAME
                         if (name.Equals("robotBase")) robotBase = rb;
                         else if (name.Equals("robotTip")) robotTip = rb;
 
@@ -550,6 +634,31 @@ namespace robotTracking
                 getRelativeTipInfo();
 
             }
+        }
+
+        public void testAlphaValues()
+        {
+            float alpha = 0.005f;
+            float totalDiff = 0f;
+            float meanDiff;
+            foreach (DataPoint currentDataPoint in storedTestData)
+            {
+                float[] currentMotorAngles = currentDataPoint.motorAngles;
+                float[] realPositionMatch = currentDataPoint.relativeTipPosition;
+
+                float[] regressionPositionMatch = NWRegression(currentMotorAngles, RegressionInput.MOTORS, alpha);
+
+                float xDiff = regressionPositionMatch[0] - realPositionMatch[0];
+                float yDiff = regressionPositionMatch[1] - realPositionMatch[1];
+                float zDiff = regressionPositionMatch[2] - realPositionMatch[2];
+
+                float diff = (float)(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2) + Math.Pow(zDiff, 2));
+                diff = (float)Math.Sqrt(diff);
+
+                totalDiff += diff;
+
+            }
+            meanDiff = totalDiff / storedTestData.Count;
         }
 
 
@@ -591,7 +700,7 @@ namespace robotTracking
             {
                 pausedCalibration = true;
                 // trim the last value from the calibration data as it shouldn't count
-                testData.RemoveAt(testData.Count - 1);
+                newCalibrationData.RemoveAt(newCalibrationData.Count - 1);
                 Console.WriteLine("Calibration has been paused due to lack of motion");
             }
 
@@ -607,10 +716,10 @@ namespace robotTracking
         // Check if not moving by taking the last two data points and checking if the difference is minimal
         private bool notMoving()
         {
-            if (testData.Count < 2) return false;
+            if (newCalibrationData.Count < 2) return false;
 
-            DataPoint currentDataPoint = testData[testData.Count - 1];
-            DataPoint lastDataPoint = testData[testData.Count - 2];
+            DataPoint currentDataPoint = newCalibrationData[newCalibrationData.Count - 1];
+            DataPoint lastDataPoint = newCalibrationData[newCalibrationData.Count - 2];
 
             float xdiff = Math.Abs(currentDataPoint.relativeTipPosition[0] - lastDataPoint.relativeTipPosition[0]);
             float ydiff = Math.Abs(currentDataPoint.relativeTipPosition[1] - lastDataPoint.relativeTipPosition[1]);
@@ -669,24 +778,30 @@ namespace robotTracking
             // lock so it doesn't change as adding it to the list of data points
             lock(syncLock)
             {
+                if (!currentlyTracked)
+                {
+                    Console.WriteLine("not logged a data point due to untracked rigid body");
+                    return;
+                }
                 newDataPoint.setMotorAngles(motorAngles);
                 newDataPoint.setTipOrientation(relativeTipAngles);
                 newDataPoint.setTipPos(relativeTipPos);
 
-                testData.Add(newDataPoint);
+                newCalibrationData.Add(newDataPoint);
             }
         }
 
         private void saveDataXML(string filename)
         {
-            TextWriter writer = new StreamWriter(filename);
-            if(!dummyExperiment)
+            if(dummyExperiment)
             {
-                ser.Serialize(writer, testData);
-                Console.WriteLine("should have written " + filename);
+                return;
             }
 
+            TextWriter writer = new StreamWriter(filename);
+            ser.Serialize(writer, newCalibrationData);
             writer.Close();
+            Console.WriteLine("should have written to " + filename);
         }
 
         public static T DeepClone<T>(T obj)

@@ -138,10 +138,12 @@ namespace robotTracking
                         this.Invoke(updateUICB);
                         Thread.Sleep(15);
                     }
-                    catch (System.Exception ex)
+                    catch (Exception ex)
                     {
-                        OutputMessage(ex.Message);
-                        break;
+                        Console.WriteLine("thread abort excpetion caught");
+                        //OutputMessage(ex.Message);
+                        Thread.ResetAbort();
+                        //break;
                     }
                 }
             });
@@ -885,7 +887,11 @@ namespace robotTracking
             mApplicationRunning = false;
 
             if (UIUpdateThread.IsAlive)
+            {
                 UIUpdateThread.Abort();
+                UIUpdateThread.Join();
+            }
+               
 
             m_NatNet.Uninitialize();
 
@@ -1144,7 +1150,16 @@ namespace robotTracking
 
         private void runCalibrationButton_Click(object sender, EventArgs e)
         {
-            startCalibration(false);
+            if (!calibrating) {
+                startCalibration(false);
+                runTestPointsButton.Enabled = false;
+                runCalibrationButton.Text = "Stop calibration";
+            }
+            else if(calibrating && experiment != null)
+            {
+                experiment.stopCalibration();
+                runCalibrationButton.Text = "Run calibration";
+            }
         }
 
         //private void runCalibration()
@@ -1174,17 +1189,18 @@ namespace robotTracking
 
             if (calibrating)
             {
-                runCalibrationButton.Enabled = false;
-                runTestPointsButton.Enabled = false;
+                //runCalibrationButton.Enabled = false;
+                //runTestPointsButton.Enabled = false;
                 pauseCalibrationButton.Enabled = true;
-                stopCalibrationButton.Enabled = true;
+                //stopCalibrationButton.Enabled = true;
             }
             else
             {
                 runCalibrationButton.Enabled = true;
                 runTestPointsButton.Enabled = true;
                 pauseCalibrationButton.Enabled = false;
-                continueCalibrationButton.Enabled = false;
+                //continueCalibrationButton.Enabled = false;
+                pauseCalibrationButton.Text = "Pause calibration";
 
             }
 
@@ -1198,13 +1214,13 @@ namespace robotTracking
             }
         }
 
+        // just merge this into the get all data button???
         private void getCalibrationButton_Click(object sender, EventArgs e)
         {
             //make a dummy experiment, for testing only
             if (experiment == null) experiment = new Experiment(false);
 
-            bool success = experiment.getCalibrationData();
-            if (success)
+            if (experiment.getCalibrationData())
             {
                 OutputMessage("Calibration data read in successdully");
                 testRegression.Enabled = true;
@@ -1232,29 +1248,49 @@ namespace robotTracking
         {
             if (calibrating)
             {
-                pausedCalibration = true;
+                if(!pausedCalibration)
+                {
+                    pausedCalibration = true;
+                    pauseCalibrationButton.Text = "Continue calibration";
+                    experiment.pauseCalibration();
+                }
+                else
+                {
+                    pausedCalibration = false;
+                    pauseCalibrationButton.Text = "Pause calibration";
+                    experiment.resumeCalibration();
+                }
 
-                experiment.pauseCalibration();
-                pauseCalibrationButton.Enabled = false;
+                //pauseCalibrationButton.Enabled = false;
 
-                continueCalibrationButton.Enabled = true;
+                //continueCalibrationButton.Enabled = true;
             }
         }
 
-        private void continueCalibrationButton_Click(object sender, EventArgs e)
-        {
-            if (pausedCalibration && calibrating)
-            {
-                pausedCalibration = false;
-                pauseCalibrationButton.Enabled = true;
-                continueCalibrationButton.Enabled = false;
-                experiment.resumeCalibration();
-            }
-        }
+        //private void continueCalibrationButton_Click(object sender, EventArgs e)
+        //{
+        //    if (pausedCalibration && calibrating)
+        //    {
+        //        pausedCalibration = false;
+        //        pauseCalibrationButton.Enabled = true;
+        //        continueCalibrationButton.Enabled = false;
+        //        experiment.resumeCalibration();
+        //    }
+        //}
 
         private void runTestPointsButton_Click(object sender, EventArgs e)
         {
-            startCalibration(true);
+            if(!calibrating)
+            {
+                startCalibration(true);
+                runCalibrationButton.Enabled = false;
+                runTestPointsButton.Text = "Stop test points";
+            }
+            else if(calibrating && experiment != null)
+            {
+                experiment.stopCalibration();
+                runTestPointsButton.Text = "Run test points";
+            }
         }
 
         private void startCalibration(bool testPoints)
@@ -1296,6 +1332,8 @@ namespace robotTracking
             // then call the stopCalibration method if the button is clicked while calibrating
             // will of course need to use the invokeRequired technique if changing the text as it is on a different thread
             calibrating = true;
+            pausedCalibration = false;
+            experiment.resumeCalibration();
             changeCalibrationButtons(this, EventArgs.Empty);
 
             experiment.calibrate(testPoints);
@@ -1306,6 +1344,41 @@ namespace robotTracking
 
         }
 
+
+        private bool getAllData()
+        {
+            //make a dummy experiment, for testing only
+            if (experiment == null) experiment = new Experiment(false);
+            int cnt = 0;
+
+            if (!experiment.getTestData())
+            {
+                cnt++;
+                OutputMessage("Could not read test data in, must perform test data sampling");
+            }
+            if (!experiment.getCalibrationData())
+            {
+                cnt++;
+                OutputMessage("Could not read calibration data, must perform calibration");
+            }
+            if (cnt == 0)
+            {
+                OutputMessage("Successfully read in both calibration and test data");
+                testRegression.Enabled = true;
+                return true;
+            }
+            else return false;
+
+        }
+
+        // this and get calibration data should be merged into one function?
+        private void getAllDataButton_Click(object sender, EventArgs e)
+        {
+            if(getAllData())
+            {
+                // test the different alpha values
+            }
+        }
 
         public int HighWord(int number)
         {

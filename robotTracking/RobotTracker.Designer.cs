@@ -62,14 +62,12 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tipToBaseTestLabel = new System.Windows.Forms.Label();
             this.zeroMotorsButton = new System.Windows.Forms.Button();
-            this.stopCalibrationButton = new System.Windows.Forms.Button();
             this.getCalibrationButton = new System.Windows.Forms.Button();
             this.testRegression = new System.Windows.Forms.Button();
             this.pauseCalibrationButton = new System.Windows.Forms.Button();
-            this.continueCalibrationButton = new System.Windows.Forms.Button();
             this.logZeroButton = new System.Windows.Forms.Button();
             this.runTestPointsButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.getAllDataButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -316,7 +314,7 @@
             // 
             this.runCalibrationButton.Location = new System.Drawing.Point(590, 141);
             this.runCalibrationButton.Name = "runCalibrationButton";
-            this.runCalibrationButton.Size = new System.Drawing.Size(93, 21);
+            this.runCalibrationButton.Size = new System.Drawing.Size(90, 21);
             this.runCalibrationButton.TabIndex = 22;
             this.runCalibrationButton.Text = "Run calibration";
             this.runCalibrationButton.UseVisualStyleBackColor = true;
@@ -382,17 +380,6 @@
             this.zeroMotorsButton.UseVisualStyleBackColor = true;
             this.zeroMotorsButton.Click += new System.EventHandler(this.zeroMotorsButton_Click);
             // 
-            // stopCalibrationButton
-            // 
-            this.stopCalibrationButton.Enabled = false;
-            this.stopCalibrationButton.Location = new System.Drawing.Point(689, 139);
-            this.stopCalibrationButton.Name = "stopCalibrationButton";
-            this.stopCalibrationButton.Size = new System.Drawing.Size(93, 23);
-            this.stopCalibrationButton.TabIndex = 29;
-            this.stopCalibrationButton.Text = "Stop calibration";
-            this.stopCalibrationButton.UseVisualStyleBackColor = true;
-            this.stopCalibrationButton.Click += new System.EventHandler(this.stopCalibrationButton_Click);
-            // 
             // getCalibrationButton
             // 
             this.getCalibrationButton.Location = new System.Drawing.Point(689, 94);
@@ -425,17 +412,6 @@
             this.pauseCalibrationButton.UseVisualStyleBackColor = true;
             this.pauseCalibrationButton.Click += new System.EventHandler(this.pauseCalibrationButton_Click);
             // 
-            // continueCalibrationButton
-            // 
-            this.continueCalibrationButton.Enabled = false;
-            this.continueCalibrationButton.Location = new System.Drawing.Point(689, 168);
-            this.continueCalibrationButton.Name = "continueCalibrationButton";
-            this.continueCalibrationButton.Size = new System.Drawing.Size(93, 42);
-            this.continueCalibrationButton.TabIndex = 33;
-            this.continueCalibrationButton.Text = "Continue calibration";
-            this.continueCalibrationButton.UseVisualStyleBackColor = true;
-            this.continueCalibrationButton.Click += new System.EventHandler(this.continueCalibrationButton_Click);
-            // 
             // logZeroButton
             // 
             this.logZeroButton.Enabled = false;
@@ -448,7 +424,7 @@
             // 
             // runTestPointsButton
             // 
-            this.runTestPointsButton.Location = new System.Drawing.Point(587, 262);
+            this.runTestPointsButton.Location = new System.Drawing.Point(689, 141);
             this.runTestPointsButton.Name = "runTestPointsButton";
             this.runTestPointsButton.Size = new System.Drawing.Size(93, 22);
             this.runTestPointsButton.TabIndex = 35;
@@ -456,28 +432,27 @@
             this.runTestPointsButton.UseVisualStyleBackColor = true;
             this.runTestPointsButton.Click += new System.EventHandler(this.runTestPointsButton_Click);
             // 
-            // button1
+            // getAllDataButton
             // 
-            this.button1.Location = new System.Drawing.Point(689, 258);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(93, 54);
-            this.button1.TabIndex = 36;
-            this.button1.Text = "Get all data and test bandwidth";
-            this.button1.UseVisualStyleBackColor = true;
+            this.getAllDataButton.Location = new System.Drawing.Point(689, 168);
+            this.getAllDataButton.Name = "getAllDataButton";
+            this.getAllDataButton.Size = new System.Drawing.Size(93, 42);
+            this.getAllDataButton.TabIndex = 36;
+            this.getAllDataButton.Text = "Get all data and test bandwidth";
+            this.getAllDataButton.UseVisualStyleBackColor = true;
+            this.getAllDataButton.Click += new System.EventHandler(this.getAllDataButton_Click);
             // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.getAllDataButton);
             this.Controls.Add(this.runTestPointsButton);
             this.Controls.Add(this.logZeroButton);
-            this.Controls.Add(this.continueCalibrationButton);
             this.Controls.Add(this.pauseCalibrationButton);
             this.Controls.Add(this.testRegression);
             this.Controls.Add(this.getCalibrationButton);
-            this.Controls.Add(this.stopCalibrationButton);
             this.Controls.Add(this.zeroMotorsButton);
             this.Controls.Add(this.tipToBaseTestLabel);
             this.Controls.Add(this.label7);
@@ -549,14 +524,12 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label tipToBaseTestLabel;
         private System.Windows.Forms.Button zeroMotorsButton;
-        private System.Windows.Forms.Button stopCalibrationButton;
         private System.Windows.Forms.Button getCalibrationButton;
         private System.Windows.Forms.Button testRegression;
         private System.Windows.Forms.Button pauseCalibrationButton;
-        private System.Windows.Forms.Button continueCalibrationButton;
         private System.Windows.Forms.Button logZeroButton;
         private System.Windows.Forms.Button runTestPointsButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button getAllDataButton;
     }
 }
 
