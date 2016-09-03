@@ -141,7 +141,7 @@ namespace robotTracking
                     catch (Exception ex)
                     {
                         Console.WriteLine("thread abort excpetion caught");
-                        //OutputMessage(ex.Message);
+                        OutputMessage(ex.Message);
                         Thread.ResetAbort();
                         //break;
                     }
@@ -1238,9 +1238,13 @@ namespace robotTracking
             // make a dummy experiment if there isn't a proper one
             if (experiment == null) experiment = new Experiment(false);
 
-            float[] desiredPosition = new float[] { 0.2942f, 0.0680f, -0.1095f };
-            float[] output = experiment.testRegression(desiredPosition, Experiment.RegressionInput.POSITION);
+            //float[] desiredMotors = new float[] { 90, 90, 90, 105 };
+            float[] desiredPosition = new float[] { 0.2650687f, 0.05540113f, -0.137597382f };
 
+            //double[] output = experiment.testRegression(desiredMotors, Experiment.RegressionInput.MOTORS);
+            double[] output = experiment.testRegression(desiredPosition, Experiment.RegressionInput.POSITION);
+
+            //Console.WriteLine("output points are {0}, {1}, {2}", output[0], output[1], output[3]);
             Console.WriteLine("output motor angles are {0}, {1}, {2}, {3}", output[0], output[1], output[2], output[3]);
         }
 
@@ -1377,6 +1381,7 @@ namespace robotTracking
             if(getAllData())
             {
                 // test the different alpha values
+                experiment.getBandwidthErrorPlot();
             }
         }
 

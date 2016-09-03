@@ -33,14 +33,15 @@ namespace robotTracking
         private object syncLock;
         private bool calibrating = false;
         private bool pausedCalibration = false; // this can indicate the pause of the calibration and the test stage
-        private const float startingAlpha = 0.005f;
+        private const float startingAlpha = 0.0011f;
+        private StringBuilder csv = new StringBuilder();
 
         private Hashtable htRigidBodiesNameToBody = new Hashtable();
         private double distanceBetween;
 
         private XmlSerializer ser = new XmlSerializer(typeof(CalibrationData));
         private string calibrationFilename = "calibrationData.xml";
-        private string testDataFilename = "testData.xml";
+        private string testDataFilename = "testPoints.xml";
         private bool currentlyTracked;
 
         private NatNetClientML m_NatNet;
@@ -152,23 +153,23 @@ namespace robotTracking
             return distanceBetween;
         }
 
-        public float[] testRegression(float[] inputVectorTarget, RegressionInput inputType)
+        public double[] testRegression(float[] inputVectorTarget, RegressionInput inputType)
         {
-            float[] output = NWRegression(inputVectorTarget, inputType);
-            if(controller.isConnected())
-            {
-                controller.setMotorAnglesTest(output);
-            }
+            double[] output = NWRegression(inputVectorTarget, inputType);
+            //if(controller.isConnected())
+            //{
+            //    controller.setMotorAnglesTest(output);
+            //}
 
             return output;
         }
 
-        private float[] NWRegression(float[] inputVectorTarget, RegressionInput inputType, float alpha = startingAlpha)
+        private double[] NWRegression(float[] inputVectorTarget, RegressionInput inputType, float alpha = startingAlpha)
         {
             int numOutputDimensions = getNumOutputDimensions(inputType);
-            float[] outputVector = new float[numOutputDimensions];
-            float[] sumNumerator = new float[numOutputDimensions];
-            float sumDenominator = 0;
+            double[] outputVector = new double[numOutputDimensions];
+            double[] sumNumerator = new double[numOutputDimensions];
+            double sumDenominator = 0;
 
             // If not using KD tree, loop through entire set of data
             for(int i = 0; i < storedCalibrationData.Count; i++)
@@ -176,7 +177,7 @@ namespace robotTracking
                 float kernelInput = getKernelInput(i, inputType, alpha, inputVectorTarget);
                 float[] currentVectorOutput = getCurrentVectorOutput(i, inputType);
                 //Console.WriteLine("current vector output is  :");
-                //for(int n = 0; n< currentVectorOutput.Length; n++)
+                //for (int n = 0; n < currentVectorOutput.Length; n++)
                 //{
                 //    Console.Write(currentVectorOutput[n] + "   ");
                 //}
@@ -189,6 +190,7 @@ namespace robotTracking
                     sumNumerator[k] += currentVectorOutput[k] * kernelFunction(kernelInput);
                 }
                 sumDenominator += kernelFunction(kernelInput);
+                //Console.WriteLine("sum denominator is " + sumDenominator);
             }
             
             for(int k = 0; k < numOutputDimensions; k++)
@@ -201,10 +203,13 @@ namespace robotTracking
         }
 
 
-        private float kernelFunction(float kernelInput)
+        private double kernelFunction(float kernelInput)
         {
-            float exponenet = -0.5f * (float)Math.Pow(kernelInput, 2);
-            float output = inverseSqrt2Pi * (float)Math.Exp(exponenet);
+            double exponent = -0.5 * Math.Pow(kernelInput, 2);
+            //Console.WriteLine("exponent is " + exponent);
+            double output = inverseSqrt2Pi * Math.Exp(exponent);
+            //Console.WriteLine("e to the exponent is " + Math.Exp(exponent));
+            //Console.WriteLine("output is " + output);
 
             return output;
         }
@@ -280,18 +285,22 @@ namespace robotTracking
             {
                 difference += (float)Math.Pow((inputVectorTarget[j] - currentVector[j]), 2);
             }
+            //Console.WriteLine("difference is " + difference);
+
             difference = (float)Math.Sqrt(difference);
+
+            //Console.WriteLine("difference is " + difference);
+            //Console.WriteLine("alpha is " + alpha);
 
             kernelInput = difference / alpha;
 
             //Console.WriteLine("the kernel parameters are:");
-            //for(int m = 0; m < inputVectorTarget.Length; m++)
+            //for (int m = 0; m < inputVectorTarget.Length; m++)
             //{
             //    Console.WriteLine(inputVectorTarget[m] + " : " + currentVector[m]);
             //}
 
             //Console.WriteLine("and the kernel input was   " + kernelInput);
-
 
             return kernelInput;
             
@@ -517,8 +526,8 @@ namespace robotTracking
             }
             else return false;
             file.Close();
-            for (int i = 0; i < storedCalibrationData.Count; i++)
-            {
+            //for (int i = 0; i < storedCalibrationData.Count; i++)
+            //{
                 //Console.WriteLine("for data point number " + i);
                 //Console.WriteLine("motor angles:");
                 //for (int j = 0; j < storedCalibrationData[i].motorAngles.Length; j++)
@@ -531,9 +540,9 @@ namespace robotTracking
                 //    Console.WriteLine(storedCalibrationData[i].relativeTipPosition[j] + "   ");
                 //}
                 //Console.WriteLine();
-            }
+            //}
 
-            if (storedCalibrationData.Count <= 0)
+            if (dataReadIn.Count <= 0)
             {
                 return false;
             }
@@ -636,9 +645,20 @@ namespace robotTracking
             }
         }
 
-        public void testAlphaValues()
+        public void getBandwidthErrorPlot()
         {
-            float alpha = 0.005f;
+            float alpha = 0;
+            for (int i = 0; i < 50; i++) {
+                alpha += 0.001f;
+                //testAlphaValueFindPositions(alpha);
+                testAlphaValueFindMotors(alpha);
+            }
+
+            File.WriteAllText("bandwidthResults.csv", csv.ToString());
+        }
+
+        private void testAlphaValueFindPositions(float alpha)
+        {
             float totalDiff = 0f;
             float meanDiff;
             foreach (DataPoint currentDataPoint in storedTestData)
@@ -646,11 +666,13 @@ namespace robotTracking
                 float[] currentMotorAngles = currentDataPoint.motorAngles;
                 float[] realPositionMatch = currentDataPoint.relativeTipPosition;
 
-                float[] regressionPositionMatch = NWRegression(currentMotorAngles, RegressionInput.MOTORS, alpha);
 
-                float xDiff = regressionPositionMatch[0] - realPositionMatch[0];
-                float yDiff = regressionPositionMatch[1] - realPositionMatch[1];
-                float zDiff = regressionPositionMatch[2] - realPositionMatch[2];
+                double[] regressionPositionMatch = NWRegression(currentMotorAngles, RegressionInput.MOTORS, alpha);
+                Console.WriteLine("regression position match starts with " + regressionPositionMatch[0]);
+
+                double xDiff = regressionPositionMatch[0] - realPositionMatch[0];
+                double yDiff = regressionPositionMatch[1] - realPositionMatch[1];
+                double zDiff = regressionPositionMatch[2] - realPositionMatch[2];
 
                 float diff = (float)(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2) + Math.Pow(zDiff, 2));
                 diff = (float)Math.Sqrt(diff);
@@ -659,7 +681,42 @@ namespace robotTracking
 
             }
             meanDiff = totalDiff / storedTestData.Count;
+            string newLine = String.Format("{0},{1}", alpha, meanDiff);
+            csv.AppendLine(newLine);
         }
+
+
+        private void testAlphaValueFindMotors(float alpha)
+        {
+            float totalDiff = 0f;
+            float meanDiff;
+            foreach (DataPoint currentDataPoint in storedTestData)
+            {
+                float[] currentPosition = currentDataPoint.relativeTipPosition;
+                float[] realMotorsMatch = currentDataPoint.motorAngles;
+
+
+                double[] regressionMotorsMatch = NWRegression(currentPosition, RegressionInput.POSITION, alpha);
+                //Console.WriteLine("regression motor match starts with " + regressionPositionMatch[0]);
+
+                double m1Diff = regressionMotorsMatch[0] - realMotorsMatch[0];
+                double m2Diff = regressionMotorsMatch[1] - realMotorsMatch[1];
+                double m3Diff = regressionMotorsMatch[2] - realMotorsMatch[2];
+                double m4Diff = regressionMotorsMatch[3] - realMotorsMatch[3];
+
+
+                float diff = (float)(Math.Pow(m1Diff, 2) + Math.Pow(m2Diff, 2) + Math.Pow(m3Diff, 2) + Math.Pow(m4Diff, 2));
+                diff = (float)Math.Sqrt(diff);
+
+                totalDiff += diff;
+
+            }
+            meanDiff = totalDiff / storedTestData.Count;
+            string newLine = String.Format("{0},{1}", alpha, meanDiff);
+            csv.AppendLine(newLine);
+        }
+
+
 
 
         private void getRelativeTipInfo()
