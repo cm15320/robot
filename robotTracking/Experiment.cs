@@ -44,6 +44,7 @@ namespace robotTracking
         private string calibrationFilename = "calibrationData.xml";
         private string testDataFilename = "testPoints.xml";
         private bool currentlyTracked;
+        
 
         private NatNetClientML m_NatNet;
 
@@ -105,6 +106,63 @@ namespace robotTracking
 
             initialiseMotors();
         }
+
+
+        private void convertTargetPoint(float[] targetPos, RotationFromStartPoint baseRotation)
+        {
+            float[] baseRads = baseRotation.getRads();
+
+            float[] multiplyByRotationMatrix(targetPos, baseRotation);
+        }
+
+
+        private float[][] buildRotationMatrix(float[] baseRotation)
+        {
+            float alpha = baseRotation[0];
+            float beta = baseRotation[1];
+            float gamma = baseRotation[2];
+
+            float[] firstLineRotMatrix = new float[]
+            {
+                (float)(Math.Cos(alpha) * Math.Cos(gamma)),
+                (float)((Math.Cos(gamma) * Math.Sin(alpha) * Math.Sin(beta)) - (Math.Cos(alpha) * Math.Sin(gamma))),
+                (float)((Math.Cos(alpha) * Math.Cos(gamma) * Math.Sin(beta)) + (Math.Sin(alpha) * Math.Sin(gamma)))
+            };
+
+            float[] secondLineRotMatrix = new float[]
+            {
+                (float)(Math.Cos(beta) * Math.Sin(gamma)),
+                (float)((Math.Cos(alpha) * Math.Cos(gamma)) + (Math.Sin(alpha) * Math.Sin(beta) + Math.Sin(gamma))),
+                (float)((-1 * Math.Cos(gamma) * Math.Sin(alpha)) + (Math.Cos(alpha) * Math.Sin(beta) * Math.Sin(gamma)))
+            };
+
+            float[] thirdLineRotMatrix = new float[]
+            {
+                (float)(-1 * Math.Sin(beta)),
+                (float)(Math.Cos(beta) * Math.Sin(alpha)),
+                (float)(Math.Cos(alpha) * Math.Cos(beta))
+            };
+
+            float[][] rotationMatrix = new float[][] { firstLineRotMatrix, secondLineRotMatrix, thirdLineRotMatrix };
+
+            return rotationMatrix;
+        }
+
+        private float[] multiplyByRotationMatrix(float[][] rotationMatrix, float[] targetPos)
+        {
+            float[] solution = new float[targetPos.Length];
+
+            for(int i = 0; i < rotationMatrix.Length; i++)
+            {
+                for (int j = 0; j < rotationMatrix[0].Length; j++)
+                {
+
+                }
+            }
+
+            return solution;
+        }
+
 
         // perhaps put a lock on this in case the currentFrame object is changed mid-read???????
         public void update(NatNetML.FrameOfMocapData newCurrentFrame)
@@ -258,6 +316,7 @@ namespace robotTracking
 
             return output;
         }
+
 
 
         private float[] getcurrentYValue(int i, RegressionInput inputType)
@@ -927,12 +986,44 @@ namespace robotTracking
             }
         }
 
+
         public enum RegressionInput
         {
             MOTORS,
             POSITION,
             ORIENTATION,
             BOTH
+        }
+
+        public class RotationFromStartPoint
+        {
+            private float xRotDeg;
+            private float yRotDeg;
+            private float zRotDeg;
+
+            private float[] rotationRads = new float[3];
+
+            public RotationFromStart(float xRot, float yRot, float zRot)
+            {
+                this.xRotDeg = xRot;
+                this.yRotDeg = yRot;
+                this.zRotDeg = zRot;
+
+                convertRads();
+            }
+
+            private void convertRads()
+            {
+                rotationRads[0] = xRotDeg * ((float)Math.PI / 180);
+                rotationRads[1] = yRotDeg * ((float)Math.PI / 180);
+                rotationRads[2] = zRotDeg * ((float)Math.PI / 180);
+            }
+
+            public float[] getRads()
+            {
+                return rotationRads;
+            }
+
         }
     }
 }
