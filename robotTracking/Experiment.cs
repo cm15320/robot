@@ -35,7 +35,7 @@ namespace robotTracking
         private bool pausedCalibration = false; // this can indicate the pause of the calibration and the test stage
         private const float startingAlpha = 0.0008f;
         private StringBuilder csv = new StringBuilder();
-        private const int motorScaler = 10000;
+        private int motorScaler = 100;
 
         private Hashtable htRigidBodiesNameToBody = new Hashtable();
         private double distanceBetween;
@@ -108,13 +108,58 @@ namespace robotTracking
         }
 
 
-        private void convertTargetPoint(float[] targetPos, RotationFromStartPoint baseRotation)
+        private float[] convertTargetPoint(float[] targetPos, RotationFromStartPoint baseRotation)
         {
             float[] baseRads = baseRotation.getRads();
 
-            float[] multiplyByRotationMatrix(targetPos, baseRotation);
+            float[][] rotationMatrix = buildRotationMatrix(baseRads);
+            float[] convertedPoint = multiplyByRotationMatrix(rotationMatrix, targetPos);
+
+            roundToMil(convertedPoint);
+            return convertedPoint;
         }
 
+        private void roundToMil(float[] point)
+        {
+            for(int i = 0; i < point.Length; i++)
+            {
+                point[i] = (float)Math.Round(point[i], 3);
+            }
+        }
+
+        private void featureScaling()
+        {
+            int numMotors = 4;
+            float[] maxAngles = new float[] { 0, 0, 0, 0 };
+            float[] minAngles = new float[] { 180, 180, 180, 180 };
+            float maxDifference = 0;
+
+            for(int i = 0; i < numMotors; i++)
+            {
+                foreach(DataPoint currentDataPoint in storedCalibrationData)
+                {
+                    if(currentDataPoint.motorAngles[i] > maxAngles[i])
+                    {
+                        maxAngles[i] = currentDataPoint.motorAngles[i];
+                    }
+                    if(currentDataPoint.motorAngles[i] < minAngles[i])
+                    {
+                        minAngles[i] = currentDataPoint.motorAngles[i];
+                    }
+                }
+            }
+
+            for(int i = 0; i < maxAngles.Length; i++)
+            {
+                float difference = maxAngles[i] - minAngles[i];
+                if (difference > maxDifference)
+                {
+                    maxDifference = difference;
+                }
+            }
+
+            motorScaler = (int)maxDifference;
+        }
 
         private float[][] buildRotationMatrix(float[] baseRotation)
         {
@@ -124,7 +169,7 @@ namespace robotTracking
 
             float[] firstLineRotMatrix = new float[]
             {
-                (float)(Math.Cos(alpha) * Math.Cos(gamma)),
+                (float)(Math.Cos(beta) * Math.Cos(gamma)),
                 (float)((Math.Cos(gamma) * Math.Sin(alpha) * Math.Sin(beta)) - (Math.Cos(alpha) * Math.Sin(gamma))),
                 (float)((Math.Cos(alpha) * Math.Cos(gamma) * Math.Sin(beta)) + (Math.Sin(alpha) * Math.Sin(gamma)))
             };
@@ -132,7 +177,7 @@ namespace robotTracking
             float[] secondLineRotMatrix = new float[]
             {
                 (float)(Math.Cos(beta) * Math.Sin(gamma)),
-                (float)((Math.Cos(alpha) * Math.Cos(gamma)) + (Math.Sin(alpha) * Math.Sin(beta) + Math.Sin(gamma))),
+                (float)((Math.Cos(alpha) * Math.Cos(gamma)) + (Math.Sin(alpha) * Math.Sin(beta) * Math.Sin(gamma))),
                 (float)((-1 * Math.Cos(gamma) * Math.Sin(alpha)) + (Math.Cos(alpha) * Math.Sin(beta) * Math.Sin(gamma)))
             };
 
@@ -148,6 +193,39 @@ namespace robotTracking
             return rotationMatrix;
         }
 
+
+        public void testMultiplyMatrix()
+        {
+            float[] vector = new float[] { 2, 1, 3 };
+            float[][] matrix = new float[][] { new float[] {1, 2, 3 }, new float[] { 4, 5, 6 }, new float[] { 7, 8, 9} };
+
+            float[] solution = multiplyByRotationMatrix(matrix, vector);
+
+
+            Console.WriteLine("solution is:");
+            for(int i = 0; i < solution.Length; i++)
+            {
+                Console.WriteLine(solution[i]);
+            }
+        }
+
+
+        public void testRotation()
+        {
+            float[] targetPos = new float[] { 0, 1, 0 };
+            RotationFromStartPoint rotation = new RotationFromStartPoint(45, 0, 45);
+
+
+            float[] solution = convertTargetPoint(targetPos, rotation);
+
+            Console.WriteLine("solution is:");
+            for(int i = 0; i < solution.Length; i++)
+            {
+                Console.WriteLine(solution[i]);
+            }
+        }
+
+
         private float[] multiplyByRotationMatrix(float[][] rotationMatrix, float[] targetPos)
         {
             float[] solution = new float[targetPos.Length];
@@ -156,7 +234,7 @@ namespace robotTracking
             {
                 for (int j = 0; j < rotationMatrix[0].Length; j++)
                 {
-
+                    solution[i] = solution[i] + (rotationMatrix[i][j] * targetPos[j]);
                 }
             }
 
@@ -686,7 +764,14 @@ namespace robotTracking
 
         public bool getCalibrationData()
         {
-
+            bool success = getData(calibrationFilename);
+            if(success)
+            {
+                featureScaling();
+                Console.WriteLine("feature scaling result is " + motorScaler);
+                //testMultiplyMatrix();
+                testRotation();
+            }
             return getData(calibrationFilename);
 
 
@@ -1003,7 +1088,7 @@ namespace robotTracking
 
             private float[] rotationRads = new float[3];
 
-            public RotationFromStart(float xRot, float yRot, float zRot)
+            public RotationFromStartPoint(float xRot, float yRot, float zRot)
             {
                 this.xRotDeg = xRot;
                 this.yRotDeg = yRot;
