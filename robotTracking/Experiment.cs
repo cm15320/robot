@@ -33,8 +33,9 @@ namespace robotTracking
         private object syncLock;
         private bool calibrating = false;
         private bool pausedCalibration = false; // this can indicate the pause of the calibration and the test stage
-        private const float startingAlpha = 0.0011f;
+        private const float startingAlpha = 0.0008f;
         private StringBuilder csv = new StringBuilder();
+        private const int motorScaler = 10000;
 
         private Hashtable htRigidBodiesNameToBody = new Hashtable();
         private double distanceBetween;
@@ -153,15 +154,45 @@ namespace robotTracking
             return distanceBetween;
         }
 
-        public double[] testRegression(float[] inputVectorTarget, RegressionInput inputType)
+        public double[] testRegression(float[] inputVectorTarget, RegressionInput inputType, float bandwidth = startingAlpha)
         {
-            double[] output = NWRegression(inputVectorTarget, inputType);
+            double[] output = NWRegression(inputVectorTarget, inputType, bandwidth);
             //if(controller.isConnected())
             //{
             //    controller.setMotorAnglesTest(output);
             //}
 
             return output;
+        }
+
+        private void convertMotors(float[] origMotorAngles, bool reduce)
+        {
+            for(int i = 0; i < origMotorAngles.Length; i++)
+            {
+                if (reduce) origMotorAngles[i] = origMotorAngles[i] / motorScaler;
+                else origMotorAngles[i] = origMotorAngles[i] * motorScaler;
+            }
+        }
+
+        private void convertOutputMotors(double[] origMotorAngles, bool reduce)
+        {
+            for (int i = 0; i < origMotorAngles.Length; i++)
+            {
+                if (reduce) origMotorAngles[i] = origMotorAngles[i] / motorScaler;
+                else origMotorAngles[i] = origMotorAngles[i] * motorScaler;
+            }
+
+        }
+
+        private float[] getCopyVector(float[] inputVectorTarget)
+        {
+            float[] copyVector = new float[inputVectorTarget.Length];
+            for (int i = 0; i < copyVector.Length; i++)
+            {
+                copyVector[i] = inputVectorTarget[i];
+            }
+
+            return copyVector;
         }
 
         private double[] NWRegression(float[] inputVectorTarget, RegressionInput inputType, float alpha = startingAlpha)
@@ -171,23 +202,31 @@ namespace robotTracking
             double[] sumNumerator = new double[numOutputDimensions];
             double sumDenominator = 0;
 
+            float[] newInputVector = getCopyVector(inputVectorTarget);
+
+
+            if(inputType == RegressionInput.MOTORS)
+            {
+                convertMotors(newInputVector, true);
+            }
+
             // If not using KD tree, loop through entire set of data
             for(int i = 0; i < storedCalibrationData.Count; i++)
             {
-                float kernelInput = getKernelInput(i, inputType, alpha, inputVectorTarget);
-                float[] currentVectorOutput = getCurrentVectorOutput(i, inputType);
+                float kernelInput = getKernelInput(i, inputType, alpha, newInputVector);
+                float[] currentYValue = getcurrentYValue(i, inputType);
                 //Console.WriteLine("current vector output is  :");
-                //for (int n = 0; n < currentVectorOutput.Length; n++)
+                //for (int n = 0; n < currentYValue.Length; n++)
                 //{
-                //    Console.Write(currentVectorOutput[n] + "   ");
+                //    Console.Write(currentYValue[n] + "   ");
                 //}
                 //Console.WriteLine();
 
                 // work out the values for the numerator and denominator to be added to sum
                 //Console.WriteLine("output of kernel function is " + kernelFunction(kernelInput));
-                for (int k = 0; k < currentVectorOutput.Length; k++)
+                for (int k = 0; k < currentYValue.Length; k++)
                 {
-                    sumNumerator[k] += currentVectorOutput[k] * kernelFunction(kernelInput);
+                    sumNumerator[k] += currentYValue[k] * kernelFunction(kernelInput);
                 }
                 sumDenominator += kernelFunction(kernelInput);
                 //Console.WriteLine("sum denominator is " + sumDenominator);
@@ -197,6 +236,12 @@ namespace robotTracking
             {
                 outputVector[k] = sumNumerator[k] / sumDenominator;
             }
+
+            if (inputType != RegressionInput.MOTORS)
+            {
+                convertOutputMotors(outputVector, false);
+            }
+
 
             return outputVector;
 
@@ -215,7 +260,7 @@ namespace robotTracking
         }
 
 
-        private float[] getCurrentVectorOutput(int i, RegressionInput inputType)
+        private float[] getcurrentYValue(int i, RegressionInput inputType)
         {
             DataPoint currentDataPoint = storedCalibrationData[i];
             float[] currentVector;
@@ -230,12 +275,14 @@ namespace robotTracking
                 // Otherwise of course the output will need to be the motor angle vector so this will be the yi value
 
                 // again have to do this temporary conversion but will change this of course!!!!!!!!!!!!!
-                //currentVector = new float[4];
-                //currentVector[0] = currentDataPoint.motorAngles[0];
-                //currentVector[1] = currentDataPoint.motorAngles[1];
-                //currentVector[2] = currentDataPoint.motorAngles[2];
-                //currentVector[3] = currentDataPoint.motorAngles[3];
-                currentVector = currentDataPoint.motorAngles;
+                currentVector = new float[4];
+                currentVector[0] = currentDataPoint.motorAngles[0];
+                currentVector[1] = currentDataPoint.motorAngles[1];
+                currentVector[2] = currentDataPoint.motorAngles[2];
+                currentVector[3] = currentDataPoint.motorAngles[3];
+                convertMotors(currentVector, true);
+                //currentVector = currentDataPoint.motorAngles;
+
             }
 
             return currentVector;
@@ -247,6 +294,8 @@ namespace robotTracking
             DataPoint currentDataPoint = storedCalibrationData[i];
             float[] currentVector;
             float difference = 0, kernelInput;
+
+
             // this will be a lot shorter!!!!!!!!!!!!!!!!!!!!!!
             if (inputType == RegressionInput.MOTORS)
             {
@@ -258,6 +307,9 @@ namespace robotTracking
                 currentVector[1] = currentDataPoint.motorAngles[1];
                 currentVector[2] = currentDataPoint.motorAngles[2];
                 currentVector[3] = currentDataPoint.motorAngles[3];
+
+
+                convertMotors(currentVector, true);
             }
             else if (inputType == RegressionInput.POSITION)
             {
@@ -647,11 +699,12 @@ namespace robotTracking
 
         public void getBandwidthErrorPlot()
         {
-            float alpha = 0;
-            for (int i = 0; i < 50; i++) {
-                alpha += 0.001f;
-                //testAlphaValueFindPositions(alpha);
-                testAlphaValueFindMotors(alpha);
+            float alpha = 0.000f;
+            for (int i = 0; i < 50; i++)
+            {
+                alpha += 0.0001f;
+                testAlphaValueFindPositions(alpha);
+                //testAlphaValueFindMotors(alpha);
             }
 
             File.WriteAllText("bandwidthResults.csv", csv.ToString());
@@ -668,7 +721,8 @@ namespace robotTracking
 
 
                 double[] regressionPositionMatch = NWRegression(currentMotorAngles, RegressionInput.MOTORS, alpha);
-                Console.WriteLine("regression position match starts with " + regressionPositionMatch[0]);
+                //Console.WriteLine("real position match starts with " + realPositionMatch[0]);
+                //Console.WriteLine("regression position match starts with " + regressionPositionMatch[0]);
 
                 double xDiff = regressionPositionMatch[0] - realPositionMatch[0];
                 double yDiff = regressionPositionMatch[1] - realPositionMatch[1];

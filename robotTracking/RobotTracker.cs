@@ -1236,16 +1236,38 @@ namespace robotTracking
         {
             // test the regression function
             // make a dummy experiment if there isn't a proper one
+
+            double[] output;
+            float entered1, entered2, entered3, entered4, bandwidth;
+            try
+            {
+                entered1 = float.Parse(valTextBox1.Text, System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
+                entered2 = float.Parse(valTextBox2.Text, System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
+                entered3 = float.Parse(valTextBox3.Text, System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
+                entered4 = float.Parse(valTextBox4.Text, System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
+                bandwidth = float.Parse(bandwidthTextBox.Text, System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
+            }
+            catch (Exception ex)
+            {
+                OutputMessage("Cannot parse entered value into float, error message: " + ex.Message);
+                return;
+            }
+
             if (experiment == null) experiment = new Experiment(false);
 
-            //float[] desiredMotors = new float[] { 90, 90, 90, 105 };
-            float[] desiredPosition = new float[] { 0.2650687f, 0.05540113f, -0.137597382f };
+            if(getMotorsRadioButton.Checked)
+            {
+                float[] desiredPosition = new float[] { entered1, entered2, entered3};
+                output = experiment.testRegression(desiredPosition, Experiment.RegressionInput.POSITION, bandwidth);
+                Console.WriteLine("output motor angles are {0}, {1}, {2}, {3}", output[0], output[1], output[2], output[3]);
+            }
+            else if (getPositionRadioButton.Checked)
+            {
+                float[] desiredMotors = new float[] { entered1, entered2, entered3, entered4};
+                output = experiment.testRegression(desiredMotors, Experiment.RegressionInput.MOTORS, bandwidth);
+                Console.WriteLine("output points are {0}, {1}, {2}", output[0], output[1], output[2]);
+            }
 
-            //double[] output = experiment.testRegression(desiredMotors, Experiment.RegressionInput.MOTORS);
-            double[] output = experiment.testRegression(desiredPosition, Experiment.RegressionInput.POSITION);
-
-            //Console.WriteLine("output points are {0}, {1}, {2}", output[0], output[1], output[3]);
-            Console.WriteLine("output motor angles are {0}, {1}, {2}, {3}", output[0], output[1], output[2], output[3]);
         }
 
         private void pauseCalibrationButton_Click(object sender, EventArgs e)
@@ -1382,6 +1404,7 @@ namespace robotTracking
             {
                 // test the different alpha values
                 experiment.getBandwidthErrorPlot();
+                OutputMessage("Finished getting bandwidth plot");
             }
         }
 

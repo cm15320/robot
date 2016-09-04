@@ -68,6 +68,14 @@
             this.logZeroButton = new System.Windows.Forms.Button();
             this.runTestPointsButton = new System.Windows.Forms.Button();
             this.getAllDataButton = new System.Windows.Forms.Button();
+            this.valTextBox1 = new System.Windows.Forms.TextBox();
+            this.valTextBox2 = new System.Windows.Forms.TextBox();
+            this.valTextBox3 = new System.Windows.Forms.TextBox();
+            this.valTextBox4 = new System.Windows.Forms.TextBox();
+            this.getMotorsRadioButton = new System.Windows.Forms.RadioButton();
+            this.getPositionRadioButton = new System.Windows.Forms.RadioButton();
+            this.bandwidthTextBox = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -395,9 +403,9 @@
             this.testRegression.Enabled = false;
             this.testRegression.Location = new System.Drawing.Point(594, 332);
             this.testRegression.Name = "testRegression";
-            this.testRegression.Size = new System.Drawing.Size(97, 23);
+            this.testRegression.Size = new System.Drawing.Size(188, 23);
             this.testRegression.TabIndex = 31;
-            this.testRegression.Text = "test regression";
+            this.testRegression.Text = "test regression function";
             this.testRegression.UseVisualStyleBackColor = true;
             this.testRegression.Click += new System.EventHandler(this.testRegression_Click);
             // 
@@ -415,7 +423,7 @@
             // logZeroButton
             // 
             this.logZeroButton.Enabled = false;
-            this.logZeroButton.Location = new System.Drawing.Point(594, 371);
+            this.logZeroButton.Location = new System.Drawing.Point(590, 447);
             this.logZeroButton.Name = "logZeroButton";
             this.logZeroButton.Size = new System.Drawing.Size(75, 23);
             this.logZeroButton.TabIndex = 34;
@@ -442,11 +450,90 @@
             this.getAllDataButton.UseVisualStyleBackColor = true;
             this.getAllDataButton.Click += new System.EventHandler(this.getAllDataButton_Click);
             // 
+            // valTextBox1
+            // 
+            this.valTextBox1.Location = new System.Drawing.Point(596, 360);
+            this.valTextBox1.Name = "valTextBox1";
+            this.valTextBox1.Size = new System.Drawing.Size(42, 20);
+            this.valTextBox1.TabIndex = 37;
+            this.valTextBox1.Text = "0.238252938";
+            // 
+            // valTextBox2
+            // 
+            this.valTextBox2.Location = new System.Drawing.Point(644, 360);
+            this.valTextBox2.Name = "valTextBox2";
+            this.valTextBox2.Size = new System.Drawing.Size(42, 20);
+            this.valTextBox2.TabIndex = 37;
+            this.valTextBox2.Text = "0.00461266";
+            // 
+            // valTextBox3
+            // 
+            this.valTextBox3.Location = new System.Drawing.Point(692, 360);
+            this.valTextBox3.Name = "valTextBox3";
+            this.valTextBox3.Size = new System.Drawing.Size(42, 20);
+            this.valTextBox3.TabIndex = 37;
+            this.valTextBox3.Text = "-0.179042518";
+            // 
+            // valTextBox4
+            // 
+            this.valTextBox4.Location = new System.Drawing.Point(740, 360);
+            this.valTextBox4.Name = "valTextBox4";
+            this.valTextBox4.Size = new System.Drawing.Size(42, 20);
+            this.valTextBox4.TabIndex = 37;
+            this.valTextBox4.Text = "0";
+            // 
+            // getMotorsRadioButton
+            // 
+            this.getMotorsRadioButton.AutoSize = true;
+            this.getMotorsRadioButton.Checked = true;
+            this.getMotorsRadioButton.Location = new System.Drawing.Point(689, 269);
+            this.getMotorsRadioButton.Name = "getMotorsRadioButton";
+            this.getMotorsRadioButton.Size = new System.Drawing.Size(74, 17);
+            this.getMotorsRadioButton.TabIndex = 38;
+            this.getMotorsRadioButton.TabStop = true;
+            this.getMotorsRadioButton.Text = "get motors";
+            this.getMotorsRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // getPositionRadioButton
+            // 
+            this.getPositionRadioButton.AutoSize = true;
+            this.getPositionRadioButton.Location = new System.Drawing.Point(689, 292);
+            this.getPositionRadioButton.Name = "getPositionRadioButton";
+            this.getPositionRadioButton.Size = new System.Drawing.Size(79, 17);
+            this.getPositionRadioButton.TabIndex = 38;
+            this.getPositionRadioButton.Text = "get position";
+            this.getPositionRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // bandwidthTextBox
+            // 
+            this.bandwidthTextBox.Location = new System.Drawing.Point(655, 384);
+            this.bandwidthTextBox.Name = "bandwidthTextBox";
+            this.bandwidthTextBox.Size = new System.Drawing.Size(36, 20);
+            this.bandwidthTextBox.TabIndex = 39;
+            this.bandwidthTextBox.Text = "0.005";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(593, 387);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(59, 13);
+            this.label8.TabIndex = 40;
+            this.label8.Text = "bandwidth:";
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.bandwidthTextBox);
+            this.Controls.Add(this.getPositionRadioButton);
+            this.Controls.Add(this.getMotorsRadioButton);
+            this.Controls.Add(this.valTextBox4);
+            this.Controls.Add(this.valTextBox3);
+            this.Controls.Add(this.valTextBox2);
+            this.Controls.Add(this.valTextBox1);
             this.Controls.Add(this.getAllDataButton);
             this.Controls.Add(this.runTestPointsButton);
             this.Controls.Add(this.logZeroButton);
@@ -530,6 +617,14 @@
         private System.Windows.Forms.Button logZeroButton;
         private System.Windows.Forms.Button runTestPointsButton;
         private System.Windows.Forms.Button getAllDataButton;
+        private System.Windows.Forms.TextBox valTextBox1;
+        private System.Windows.Forms.TextBox valTextBox2;
+        private System.Windows.Forms.TextBox valTextBox3;
+        private System.Windows.Forms.TextBox valTextBox4;
+        private System.Windows.Forms.RadioButton getMotorsRadioButton;
+        private System.Windows.Forms.RadioButton getPositionRadioButton;
+        private System.Windows.Forms.TextBox bandwidthTextBox;
+        private System.Windows.Forms.Label label8;
     }
 }
 
