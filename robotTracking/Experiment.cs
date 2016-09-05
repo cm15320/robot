@@ -25,7 +25,7 @@ namespace robotTracking
         private int[] motorAngles = new int[] { 90, 90, 90, 90 };
         private int numIterationPoints = 5;
         private int numTestPoints = 3;
-        private int numPoints;
+        //private int numPoints;
         private int maxAngle = 120;
         private float[] relativeTipAngles = new float[] { 0.0f, 0.0f, 0.0f };
         private float[] relativeTipPos = new float[] { 0.0f, 0.0f, 0.0f };
@@ -44,7 +44,10 @@ namespace robotTracking
         private string calibrationFilename = "calibrationData.xml";
         private string testDataFilename = "testPoints.xml";
         private bool currentlyTracked;
-        
+        private bool experimentLive = false;
+        private float[] eulersRobotBase;
+
+
 
         private NatNetClientML m_NatNet;
 
@@ -60,7 +63,7 @@ namespace robotTracking
             if(realExperiment == false)
             {
                 dummyExperiment = true;
-                controller = new RobotControl();
+                controller = new RobotControl(syncLock);
                 syncLock = new object();
                 m_NatNet = new NatNetClientML();
             }
@@ -108,11 +111,11 @@ namespace robotTracking
         }
 
 
-        private float[] convertTargetPoint(float[] targetPos, RotationFromStartPoint baseRotation)
+        private float[] convertTargetPoint(float[] targetPos, float[] baseRads)
         {
-            float[] baseRads = baseRotation.getRads();
 
-            float[][] rotationMatrix = buildRotationMatrix(baseRads);
+            float[][] rotationMatrix = buildInverseRotationMatrix(baseRads);
+            //float[][] rotationMatrix = buildRotationMatrix(baseRads);
             float[] convertedPoint = multiplyByRotationMatrix(rotationMatrix, targetPos);
 
             roundToMil(convertedPoint);
@@ -160,6 +163,44 @@ namespace robotTracking
 
             motorScaler = (int)maxDifference;
         }
+
+        private float[][] buildInverseRotationMatrix(float[] baseRotation)
+        {
+            // this goes in reverse order (z rot then y rot then x rot) to move the 
+            // target to a new position relative to the base to account for the rotation of the
+            // base, giving a suitable point for the robot to move to
+
+            float alpha = -1 * baseRotation[0];
+            float beta = -1 * baseRotation[1];
+            float gamma = -1 * baseRotation[2];
+
+            float[] firstLineRotMatrix = new float[]
+            {
+                (float)(Math.Cos(beta) * Math.Cos(gamma)),
+                (float)(-1 * Math.Cos(beta) * Math.Sin(gamma)),
+                (float)(Math.Sin(beta))
+            };
+
+            float[] secondLineRotMatrix = new float[]
+            {
+                (float)((Math.Cos(alpha) * Math.Sin(gamma)) + (Math.Sin(alpha) * Math.Sin(beta) * Math.Cos(gamma))),
+                (float)((Math.Cos(alpha) * Math.Cos(gamma)) - (Math.Sin(alpha) * Math.Sin(beta) * Math.Sin(gamma))),
+                (float)(-1 * Math.Sin(alpha) * Math.Cos(beta))
+            };
+
+            float[] thirdLineRotMatrix = new float[]
+            {
+                (float)((Math.Sin(alpha) * Math.Sin(gamma)) - (Math.Cos(alpha) * Math.Sin(beta) * Math.Cos(gamma))),
+                (float)((Math.Sin(alpha) * Math.Cos(gamma)) + (Math.Cos(alpha) * Math.Sin(beta) * Math.Sin(gamma))),
+                (float)(Math.Cos(alpha) * Math.Cos(beta))
+            };
+
+            float[][] rotationMatrix = new float[][] { firstLineRotMatrix, secondLineRotMatrix, thirdLineRotMatrix };
+
+            return rotationMatrix;
+        }
+
+
 
         private float[][] buildRotationMatrix(float[] baseRotation)
         {
@@ -212,11 +253,12 @@ namespace robotTracking
 
         public void testRotation()
         {
-            float[] targetPos = new float[] { 0, 1, 0 };
-            RotationFromStartPoint rotation = new RotationFromStartPoint(45, 0, 45);
+            float[] targetPos = new float[] { 10, 0, 0 };
+            RotationFromStartPoint baseRotation = new RotationFromStartPoint(0, 90, 90);
+            float[] baseRads = baseRotation.getRads();
 
 
-            float[] solution = convertTargetPoint(targetPos, rotation);
+            float[] solution = convertTargetPoint(targetPos, baseRads);
 
             Console.WriteLine("solution is:");
             for(int i = 0; i < solution.Length; i++)
@@ -254,14 +296,15 @@ namespace robotTracking
 
         private void initialiseMotors()
         {
-            if(controller.isConnected())
+            if (controller.isConnected())
             {
                 controller.zeroMotors();
+                controller.shareMotorAngles(motorAngles);
             }
         }
 
 
-        
+
         public void stopCalibration()
         {
             calibrating = false;
@@ -516,7 +559,6 @@ namespace robotTracking
         {
             int startingServoIndex = 0;
             string filename;
-            if (controller.isConnected()) controller.shareMotorAngles(motorAngles);
             calibrating = true;
 
             if (testPoints) filename = "testPoints.xml";
@@ -600,8 +642,108 @@ namespace robotTracking
         {
             if(controller.isConnected())
             {
+                eliminateExtremeAngles();
                 controller.setMotorAngles();
             } 
+        }
+
+        private void eliminateExtremeAngles()
+        {
+            for(int i = 0; i < motorAngles.Length; i++)
+            {
+                if(motorAngles[i] > maxAngle)
+                {
+                    motorAngles[i] = maxAngle;
+                    Console.WriteLine("Had to remove  exreme high angle");
+                }
+                if(motorAngles[i] < 180 - maxAngle)
+                {
+                    motorAngles[i] = 180 - maxAngle;
+                    Console.WriteLine("Had to remove extreme low angle");
+                }
+            }
+        }
+
+        public void startLivePointFollowing(float[] relativeTargetPoint)
+        {
+            experimentLive = true;
+            new Task(liveExperimentThreadLoop).Start();
+            while(experimentLive)
+            {
+                // in future would have to pass in a literal point then get the relative point 
+                // based on the position of the base as well
+                moveToRelTargetPoint(relativeTargetPoint);
+                    
+                Thread.Sleep(50);
+            }
+        }
+
+        private void moveToRelTargetPoint(float[] relativeTargetPoint)
+        {
+            Console.WriteLine("relative target point was:");
+            for(int i = 0; i < 3; i++)
+            {
+                Console.WriteLine(relativeTargetPoint[i]);
+            }
+            Console.WriteLine();
+            float[] baseRads = eulersRobotBase;
+            Console.WriteLine("base radians were");
+            for(int i = 0; i < 3; i++)
+            {
+                Console.WriteLine(baseRads[i]);
+            }
+            Console.WriteLine();
+            float[] convertedTargetPoint = convertTargetPoint(relativeTargetPoint, baseRads);
+            Console.WriteLine("converted target point is:");
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine(convertedTargetPoint[i]);
+            }
+            Console.WriteLine();
+
+            double[] motorAngleSolution = NWRegression(convertedTargetPoint, RegressionInput.POSITION);
+            Console.WriteLine("motor solution is");
+            for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine(motorAngleSolution[i]);
+            }
+
+            updateNewMotorAngles(motorAngleSolution);
+            Console.WriteLine("updated new motor angles");
+
+        }
+
+
+        public void stopLivePointFollowing()
+        {
+            experimentLive = false;
+        }
+
+        public void testMoveToRelTargetPoint(float[] relTargetPoint)
+        {
+            if (controller.isConnected()) controller.shareMotorAngles(motorAngles);
+            moveToRelTargetPoint(relTargetPoint);
+            setMotorAngles();
+        }
+
+        private void updateNewMotorAngles(double[] newMotorAngles)
+        {
+            lock(syncLock)
+            {
+                for(int i = 0; i < motorAngles.Length; i++)
+                {
+                    motorAngles[i] = (int)newMotorAngles[i];
+                }
+            }
+        }
+
+        private void liveExperimentThreadLoop()
+        {
+            while(experimentLive)
+            {
+                setMotorAngles();
+                Thread.Sleep(20);
+            }
         }
 
 
@@ -927,7 +1069,6 @@ namespace robotTracking
             float[] quatRobotTip = new float[4] { robotTip.qx, robotTip.qy, robotTip.qz, robotTip.qw };
             float[] quatRobotBase = new float[4] { robotBase.qx, robotBase.qy, robotBase.qz, robotBase.qw };
             float[] eulersRobotTip = new float[3];
-            float[] eulersRobotBase = new float[3];
             eulersRobotTip = m_NatNet.QuatToEuler(quatRobotTip, (int)NATEulerOrder.NAT_XYZr);
             eulersRobotBase = m_NatNet.QuatToEuler(quatRobotBase, (int)NATEulerOrder.NAT_XYZr);
 

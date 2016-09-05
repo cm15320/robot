@@ -14,7 +14,13 @@ namespace robotTracking
         private bool connectedToPort;
         private int cnt = 0;
         private bool running;
-        private int[] motorAngles, oldMotorAngles;
+        private int[] targetMotorAngles, currentMotorAngles;
+        private object syncLock;
+
+        public RobotControl(object syncLock)
+        {
+            this.syncLock = syncLock;
+        }
 
         public bool initialise()
         {
@@ -46,14 +52,27 @@ namespace robotTracking
             currentPort.Close();
         }
 
+        private void zeroTargetMotors()
+        {
+            if(targetMotorAngles == null)
+            {
+                targetMotorAngles = new int[] { 90, 90, 90, 90 };
+                return;
+            }
+            for(int i = 0; i < targetMotorAngles.Length; i++)
+            {
+                targetMotorAngles[i] = 90;
+            }
+        }
+
         public bool zeroMotors()
         {
             if (running)
             {
-                if(oldMotorAngles != null)
+                if(currentMotorAngles != null)
                 {
                     // If the motors are already at a position
-                    motorAngles = new int[] { 90, 90, 90, 90 };
+                    zeroTargetMotors();
                     setMotorAngles();
                     return true;
                 }
@@ -73,7 +92,7 @@ namespace robotTracking
                     Thread.Sleep(25);
 
                 }
-                oldMotorAngles = new int[] { 90, 90, 90, 90 };
+                currentMotorAngles = new int[] { 90, 90, 90, 90 };
                 return true;
 
             }
@@ -86,11 +105,11 @@ namespace robotTracking
 
         public void setMotorAnglesTest(float[] testMotorAngles)
         {
-            motorAngles = new int[4];
-            motorAngles[0] = (int)testMotorAngles[0];
-            motorAngles[1] = (int)testMotorAngles[1];
-            motorAngles[2] = (int)testMotorAngles[2];
-            motorAngles[3] = (int)testMotorAngles[3];
+            targetMotorAngles = new int[4];
+            targetMotorAngles[0] = (int)testMotorAngles[0];
+            targetMotorAngles[1] = (int)testMotorAngles[1];
+            targetMotorAngles[2] = (int)testMotorAngles[2];
+            targetMotorAngles[3] = (int)testMotorAngles[3];
 
             setMotorAngles();
 
@@ -130,32 +149,35 @@ namespace robotTracking
             //testFullMotion(startingServo);
         }
 
-        public void shareMotorAngles(int[] motorAngles)
+        public void shareMotorAngles(int[] targetMotorAngles)
         {
-            zeroMotors();
-            this.motorAngles = motorAngles;
+            //zeroMotors();
+            this.targetMotorAngles = targetMotorAngles;
         }
 
-        private void updateOldMotorAngles(int i, int angle)
+
+        // this isn't really needed as can just change the live value in the array instead of setting an integer
+        // then setting the value in the array to that integer
+        private void updateCurrentMotorAngles(int i, int angle)
         {
-            oldMotorAngles[i] = angle;
-            //oldMotorAngles[1] = motorAngles[1];
-            //oldMotorAngles[2] = motorAngles[2];
-            //oldMotorAngles[3] = motorAngles[3];
+            currentMotorAngles[i] = angle;
+            //currentMotorAngles[1] = targetMotorAngles[1];
+            //currentMotorAngles[2] = targetMotorAngles[2];
+            //currentMotorAngles[3] = targetMotorAngles[3];
 
         }
 
         public void setMotorAngles()
         {
+            // Already eliminated extreme angles in the Experiment class
             byte[] instructionBuffer = new byte[2];
-
             while (anglesNotEqual())
             {
                 for (int i = 0; i < 4; i++)
                 {
                     instructionBuffer[0] = Convert.ToByte(i + 1);
-                    int oldAngle = oldMotorAngles[i];
-                    int newAngle = motorAngles[i];
+                    int oldAngle = currentMotorAngles[i];
+                    int newAngle = targetMotorAngles[i];
 
                     if (oldAngle < newAngle) oldAngle++;
                     else if (oldAngle > newAngle) oldAngle--;
@@ -164,10 +186,9 @@ namespace robotTracking
                     instructionBuffer[1] = Convert.ToByte(oldAngle);
 
                     currentPort.Write(instructionBuffer, 0, 2);
-                    //Console.WriteLine("writing motor angles");
 
                     Thread.Sleep(6);
-                    updateOldMotorAngles(i, oldAngle);
+                    updateCurrentMotorAngles(i, oldAngle);
 
                 }
             }
@@ -178,9 +199,12 @@ namespace robotTracking
         private bool anglesNotEqual()
         {
             int cnt = 0;
-            for (int i = 0; i < 4; i++)
+            lock(syncLock)
             {
-                if (motorAngles[i] == oldMotorAngles[i]) cnt++;
+                for (int i = 0; i < 4; i++)
+                {
+                    if (targetMotorAngles[i] == currentMotorAngles[i]) cnt++;
+                }
             }
             if (cnt == 4) return false;
             else return true;
@@ -191,7 +215,7 @@ namespace robotTracking
             byte[] instructionBuffer = new byte[2];
             int[] startingPosition = new int[] { 90, 90, 90, 90 };
             shareMotorAngles(startingPosition);
-            motorAngles = new int[] { 110, 110, 110, 110 };
+            targetMotorAngles = new int[] { 110, 110, 110, 110 };
             setMotorAngles();
 
             //for (int i = 0; i < 4; i++)
@@ -206,7 +230,7 @@ namespace robotTracking
             //}
 
             Thread.Sleep(2000);
-            motorAngles = new int[] { 80, 80, 80, 80 };
+            targetMotorAngles = new int[] { 80, 80, 80, 80 };
             setMotorAngles();
 
 
@@ -214,7 +238,7 @@ namespace robotTracking
 
             zeroMotors();
 
-            //motorAngles = new int[] { 120, 90, 60, 90 };
+            //targetMotorAngles = new int[] { 120, 90, 60, 90 };
             //setMotorAngles();
 
             //for (int i = 0; i < 4; i++)
@@ -263,7 +287,6 @@ namespace robotTracking
                 Console.WriteLine("count is " + cnt);
             }
         }
-
 
 
 

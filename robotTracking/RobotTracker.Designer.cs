@@ -76,6 +76,14 @@
             this.getPositionRadioButton = new System.Windows.Forms.RadioButton();
             this.bandwidthTextBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.followLivePointButton = new System.Windows.Forms.Button();
+            this.relativeTargetPointX = new System.Windows.Forms.TextBox();
+            this.relativeTargetPointY = new System.Windows.Forms.TextBox();
+            this.relativeTargetPointZ = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.testMoveToRelPointButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -521,11 +529,93 @@
             this.label8.TabIndex = 40;
             this.label8.Text = "bandwidth:";
             // 
+            // followLivePointButton
+            // 
+            this.followLivePointButton.Enabled = false;
+            this.followLivePointButton.Location = new System.Drawing.Point(241, 456);
+            this.followLivePointButton.Name = "followLivePointButton";
+            this.followLivePointButton.Size = new System.Drawing.Size(231, 23);
+            this.followLivePointButton.TabIndex = 41;
+            this.followLivePointButton.Text = "Follow relative point live";
+            this.followLivePointButton.UseCompatibleTextRendering = true;
+            this.followLivePointButton.UseVisualStyleBackColor = true;
+            this.followLivePointButton.Click += new System.EventHandler(this.followLivePointButton_Click);
+            // 
+            // relativeTargetPointX
+            // 
+            this.relativeTargetPointX.Location = new System.Drawing.Point(241, 489);
+            this.relativeTargetPointX.Name = "relativeTargetPointX";
+            this.relativeTargetPointX.Size = new System.Drawing.Size(60, 20);
+            this.relativeTargetPointX.TabIndex = 42;
+            this.relativeTargetPointX.Text = "0.237250075";
+            // 
+            // relativeTargetPointY
+            // 
+            this.relativeTargetPointY.Location = new System.Drawing.Point(327, 489);
+            this.relativeTargetPointY.Name = "relativeTargetPointY";
+            this.relativeTargetPointY.Size = new System.Drawing.Size(60, 20);
+            this.relativeTargetPointY.TabIndex = 42;
+            this.relativeTargetPointY.Text = "-0.00166291371";
+            // 
+            // relativeTargetPointZ
+            // 
+            this.relativeTargetPointZ.Location = new System.Drawing.Point(412, 489);
+            this.relativeTargetPointZ.Name = "relativeTargetPointZ";
+            this.relativeTargetPointZ.Size = new System.Drawing.Size(60, 20);
+            this.relativeTargetPointZ.TabIndex = 42;
+            this.relativeTargetPointZ.Text = "-0.182035267";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(263, 512);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(14, 13);
+            this.label9.TabIndex = 43;
+            this.label9.Text = "X";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(351, 512);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(14, 13);
+            this.label10.TabIndex = 43;
+            this.label10.Text = "Y";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(433, 512);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(14, 13);
+            this.label11.TabIndex = 43;
+            this.label11.Text = "Z";
+            // 
+            // testMoveToRelPointButton
+            // 
+            this.testMoveToRelPointButton.Enabled = false;
+            this.testMoveToRelPointButton.Location = new System.Drawing.Point(241, 528);
+            this.testMoveToRelPointButton.Name = "testMoveToRelPointButton";
+            this.testMoveToRelPointButton.Size = new System.Drawing.Size(231, 23);
+            this.testMoveToRelPointButton.TabIndex = 44;
+            this.testMoveToRelPointButton.Text = "Test move to relative point";
+            this.testMoveToRelPointButton.UseVisualStyleBackColor = true;
+            this.testMoveToRelPointButton.Click += new System.EventHandler(this.testMoveToRelPointButton_Click);
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.testMoveToRelPointButton);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.relativeTargetPointZ);
+            this.Controls.Add(this.relativeTargetPointY);
+            this.Controls.Add(this.relativeTargetPointX);
+            this.Controls.Add(this.followLivePointButton);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.bandwidthTextBox);
             this.Controls.Add(this.getPositionRadioButton);
@@ -625,6 +715,14 @@
         private System.Windows.Forms.RadioButton getPositionRadioButton;
         private System.Windows.Forms.TextBox bandwidthTextBox;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button followLivePointButton;
+        private System.Windows.Forms.TextBox relativeTargetPointX;
+        private System.Windows.Forms.TextBox relativeTargetPointY;
+        private System.Windows.Forms.TextBox relativeTargetPointZ;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button testMoveToRelPointButton;
     }
 }
 

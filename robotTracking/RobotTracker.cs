@@ -41,7 +41,7 @@ namespace robotTracking
         private NatNetML.NatNetClientML m_NatNet;
         private bool connected = false;
 
-        private RobotControl controller = new RobotControl();
+        private RobotControl controller = new RobotControl(syncLock);
         private bool connectedRobot = false;
         private bool connectingToRobot = false;
 
@@ -49,6 +49,10 @@ namespace robotTracking
         private bool experimentRunning = false;
         private bool calibrating = false;
         private bool pausedCalibration = false;
+        private bool followingLiveRelativePoint = false;
+        float relTargetPointX, relTargetPointY, relTargetPointZ;
+        float[] relTargetPoint;
+
 
 
         // The current frame of mocap date
@@ -990,7 +994,11 @@ namespace robotTracking
                 experimentButton.Enabled = true;
                 zeroMotorsButton.Enabled = true;
                 getDataDescriptions();
-                if (connected) runCalibrationButton.Enabled = true;
+                if (connected)
+                {
+                    runCalibrationButton.Enabled = true;
+                }
+                
                 // make a dummy experiment just so can move the robot
                 experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
                 experiment.makeDummy();
@@ -1020,8 +1028,28 @@ namespace robotTracking
                 controller.uninitialise();
                 connectedRobot = false;
                 experimentButton.Enabled = false;
+                //followLivePointButton.Enabled = false;
+                //activateLivePointButtons(true);
                 connectRobotButton.Text = "Connect";
                 robotConnectLabel.Text = "Not Connected";
+            }
+        }
+
+        private void activateLivePointButtons(bool on)
+        {
+            if(on)
+            {
+                followLivePointButton.Enabled = true;
+                testMoveToRelPointButton.Enabled = true;
+            }
+            else
+            {
+                followingLiveRelativePoint = false;
+                followLivePointButton.Enabled = false;
+                testMoveToRelPointButton.Enabled = false;
+                experiment.stopLivePointFollowing();
+                followLivePointButton.Text = "Follow relative point live";
+                testMoveToRelPointButton.Text = "Test move to relative point";
             }
         }
 
@@ -1040,12 +1068,17 @@ namespace robotTracking
             {
                 experimentRunning = true;
                 experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
+                //followLivePointButton.Enabled = true;
+                activateLivePointButtons(true);
                 experimentButton.Text = "Stop experiment";
             }
             else if (experimentRunning)
             {
                 experimentRunning = false;
                 experimentButton.Text = "Start experiment";
+                //followLivePointButton.Enabled = false;
+                activateLivePointButtons(false);
+                followingLiveRelativePoint = false;
             }
             else if (!requiredObjectsTracked())
             {
@@ -1406,6 +1439,67 @@ namespace robotTracking
                 experiment.getBandwidthErrorPlot();
                 OutputMessage("Finished getting bandwidth plot");
             }
+        }
+
+
+        private void followLivePoint()
+        {
+            if(getRelativeTargetPoint())
+            {
+                //testMoveToRelPointButton.Enabled = false;
+                experiment.startLivePointFollowing(relTargetPoint);
+                //testMoveToRelPointButton.Enabled = true;
+            }
+        }
+
+
+        private bool getRelativeTargetPoint()
+        {
+            try
+            {
+                relTargetPointX = float.Parse(relativeTargetPointX.Text);
+                relTargetPointY = float.Parse(relativeTargetPointY.Text);
+                relTargetPointZ = float.Parse(relativeTargetPointZ.Text);
+            }
+            catch(Exception ex)
+            {
+                OutputMessage("Could not parse all values of target points:");
+                OutputMessage("Message: " + ex.Message);
+                return false;
+            }
+
+            relTargetPoint = new float[] { relTargetPointX, relTargetPointY, relTargetPointZ };
+            return true;
+
+        }
+
+        private void followLivePointButton_Click(object sender, EventArgs e)
+        {
+            if(!followingLiveRelativePoint)
+            {
+                followingLiveRelativePoint = true;
+                followLivePointButton.Text = "Stop following";
+                new Task(followLivePoint).Start();
+            }
+            else
+            {
+                experiment.stopLivePointFollowing();
+                followLivePointButton.Text = "Follow relative point live";
+                followingLiveRelativePoint = false;
+            }
+        }
+
+        private void testMoveToRelPointButton_Click(object sender, EventArgs e)
+        {
+            if(getRelativeTargetPoint())
+            {
+                new Task(testMoveToRelTargetPoint).Start();
+            }
+        }
+
+        private void testMoveToRelTargetPoint()
+        {
+            experiment.testMoveToRelTargetPoint(relTargetPoint);
         }
 
         public int HighWord(int number)
