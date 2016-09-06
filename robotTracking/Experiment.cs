@@ -46,6 +46,9 @@ namespace robotTracking
         private bool currentlyTracked;
         private bool experimentLive = false;
         private float[] eulersRobotBase;
+        private float[] maxRelativePositionValues;
+        private float[] minRelativePositionValues;
+        private float tipToBaseSphereRadius;
 
 
 
@@ -122,6 +125,13 @@ namespace robotTracking
             return convertedPoint;
         }
 
+        private float[] convertTargetPoint(float[] targetPos)
+        {
+            float[] baseRads = eulersRobotBase;
+
+            return convertTargetPoint(targetPos, baseRads);
+        }
+
         private void roundToMil(float[] point)
         {
             for(int i = 0; i < point.Length; i++)
@@ -161,7 +171,7 @@ namespace robotTracking
                 }
             }
 
-            motorScaler = (int)maxDifference;
+            motorScaler = (int)Math.Round(maxDifference);
         }
 
         private float[][] buildInverseRotationMatrix(float[] baseRotation)
@@ -374,6 +384,29 @@ namespace robotTracking
             return copyVector;
         }
 
+
+        // If any of the target positions are greater than the max of that dimension, set it to the max
+        // minus a fudge factor of ~1mm, and vice vera for the min
+        private void eliminateExtremePositions(float[] inputVectorTarget)
+        {
+            for(int i = 0; i < inputVectorTarget.Length; i++)
+            {
+                if(inputVectorTarget[i] > maxRelativePositionValues[i])
+                {
+                    Console.WriteLine("converted extreme position as too big: x = {0}  y = {1}  z = {2} to :", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
+                    inputVectorTarget[i] = maxRelativePositionValues[i] - 0.001f;
+                    Console.WriteLine("x = {0}  y = {1}  z = {2} ", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
+                }
+                else if(inputVectorTarget[i] < minRelativePositionValues[i])
+                {
+                    Console.WriteLine("converted extreme position as too small: x = {0}  y = {1}  z = {2} to :", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
+                    inputVectorTarget[i] = minRelativePositionValues[i] + 0.001f;
+                    Console.WriteLine("x = {0}  y = {1}  z = {2} ", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
+                }
+            }
+        }
+
+
         private double[] NWRegression(float[] inputVectorTarget, RegressionInput inputType, float alpha = startingAlpha)
         {
             int numOutputDimensions = getNumOutputDimensions(inputType);
@@ -381,7 +414,19 @@ namespace robotTracking
             double[] sumNumerator = new double[numOutputDimensions];
             double sumDenominator = 0;
 
+            //// could be in its own function as it's not really part of the 'regression'
+            //if(inputType == RegressionInput.POSITION)
+            //{
+            //    sphereIntersectionConvert(inputVectorTarget);
+            //    eliminateExtremePositions(inputVectorTarget);
+            //}
+
             float[] newInputVector = getCopyVector(inputVectorTarget);
+            Console.WriteLine("vector to have regression performed is:");
+            for(int i = 0; i < newInputVector.Length; i++)
+            {
+                Console.WriteLine(newInputVector[i]);
+            }
 
 
             if(inputType == RegressionInput.MOTORS)
@@ -421,6 +466,11 @@ namespace robotTracking
                 convertOutputMotors(outputVector, false);
             }
 
+            Console.WriteLine("Vector output being returned is:");
+            for(int i = 0; i < outputVector.Length; i++)
+            {
+                Console.WriteLine(outputVector[i]);
+            }
 
             return outputVector;
 
@@ -438,6 +488,24 @@ namespace robotTracking
             return output;
         }
 
+
+        private void sphereIntersectionConvert(float[] relativeTargetPoint)
+        {
+            float absoluteTargetDistance = getAbsoluteValue(relativeTargetPoint);
+            if(absoluteTargetDistance > tipToBaseSphereRadius)
+            {
+                float vectorFactor = tipToBaseSphereRadius / absoluteTargetDistance;
+                Console.WriteLine("absolute distance is: " + absoluteTargetDistance);
+                Console.WriteLine("sphere radius is :" + tipToBaseSphereRadius);
+                Console.WriteLine("so vector factor is: " + vectorFactor);
+                Console.WriteLine("converted target point to sphere intersection from:  x = {0}, y = {1}, z = {2}", relativeTargetPoint[0], relativeTargetPoint[1], relativeTargetPoint[2]);
+                for(int i = 0; i < relativeTargetPoint.Length; i++)
+                {
+                    relativeTargetPoint[i] *= vectorFactor;
+                }
+                Console.WriteLine("To:  x = {0}, y = {1}, z = {2}", relativeTargetPoint[0], relativeTargetPoint[1], relativeTargetPoint[2]);
+            }
+        }
 
 
         private float[] getcurrentYValue(int i, RegressionInput inputType)
@@ -686,14 +754,14 @@ namespace robotTracking
                 Console.WriteLine(relativeTargetPoint[i]);
             }
             Console.WriteLine();
-            float[] baseRads = eulersRobotBase;
+            //float[] baseRads = eulersRobotBase;
             Console.WriteLine("base radians were");
             for(int i = 0; i < 3; i++)
             {
-                Console.WriteLine(baseRads[i]);
+                Console.WriteLine(eulersRobotBase[i]);
             }
             Console.WriteLine();
-            float[] convertedTargetPoint = convertTargetPoint(relativeTargetPoint, baseRads);
+            float[] convertedTargetPoint = convertTargetPoint(relativeTargetPoint);
             Console.WriteLine("converted target point is:");
             for (int i = 0; i < 3; i++)
             {
@@ -701,7 +769,8 @@ namespace robotTracking
             }
             Console.WriteLine();
 
-            double[] motorAngleSolution = NWRegression(convertedTargetPoint, RegressionInput.POSITION);
+            double[] motorAngleSolution = getRegressionMotorSolution(relativeTargetPoint);
+            //double[] motorAngleSolution = NWRegression(convertedTargetPoint, RegressionInput.POSITION);
             Console.WriteLine("motor solution is");
             for (int i = 0; i < 4; i++)
             {
@@ -711,6 +780,24 @@ namespace robotTracking
             updateNewMotorAngles(motorAngleSolution);
             Console.WriteLine("updated new motor angles");
 
+        }
+
+        // Gets the regression solution for an input position returning the motor angles
+        private double[] getRegressionMotorSolution(float[] targetPoint, float alpha = startingAlpha)
+        {
+            // First convert the target orientation
+            float[] convertedTargetPoint = convertTargetPoint(targetPoint);
+
+            // then get the sphere intersection
+            sphereIntersectionConvert(convertedTargetPoint);
+
+            // then eliminate extreme positions to get a valid point that can be reached
+            eliminateExtremePositions(convertedTargetPoint);
+
+            // then finally get the regression solution
+            double[] motorAngleSolution = NWRegression(convertedTargetPoint, RegressionInput.POSITION, alpha);
+
+            return motorAngleSolution;
         }
 
 
@@ -730,12 +817,33 @@ namespace robotTracking
         {
             lock(syncLock)
             {
+                // don't update any angles if they are NaN
+                if (motorAnglesNaN(newMotorAngles))
+                {
+                    Console.WriteLine("Not updated due to NaN values");
+                    return;
+                }
+                
                 for(int i = 0; i < motorAngles.Length; i++)
                 {
-                    motorAngles[i] = (int)newMotorAngles[i];
+                    motorAngles[i] = (int)Math.Round(newMotorAngles[i]);
                 }
             }
         }
+        
+
+        private bool motorAnglesNaN(double[] newMotorAngles)
+        {
+            for (int i = 0; i < newMotorAngles.Length; i++)
+            {
+                if (Double.IsNaN(newMotorAngles[i]))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         private void liveExperimentThreadLoop()
         {
@@ -904,6 +1012,76 @@ namespace robotTracking
             return getData(testDataFilename);
         }
 
+        private void getMaxAndMinValues()
+        {
+            maxRelativePositionValues = new float[] { -10, -10, -10 };
+            minRelativePositionValues = new float[] { 10, 10, 10 };
+
+            foreach(DataPoint currentDataPoint in storedCalibrationData)
+            {
+                float relX = currentDataPoint.relativeTipPosition[0];
+                float rely = currentDataPoint.relativeTipPosition[1];
+                float relz = currentDataPoint.relativeTipPosition[2];
+
+                float[] relPosition = currentDataPoint.relativeTipPosition;
+
+                for(int i = 0; i < relPosition.Length; i++)
+                {
+                    if(relPosition[i] > maxRelativePositionValues[i])
+                    {
+                        maxRelativePositionValues[i] = relPosition[i];
+                    }
+                    else if(relPosition[i] < minRelativePositionValues[i])
+                    {
+                        minRelativePositionValues[i] = relPosition[i];
+                    }
+                }
+            }
+
+            Console.WriteLine("max relative Position values are: x = {0}, y = {1}, z = {2}", maxRelativePositionValues[0], maxRelativePositionValues[1], maxRelativePositionValues[2]);
+
+            Console.WriteLine("min relative Position values are: x = {0}, y = {1}, z = {2}", minRelativePositionValues[0], minRelativePositionValues[1], minRelativePositionValues[2]);
+
+
+        }
+
+
+        private bool getTipToBaseSphereRadius()
+        {
+            float[] zeroPosition;
+            foreach(DataPoint currentDataPoint in storedCalibrationData)
+            {
+                int cnt = 0;
+                for(int i = 0; i < 4; i++)
+                {
+                    if((int)Math.Round(currentDataPoint.motorAngles[i]) == 90)
+                    {
+                        cnt++;
+                    }
+                }
+                if(cnt == 4)
+                {
+                    tipToBaseSphereRadius = getAbsoluteValue(currentDataPoint.relativeTipPosition);
+                    Console.WriteLine("sphere radius is " + tipToBaseSphereRadius);
+                    return true;
+                }
+            }
+            Console.WriteLine("ERROR, NO ZERO POSITION RECORDED TO GIVE SPHERE RADIUS");
+            return false;
+        }
+
+
+        private float getAbsoluteValue(float[] relativePosition)
+        {
+            float absoluteValue, difference = 0f;
+            for(int i = 0; i < relativePosition.Length; i++)
+            {
+                difference += (float)Math.Pow(relativePosition[i], 2);
+            }
+            absoluteValue = (float)Math.Sqrt(difference);
+            return absoluteValue;
+        }
+
         public bool getCalibrationData()
         {
             bool success = getData(calibrationFilename);
@@ -911,10 +1089,12 @@ namespace robotTracking
             {
                 featureScaling();
                 Console.WriteLine("feature scaling result is " + motorScaler);
+                getMaxAndMinValues();
+                getTipToBaseSphereRadius();
                 //testMultiplyMatrix();
                 testRotation();
             }
-            return getData(calibrationFilename);
+            return success;
 
 
             //XmlSerializer reader = new XmlSerializer(typeof(CalibrationData));

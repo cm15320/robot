@@ -167,9 +167,11 @@ namespace robotTracking
 
         }
 
+
         public void setMotorAngles()
         {
-            // Already eliminated extreme angles in the Experiment class
+            // Already eliminated extreme angles in the Experiment class and no NaN values should have been added
+
             byte[] instructionBuffer = new byte[2];
             while (anglesNotEqual())
             {
