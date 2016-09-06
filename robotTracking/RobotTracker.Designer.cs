@@ -518,7 +518,7 @@
             this.bandwidthTextBox.Name = "bandwidthTextBox";
             this.bandwidthTextBox.Size = new System.Drawing.Size(36, 20);
             this.bandwidthTextBox.TabIndex = 39;
-            this.bandwidthTextBox.Text = "0.005";
+            this.bandwidthTextBox.Text = "0.0008";
             // 
             // label8
             // 

@@ -49,7 +49,7 @@ namespace robotTracking
         private float[] maxRelativePositionValues;
         private float[] minRelativePositionValues;
         private float tipToBaseSphereRadius;
-
+        private float shiftFactor = 0.001f;
 
 
         private NatNetClientML m_NatNet;
@@ -345,6 +345,16 @@ namespace robotTracking
 
         public double[] testRegression(float[] inputVectorTarget, RegressionInput inputType, float bandwidth = startingAlpha)
         {
+            // assume that the base is in its zero orientation, so just convert the point to the sphere 
+            // then mitigate the extreme points
+
+            if(inputType == RegressionInput.POSITION)
+            {
+                sphereIntersectionConvert(inputVectorTarget);
+                mitigateExtremePositions(inputVectorTarget);
+            }
+            
+
             double[] output = NWRegression(inputVectorTarget, inputType, bandwidth);
             //if(controller.isConnected())
             //{
@@ -387,20 +397,20 @@ namespace robotTracking
 
         // If any of the target positions are greater than the max of that dimension, set it to the max
         // minus a fudge factor of ~1mm, and vice vera for the min
-        private void eliminateExtremePositions(float[] inputVectorTarget)
+        private void mitigateExtremePositions(float[] inputVectorTarget)
         {
             for(int i = 0; i < inputVectorTarget.Length; i++)
             {
                 if(inputVectorTarget[i] > maxRelativePositionValues[i])
                 {
                     Console.WriteLine("converted extreme position as too big: x = {0}  y = {1}  z = {2} to :", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
-                    inputVectorTarget[i] = maxRelativePositionValues[i] - 0.001f;
+                    inputVectorTarget[i] = maxRelativePositionValues[i] - shiftFactor;
                     Console.WriteLine("x = {0}  y = {1}  z = {2} ", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
                 }
                 else if(inputVectorTarget[i] < minRelativePositionValues[i])
                 {
                     Console.WriteLine("converted extreme position as too small: x = {0}  y = {1}  z = {2} to :", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
-                    inputVectorTarget[i] = minRelativePositionValues[i] + 0.001f;
+                    inputVectorTarget[i] = minRelativePositionValues[i] + shiftFactor;
                     Console.WriteLine("x = {0}  y = {1}  z = {2} ", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
                 }
             }
@@ -418,7 +428,7 @@ namespace robotTracking
             //if(inputType == RegressionInput.POSITION)
             //{
             //    sphereIntersectionConvert(inputVectorTarget);
-            //    eliminateExtremePositions(inputVectorTarget);
+            //    mitigateExtremePositions(inputVectorTarget);
             //}
 
             float[] newInputVector = getCopyVector(inputVectorTarget);
@@ -792,7 +802,7 @@ namespace robotTracking
             sphereIntersectionConvert(convertedTargetPoint);
 
             // then eliminate extreme positions to get a valid point that can be reached
-            eliminateExtremePositions(convertedTargetPoint);
+            mitigateExtremePositions(convertedTargetPoint);
 
             // then finally get the regression solution
             double[] motorAngleSolution = NWRegression(convertedTargetPoint, RegressionInput.POSITION, alpha);
