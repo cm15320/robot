@@ -85,7 +85,35 @@
 \subsection{Interfacing With NatNet Optical Tracking System}
 \subsection{Controlling The Device}
 \subsection{Calibrating Device Using Kernel Regression Method}
-\subsection{Response to Required Outputs}
+\pagebreak 
+\subsection{Commands and Response to Required Three-Dimensional States}
+Once the robot has been calibrated in such a way that there exists a suitable range of data points in which to perform the regression function, along with the selection of an appropriate bandwidth, the device may then be responsive to 3D state commands.
+The process of responding to commands is fundamentally built on inputting a positional vector, an orientation vector or a combined vector into the regression function in order to ascertain the required motor angles. This input vector is of course in regard to the tip relative to the base, as is the corresponding calibration data. The resulting motor angle vector is then issued to the servomotors via the Arduino in a controlled manner. 
+
+However, in order for this approach of obtaining servo angles from a given input to be useful in practice, it is first essential to determine the correct input to the regression function. This can depend on a variety of factors relating to the absolute 3D target point and its relation to the base of the robot, such as the current orientation of the base and the relative proximity of the target.
+
+\subsubsection{Acquiring Target Position Relative to Orientation of Base}
+The robot is fixed in place while the optical tracking software is configured to recognise the rigid bodies formed by the retro-reflective markers associated with the base and the tip, as covered in SECTION XXXXXXXX (just say 'is configured'?. At this point, the base is said to have zero orientation about any axis (as this was the point it was first initialised in). The calibration procedure is then of course undertaken while the robot is fixed in this position. Thus, all of the stored relative tip-to-base calibration data for different servo angle vectors is only valid for the robot in a zero orientation position compared to the starting position. Hence, in practice, when the base has changed orientation about any of the three axes inherent to the optical tracking device, a direct input for a relative tip-to-base position will yield incorrect motor angles to meet this position. Therefore, the target position must be adjusted in order to account for the varying orientation of the base.
+
+The orientation of the base itself is initially stored as a quaternion within the rigid body object from the NatNet library [REFERENCE TO NATNET API GUIDE]. This is then converted to euler angles using a built-in method to represent the orientation as three angles about the tracking device's X, Y and Z axes respectively, of which the order is important. It is thus necessary convert a real target point to an equivalent point relative to the original orientation of the base (zero orientation), so that the regression function and stored calibration data can be used to yield angles that result in the correct relative position in real space. This is accomplished using a rotation matrix that accounts for the rotation ordering of the base. Given that the base orientation is represented by rotation about the X, then Y, then Z axes, the converted point will be attained by taking the actual target point relative to the base and reversing these rotation operations; that is, the negatives of the base rotation values about the Z, then Y, then X axes.
+
+INSERT DIAGRAM WITH CAD MODEL AND A POINT TO ILLUSTRATE THE POINT??????????
+
+The rotation matrix in figure \ref{figure:rotationMatrix} is thus used to account for this axes of rotation order:
+
+JUST MAKE OWN 3 BY 3 MATRIX IN LATEX AS WILL BE HIGHER RES AND NEATER?????
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{rotationMatrix.jpg}
+\captionof{figure}{Rotation Matrix for rotation about Z, then Y, then X axes (note: final row and column is only for translation), image from XXXX.}
+\label{figure:rotationMatrix}
+\end{center}
+
+\subsubsection{Gesturing Approach for Distant Targets}
+SPHERE INTERSECTION ETC.
+
+\subsubsection{Running with a Live Target in Real Time}
+RUNNING THE SET MOTOR INSTRUCTION IN A DIFFERENT THREAD IN A LOOP SO TARGET CAN BE UPDATED LIVE AND THE MOTION OF THE SERVOS IS ADJUSTED LIVE SO AS TO NOT FINISH THE PREVIOUS COMMAND AND JUST CONCENTRATE ON CURRENT TARGET.
 
 \section{Experimental Design}
 \subsection{Setup}
