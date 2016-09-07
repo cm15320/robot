@@ -3,31 +3,236 @@
 \@writefile{toc}{\select@language{english}}
 \@writefile{lof}{\select@language{english}}
 \@writefile{lot}{\select@language{english}}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Abstract}{2}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Introduction}{2}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Handheld Robot Design}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Flexible Robotic Arms}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Design Process of Four Degrees-Of-Freedom Device}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Interfacing With NatNet Optical Tracking System}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Controlling The Device}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Calibrating Device Using Kernel Regression Method}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Commands and Response to Required Three-Dimensional States}{4}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.1}Acquiring Target Position Relative to Orientation of Base}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Rotation Matrix for rotation about Z, then Y, then X axes (note: final row and column is only for translation), image from XXXX.\relax }}{4}}
-\newlabel{figure:rotationMatrix}{{3.1}{4}}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Executive Summary}{1}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Acknowledgements}{2}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Introduction}{5}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Aims and Objectives}{6}}
+\citation{Chipalkatty2012}
+\citation{Anderson2010}
+\citation{Haddadin2007}
+\citation{ISOGuards}
+\citation{Ott2006}
+\citation{Ott2006}
+\citation{Ott2006}
+\citation{Haddadin2007}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Research Review}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Robotics with Humans In-The-Loop}{7}}
+\newlabel{intheloop}{{5.1}{7}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}Safety}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Two-Arm Humanoid for Dexterous Manipulation, image from \cite  {Ott2006}.\relax }}{7}}
+\newlabel{figure:humanoid}{{5.1}{7}}
+\citation{heger2006}
+\citation{Dorais1999}
+\citation{tambe2002}
+\citation{GreggSmithDesign}
+\citation{Poncela2009}
+\citation{Poncela2009}
+\citation{Poncela2009}
+\citation{GreggSmithDesign}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.2}Autonomy Study}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Resulting command from human and robot inputs, image from \cite  {Poncela2009}.\relax }}{8}}
+\newlabel{figure:autocar}{{5.2}{8}}
+\citation{lenz2011}
+\citation{huber2010}
+\citation{lenz2011}
+\citation{lukowicz2004}
+\citation{lenz2011}
+\citation{lenz2011}
+\citation{lenz2011}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.3}Collaboration with Assistive Robotics}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces JAHIR assembly demonstration platform - a) Industrial Robot, b) Shared Workspace, c) Slide for Assembly blocks, d) Slides for Other Parts, e) Sensor Devices for Input/Output, f) ARTrack System g) Storage Space for Robot. Image from \cite  {lenz2011}.\relax }}{9}}
+\citation{elfes1989}
+\citation{lenz2011}
+\citation{buss2010}
+\citation{buss2010}
+\citation{buss2010}
+\newlabel{figure:jahir}{{5.3}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces Cognitive System Architecture: Perception-Action Closed Loop, image from \cite  {buss2010}.\relax }}{10}}
+\newlabel{figure:cognitivearchitecture}{{5.4}{10}}
+\citation{werfel2006}
+\citation{Petersen2011}
+\citation{Petersen2011}
+\citation{Petersen2011}
+\citation{mellinger2011}
+\citation{cano2013}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Robotics in Building Environments}{11}}
+\newlabel{building}{{5.2}{11}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Mobile Robots}{11}}
+\newlabel{mobilerobots}{{5.2.1}{11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces Hardware system in which robot builds specified structures. Inset: Physical image of prototype atop six-block stricture. Outer image: Concept for system goal, in which multiple robots act together to distribute workload of a much larger structure. Image taken from \cite  {Petersen2011}.\relax }}{11}}
+\newlabel{figure:buildingrobot}{{5.5}{11}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Drone-Based Assembly}{11}}
+\citation{cano2013}
+\citation{cano2013}
+\citation{latteur2015}
+\citation{latteur2015}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces Components of Aerial 6-DoF Manipulator: Base, Arm and End Effector. Image taken from \cite  {cano2013}.\relax }}{12}}
+\newlabel{figure:uavmanipulator}{{5.6}{12}}
+\citation{latteur2015}
+\citation{latteur2015}
+\citation{latteur2015}
+\citation{latteur2015}
+\citation{latteur2015}
+\citation{Arkin1990}
+\citation{Petersen2011}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces Droxel Design, image taken from \cite  {latteur2015}.\relax }}{13}}
+\newlabel{figure:droxel}{{5.7}{13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces Conical Interlocking Drick (CID), image taken from \cite  {latteur2015}.\relax }}{13}}
+\newlabel{figure:cid}{{5.8}{13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces Round Conical Interlocking Drick (RCID), image taken from \cite  {latteur2015}.\relax }}{13}}
+\newlabel{figure:rcid}{{5.9}{13}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.3}Scene Knowledge}{13}}
+\citation{Payne2014}
+\citation{Matsuhira2002}
+\citation{Payne2015}
+\citation{Latt2009}
+\citation{Fischer2010}
+\citation{Matsuhira2002}
+\citation{Matsuhira2002}
+\citation{Echtler2004}
+\citation{GreggSmithDesign}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Handheld Robotics}{14}}
+\newlabel{handheld}{{5.3}{14}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}Medical Devices}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.10}{\ignorespaces Master-Slave Manipulator for laparascopic surgery, image from \cite  {Matsuhira2002}\relax }}{14}}
+\newlabel{figure:masterslave}{{5.10}{14}}
+\citation{GreggSmithDesign}
+\citation{GreggSmithKinematics}
+\citation{Horigome2014}
+\citation{GreggSmithKinematics}
+\citation{GreggSmithKinematics}
+\citation{GreggSmithKinematics}
+\citation{handheldrobotics}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}University of Bristol Handheld Robotics Project}{15}}
+\newlabel{bristolhandheld}{{5.4}{15}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.1}Initial Work}{15}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.2}Development of the 6-DoF Handheld Robot}{15}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.11}{\ignorespaces CAD model of arm, with motor pulleys and link pulleys represented by the green and blue/turquoise cylinders respectively. Links are represented by \(l_0\) to \(l_6\) and joint angles by \(\theta _1\) to \(\theta _6\). Image from \cite  {GreggSmithKinematics}.\relax }}{15}}
+\newlabel{figure:links}{{5.11}{15}}
+\citation{GreggSmithKinematics}
+\citation{GreggSmithKinematics}
+\citation{GreggSmithKinematics}
+\citation{Aristidou2011}
+\citation{GreggSmithKinematics}
+\citation{GreggSmithKinematics}
+\citation{GreggSmithKinematics}
+\citation{GreggSmithKinematics}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.12}{\ignorespaces MK II handheld robot design, image from \cite  {GreggSmithKinematics}\relax }}{16}}
+\newlabel{figure:mark2}{{5.12}{16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.13}{\ignorespaces Splitting the kinematics problem into two using a different shared plane for each set of links, with link \(l_3\) acting on a common line. Image taken from \cite  {GreggSmithKinematics}.\relax }}{16}}
+\newlabel{figure:kinematicsDof}{{5.13}{16}}
+\citation{DYNAMIXEL}
+\citation{GreggSmithDesign}
+\citation{GreggSmithDesign}
+\citation{GreggSmithDesign}
+\citation{GreggSmithDesign}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Designing Experiments for Handheld Robotics}{17}}
+\newlabel{designingexperiments}{{5.5}{17}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.1}Painting Task}{17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.14}{\ignorespaces Model of painting task setup in autonomous mode (lights indicate preference of next motion), image from \cite  {GreggSmithDesign}\relax }}{17}}
+\newlabel{figure:painting}{{5.14}{17}}
+\citation{GreggSmithDesign}
+\citation{GreggSmithDesign}
+\citation{GreggSmithDesign}
+\citation{GreggSmithDesign}
+\citation{fitts1954}
+\citation{Cha2013}
+\citation{soukoreff2004}
+\citation{MOTOYUKI1995}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.2}Tiling Task}{18}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.15}{\ignorespaces Pick and Place Tiling Task with tip of first prototype, image from \cite  {GreggSmithDesign}\relax }}{18}}
+\newlabel{figure:tilingtask}{{5.15}{18}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.16}{\ignorespaces Individual TLX scores for both the tasks, image from \cite  {GreggSmithDesign}\relax }}{18}}
+\newlabel{figure:tlxscores}{{5.16}{18}}
+\citation{GreggSmithFeedback}
+\citation{GreggSmithFeedback}
+\citation{GreggSmithFeedback}
+\citation{Gammell2014}
+\citation{GreggSmithFeedback}
+\citation{GreggSmithKinematics}
+\citation{GreggSmithFeedback}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.3}Spatial Guidance Task}{19}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.17}{\ignorespaces Spatial guidance task being performed with the handheld robot where feedback is provided via a virtual reality headset, image taken from \cite  {GreggSmithFeedback}.\relax }}{19}}
+\newlabel{figure:vrrobot}{{5.17}{19}}
+\citation{GreggSmithDesign}
+\citation{GreggSmithDesign}
+\citation{GreggSmithFeedback}
+\citation{GreggSmithFeedback}
+\citation{hart1988}
+\citation{GreggSmithDesign}
+\citation{GreggSmithFeedback}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.4}Added Value of New Experiment}{20}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.5}Task Load Index (TLX) and Perceived Effort}{20}}
+\citation{GreggSmithFeedback}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Summary}{21}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Handheld Robot Design}{22}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Flexible Robotic Arms}{22}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Design Process of Four Degrees-Of-Freedom Device}{22}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Interfacing With NatNet Optical Tracking System}{23}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Controlling The Device}{23}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5}Calibrating Device Using Kernel Regression Method}{23}}
+\citation{natnet2016}
+\citation{butterworth2003}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.6}Algorithm for Responding to Three-Dimensional State Requirements}{24}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.6.1}Acquiring Target Position Relative to Orientation of Base}{24}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.1}{\ignorespaces Rotation Matrix for rotation about Z, then Y, then X axes. The symbols $\alpha $, $\beta $ and $\gamma $ represent rotations about the x, y and z axes respectively.\relax }}{24}}
+\newlabel{equation:rotationMatrix}{{7.1}{24}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.6.2}Gesturing Algorithm for Distant Targets}{24}}
 \bibdata{mybib}
-\bibcite{Anderson2010}{1}
+\bibcite{Chipalkatty2012}{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.2}{\ignorespaces Concept of tip-to-base sphere marking immediately disregarded zone, and initial achievable range zone that requires further checking\relax }}{25}}
+\newlabel{figure:tipSphere}{{7.2}{25}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.6.3}Running with a Live Target in Real Time}{25}}
+\bibcite{Anderson2010}{2}
+\bibcite{Haddadin2007}{3}
+\bibcite{ISOGuards}{4}
+\bibcite{Ott2006}{5}
+\bibcite{heger2006}{6}
+\bibcite{Dorais1999}{7}
+\bibcite{tambe2002}{8}
+\bibcite{GreggSmithDesign}{9}
+\bibcite{Poncela2009}{10}
+\bibcite{lenz2011}{11}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Physical Experiment}{26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Setup}{26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Construction Environment Parallels}{26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Mental Aspect}{26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Physical Aspect}{26}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Results}{26}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Discussion}{26}}
+\@writefile{toc}{\contentsline {section}{\numberline {11}Conclusion}{26}}
+\@writefile{toc}{\contentsline {section}{\numberline {12}Further Work and Areas of Improvement}{26}}
+\@writefile{toc}{\contentsline {section}{\numberline {13}References}{26}}
+\bibcite{huber2010}{12}
+\bibcite{lukowicz2004}{13}
+\bibcite{elfes1989}{14}
+\bibcite{buss2010}{15}
+\bibcite{werfel2006}{16}
+\bibcite{Petersen2011}{17}
+\bibcite{mellinger2011}{18}
+\bibcite{cano2013}{19}
+\bibcite{latteur2015}{20}
+\bibcite{Arkin1990}{21}
+\bibcite{Payne2014}{22}
+\bibcite{Matsuhira2002}{23}
+\bibcite{Payne2015}{24}
+\bibcite{Latt2009}{25}
+\bibcite{Fischer2010}{26}
+\bibcite{Echtler2004}{27}
+\bibcite{GreggSmithKinematics}{28}
+\bibcite{Horigome2014}{29}
+\bibcite{handheldrobotics}{30}
+\bibcite{Aristidou2011}{31}
+\bibcite{DYNAMIXEL}{32}
+\bibcite{fitts1954}{33}
+\bibcite{Cha2013}{34}
+\bibcite{soukoreff2004}{35}
+\bibcite{MOTOYUKI1995}{36}
+\bibcite{GreggSmithFeedback}{37}
+\bibcite{Gammell2014}{38}
+\bibcite{hart1988}{39}
+\bibcite{natnet2016}{40}
+\bibcite{butterworth2003}{41}
 \bibstyle{unsrt}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.2}Gesturing Approach for Distant Targets}{5}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.3}Running with a Live Target in Real Time}{5}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Experimental Design}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Setup}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Construction Environment Parallels}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Mental Aspect}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Physical Aspect}{5}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{5}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Discussion}{5}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{5}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}References}{5}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Appendix}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}CAD Drawings}{5}}
+\@writefile{toc}{\contentsline {section}{\numberline {14}Appendix}{28}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.1}CAD Drawings}{28}}

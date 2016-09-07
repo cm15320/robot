@@ -21,4 +21,12 @@ I was expecting a `,' or a `}'---line 386 of file mybib.bib
  :   year={2015},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
+Warning--empty booktitle in Haddadin2007
+Warning--empty year in Haddadin2007
+Warning--empty booktitle in heger2006
+Warning--empty publisher in heger2006
+Warning--empty booktitle in Dorais1999
+Warning--empty year in Dorais1999
+Warning--empty booktitle in latteur2015
+Warning--empty year in latteur2015
 (There were 4 error messages)

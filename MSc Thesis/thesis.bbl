@@ -1,9 +1,247 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{Chipalkatty2012}
+R.~Chipalkatty.
+\newblock {\em Human-In-The-Loop Control For Cooperative Human-Robot Tasks}.
+\newblock PhD thesis, Georgia Institute of Technology, May 2012.
 
 \bibitem{Anderson2010}
 S.J. Anderson, S.C. Peters, T.E. Pilutti, E.H. Tseng, and K.~Iagnemma.
 \newblock Semi-autonomous avoidance of moving hazards for passenger vehicles.
 \newblock In {\em ASME 2010 Dynamic Systems and Control Conference}, pages
   141--148. American Society of Mechanical Engineers, 2010.
+
+\bibitem{Haddadin2007}
+S.~Haddadin, A.~Albu-Sch{\"a}ffer, and G.~Hirzinger.
+\newblock Safety evaluation of physical human-robot interaction via
+  crash-testing.
+
+\bibitem{ISOGuards}
+EN953.
+\newblock Safety of machinery - guards - general requirements for the design
+  and construction of fixed and movable guards, 1997.
+
+\bibitem{Ott2006}
+C.~Ott, O.~Eiberger, W.~Friedl, B.~Bauml, U.~Hillenbrand, C.~Borst,
+  A.~Albu-Schaffer, B.~Brunner, H.~Hirschmuller, S.~Kielhofer, R.~Konietschke,
+  M.~Suppa, T.~Wimbock, F.~Zacharias, and G.~Hirzinger.
+\newblock A humanoid two-arm system for dexterous manipulation.
+\newblock In {\em 2006 6th IEEE-RAS International Conference on Humanoid
+  Robots}, pages 276--283, Dec 2006.
+
+\bibitem{heger2006}
+F.W. Heger and S.~Singh.
+\newblock Sliding autonomy for complex coordinated multi-robot tasks: Analysis
+  \& experiments.
+\newblock 2006.
+
+\bibitem{Dorais1999}
+G.~Dorais, R.P. Bonasso, D.~Kortenkamp, B.~Pell, and D.~Schreckenghost.
+\newblock Adjustable autonomy for human-centered autonomous systems.
+
+\bibitem{tambe2002}
+M.~Tambe, P.~Scerri, and D.V. Pynadath.
+\newblock Adjustable autonomy for the real world.
+\newblock {\em Journal of Artificial Intelligence Research}, 17(1):171--228,
+  2002.
+
+\bibitem{GreggSmithDesign}
+A.~Gregg-Smith and W.W. Mayol-Cuevas.
+\newblock The design and evaluation of a cooperative handheld robot.
+\newblock In {\em 2015 IEEE International Conference on Robotics and Automation
+  (ICRA)}, pages 1968--1975, May 2015.
+
+\bibitem{Poncela2009}
+A.~Poncela, C.~Urdiales, E.~J. Perez, and F.~Sandoval.
+\newblock A new efficiency-weighted strategy for continuous human/robot
+  cooperation in navigation.
+\newblock {\em IEEE Transactions on Systems, Man, and Cybernetics - Part A:
+  Systems and Humans}, 39(3):486--500, May 2009.
+
+\bibitem{lenz2011}
+C.~Lenz, A.~Sotzek, T.~R{\"o}der, H.~Radrich, A.~Knoll, M.~Huber, and
+  S.~Glasauer.
+\newblock Human workflow analysis using 3d occupancy grid hand tracking in a
+  human-robot collaboration scenario.
+\newblock In {\em Intelligent Robots and Systems (IROS), 2011 IEEE/RSJ
+  International Conference on}, pages 3375--3380. IEEE, 2011.
+
+\bibitem{huber2010}
+M.~Huber, A.~Knoll, T.~Brandt, and S.~Glasauer.
+\newblock When to assist?-modelling human behaviour for hybrid assembly
+  systems.
+\newblock In {\em Robotics (ISR), 2010 41st International Symposium on and 2010
+  6th German Conference on Robotics (ROBOTIK)}, pages 1--6. VDE, 2010.
+
+\bibitem{lukowicz2004}
+P.~Lukowicz, J.A. Ward, H.~Junker, M.~St{\"a}ger, G.~Tr{\"o}ster, A.~Atrash,
+  and T.~Starner.
+\newblock Recognizing workshop activity using body worn microphones and
+  accelerometers.
+\newblock In {\em Pervasive Computing}, pages 18--32. Springer, 2004.
+
+\bibitem{elfes1989}
+A.~Elfes.
+\newblock Using occupancy grids for mobile robot perception and navigation.
+\newblock {\em Computer}, 22(6):46--57, 1989.
+
+\bibitem{buss2010}
+M.~Buss and M.~Beetz.
+\newblock Cotesys—cognition for technical systems.
+\newblock {\em KI-K{\"u}nstliche Intelligenz}, 24(4):323--327, 2010.
+
+\bibitem{werfel2006}
+J.~Werfel, Y.~Bar-Yam, D.~Rus, and R.~Nagpal.
+\newblock Distributed construction by mobile robots with enhanced building
+  blocks.
+\newblock In {\em Robotics and Automation, 2006. ICRA 2006. Proceedings 2006
+  IEEE International Conference on}, pages 2787--2794. IEEE, 2006.
+
+\bibitem{Petersen2011}
+K.~Petersen, R.~Nagpal, and J.~Werfel.
+\newblock Termes: An autonomous robotic system for three-dimensional collective
+  construction.
+\newblock {\em Proc. Robotics: Science \& Systems VII}, 2011.
+
+\bibitem{mellinger2011}
+D.~Mellinger, Q.~Lindsey, M.~Shomin, and V.~Kumar.
+\newblock Design, modeling, estimation and control for aerial grasping and
+  manipulation.
+\newblock In {\em 2011 IEEE/RSJ International Conference on Intelligent Robots
+  and Systems}, pages 2668--2673, Sept 2011.
+
+\bibitem{cano2013}
+R.~Cano, C.~P{\'e}rez, F.~Pruano, A.~Ollero, and G.~Heredia.
+\newblock Mechanical design of a 6-dof aerial manipulator for assembling bar
+  structures using uavs.
+\newblock In {\em 2nd RED-UAS 2013 Workshop on Research, Education and
+  Development of Unmanned Aerial Systems}, 2013.
+
+\bibitem{latteur2015}
+P.~Latteur, S.~Goessens, J.~Breton, J.~Leplat, Z.~Ma, and C.~Mueller.
+\newblock Drone-based additive manufacturing of architectural structures.
+
+\bibitem{Arkin1990}
+R.C. Arkin and R.R. Murphy.
+\newblock Autonomous navigation in a manufacturing environment.
+\newblock {\em IEEE Transactions on Robotics and Automation}, 6(4):445--454,
+  Aug 1990.
+
+\bibitem{Payne2014}
+C.J. Payne and Guang-Zhong Yang.
+\newblock Hand-held medical robots.
+\newblock {\em Annals of Biomedical Engineering}, 42(8):1594--1605, 2014.
+
+\bibitem{Matsuhira2002}
+N.~Matsuhira, M.~Jinno, T.~Miyagawa, T.~Sunaoshi, T.~Hato, Y.~Morikawa,
+  T.~Furukawa, S.~Ozawa, M.~Kitajima, and K.~Nakazawa.
+\newblock Development of a functional model for a master–slave combined
+  manipulator for laparoscopic surgery.
+\newblock {\em Advanced Robotics}, 17(6):523--539, 2003.
+
+\bibitem{Payne2015}
+C.J. Payne, H.J. Marcus, and G.Z. Yang.
+\newblock A smart haptic hand-held device for neurosurgical microdissection.
+\newblock {\em Annals of Biomedical Engineering}, 43(9):2185--2195, 2015.
+
+\bibitem{Latt2009}
+W.T. Latt, U.X. Tan, C.Y. Shee, and W.T. Ang.
+\newblock A compact hand-held active physiological tremor compensation
+  instrument.
+\newblock In {\em 2009 IEEE/ASME International Conference on Advanced
+  Intelligent Mechatronics}, pages 711--716, July 2009.
+
+\bibitem{Fischer2010}
+M.~Fischer, M.~Schraufstetter, C.~Richter, F.~Irlinger, and T.~C. Lueth.
+\newblock Tremor compensation by use of a mechatronic cup holder.
+\newblock In {\em 2010 4th International Conference on Pervasive Computing
+  Technologies for Healthcare}, pages 1--8, March 2010.
+
+\bibitem{Echtler2004}
+F.~Echtler, F.Sturm, and K.Kindermann.
+\newblock The intelligent welding gun: Augmented reality for experimental
+  vehicle construction.
+\newblock In {\em Virtual and Augmented Reality Applications in Manufacturing},
+  pages 333--360. Springer London, London, 2004.
+
+\bibitem{GreggSmithKinematics}
+A.~Gregg-Smith and W.W. Mayol-Cuevas.
+\newblock Inverse kinematics and design of a novel 6-dof handheld robot arm.
+\newblock In {\em IEEE International Conference on Robotics and Automation
+  (ICRA)}, ICRA Proceedings. IEEE, February 2016.
+
+\bibitem{Horigome2014}
+A.~Horigome, H.~Yamada, G.~Endo, S.~Sen, S.~Hirose, and E.F. Fukushima.
+\newblock Development of a coupled tendon-driven 3d multi-joint manipulator.
+\newblock In {\em 2014 IEEE International Conference on Robotics and Automation
+  (ICRA)}, pages 5915--5920, May 2014.
+
+\bibitem{handheldrobotics}
+\url{http://handheldrobotics.org}.
+
+\bibitem{Aristidou2011}
+A.~Aristidou and J.~Lasenby.
+\newblock Fabrik: A fast, iterative solver for the inverse kinematics problem.
+\newblock {\em Graphical Models}, 73(5):243 -- 260, 2011.
+
+\bibitem{DYNAMIXEL}
+{Dynamixel} mx-64t e-manual.
+\newblock
+  \url{http://support.robotis.com/en/product/dynamixel/mx_series/mx-64.htm}.
+\newblock Accessed: 2016-04-20.
+
+\bibitem{fitts1954}
+P.M. Fitts.
+\newblock The information capacity of the human motor system in controlling the
+  amplitude of movement.
+\newblock {\em Journal of experimental psychology}, 47(6):381, 1954.
+
+\bibitem{Cha2013}
+Y.~Cha and R.~Myung.
+\newblock Extended fitts' law for 3d pointing tasks using 3d target
+  arrangements.
+\newblock {\em International Journal of Industrial Ergonomics}, 43(4):350 --
+  355, 2013.
+
+\bibitem{soukoreff2004}
+R.W. Soukoreff and I.S. MacKenzie.
+\newblock Towards a standard for pointing device evaluation, perspectives on 27
+  years of fitts’ law research in hci.
+\newblock {\em International journal of human-computer studies},
+  61(6):751--789, 2004.
+
+\bibitem{MOTOYUKI1995}
+M.~Akamatsu, I.S. Mackenzie, and T.~Hasbroucq.
+\newblock A comparison of tactile, auditory, and visual feedback in a pointing
+  task using a mouse-type device.
+\newblock {\em Ergonomics}, 38(4):816--827, 1995.
+
+\bibitem{GreggSmithFeedback}
+A.~Gregg-Smith and W.W. Mayol-Cuevas.
+\newblock Investigating spatial guidance for a cooperative handheld robot.
+\newblock In {\em IEEE International Conference on Robotics and Automation
+  (ICRA)}. IEEE, February 2016.
+
+\bibitem{Gammell2014}
+J.D. Gammell, S.S Srinivasa, and T.D. Barfoot.
+\newblock Informed rrt*: Optimal sampling-based path planning focused via
+  direct sampling of an admissible ellipsoidal heuristic.
+\newblock {\em arXiv preprint arXiv:1404.2334}, 2014.
+
+\bibitem{hart1988}
+S.G. Hart and L.E. Staveland.
+\newblock Development of nasa-tlx (task load index): Results of empirical and
+  theoretical research.
+\newblock {\em Advances in psychology}, 52:139--183, 1988.
+
+\bibitem{natnet2016}
+Natural~Point Optitrack.
+\newblock Natnet api user's guide version 2.10.0, May 2016.
+
+\bibitem{butterworth2003}
+George Butterworth.
+\newblock Pointing is the royal road to language for babies.
+\newblock {\em Pointing: Where language, culture, and cognition meet}, pages
+  9--33, 2003.
 
 \end{thebibliography}

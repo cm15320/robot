@@ -397,23 +397,54 @@ namespace robotTracking
 
         // If any of the target positions are greater than the max of that dimension, set it to the max
         // minus a fudge factor of ~1mm, and vice vera for the min
+
+        // Instead, first check that the target point does not fall 'well within the range of the points
+        // ie within the middle 50% of the range of x y and z, so not near any extremes
+        // if not, just check which calibration point it is closest to in 3d space and use that calibration point as input
         private void mitigateExtremePositions(float[] inputVectorTarget)
         {
-            for(int i = 0; i < inputVectorTarget.Length; i++)
+            //for(int i = 0; i < inputVectorTarget.Length; i++)
+            //{
+            //    if(inputVectorTarget[i] > maxRelativePositionValues[i])
+            //    {
+            //        Console.WriteLine("converted extreme position as too big: x = {0}  y = {1}  z = {2} to :", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
+            //        inputVectorTarget[i] = maxRelativePositionValues[i] - shiftFactor;
+            //        Console.WriteLine("x = {0}  y = {1}  z = {2} ", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
+            //    }
+            //    else if(inputVectorTarget[i] < minRelativePositionValues[i])
+            //    {
+            //        Console.WriteLine("converted extreme position as too small: x = {0}  y = {1}  z = {2} to :", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
+            //        inputVectorTarget[i] = minRelativePositionValues[i] + shiftFactor;
+            //        Console.WriteLine("x = {0}  y = {1}  z = {2} ", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
+            //    }
+            //}
+            DataPoint currentDataPoint;
+            int indexOfClosestPoint = 0;
+            float minAbsoluteDifference = 100000f;
+            float[] currentDifference = new float[3];
+            for(int i = 0; i < storedCalibrationData.Count; i++)
             {
-                if(inputVectorTarget[i] > maxRelativePositionValues[i])
+                currentDataPoint = storedCalibrationData[i];
+                for(int j = 0; j < currentDifference.Length; j++)
                 {
-                    Console.WriteLine("converted extreme position as too big: x = {0}  y = {1}  z = {2} to :", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
-                    inputVectorTarget[i] = maxRelativePositionValues[i] - shiftFactor;
-                    Console.WriteLine("x = {0}  y = {1}  z = {2} ", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
+                    currentDifference[j] = inputVectorTarget[j] - currentDataPoint.relativeTipPosition[j];
                 }
-                else if(inputVectorTarget[i] < minRelativePositionValues[i])
+                float absoluteDifference = getAbsoluteValue(currentDifference);
+                if (absoluteDifference < minAbsoluteDifference)
                 {
-                    Console.WriteLine("converted extreme position as too small: x = {0}  y = {1}  z = {2} to :", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
-                    inputVectorTarget[i] = minRelativePositionValues[i] + shiftFactor;
-                    Console.WriteLine("x = {0}  y = {1}  z = {2} ", inputVectorTarget[0], inputVectorTarget[1], inputVectorTarget[2]);
+                    indexOfClosestPoint = i;
+                    minAbsoluteDifference = absoluteDifference;
                 }
             }
+            Console.WriteLine("index of closest point is " + indexOfClosestPoint);
+            Console.WriteLine("at which the values are ");
+            for(int j = 0; j < inputVectorTarget.Length; j++)
+            {
+                Console.WriteLine(storedCalibrationData[indexOfClosestPoint].relativeTipPosition[j]);
+                inputVectorTarget[j] = storedCalibrationData[indexOfClosestPoint].relativeTipPosition[j];
+            }
+
+            inputVectorTarget = getCopyVector(storedCalibrationData[indexOfClosestPoint].relativeTipPosition);
         }
 
 
@@ -1046,6 +1077,16 @@ namespace robotTracking
                         minRelativePositionValues[i] = relPosition[i];
                     }
                 }
+
+            }
+            // try scaling all of the extremes down a little bit
+            for(int i = 0; i < maxRelativePositionValues.Length; i++)
+            {
+                Console.WriteLine(maxRelativePositionValues[i] + " multiplied by 0.9 is: ");
+                maxRelativePositionValues[i] = maxRelativePositionValues[i] * 0.7f;
+                Console.WriteLine(maxRelativePositionValues[i]);
+                //minRelativePositionValues[i] *= 0.9f;
+
             }
 
             Console.WriteLine("max relative Position values are: x = {0}, y = {1}, z = {2}", maxRelativePositionValues[0], maxRelativePositionValues[1], maxRelativePositionValues[2]);
