@@ -16,33 +16,33 @@
 \contentsline {subsubsection}{\numberline {5.3.1}Medical Devices}{14}
 \contentsline {subsection}{\numberline {5.4}University of Bristol Handheld Robotics Project}{15}
 \contentsline {subsubsection}{\numberline {5.4.1}Initial Work}{15}
-\contentsline {subsubsection}{\numberline {5.4.2}Development of the 6-DoF Handheld Robot}{15}
-\contentsline {subsection}{\numberline {5.5}Designing Experiments for Handheld Robotics}{17}
-\contentsline {subsubsection}{\numberline {5.5.1}Painting Task}{17}
+\contentsline {subsubsection}{\numberline {5.4.2}Development of the 6-DoF Handheld Robot}{16}
+\contentsline {subsection}{\numberline {5.5}Designing Experiments for Handheld Robotics}{18}
+\contentsline {subsubsection}{\numberline {5.5.1}Painting Task}{18}
 \contentsline {subsubsection}{\numberline {5.5.2}Tiling Task}{18}
 \contentsline {subsubsection}{\numberline {5.5.3}Spatial Guidance Task}{19}
-\contentsline {subsubsection}{\numberline {5.5.4}Added Value of New Experiment}{20}
-\contentsline {subsubsection}{\numberline {5.5.5}Task Load Index (TLX) and Perceived Effort}{20}
-\contentsline {section}{\numberline {6}Summary}{21}
-\contentsline {section}{\numberline {7}Handheld Robot Design}{22}
-\contentsline {subsection}{\numberline {7.1}Flexible Robotic Arms}{22}
-\contentsline {subsection}{\numberline {7.2}Design Process of Four Degrees-Of-Freedom Device}{22}
-\contentsline {subsection}{\numberline {7.3}Interfacing With NatNet Optical Tracking System}{23}
-\contentsline {subsection}{\numberline {7.4}Controlling The Device}{23}
-\contentsline {subsection}{\numberline {7.5}Calibrating Device Using Kernel Regression Method}{23}
-\contentsline {subsection}{\numberline {7.6}Algorithm for Responding to Three-Dimensional State Requirements}{24}
-\contentsline {subsubsection}{\numberline {7.6.1}Acquiring Target Position Relative to Orientation of Base}{24}
-\contentsline {subsubsection}{\numberline {7.6.2}Gesturing Algorithm for Distant Targets}{26}
-\contentsline {subsubsection}{\numberline {7.6.3}Running with a Live Target in Real Time}{27}
-\contentsline {section}{\numberline {8}Physical Experiment}{28}
-\contentsline {subsection}{\numberline {8.1}Setup}{28}
-\contentsline {subsection}{\numberline {8.2}Construction Environment Parallels}{28}
-\contentsline {subsection}{\numberline {8.3}Mental Aspect}{28}
-\contentsline {subsection}{\numberline {8.4}Physical Aspect}{28}
-\contentsline {section}{\numberline {9}Results}{28}
-\contentsline {section}{\numberline {10}Discussion}{28}
-\contentsline {section}{\numberline {11}Conclusion}{28}
-\contentsline {section}{\numberline {12}Further Work and Areas of Improvement}{28}
-\contentsline {section}{\numberline {13}References}{28}
-\contentsline {section}{\numberline {14}Appendix}{30}
-\contentsline {subsection}{\numberline {14.1}CAD Drawings}{30}
+\contentsline {subsubsection}{\numberline {5.5.4}Added Value of New Experiment}{21}
+\contentsline {subsubsection}{\numberline {5.5.5}Task Load Index (TLX) and Perceived Effort}{21}
+\contentsline {section}{\numberline {6}Summary}{22}
+\contentsline {section}{\numberline {7}Handheld Robot Design}{23}
+\contentsline {subsection}{\numberline {7.1}Flexible Robotic Arms}{23}
+\contentsline {subsection}{\numberline {7.2}Design Process of Four Degrees-Of-Freedom Device}{23}
+\contentsline {subsection}{\numberline {7.3}Interfacing With NatNet Optical Tracking System}{24}
+\contentsline {subsection}{\numberline {7.4}Controlling The Device}{24}
+\contentsline {subsection}{\numberline {7.5}Calibrating Device Using Kernel Regression Method}{24}
+\contentsline {subsection}{\numberline {7.6}Algorithm for Responding to Three-Dimensional State Requirements}{25}
+\contentsline {subsubsection}{\numberline {7.6.1}Acquiring Target Position Relative to Orientation of Base}{25}
+\contentsline {subsubsection}{\numberline {7.6.2}Gesturing Algorithm for Distant Targets}{27}
+\contentsline {subsubsection}{\numberline {7.6.3}Running with a Live Target in Real Time}{28}
+\contentsline {section}{\numberline {8}Physical Experiment}{29}
+\contentsline {subsection}{\numberline {8.1}Setup}{29}
+\contentsline {subsection}{\numberline {8.2}Construction Environment Parallels}{29}
+\contentsline {subsection}{\numberline {8.3}Mental Aspect}{29}
+\contentsline {subsection}{\numberline {8.4}Physical Aspect}{29}
+\contentsline {section}{\numberline {9}Results}{29}
+\contentsline {section}{\numberline {10}Discussion}{29}
+\contentsline {section}{\numberline {11}Conclusion}{29}
+\contentsline {section}{\numberline {12}Further Work and Areas of Improvement}{29}
+\contentsline {section}{\numberline {13}References}{29}
+\contentsline {section}{\numberline {14}Appendix}{31}
+\contentsline {subsection}{\numberline {14.1}CAD Drawings}{31}

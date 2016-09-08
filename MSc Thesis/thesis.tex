@@ -230,7 +230,47 @@ However, up until 2015, there had been little research in the way of handheld ro
 \subsubsection{Initial Work}
 Recent work undertaken at the University of Bristol has formulated the “Bristol Handheld Robotics Project”. This has focused on the potential of multi-degree-of-freedom handheld robotic devices operating in the tool space. A critical component of the research has been the capability of the robot to assume task knowledge for the desired procedure. The foundation for this branch of work was laid by A.Gregg-Smith and W.W.Mayol-Cuevas in \cite{GreggSmithDesign}, where a handheld robot was constructed and evaluated in terms of user cooperation. The underlying motivation of the paper was the assertion that there exists a much greater potential for handheld robotic applications than just the medical industry.
 
-The work in \cite{GreggSmithDesign} covers the development of a four degree-of-freedom (4-DoF) prototype handheld robot, in which the aim was not to design a robot which can surpass human capability, but rather to evaluate the cooperation between the user and robot for various degrees of autonomy. This design and evaluation here has certainly laid the groundwork for future development of handheld robotics. It is hoped that the current project will provide such development and shed more light on the potential applications and way users cooperate with such a device. There will likely be similarities between the experiments performed in this paper and the current project, such as re-use of the external infrastructure used to track the robot motion, as well as the techniques used to quantify the task performance an perceived effort. 
+The work in \cite{GreggSmithDesign} covers the development of a four degree-of-freedom (4-DoF) prototype handheld robot, in which the aim was not to design a robot which can surpass human capability, but rather to evaluate the cooperation between the user and robot for various degrees of autonomy. This design and evaluation here has certainly laid the groundwork for future development of handheld robotics. The arm comprises a carbon-fibre backbone, and is cable-driven by two pairs of motors and pulleys located in the base; one opposing pair providing a degree of freedom each to the midpoint and the tip, with the other pair providing a second degree to each point, as illustrated in Figure \ref{figure:mark1}.
+
+
+\begin{center}
+\includegraphics[width = 0.6\textwidth]{images/mark1.png}
+\captionof{figure}{CAD model of the Four Degree-of-Freedom Mark I robot, image from \cite{GreggSmithDesign}.}
+\label{figure:mark1}
+\end{center}
+
+The design takes inspiration from [31] which, unlike typical cable-driven designs, employs one motor
+to provide tension to a pair of opposing wires, which reduces the the motor count to DoF ratio from 3:2 to 1:1. 
+An external computer is used to interface with the servomotors and the trigger, responding to external
+cues or program instructions by providing the necessary motion. In order to locate the robot spatially, an optitrack system made up of six strategically mounted cameras is
+used to provide motion tracking, identifying the retro-reflective markers mounted on the robot. This
+provides an accuracy of 0.2mm, although it was stated that the future aim would be to employ
+on-board sensors for portability and practicality.
+
+
+In order to calibrate the robot, it was necessary to perform kinematic modelling. Conventional forward
+kinematics methods were not applicable to this design due to the non-linear interaction between sections 1 and 2
+of the carbon-fibre backbone, shown in Figure \ref{figure:mark}. As such, a regression based method was employed.
+This entailed sending a wide range of commands to the arm and recording the resulting pose with the
+motion tracking equipment. In total, 14641 vectors of motor angles were sent, with the corresponding
+poses comprising a relative tip-to-base position and direction. A Nadaraya-Watson kernel regression technique
+was then used on the results to interpolate between the points to acquire pose estimated for unrecorded
+motor vectors. 
+
+MENTION K-D TREES HERE FOR ACCELERATED SEARCH AND IMPROVED COMPUTATIONAL TIME, OR MENTION IT LATER ON IN THE CALIBRATION SECTION AS AN OPTION AND FUTURE IMPROVEMENT????XXXXXX
+
+
+It is important to note that due to the limits
+of the carbon-fibre backbone, the arm cannot self-intersect, therefore it is safe to interpolate
+between the motor angles.
+
+Inspiration was taken from this Mark I design in the development of the newer, flexible tube-based model, and naturally, similarities will be observed between the set up and control processes and the external infrastructure to interface with the robot and provide track motion. The key differences originate from the different arm material/structure, having a chain reaction of required design changes. Also, with the benefit of hindsight, design and material choices that hindered this Mark I design could be avoided, while strong points could be adapted. An example of this is the issue of the friction from the cables wearing through the base material. This led to the choice of an ultra low-friction cable material, and a stronger base material, using PLA over ABS. 
+
+ALSO MENTION SIMILARITIES WITH THE TLX STAGE IF ANY OF THIS GETS COMPLETED IN PRACTICE XXXX
+
+ , as well as the techniques used to quantify the task performance an perceived effort. 
+
+
 
 \subsubsection{Development of the 6-DoF Handheld Robot}
 
@@ -388,6 +428,11 @@ Furthermore, a brief overview was provided for robots in construction related ta
 \item{Dimensions changed to afford more room to front servo to allow it to move full range of servo motion.....} 
 \end{itemize}
 \subsection{Interfacing With NatNet Optical Tracking System}
+
+In order to determine where in three dimensional space the robot is, as well as the relative distances between itself and other points, it is necessary to track physical objects. This was achieved using a single optical tracking device, the Optitrack V120 Duo [REFERENCE TO DATA SHEET XXX]. The device features two cameras in order to provide depth perception, and works as a stand-alone device unlike the syncing of several distinct cameras as used in \cite{GreggSmithDesign} and \cite{GreggSmithFeedback}. The accompanying software library however, the `NatNet SDK', as well as the actual tracking software, `Optitrack Motive', are the same. This library was provided to run in a .NET framework environment, hence the decision to use C\# as the primary development language.
+
+The device recognises the supplied retro-reflective markers, and is able to provide six degrees of freedom tracking. It is important to not that the coordinate system used by the software is based around the positioning of the Duo tracking device itself, with the 
+
 \subsection{Controlling The Device}
 \subsection{Calibrating Device Using Kernel Regression Method}
 \pagebreak 
