@@ -34,15 +34,15 @@
 \contentsline {subsubsection}{\numberline {7.6.1}Acquiring Target Position Relative to Orientation of Base}{24}
 \contentsline {subsubsection}{\numberline {7.6.2}Gesturing Algorithm for Distant Targets}{26}
 \contentsline {subsubsection}{\numberline {7.6.3}Running with a Live Target in Real Time}{27}
-\contentsline {section}{\numberline {8}Physical Experiment}{27}
-\contentsline {subsection}{\numberline {8.1}Setup}{27}
-\contentsline {subsection}{\numberline {8.2}Construction Environment Parallels}{27}
-\contentsline {subsection}{\numberline {8.3}Mental Aspect}{27}
-\contentsline {subsection}{\numberline {8.4}Physical Aspect}{27}
-\contentsline {section}{\numberline {9}Results}{27}
-\contentsline {section}{\numberline {10}Discussion}{27}
-\contentsline {section}{\numberline {11}Conclusion}{27}
-\contentsline {section}{\numberline {12}Further Work and Areas of Improvement}{27}
-\contentsline {section}{\numberline {13}References}{27}
+\contentsline {section}{\numberline {8}Physical Experiment}{28}
+\contentsline {subsection}{\numberline {8.1}Setup}{28}
+\contentsline {subsection}{\numberline {8.2}Construction Environment Parallels}{28}
+\contentsline {subsection}{\numberline {8.3}Mental Aspect}{28}
+\contentsline {subsection}{\numberline {8.4}Physical Aspect}{28}
+\contentsline {section}{\numberline {9}Results}{28}
+\contentsline {section}{\numberline {10}Discussion}{28}
+\contentsline {section}{\numberline {11}Conclusion}{28}
+\contentsline {section}{\numberline {12}Further Work and Areas of Improvement}{28}
+\contentsline {section}{\numberline {13}References}{28}
 \contentsline {section}{\numberline {14}Appendix}{30}
 \contentsline {subsection}{\numberline {14.1}CAD Drawings}{30}

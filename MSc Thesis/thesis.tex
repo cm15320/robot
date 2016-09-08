@@ -434,7 +434,7 @@ A simplified example of solving from a target point to get the appropriate relat
 \subsubsection{Gesturing Algorithm for Distant Targets}
 In order to be cooperative and interactive in practice, a handheld robot must be able to indicate positional preferences to the user. This may entail where it must be located in order to carry out a given robotic operation, or even just the next point the user must deal with for task progression. This process is referred to as gesturing from the robot to the user towards 3D locations. In this scenario, the selected method for gesturing is comparable to typical `pointing' operations, similar to finger pointing, which is beneficial in terms of simplicity of use. Pointing is intuitive to the user as humans do this naturally to direct the attention of others to areas of interest, and is considered inherently linked to speech and communication \cite{butterworth2003}. Therefore confusion should be avoided in the user knowing where the robot desires to be relocated.
 
-In order to gesture effectively to the user, the 3D target points must be categorised as achievable or not from the outset before deciding the next step. From the outset, a point can be said to be instantly unachievable if the relative distance between itself and the base of the robot is greater than (or a certain amount less than) the typical tip-to-base distance in a straight-arm configuration. This tip-to-base distance can be used as the radius of a sphere which governs whether the points can be immediately disregarded as attainable, or whether further checking is required to assess whether it is appropriate to try and match this point directly. This concept is illustrated in Figure \ref{figure:tipSphere}.
+In order to gesture effectively to the user, the 3D target points must be categorised as achievable or not from the outset before deciding the next step. Initially, a point can be said to be immediately unachievable if the relative distance between itself and the base of the robot is greater than (or a certain amount less than) the typical tip-to-base distance in a straight-arm configuration. This tip-to-base distance can be used as the radius of a sphere which governs whether the points can be immediately disregarded as attainable, and requires gesturing, or whether further checking is required to assess whether it is appropriate to attempt to match this point directly. This concept is illustrated in Figure \ref{figure:tipSphere}.
 
 \begin{center}
 \includegraphics[width=0.6\textwidth]{images/tipSphere.png}
@@ -442,9 +442,29 @@ In order to gesture effectively to the user, the 3D target points must be catego
 \label{figure:tipSphere}
 \end{center}
 
+If the point lies at an absolute distance that falls within the range between the radius of the sphere and another minimum radius, $R_{minSphere}$, the point is not disregarded as being unachievable straight away. This minimum radius is determined by the smallest absolute tip-to-base difference from the stored calibration data (3D Pythagoras). However, if it lies outside this range, a new target point is required that is equivalent to shifting the original along the vector between itself and the base until it falls in this range. 
+
+The current target then lies within this intermediate range, and there is a further check to determine whether the coordinates of the target point relative to the base fall outside any of the recorded minimum and maximum values for the X, Y and Z dimensions. If not, then the target may be directly achievable, and the positional vector is inserted straight into the regression function to check if motor angles can be yielded, giving a solution. However in the event of this still not generating a valid solution, or if the point does fall outside any of the min/max ranges, a compromise is required. This entails selecting a new target point from the stored calibration data that is geometrically closest to the target point in question. Thus, if not able to match the point, a new point should be determined to exhibit a suitable gesture motion. The typical process for responding to a far-off point is illustrated in Figure \ref{figure:gestureSolution}.
+
+\begin{center}
+\includegraphics[width=\textwidth]{images/gestureSolution.png}
+\captionof{figure}{Typical steps in obtaining a compromised gesture solution from an initially unachievable point}
+\label{figure:gestureSolution}
+\end{center}
+
+\begin{enumerate}
+\item{The given target point is immediately disregarded as it lies at an absolute distance above the radius of the sphere.}
+\item{A new target point is formed that is the equivalent of shifting the original point along the line from itself to the base. This is done by determining the required factor to shift the target to lie on the sphere. This factor is $Shift Factor = R_{Sphere} / absolute distance$, and each coordinate of the target point is multiplied by this to give a new vector on the sphere.}
+\item{The point is still unachievable as it lies beyond the max/min range of some of the dimensions from the calibration data. The compromise is therefore to find the point in the calibration data that has the closest absolute proximity to this point and use that either as an input to the function of using the stored motor angles for this point (quicker). }
+\end{enumerate}
+
+
+FLOW DIAGRAM OF THE TARGET POINT COMING IN, BEING CONVERTED TO CORRECT LOCAL ORIENTATION, THEN BEING CHECKED FOR BEING POSSIBLE ETC ETC BEFORE GETTING A REAL POINT AS AN INPUT
 
 \subsubsection{Running with a Live Target in Real Time}
 RUNNING THE SET MOTOR INSTRUCTION IN A DIFFERENT THREAD IN A LOOP SO TARGET CAN BE UPDATED LIVE AND THE MOTION OF THE SERVOS IS ADJUSTED LIVE SO AS TO NOT FINISH THE PREVIOUS COMMAND AND JUST CONCENTRATE ON CURRENT TARGET.
+
+SMALL PAIR OF FLOW DIAGRAMS TO SHOW ONE THREAD CONSTANTLY UPDATING THE POSITION AND THE OTHER WORKING OUT WHAT THE POSITION SHOULD BE AND CHANGING IT BASED ON TASK PROGRESSION AND TARGET POINT ETC. THE LATTER WILL JUST SAY "POINT DETERMINATION ALGORITHM" AND WILL BE  A COMPRESSED VERSION OF THE LARGER FLOW DIAGRAM IN THE PREVIOUS SECTION.
 
 \section{Physical Experiment}
 \subsection{Setup}
