@@ -238,8 +238,15 @@ S.G. Hart and L.E. Staveland.
 Natural~Point Optitrack.
 \newblock Natnet api user's guide version 2.10.0, May 2016.
 
+\bibitem{3drotation}
+G.~Murray.
+\newblock Rotation about an arbitraty axis in 3 dimensions.
+\newblock \url{http://inside.mines.edu/fs_home/gmurray/ArbitraryAxisRotation/},
+  June 2013.
+\newblock Accessed: 2016-09-08.
+
 \bibitem{butterworth2003}
-George Butterworth.
+G.~Butterworth.
 \newblock Pointing is the royal road to language for babies.
 \newblock {\em Pointing: Where language, culture, and cognition meet}, pages
   9--33, 2003.

@@ -263,8 +263,8 @@ namespace robotTracking
 
         public void testRotation()
         {
-            float[] targetPos = new float[] { 10, 0, 0 };
-            RotationFromStartPoint baseRotation = new RotationFromStartPoint(0, 90, 90);
+            float[] targetPos = new float[] { -30, 1, 5 };
+            RotationFromStartPoint baseRotation = new RotationFromStartPoint(90, -15, 0);
             float[] baseRads = baseRotation.getRads();
 
 

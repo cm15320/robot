@@ -13,6 +13,7 @@
 \usepackage{graphicx}
 \usepackage{pdflscape, lscape}
 \usepackage{array}
+\usepackage{gensymb}
 \usepackage{tabularx}
 \usepackage{caption}
 \usepackage{everypage}
@@ -397,13 +398,9 @@ The process of responding to commands is fundamentally built on inputting a posi
 However, in order for this approach of obtaining servo angles from a given input to be useful in practice, it is first essential to determine the correct input to the regression function. This can depend on a variety of factors relating to the absolute 3D target point and its relation to the base of the robot, such as the current orientation of the base and the relative proximity of the target.
 
 \subsubsection{Acquiring Target Position Relative to Orientation of Base}
-The robot is fixed in place while the optical tracking software is configured to recognise the rigid bodies formed by the retro-reflective markers associated with the base and the tip, as covered in SECTION XXXXXXXX (just say 'is configured'?. At this point, the base is said to have zero orientation about any axis (as this was the point it was first initialised in). The calibration procedure is then of course undertaken while the robot is fixed in this position. Thus, all of the stored relative tip-to-base calibration data for different servo angle vectors is only valid for the robot in a zero orientation position compared to the starting position. Hence, in practice, when the base has changed orientation about any of the three axes inherent to the optical tracking device, a direct input for a relative tip-to-base position will yield incorrect motor angles to meet this position. Therefore, the target position must be adjusted in order to account for the varying orientation of the base.
+The robot is fixed in place while the optical tracking software is configured to recognise the rigid bodies formed by the retro-reflective markers associated with the base and the tip, as covered in SECTION XXXXXXXX (just say 'is configured'?. At this point, the base is said to have zero orientation about any axis (as this was the point it was first initialised in). The calibration procedure is then of course undertaken while the robot is fixed in this position. Thus, the stored relative tip-to-base calibration data for different servo angle vectors is only valid for the robot in a zero orientation position compared to the starting position. Hence, in practice, when the base has changed orientation about any of the three axes inherent to the optical tracking device, a direct input for a relative tip-to-base position will yield incorrect motor angles to meet this position. Therefore, the target position must be adjusted in order to account for the varying orientation of the base.
 
 The orientation of the base itself is initially stored as a quaternion within the rigid body object from the NatNet library \cite{natnet2016}. This is then converted to euler angles using a built-in method to represent the orientation as three angles about the tracking device's X, Y and Z axes respectively, of which the order is important. It is thus necessary convert a real target point to an equivalent point relative to the original orientation of the base (zero orientation), so that the regression function and stored calibration data can be used to yield angles that result in the correct relative position in real space. This is accomplished using a rotation matrix that accounts for the rotation ordering of the base. Given that the base orientation is represented by rotation about the X, then Y, then Z axes, the converted point will be attained by taking the actual target point relative to the base and reversing these rotation operations; that is, the negatives of the base rotation values about the Z, then Y, then X axes. The rotation matrix in figure \ref{equation:rotationMatrix} is thus used to account for this axes of rotation order. 
-
-INSERT DIAGRAM WITH CAD MODEL AND A 3d POINT TO ILLUSTRATE THE POINT??????????
-
-
 
 \begin{center}
 \[
@@ -414,11 +411,24 @@ R_{x}R_{y}R_{z} =
 \sin\alpha\sin\gamma - \cos\alpha\sin\beta\cos\gamma & \sin\alpha\cos\gamma + \cos\alpha\sin\beta\sin\gamma & \cos\alpha\cos\beta \\
 \end{bmatrix*}
 \]
-\captionof{figure}{Rotation Matrix for rotation about Z, then Y, then X axes. The symbols $\alpha$, $\beta$ and $\gamma$ represent rotations about the x, y and z axes respectively.}
+\captionof{figure}{Rotation Matrix for rotation about Z, then Y, then X axes. The symbols $\alpha$, $\beta$ and $\gamma$ represent rotations about the X, Y and Z axes respectively, adapted from \cite{3drotation}.}
 \label{equation:rotationMatrix}
-
-
 \end{center}
+
+A simplified example of solving from a target point to get the appropriate relative positional vector as an input to the regression function is illustrated in Figure \ref{figure:rotationExample}. Note that the target position in the image is not to scale and the coordinate system used in reality is determined by the optical tracking device position, not aligned with the longitudinal axis of the robot. 
+
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/rotationExampleAll.jpg}
+\captionof{figure}{Example showing how the position and orientation of a point changes with base rotation}
+\label{figure:rotationExample}
+\end{center}
+
+\begin{enumerate}
+\item{The robot is in its original starting orientation, and can be said to have zero rotation about any of the axes. There is no relative difference between the axes of the robot and the global axes (shown in the top left of each image). The target point has an actual relative distance to the robot base of -30, 1 and 5 units respectively for the X, Y and Z dimensions. As there is no relative axes difference, the relative distance in relation to the robot base axes is identical in all three dimensions. As such, in this situation, the actual relative distance vector could be inserted into the regression function as is.}
+\item{At the second stage, the robot has been rotated 90\degree about the global x axis. The local axis of the robot base is therefore at a relative orientation difference of the same amount. The physical relative distance of the target point to the base is unchanged, but the target point relative to the local axes of the base is different, with the local Y and Z distances being swapped around, and the latter being negated.}
+\item{The final image shows the outcome if the relative rotation of the base was a 90\degree rotation about the global X axis (as in the previous image) followed by a -15\degree rotation about the global Y axis. The physical relative distance of the target point to the base is again unchanged in the global axis as the base itself has not translated in any direction. Again, the relative dimensional distances in terms of the local axes of the base are altered further, with relative values now of -27.7, 12.6 and -1 respectively for X, Y and Z. This is the vector that must be inserted into the regression function, to attain motor angles that result in a 3D point which, relative to the local axes of the base, is equal to the physical target point relative to the global and starting axes. This conversion of the target point to the local axes of the base is performed via the aforementioned steps with the negation of base angles and the rotation matrix of \ref{equation:rotationMatrix}}.
+\end{enumerate}
 
 
 \subsubsection{Gesturing Algorithm for Distant Targets}
