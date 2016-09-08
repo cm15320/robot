@@ -28,21 +28,21 @@
 \contentsline {subsection}{\numberline {7.1}Flexible Robotic Arms}{23}
 \contentsline {subsection}{\numberline {7.2}Design Process of Four Degrees-Of-Freedom Device}{23}
 \contentsline {subsection}{\numberline {7.3}Interfacing With NatNet Optical Tracking System}{24}
-\contentsline {subsection}{\numberline {7.4}Controlling The Device}{24}
-\contentsline {subsection}{\numberline {7.5}Calibrating Device Using Kernel Regression Method}{24}
-\contentsline {subsection}{\numberline {7.6}Algorithm for Responding to Three-Dimensional State Requirements}{25}
-\contentsline {subsubsection}{\numberline {7.6.1}Acquiring Target Position Relative to Orientation of Base}{25}
-\contentsline {subsubsection}{\numberline {7.6.2}Gesturing Algorithm for Distant Targets}{27}
-\contentsline {subsubsection}{\numberline {7.6.3}Running with a Live Target in Real Time}{28}
-\contentsline {section}{\numberline {8}Physical Experiment}{29}
-\contentsline {subsection}{\numberline {8.1}Setup}{29}
-\contentsline {subsection}{\numberline {8.2}Construction Environment Parallels}{29}
-\contentsline {subsection}{\numberline {8.3}Mental Aspect}{29}
-\contentsline {subsection}{\numberline {8.4}Physical Aspect}{29}
-\contentsline {section}{\numberline {9}Results}{29}
-\contentsline {section}{\numberline {10}Discussion}{29}
-\contentsline {section}{\numberline {11}Conclusion}{29}
-\contentsline {section}{\numberline {12}Further Work and Areas of Improvement}{29}
-\contentsline {section}{\numberline {13}References}{29}
-\contentsline {section}{\numberline {14}Appendix}{31}
-\contentsline {subsection}{\numberline {14.1}CAD Drawings}{31}
+\contentsline {subsection}{\numberline {7.4}Controlling The Device}{26}
+\contentsline {subsection}{\numberline {7.5}Calibrating Device Using Kernel Regression Method}{26}
+\contentsline {subsection}{\numberline {7.6}Algorithm for Responding to Three-Dimensional State Requirements}{27}
+\contentsline {subsubsection}{\numberline {7.6.1}Acquiring Target Position Relative to Orientation of Base}{27}
+\contentsline {subsubsection}{\numberline {7.6.2}Gesturing Algorithm for Distant Targets}{29}
+\contentsline {subsubsection}{\numberline {7.6.3}Running with a Live Target in Real Time}{31}
+\contentsline {section}{\numberline {8}Physical Experiment}{32}
+\contentsline {subsection}{\numberline {8.1}Setup}{32}
+\contentsline {subsection}{\numberline {8.2}Construction Environment Parallels}{32}
+\contentsline {subsection}{\numberline {8.3}Mental Aspect}{32}
+\contentsline {subsection}{\numberline {8.4}Physical Aspect}{32}
+\contentsline {section}{\numberline {9}Results}{32}
+\contentsline {section}{\numberline {10}Discussion}{32}
+\contentsline {section}{\numberline {11}Conclusion}{32}
+\contentsline {section}{\numberline {12}Further Work and Areas of Improvement}{32}
+\contentsline {section}{\numberline {13}References}{32}
+\contentsline {section}{\numberline {14}Appendix}{34}
+\contentsline {subsection}{\numberline {14.1}CAD Drawings}{34}

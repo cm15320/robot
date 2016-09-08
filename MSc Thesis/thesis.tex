@@ -242,7 +242,7 @@ The work in \cite{GreggSmithDesign} covers the development of a four degree-of-f
 The design takes inspiration from [31] which, unlike typical cable-driven designs, employs one motor
 to provide tension to a pair of opposing wires, which reduces the the motor count to DoF ratio from 3:2 to 1:1. 
 An external computer is used to interface with the servomotors and the trigger, responding to external
-cues or program instructions by providing the necessary motion. In order to locate the robot spatially, an optitrack system made up of six strategically mounted cameras is
+cues or program instructions by providing the necessary motion. In order to locate the robot spatially, an OptiTrack system made up of six strategically mounted cameras is
 used to provide motion tracking, identifying the retro-reflective markers mounted on the robot. This
 provides an accuracy of 0.2mm, although it was stated that the future aim would be to employ
 on-board sensors for portability and practicality.
@@ -250,7 +250,7 @@ on-board sensors for portability and practicality.
 
 In order to calibrate the robot, it was necessary to perform kinematic modelling. Conventional forward
 kinematics methods were not applicable to this design due to the non-linear interaction between sections 1 and 2
-of the carbon-fibre backbone, shown in Figure \ref{figure:mark}. As such, a regression based method was employed.
+of the carbon-fibre backbone, shown in Figure \ref{figure:mark1}. As such, a regression based method was employed.
 This entailed sending a wide range of commands to the arm and recording the resulting pose with the
 motion tracking equipment. In total, 14641 vectors of motor angles were sent, with the corresponding
 poses comprising a relative tip-to-base position and direction. A Nadaraya-Watson kernel regression technique
@@ -429,11 +429,31 @@ Furthermore, a brief overview was provided for robots in construction related ta
 \end{itemize}
 \subsection{Interfacing With NatNet Optical Tracking System}
 
-In order to determine where in three dimensional space the robot is, as well as the relative distances between itself and other points, it is necessary to track physical objects. This was achieved using a single optical tracking device, the Optitrack V120 Duo [REFERENCE TO DATA SHEET XXX]. The device features two cameras in order to provide depth perception, and works as a stand-alone device unlike the syncing of several distinct cameras as used in \cite{GreggSmithDesign} and \cite{GreggSmithFeedback}. The accompanying software library however, the `NatNet SDK', as well as the actual tracking software, `Optitrack Motive', are the same. This library was provided to run in a .NET framework environment, hence the decision to use C\# as the primary development language.
+In order to determine where in three dimensional space the robot is, as well as the relative distances between itself and other points, it is necessary to track physical objects. This was achieved using a single optical tracking device, the OptiTrack V120 Duo \cite{OptiTrackSite}. The device features two cameras in order to provide depth perception, and works as a stand-alone device unlike the syncing of several distinct cameras as used in \cite{GreggSmithDesign} and \cite{GreggSmithFeedback}. The accompanying software library however, the `NatNet SDK', as well as the actual tracking software, `OptiTrack Motive', are the same. This library was provided to run in a .NET framework environment, hence the decision to use C\# as the primary development language.
 
-The device recognises the supplied retro-reflective markers, and is able to provide six degrees of freedom tracking. It is important to not that the coordinate system used by the software is based around the positioning of the Duo tracking device itself, with the 
+The device recognises the supplied retro-reflective markers, and is able to provide six degrees of freedom tracking. It is important to not that the coordinate system used by the software (the global axes) originates from the positioning of the Duo tracking device itself, as illustrated in Figure \ref{figure:duoAxes}. Single markers can be identified in terms of their X, Y and Z positions, and can be grouped together to form `rigid bodies`. These bodies, requiring a minimum of three markers, have a designated `centre' that can be used to refer to the position of the body as a whole, and provide a pivot about which rotation can be expressed. The rotation is inherently given as a quaternion, which can be converted using built-in library functions to give euler angles in the forms of roll, pitch and yaw (rotations about the global X, Y and Z axes respectively).
+
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/duoAxes.png}
+\captionof{figure}{Axes as used by the OptiTrack Motive software, these global axes originate from the centre of the device, image adapted from \cite{OptiTrackSite}}
+\label{figure:duoAxes}
+\end{center}
+
+The rigid bodies must be configured within the Motive program, selecting which markers comprise them and giving them a name. Moreover, individual markers can also be identified as requiring to be tracked. Hence a rigid body will be configured for each of the base and the tip as a bare minimum. With the Motive program running in the background, the NatNet library can be used to extract tracking information from the program. This is done by identifying the program as a server application and connecting it with the local ip address. Once established, and the fundamental NatNet client object is instantiated, the event based data handling is started. This refers to the server application (Motive) triggering an event with a corresponding callback every time a new frame of motion capture data is ready, which is passed into the callback to be processed as desired. This frame of data contains all of the tracking information that Motive is set up to capture. For example, a list of all the rigid bodies, which takes the form of objects storing the name, positional values, rotation (quaternion) and a contained list of individual markers with their own information.
+
+Therefore, rigid body objects can be set up to represent the robot base and tip which, every time a new frame is sent from the program via the callback function, can be updated so they represent the current tracking information. Similarly, other variables pertaining to these bodies, such as the relative distance between tip and base, can be set up and updated as part of the callback function once the rigid bodies themselves have been updated. As a more practical alternative, a separate thread can be set up so that, although a global variable representing the current frame of motion capture data is updated as soon as a new frame is ready, the rigid body objects or other relevant variables can be updated when desired (after a set time interval) by fetching information from the current frame of data object at any point. Of course, when doing so, it is important to put a read-lock on a shared object so that the frame can be read and data extracted safely without the event based thread updating any of the data mid-read.
+
+Then talk about how the user created objects/variables can be used as target points etc for the regression function or stored as XML file for important calibration data etc XXXX XXXXX XXXX XXXXXX XXXXX XXXXXXXXX XXXXXXXX XXXXXXXXXXXXXXXXXXX
 
 \subsection{Controlling The Device}
+
+\begin{center}
+\includegraphics[width=0.65\textwidth]{images/schematic.png}
+\captionof{figure}{Schematic diagram showing how the controlling equipment interfaces with the pc and the robot components.}
+\label{figure:schematic}
+\end{center}
+
 \subsection{Calibrating Device Using Kernel Regression Method}
 \pagebreak 
 \subsection{Algorithm for Responding to Three-Dimensional State Requirements}
@@ -503,13 +523,20 @@ The current target then lies within this intermediate range, and there is a furt
 \item{The point is still unachievable as it lies beyond the max/min range of some of the dimensions from the calibration data. The compromise is therefore to find the point in the calibration data that has the closest absolute proximity to this point and use that either as an input to the function of using the stored motor angles for this point (quicker). }
 \end{enumerate}
 
+With these steps of applying a rotation transformation and determining the best point to aim for relative to the base, there now exists a general algorithm from going from any given target point, expressed as relative to the base, and generating a solution in the form of angles to be applied to the servomotors, moving the arm to the required position. Regardless of the task or application at hand, this algorithm will be central, receiving inputs based on the situation and yielding solutions to be applied. This fundamental step sequence is illustrated in Figure \ref{figure:getSolution}.
 
-FLOW DIAGRAM OF THE TARGET POINT COMING IN, BEING CONVERTED TO CORRECT LOCAL ORIENTATION, THEN BEING CHECKED FOR BEING POSSIBLE ETC ETC BEFORE GETTING A REAL POINT AS AN INPUT
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/getSolution.png}
+\captionof{figure}{General algorithm procedure for taking a 3D target point relative to the base and producing the most suitable solution in the form of angles to be applied to the servomotors}
+\label{figure:getSolution}
+\end{center}
+
 
 \subsubsection{Running with a Live Target in Real Time}
 RUNNING THE SET MOTOR INSTRUCTION IN A DIFFERENT THREAD IN A LOOP SO TARGET CAN BE UPDATED LIVE AND THE MOTION OF THE SERVOS IS ADJUSTED LIVE SO AS TO NOT FINISH THE PREVIOUS COMMAND AND JUST CONCENTRATE ON CURRENT TARGET.
 
-SMALL PAIR OF FLOW DIAGRAMS TO SHOW ONE THREAD CONSTANTLY UPDATING THE POSITION AND THE OTHER WORKING OUT WHAT THE POSITION SHOULD BE AND CHANGING IT BASED ON TASK PROGRESSION AND TARGET POINT ETC. THE LATTER WILL JUST SAY "POINT DETERMINATION ALGORITHM" AND WILL BE  A COMPRESSED VERSION OF THE LARGER FLOW DIAGRAM IN THE PREVIOUS SECTION.
+SMALL PAIR OF FLOW DIAGRAMS TO SHOW ONE THREAD CONSTANTLY UPDATING THE POSITION AND THE OTHER WORKING OUT WHAT THE POSITION SHOULD BE AND CHANGING IT BASED ON TASK PROGRESSION AND TARGET POINT ETC. IN DIFFERENT DASHED BOXES TO SHOW THE DIFFERENT THREADS. THE LATTER WILL JUST SAY "POINT DETERMINATION ALGORITHM" AND WILL BE  A COMPRESSED VERSION OF THE LARGER FLOW DIAGRAM IN THE PREVIOUS SECTION.
 
 \section{Physical Experiment}
 \subsection{Setup}
