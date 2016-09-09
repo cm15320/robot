@@ -444,9 +444,14 @@ The rigid bodies must be configured within the Motive program, selecting which m
 
 Therefore, rigid body objects can be set up to represent the robot base and tip which, every time a new frame is sent from the program via the callback function, can be updated so they represent the current tracking information. Similarly, other variables pertaining to these bodies, such as the relative distance between tip and base, can be set up and updated as part of the callback function once the rigid bodies themselves have been updated. As a more practical alternative, a separate thread can be set up so that, although a global variable representing the current frame of motion capture data is updated as soon as a new frame is ready, the rigid body objects or other relevant variables can be updated when desired (after a set time interval) by fetching information from the current frame of data object at any point. Of course, when doing so, it is important to put a read-lock on a shared object so that the frame can be read and data extracted safely without the event based thread updating any of the data mid-read.
 
-Then talk about how the user created objects/variables can be used as target points etc for the regression function or stored as XML file for important calibration data etc XXXX XXXXX XXXX XXXXXX XXXXX XXXXXXXXX XXXXXXXX XXXXXXXXXXXXXXXXXXX
+Once the required tracking data has been extracted, it can then be manipulated to create relative target points to the base depending on the situation. These can then be used as inputs to the regression function in order to solve for the motor angles. The tracking data at certain points is also written to an XML file during the calibration procedure, as mentioned in SECTION XXXXX. 
+
 
 \subsubsection{Program Layout}
+The developed program for using the robot was built around the fundamentals of the Motive software and the NatNet library. An example was provided that simply sets up a connection between the tracking program and displays the tracked data in a spreadsheet. This example took the form of Windows Form Application, due to the usefulness of a Graphical User Interface (GUI) with buttons and options to start/stop tracking etcetera. Hence the developed application was of the same type, adapting the example tracking code and removing and adding features as necessary for the specific purpose of tracking and controlling the robot. 
+
+SCREENSHOT OF THE ACTUAL USER INTERFACE WITH DESCRIPTION ON HOW IT WORKS IE THE ORDER OF BUTTONS THAT MUST BE CLICKED TO CONNECT TO OPTITRACK, THE ROBOT ETC??? XXXXXX
+
 UML DIAGRAM TO SHOW THE CLASSES OF THE PROGRAM AND WHAT EACH ONE IS RESPONSIBLE FOR?????
 
 \subsection{Controlling The Device}
@@ -540,6 +545,12 @@ With these steps of applying a rotation transformation and determining the best 
 RUNNING THE SET MOTOR INSTRUCTION IN A DIFFERENT THREAD IN A LOOP SO TARGET CAN BE UPDATED LIVE AND THE MOTION OF THE SERVOS IS ADJUSTED LIVE SO AS TO NOT FINISH THE PREVIOUS COMMAND AND JUST CONCENTRATE ON CURRENT TARGET.
 
 SMALL PAIR OF FLOW DIAGRAMS TO SHOW ONE THREAD CONSTANTLY UPDATING THE POSITION AND THE OTHER WORKING OUT WHAT THE POSITION SHOULD BE AND CHANGING IT BASED ON TASK PROGRESSION AND TARGET POINT ETC. IN DIFFERENT DASHED BOXES TO SHOW THE DIFFERENT THREADS. THE LATTER WILL JUST SAY "POINT DETERMINATION ALGORITHM" AND WILL BE  A COMPRESSED VERSION OF THE LARGER FLOW DIAGRAM IN THE PREVIOUS SECTION.
+
+\begin{center}
+\includegraphics[width=0.65\textwidth]{images/separateThreads.png}
+\captionof{figure}{Simplified processes taking place in the two different threads, showing the servos are updated after a set interval regardless of the logic}
+\label{figure:separateThreads}
+\end{center}
 
 \section{Physical Experiment}
 \subsection{Setup}

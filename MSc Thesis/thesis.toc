@@ -28,6 +28,7 @@
 \contentsline {subsection}{\numberline {7.1}Flexible Robotic Arms}{23}
 \contentsline {subsection}{\numberline {7.2}Design Process of Four Degrees-Of-Freedom Device}{23}
 \contentsline {subsection}{\numberline {7.3}Interfacing With NatNet Optical Tracking System}{24}
+\contentsline {subsubsection}{\numberline {7.3.1}Program Layout}{25}
 \contentsline {subsection}{\numberline {7.4}Controlling The Device}{26}
 \contentsline {subsection}{\numberline {7.5}Calibrating Device Using Kernel Regression Method}{26}
 \contentsline {subsection}{\numberline {7.6}Algorithm for Responding to Three-Dimensional State Requirements}{27}
@@ -44,5 +45,5 @@
 \contentsline {section}{\numberline {11}Conclusion}{32}
 \contentsline {section}{\numberline {12}Further Work and Areas of Improvement}{32}
 \contentsline {section}{\numberline {13}References}{32}
-\contentsline {section}{\numberline {14}Appendix}{34}
-\contentsline {subsection}{\numberline {14.1}CAD Drawings}{34}
+\contentsline {section}{\numberline {14}Appendix}{35}
+\contentsline {subsection}{\numberline {14.1}CAD Drawings}{35}
