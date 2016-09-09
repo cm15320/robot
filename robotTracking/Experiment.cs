@@ -19,6 +19,7 @@ namespace robotTracking
         public float inverseSqrt2Pi = 1f / (float)Math.Sqrt(2 * Math.PI);
         private RobotControl controller;
         private RigidBodyData robotBase, robotTip;
+        private Marker markerToFollow;
         private CalibrationData newCalibrationData = new CalibrationData();
         private CalibrationData storedCalibrationData, storedTestData;
         //private int calibrationStep = 0;
@@ -29,6 +30,7 @@ namespace robotTracking
         private int maxAngle = 120;
         private float[] relativeTipAngles = new float[] { 0.0f, 0.0f, 0.0f };
         private float[] relativeTipPos = new float[] { 0.0f, 0.0f, 0.0f };
+        private float[] relativeMarkerFollowPos = new float[] { 0.0f, 0.0f, 0.0f };
         private FrameOfMocapData currentFrame;
         private object syncLock;
         private bool calibrating = false;
@@ -63,7 +65,7 @@ namespace robotTracking
 
         public Experiment(bool realExperiment)
         {
-            if(realExperiment == false)
+            if (realExperiment == false)
             {
                 dummyExperiment = true;
                 controller = new RobotControl(syncLock);
@@ -92,25 +94,40 @@ namespace robotTracking
             htRigidBodiesNameToBody.Add("robotTip", new RigidBodyData());
 
             //string[] requiredNames = new string[] { "robotBase", "robotTip" };
-            if(mRigidBodies.Count == 0)
+            if (mRigidBodies.Count == 0)
             {
                 Console.WriteLine("Error, no rigid body info stored");
             }
-            foreach(RigidBody rb in mRigidBodies)
+            foreach (RigidBody rb in mRigidBodies)
             {
                 // if bodies to id ht contatins key (rb. name) then add it to ID to Name ht
-                if(htRigidBodiesNameToBody.ContainsKey(rb.Name))
+                if (htRigidBodiesNameToBody.ContainsKey(rb.Name))
                 {
                     int key = rb.ID.GetHashCode();
                     rigidBodiesIDtoName.Add(key, rb.Name);
                 }
             }
-            if(rigidBodiesIDtoName.Count == 0)
+            if (rigidBodiesIDtoName.Count == 0)
             {
                 Console.WriteLine("Error, not added necessary rigid bodies to the hash table");
             }
 
             initialiseMotors();
+        }
+
+        public void setMarkerToFollow(Marker markerToFollow)
+        {
+            this.markerToFollow = markerToFollow;
+        }
+
+
+        public bool markerFollowRequirements()
+        {
+            if (markerToFollow != null)
+            {
+                return true;
+            }
+            return false;
         }
 
 
@@ -156,7 +173,7 @@ namespace robotTracking
 
         private void roundToMil(float[] point)
         {
-            for(int i = 0; i < point.Length; i++)
+            for (int i = 0; i < point.Length; i++)
             {
                 point[i] = (float)Math.Round(point[i], 3);
             }
@@ -169,22 +186,22 @@ namespace robotTracking
             float[] minAngles = new float[] { 180, 180, 180, 180 };
             float maxDifference = 0;
 
-            for(int i = 0; i < numMotors; i++)
+            for (int i = 0; i < numMotors; i++)
             {
-                foreach(DataPoint currentDataPoint in storedCalibrationData)
+                foreach (DataPoint currentDataPoint in storedCalibrationData)
                 {
-                    if(currentDataPoint.motorAngles[i] > maxAngles[i])
+                    if (currentDataPoint.motorAngles[i] > maxAngles[i])
                     {
                         maxAngles[i] = currentDataPoint.motorAngles[i];
                     }
-                    if(currentDataPoint.motorAngles[i] < minAngles[i])
+                    if (currentDataPoint.motorAngles[i] < minAngles[i])
                     {
                         minAngles[i] = currentDataPoint.motorAngles[i];
                     }
                 }
             }
 
-            for(int i = 0; i < maxAngles.Length; i++)
+            for (int i = 0; i < maxAngles.Length; i++)
             {
                 float difference = maxAngles[i] - minAngles[i];
                 if (difference > maxDifference)
@@ -270,13 +287,13 @@ namespace robotTracking
         public void testMultiplyMatrix()
         {
             float[] vector = new float[] { 2, 1, 3 };
-            float[][] matrix = new float[][] { new float[] {1, 2, 3 }, new float[] { 4, 5, 6 }, new float[] { 7, 8, 9} };
+            float[][] matrix = new float[][] { new float[] { 1, 2, 3 }, new float[] { 4, 5, 6 }, new float[] { 7, 8, 9 } };
 
             float[] solution = multiplyByRotationMatrix(matrix, vector);
 
 
             Console.WriteLine("solution is:");
-            for(int i = 0; i < solution.Length; i++)
+            for (int i = 0; i < solution.Length; i++)
             {
                 Console.WriteLine(solution[i]);
             }
@@ -293,7 +310,7 @@ namespace robotTracking
             float[] solution = convertTargetOrientation(targetPos, baseRads);
 
             Console.WriteLine("solution is:");
-            for(int i = 0; i < solution.Length; i++)
+            for (int i = 0; i < solution.Length; i++)
             {
                 Console.WriteLine(solution[i]);
             }
@@ -304,7 +321,7 @@ namespace robotTracking
         {
             float[] solution = new float[targetPos.Length];
 
-            for(int i = 0; i < rotationMatrix.Length; i++)
+            for (int i = 0; i < rotationMatrix.Length; i++)
             {
                 for (int j = 0; j < rotationMatrix[0].Length; j++)
                 {
@@ -392,7 +409,6 @@ namespace robotTracking
                 }
             }
 
-            return output;
         }
 
 
@@ -404,7 +420,7 @@ namespace robotTracking
 
             double[] output;
 
-            if(inputType == RegressionInput.POSITION)
+            if (inputType == RegressionInput.POSITION)
             {
                 sphereIntersectionConvert(inputVectorTarget);
                 output = getSolutionFromSphereIntersection(inputVectorTarget, bandwidth);
@@ -413,7 +429,7 @@ namespace robotTracking
             {
                 output = NWRegression(inputVectorTarget, inputType, bandwidth);
             }
-            
+
             //if(controller.isConnected())
             //{
             //    controller.setMotorAnglesTest(output);
@@ -424,7 +440,7 @@ namespace robotTracking
 
         private void convertMotors(float[] origMotorAngles, bool reduce)
         {
-            for(int i = 0; i < origMotorAngles.Length; i++)
+            for (int i = 0; i < origMotorAngles.Length; i++)
             {
                 if (reduce) origMotorAngles[i] = origMotorAngles[i] / motorScaler;
                 else origMotorAngles[i] = origMotorAngles[i] * motorScaler;
@@ -463,10 +479,10 @@ namespace robotTracking
             int indexOfClosestPoint = 0;
             float minAbsoluteDifference = 100000f;
             float[] currentDifference = new float[3];
-            for(int i = 0; i < storedCalibrationData.Count; i++)
+            for (int i = 0; i < storedCalibrationData.Count; i++)
             {
                 currentDataPoint = storedCalibrationData[i];
-                for(int j = 0; j < currentDifference.Length; j++)
+                for (int j = 0; j < currentDifference.Length; j++)
                 {
                     currentDifference[j] = inputVectorTarget[j] - currentDataPoint.relativeTipPosition[j];
                 }
@@ -479,7 +495,7 @@ namespace robotTracking
             }
             Console.WriteLine("index of closest point is " + indexOfClosestPoint);
             Console.WriteLine("at which the values are ");
-            for(int j = 0; j < inputVectorTarget.Length; j++)
+            for (int j = 0; j < inputVectorTarget.Length; j++)
             {
                 Console.WriteLine(storedCalibrationData[indexOfClosestPoint].relativeTipPosition[j]);
                 inputVectorTarget[j] = storedCalibrationData[indexOfClosestPoint].relativeTipPosition[j];
@@ -498,13 +514,13 @@ namespace robotTracking
             double[] solution = floatToDouble(correspondingMotors);
 
             return solution;
-            
+
         }
 
         private double[] floatToDouble(float[] input)
         {
             double[] output = new double[input.Length];
-            for(int i = 0; i < input.Length; i++)
+            for (int i = 0; i < input.Length; i++)
             {
                 output[i] = (double)input[i];
             }
@@ -527,19 +543,19 @@ namespace robotTracking
 
             float[] newInputVector = getCopyVector(inputVectorTarget);
             Console.WriteLine("vector to have regression performed is:");
-            for(int i = 0; i < newInputVector.Length; i++)
+            for (int i = 0; i < newInputVector.Length; i++)
             {
                 Console.WriteLine(newInputVector[i]);
             }
 
 
-            if(inputType == RegressionInput.MOTORS)
+            if (inputType == RegressionInput.MOTORS)
             {
                 convertMotors(newInputVector, true);
             }
 
             // If not using KD tree, loop through entire set of data
-            for(int i = 0; i < storedCalibrationData.Count; i++)
+            for (int i = 0; i < storedCalibrationData.Count; i++)
             {
                 float kernelInput = getKernelInput(i, inputType, alpha, newInputVector);
                 float[] currentYValue = getcurrentYValue(i, inputType);
@@ -559,8 +575,8 @@ namespace robotTracking
                 sumDenominator += kernelFunction(kernelInput);
                 //Console.WriteLine("sum denominator is " + sumDenominator);
             }
-            
-            for(int k = 0; k < numOutputDimensions; k++)
+
+            for (int k = 0; k < numOutputDimensions; k++)
             {
                 outputVector[k] = sumNumerator[k] / sumDenominator;
             }
@@ -571,7 +587,7 @@ namespace robotTracking
             }
 
             Console.WriteLine("Vector output being returned is:");
-            for(int i = 0; i < outputVector.Length; i++)
+            for (int i = 0; i < outputVector.Length; i++)
             {
                 Console.WriteLine(outputVector[i]);
             }
@@ -596,14 +612,14 @@ namespace robotTracking
         private void sphereIntersectionConvert(float[] relativeTargetPoint)
         {
             float absoluteTargetDistance = getAbsoluteValue(relativeTargetPoint);
-            if(absoluteTargetDistance > tipToBaseSphereRadius)
+            if (absoluteTargetDistance > tipToBaseSphereRadius)
             {
                 float vectorFactor = tipToBaseSphereRadius / absoluteTargetDistance;
                 Console.WriteLine("absolute distance is: " + absoluteTargetDistance);
                 Console.WriteLine("sphere radius is :" + tipToBaseSphereRadius);
                 Console.WriteLine("so vector factor is: " + vectorFactor);
                 Console.WriteLine("converted target point to sphere intersection from:  x = {0}, y = {1}, z = {2}", relativeTargetPoint[0], relativeTargetPoint[1], relativeTargetPoint[2]);
-                for(int i = 0; i < relativeTargetPoint.Length; i++)
+                for (int i = 0; i < relativeTargetPoint.Length; i++)
                 {
                     relativeTargetPoint[i] *= vectorFactor;
                 }
@@ -618,7 +634,7 @@ namespace robotTracking
         {
             DataPoint currentDataPoint = storedCalibrationData[i];
             float[] currentVector;
-            if(inputType == RegressionInput.MOTORS)
+            if (inputType == RegressionInput.MOTORS)
             {
                 // If want to find a given config that yields certain motor angles, could use tip position, orientation or both
                 // just use tip position for now (will very rarely want to know what position matches to motor angles anyway, will be the other way round)
@@ -642,7 +658,7 @@ namespace robotTracking
             return currentVector;
         }
 
-        
+
         private float getKernelInput(int i, RegressionInput inputType, float alpha, float[] inputVectorTarget)
         {
             DataPoint currentDataPoint = storedCalibrationData[i];
@@ -685,7 +701,7 @@ namespace robotTracking
             }
             // temporary while testing, should be the combination of both
             else currentVector = currentDataPoint.relativeTipPosition;
-            
+
             // Work out the difference between the vectors
             for (int j = 0; j < currentVector.Length; j++)
             {
@@ -709,7 +725,7 @@ namespace robotTracking
             //Console.WriteLine("and the kernel input was   " + kernelInput);
 
             return kernelInput;
-            
+
         }
 
 
@@ -721,7 +737,7 @@ namespace robotTracking
                 // If given motor angles as target, return 3 dimensions (for position corresponding to this, in reality this will be rare as will be given something else for target)
                 return 3;
             }
-            else 
+            else
             {
                 // If given position or orientation vectors or both, return 4 dimensions for the motor
                 return 4;
@@ -739,7 +755,7 @@ namespace robotTracking
             else filename = "calibrationData.xml";
 
             calibrate(startingServoIndex, true, testPoints);
-            
+
             Console.WriteLine("finished");
 
             saveDataXML(filename);
@@ -772,11 +788,11 @@ namespace robotTracking
             numSteps = numPoints - 1;
             step = activeRange / numSteps;
             startingAngle = 90 - (localMaxAngle - 90);
-            if(testPoints) startingAngle -= 5; // offset it by 5 degrees to the left to cover angles not covered by calibration alone
+            if (testPoints) startingAngle -= 5; // offset it by 5 degrees to the left to cover angles not covered by calibration alone
 
 
             // if should be descending then just start at the extreme and come down
-            if (!rising)    startingAngle += numSteps * step;
+            if (!rising) startingAngle += numSteps * step;
 
             for (int i = 0; i < numPoints; i++)
             {
@@ -784,8 +800,8 @@ namespace robotTracking
                 else angle = startingAngle - (i * step); // come down
 
                 cnt++;
-                if (cnt % 2 == 0)   newRising = true;
-                else    newRising = false;
+                if (cnt % 2 == 0) newRising = true;
+                else newRising = false;
                 motorAngles[motorIndex] = angle;
 
                 if (!calibrating)
@@ -793,7 +809,7 @@ namespace robotTracking
                     saveDataXML(filename);
                     return;
                 }
-                if (motorIndex < 3)     calibrate(motorIndex + 1, newRising, testPoints);
+                if (motorIndex < 3) calibrate(motorIndex + 1, newRising, testPoints);
                 else if (motorIndex == 3)
                 {
                     Console.WriteLine("motor angles are {0} {1} {2} {3}", motorAngles[0], motorAngles[1], motorAngles[2], motorAngles[3]);
@@ -814,23 +830,23 @@ namespace robotTracking
 
         private void setMotorAngles()
         {
-            if(controller.isConnected())
+            if (controller.isConnected())
             {
                 eliminateExtremeAngles();
                 controller.setMotorAngles();
-            } 
+            }
         }
 
         private void eliminateExtremeAngles()
         {
-            for(int i = 0; i < motorAngles.Length; i++)
+            for (int i = 0; i < motorAngles.Length; i++)
             {
-                if(motorAngles[i] > maxAngle)
+                if (motorAngles[i] > maxAngle)
                 {
                     motorAngles[i] = maxAngle;
                     Console.WriteLine("Had to remove  exreme high angle");
                 }
-                if(motorAngles[i] < 180 - maxAngle)
+                if (motorAngles[i] < 180 - maxAngle)
                 {
                     motorAngles[i] = 180 - maxAngle;
                     Console.WriteLine("Had to remove extreme low angle");
@@ -842,12 +858,12 @@ namespace robotTracking
         {
             experimentLive = true;
             new Task(liveExperimentThreadLoop).Start();
-            while(experimentLive)
+            while (experimentLive)
             {
                 // in future would have to pass in a literal point then get the relative point 
                 // based on the position of the base as well
                 moveToRelTargetPoint(relativeTargetPoint);
-                    
+
                 Thread.Sleep(50);
             }
         }
@@ -870,13 +886,13 @@ namespace robotTracking
 
         private bool outOfRecordedRange(float[] vectorPosition)
         {
-            for(int i = 0; i < vectorPosition.Length; i++)
+            for (int i = 0; i < vectorPosition.Length; i++)
             {
-                if(vectorPosition[i] > maxRelativePositionValues[i])
+                if (vectorPosition[i] > maxRelativePositionValues[i])
                 {
                     return true;
                 }
-                if(vectorPosition[i] < minRelativePositionValues[i])
+                if (vectorPosition[i] < minRelativePositionValues[i])
                 {
                     return true;
                 }
@@ -916,7 +932,7 @@ namespace robotTracking
 
         private void updateNewMotorAngles(double[] newMotorAngles)
         {
-            lock(syncLock)
+            lock (syncLock)
             {
                 // don't update any angles if they are NaN
                 if (motorAnglesNaN(newMotorAngles))
@@ -924,14 +940,14 @@ namespace robotTracking
                     Console.WriteLine("Not updated due to NaN values");
                     return;
                 }
-                
-                for(int i = 0; i < motorAngles.Length; i++)
+
+                for (int i = 0; i < motorAngles.Length; i++)
                 {
                     motorAngles[i] = (int)Math.Round(newMotorAngles[i]);
                 }
             }
         }
-        
+
 
         private bool motorAnglesNaN(double[] newMotorAngles)
         {
@@ -948,7 +964,7 @@ namespace robotTracking
 
         private void liveExperimentThreadLoop()
         {
-            while(experimentLive)
+            while (experimentLive)
             {
                 setMotorAngles();
                 Thread.Sleep(20);
@@ -1068,18 +1084,18 @@ namespace robotTracking
             file.Close();
             //for (int i = 0; i < storedCalibrationData.Count; i++)
             //{
-                //Console.WriteLine("for data point number " + i);
-                //Console.WriteLine("motor angles:");
-                //for (int j = 0; j < storedCalibrationData[i].motorAngles.Length; j++)
-                //{
-                //    Console.Write(storedCalibrationData[i].motorAngles[j] + "   ");
-                //}
-                //Console.WriteLine("tip position:");
-                //for (int j = 0; j < storedCalibrationData[i].relativeTipPosition.Length; j++)
-                //{
-                //    Console.WriteLine(storedCalibrationData[i].relativeTipPosition[j] + "   ");
-                //}
-                //Console.WriteLine();
+            //Console.WriteLine("for data point number " + i);
+            //Console.WriteLine("motor angles:");
+            //for (int j = 0; j < storedCalibrationData[i].motorAngles.Length; j++)
+            //{
+            //    Console.Write(storedCalibrationData[i].motorAngles[j] + "   ");
+            //}
+            //Console.WriteLine("tip position:");
+            //for (int j = 0; j < storedCalibrationData[i].relativeTipPosition.Length; j++)
+            //{
+            //    Console.WriteLine(storedCalibrationData[i].relativeTipPosition[j] + "   ");
+            //}
+            //Console.WriteLine();
             //}
 
             if (dataReadIn.Count <= 0)
@@ -1118,7 +1134,7 @@ namespace robotTracking
             maxRelativePositionValues = new float[] { -10, -10, -10 };
             minRelativePositionValues = new float[] { 10, 10, 10 };
 
-            foreach(DataPoint currentDataPoint in storedCalibrationData)
+            foreach (DataPoint currentDataPoint in storedCalibrationData)
             {
                 float relX = currentDataPoint.relativeTipPosition[0];
                 float rely = currentDataPoint.relativeTipPosition[1];
@@ -1126,13 +1142,13 @@ namespace robotTracking
 
                 float[] relPosition = currentDataPoint.relativeTipPosition;
 
-                for(int i = 0; i < relPosition.Length; i++)
+                for (int i = 0; i < relPosition.Length; i++)
                 {
-                    if(relPosition[i] > maxRelativePositionValues[i])
+                    if (relPosition[i] > maxRelativePositionValues[i])
                     {
                         maxRelativePositionValues[i] = relPosition[i];
                     }
-                    else if(relPosition[i] < minRelativePositionValues[i])
+                    else if (relPosition[i] < minRelativePositionValues[i])
                     {
                         minRelativePositionValues[i] = relPosition[i];
                     }
@@ -1147,17 +1163,17 @@ namespace robotTracking
         private bool getTipToBaseSphereRadius()
         {
             float[] zeroPosition;
-            foreach(DataPoint currentDataPoint in storedCalibrationData)
+            foreach (DataPoint currentDataPoint in storedCalibrationData)
             {
                 int cnt = 0;
-                for(int i = 0; i < 4; i++)
+                for (int i = 0; i < 4; i++)
                 {
-                    if((int)Math.Round(currentDataPoint.motorAngles[i]) == 90)
+                    if ((int)Math.Round(currentDataPoint.motorAngles[i]) == 90)
                     {
                         cnt++;
                     }
                 }
-                if(cnt == 4)
+                if (cnt == 4)
                 {
                     tipToBaseSphereRadius = getAbsoluteValue(currentDataPoint.relativeTipPosition);
                     Console.WriteLine("sphere radius is " + tipToBaseSphereRadius);
@@ -1172,7 +1188,7 @@ namespace robotTracking
         private float getAbsoluteValue(float[] relativePosition)
         {
             float absoluteValue, difference = 0f;
-            for(int i = 0; i < relativePosition.Length; i++)
+            for (int i = 0; i < relativePosition.Length; i++)
             {
                 difference += (float)Math.Pow(relativePosition[i], 2);
             }
@@ -1183,7 +1199,7 @@ namespace robotTracking
         public bool getCalibrationData()
         {
             bool success = getData(calibrationFilename);
-            if(success)
+            if (success)
             {
                 featureScaling();
                 Console.WriteLine("feature scaling result is " + motorScaler);
@@ -1237,7 +1253,7 @@ namespace robotTracking
 
         private void getCurrentData()
         {
-            lock(syncLock)
+            lock (syncLock)
             {
                 // loop through RigidBody data
                 for (int i = 0; i < currentFrame.nRigidBodies; i++)
@@ -1254,6 +1270,16 @@ namespace robotTracking
                         if (name.Equals("robotBase")) robotBase = rb;
                         else if (name.Equals("robotTip")) robotTip = rb;
 
+                    }
+                }
+                if (markerToFollow != null)
+                {
+                    foreach (Marker currentMarker in currentFrame.LabeledMarkers)
+                    {
+                        if (currentMarker.ID == markerToFollow.ID)
+                        {
+                            markerToFollow = currentMarker;
+                        }
                     }
                 }
                 getRelativeTipInfo();
@@ -1361,6 +1387,13 @@ namespace robotTracking
             relativeTipAngles[0] = xRDiff;
             relativeTipAngles[1] = yRDiff;
             relativeTipAngles[2] = zRDiff;
+
+            if (markerToFollow != null)
+            {
+                relativeMarkerFollowPos[0] = (float)(markerToFollow.x - robotBase.x);
+                relativeMarkerFollowPos[1] = (float)(markerToFollow.y - robotBase.y);
+                relativeMarkerFollowPos[2] = (float)(markerToFollow.z - robotBase.z);
+            }
         }
 
 
@@ -1370,7 +1403,7 @@ namespace robotTracking
         private void checkForPause()
         {
             // If not moving then should pause
-            if( !pausedCalibration && notMoving())
+            if (!pausedCalibration && notMoving())
             {
                 pausedCalibration = true;
                 // trim the last value from the calibration data as it shouldn't count
@@ -1378,7 +1411,7 @@ namespace robotTracking
                 Console.WriteLine("Calibration has been paused due to lack of motion");
             }
 
-            while(pausedCalibration && calibrating)
+            while (pausedCalibration && calibrating)
             {
                 Thread.Sleep(5000);
             }
@@ -1399,7 +1432,7 @@ namespace robotTracking
             float ydiff = Math.Abs(currentDataPoint.relativeTipPosition[1] - lastDataPoint.relativeTipPosition[1]);
             float zdiff = Math.Abs(currentDataPoint.relativeTipPosition[2] - lastDataPoint.relativeTipPosition[2]);
 
-            if(xdiff < 0.0001 && ydiff < 0.0001 && zdiff < 0.0001)
+            if (xdiff < 0.0001 && ydiff < 0.0001 && zdiff < 0.0001)
             {
                 return true;
             }
@@ -1444,13 +1477,14 @@ namespace robotTracking
         //}
 
 
-        private void logCalibrationData() {
+        private void logCalibrationData()
+        {
 
             if (dummyExperiment) return;
 
             DataPoint newDataPoint = new DataPoint();
             // lock so it doesn't change as adding it to the list of data points
-            lock(syncLock)
+            lock (syncLock)
             {
                 if (!currentlyTracked)
                 {
@@ -1467,7 +1501,7 @@ namespace robotTracking
 
         private void saveDataXML(string filename)
         {
-            if(dummyExperiment)
+            if (dummyExperiment)
             {
                 return;
             }
