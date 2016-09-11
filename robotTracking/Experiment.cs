@@ -338,7 +338,7 @@ namespace robotTracking
         {
             // get the correct rigid body data objects from the frame
             this.currentFrame = newCurrentFrame;
-            getCurrentData();
+            getCurrentTrackingData();
 
             calculateDistanceBetween();
         }
@@ -1251,7 +1251,7 @@ namespace robotTracking
 
         }
 
-        private void getCurrentData()
+        private void getCurrentTrackingData()
         {
             lock (syncLock)
             {

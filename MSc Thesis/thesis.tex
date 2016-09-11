@@ -17,6 +17,7 @@
 \usepackage{tabularx}
 \usepackage{caption}
 \usepackage{everypage}
+\usepackage{lscape}
 \usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{enumitem}
@@ -404,8 +405,8 @@ Furthermore, a brief overview was provided for robots in construction related ta
 \pagebreak
 
 \section{Handheld Robot Design}
-\subsection{Flexible Robotic Arms}
-\subsection{Design Process of Four Degrees-Of-Freedom Device}
+\subsection{Flexible Robotic Arms} PUT INTO THE BACKGROUND SECTION NOT HERE XXXXX
+\subsection{Physical Design of Four Degrees-Of-Freedom Device}
 \begin{itemize}
 \item{The initial design took direction based on the use of four Hi-Tec MS7980 servomotors to provide a degree of freedom each, driving the arm via some form of lightweight cable.}
 \item{A flexible foam tube was provided to act as the arm of the robot with outer diameter 42mm and inner diameter 19mm}
@@ -427,6 +428,17 @@ Furthermore, a brief overview was provided for robots in construction related ta
 \item{Pulleys used to address other problem....}
 \item{Dimensions changed to afford more room to front servo to allow it to move full range of servo motion.....} 
 \end{itemize}
+
+\subsection{Controlling The Device}
+
+\begin{center}
+\includegraphics[width=0.65\textwidth]{images/schematic.png}
+\captionof{figure}{Schematic showing how the controlling equipment interfaces with the pc and the robot components.}
+\label{figure:schematic}
+\end{center}
+
+\section{Developed Program}
+PUT THIS SECTION AFTER THE REGRESSION FUNCTION SECTION AS IT ALLUDES TO THE REGRESSION A BIT?????? ESPECIALLY THE PROGRAM LAYOUT BIT ETC, COULD STILL HAVE THE OPTITRACK BIT BEFOREHAND, WHICH WOULD PROBABLY MAKE MORE SENSE XXXXXXX
 \subsection{Interfacing With NatNet Optical Tracking System}
 
 In order to determine where in three dimensional space the robot is, as well as the relative distances between itself and other points, it is necessary to track physical objects. This was achieved using a single optical tracking device, the OptiTrack V120 Duo \cite{OptiTrackSite}. The device features two cameras in order to provide depth perception, and works as a stand-alone device unlike the syncing of several distinct cameras as used in \cite{GreggSmithDesign} and \cite{GreggSmithFeedback}. The accompanying software library however, the `NatNet SDK', as well as the actual tracking software, `OptiTrack Motive', are the same. This library was provided to run in a .NET framework environment, hence the decision to use C\# as the primary development language.
@@ -446,25 +458,15 @@ Therefore, rigid body objects can be set up to represent the robot base and tip 
 
 Once the required tracking data has been extracted, it can then be manipulated to create relative target points to the base depending on the situation. These can then be used as inputs to the regression function in order to solve for the motor angles. The tracking data at certain points is also written to an XML file during the calibration procedure, as mentioned in SECTION XXXXX. 
 
+\subsection{Kernel Regression Method}
+\subsubsection{Calibration Procedure}
+DON'T FORGET IMAGES OF ROBOT IN CLAMP FOR VISUALIZATION	
 
-\subsubsection{Program Layout}
-The developed program for using the robot was built around the fundamentals of the Motive software and the NatNet library. An example was provided that simply sets up a connection between the tracking program and displays the tracked data in a spreadsheet. This example took the form of Windows Form Application, due to the usefulness of a Graphical User Interface (GUI) with buttons and options to start/stop tracking etcetera. Hence the developed application was of the same type, adapting the example tracking code and removing and adding features as necessary for the specific purpose of tracking and controlling the robot. 
+\subsubsection{Calibration Results}
+Low bandwidth shows high non-linearity as expected due to arm material etc
 
-SCREENSHOT OF THE ACTUAL USER INTERFACE WITH DESCRIPTION ON HOW IT WORKS IE THE ORDER OF BUTTONS THAT MUST BE CLICKED TO CONNECT TO OPTITRACK, THE ROBOT ETC??? XXXXXX
-
-UML DIAGRAM TO SHOW THE CLASSES OF THE PROGRAM AND WHAT EACH ONE IS RESPONSIBLE FOR?????
-
-\subsection{Controlling The Device}
-
-\begin{center}
-\includegraphics[width=0.65\textwidth]{images/schematic.png}
-\captionof{figure}{Schematic diagram showing how the controlling equipment interfaces with the pc and the robot components.}
-\label{figure:schematic}
-\end{center}
-
-\subsection{Calibrating Device Using Kernel Regression Method}
 \pagebreak 
-\subsection{Algorithm for Responding to Three-Dimensional State Requirements}
+\subsection{Algorithm for Responding to Three-Dimensional State Targets}
 Once the robot has been calibrated in such a way that there exists a suitable range of data points in which to perform the regression function, along with the selection of an appropriate bandwidth, the device may then be responsive to 3D state commands.
 The process of responding to commands is fundamentally built on inputting a positional vector, an orientation vector or a combined vector into the regression function in order to ascertain the required motor angles. This input vector is of course in regard to the tip relative to the base, as is the corresponding calibration data. The resulting motor angle vector is then issued to the servomotors via the Arduino in a controlled manner. 
 
@@ -540,7 +542,6 @@ With these steps of applying a rotation transformation and determining the best 
 \label{figure:getSolution}
 \end{center}
 
-
 \subsubsection{Running with a Live Target in Real Time}
 RUNNING THE SET MOTOR INSTRUCTION IN A DIFFERENT THREAD IN A LOOP SO TARGET CAN BE UPDATED LIVE AND THE MOTION OF THE SERVOS IS ADJUSTED LIVE SO AS TO NOT FINISH THE PREVIOUS COMMAND AND JUST CONCENTRATE ON CURRENT TARGET.
 
@@ -551,6 +552,55 @@ SMALL PAIR OF FLOW DIAGRAMS TO SHOW ONE THREAD CONSTANTLY UPDATING THE POSITION 
 \captionof{figure}{Simplified processes taking place in the two different threads, showing the servos are updated after a set interval regardless of the logic}
 \label{figure:separateThreads}
 \end{center}
+
+THE IMAGE SHOWS THAT THE TARGET ANGLES CAN CHANGE WHENEVER AND THE ROBOT WILL RESPOND BY JUST MOVING TOWARDS THE NEW TARGET, MAKING IT MORE RESPONSIVE. THIS IS OPPOSED TO HAVING TO COMPLETE ITS ORIGINAL MOTION BEFORE MOVING TO THE NEW TARGET MAKING IT HAVE A LAG. ALSO SAY THE 6MS DELAY IS TO SMOOTHEN THE MOTION AS QUICK JERKS CAN PULL CABLES LOOSE ETC
+
+\subsection{Program Design}
+The developed program for using the robot was built around the fundamentals of the Motive software and the NatNet library. An example was provided that simply sets up a connection between the tracking program and displays the tracked data in a spreadsheet. This example took the form of Windows Form Application, due to the usefulness of a Graphical User Interface (GUI) with buttons and options to start/stop tracking etcetera. Hence the developed application was of the same type, adapting the example tracking code and removing and adding features as necessary for the specific purpose of tracking and controlling the robot. This entailed creating new classes that deal with interfacing with the robot as well as the logic involved with the calibration, target selection and solving processes. 
+
+Small tests were also added to the program so that the motion of the robot or acquiring of a solution from the regression for instance could be tested without having to fully connect to the optical tracking etcetera. This would use dummy variables where necessary just to quickly perform tests. The general process of adding a new feature to the program would entail adding a button to the GUI and attaching methods to the callback associated with it. It is often necessary to have this functionality run in a separate thread so as not to hinder the updating of data or the user interface itself (rendering it unresponsive while the operation is carried out). Hence it was essential to ensure thread safety, using a shared syncLock object when accessing shared objects, as well as delegating any user interface changes to the thread responsible for updating it. This simple user interface is illustrated in Figure \ref{figure:userInterface}.
+
+\begin{center}
+\includegraphics[width=\textwidth]{images/userInterface.png}
+\captionof{figure}{User interface of the program for controlling the current status and operations of the robot, as well as for connecting to the tracking system and reading key tracking data.}
+\label{figure:userInterface}
+\end{center}
+
+USE UPDATED SCREENSHOT WHEN ACTUALLY CONNECTED
+
+The upper left and right corners provide buttons for connecting to the Motive optical tracking software and the Arduino for robot control respectively. As the typical procedures regarding controlling the robot depend on analysing tracking data and sending instructions accordingly, both connections must be established before any practical operations can be performed. Hence full connection is required to start an `experiment', which entails creating an Experiment object based on the information provided from both connections. However, as alluded to earlier, a `dummy experiment' will be created without full connection in order to provide some basic functionality so that simple motion and logic tests can be carried out without having to set up and connect to the external infrastructure associated with motion tracking. 
+
+Other buttons are provided for both testing and essential processes. The calibration procedure is initiated, stopped and paused (in case of battery failure)for both the main calibration data as well as the test sampling, using the corresponding buttons. There's also a button for reading stored calibration data into memory, without which the regression function would be impossible. The process mentioned in SECTION XXXXXX for discovering the most appropriate bandwidth value can also be carried out here. There is a live spreadsheet section in order to display the current tracking data being recorded, such as the position and orientation of the various rigid bodies and associated markers. Similarly, labels have been added to display values that have been calculated from this tracking data, such as the absolute distance from tip to base and relative orientation. Moreover, buttons are present for performing the following test scenarios, which were especially useful during development:
+\begin{itemize}
+\item{Performing a basic set of movement instructions for testing the servomotors, as well as zeroing them again}
+\item{Performing the regression function for an input of either the desired position or the actual motor angles for user entered values}
+\item{Testing the storage and retrieval of calibration data}
+\item{Moving to a relative target position, as entered by the user}
+\item{Attempting to stay at a relative target position, as entered by the user, regardless of how the base is oriented/positioned}
+\item{Moving to a tracked target object which is also in view of the tracking system}
+\end{itemize}
+
+The core classes of the program are illustrated in Figure \ref{figure:classDiagram}. Note that only the essential fields and methods that dictate how the program operates are shown, with the boilerplate NatNet methods, the smaller sub-methods and the less critical methods for testing and set up all excluded for simplicity.
+\begin{enumerate}
+\item{RobotTracker - The starting class that was built upon from the original NatNet code for interfacing with a tracking system via a simple Windows Form Application. This class is responsible for initiating the connection with the tracking system, as well as dealing with the corresponding data it receives. On top of this, it contains objects for the other main classes and methods that instantiate and utilise them. This is mostly achieved through callback methods associated with the user interface buttons, giving control to the user.}
+\item{Experiment - The class that extracts the key information from the tracking data into specific variables, and performs the logic required for ascertaining the values that need to be passed into the regression function, and performing the regression itself. This entails all of the steps outlined in Section XXXX regarding converting the target orientation and finding a sphere intersection etcetera. The calibration procedure, and the loading of the calibration data, is also performed in this class, along with other test processes.}
+\item{DataPoint - An object to store the motor angle vector and its corresponding relative tip-to-base position and orientation values as recorded by the tracking system. Many of these objects will make up the calibration data, and the values contained within them will be used when the regression function is performed, depending on the type of input/output. Serializable as with CalibrationData.}
+\item{CalibrationData - A collection of DataPoint objects, that can be accessed as if it were an array with an index, adding and removing points as necessary. Of course, this will be serializable as it will need to be written to and read from disk.}
+\item{RobotControl - This class is responsible for physically controlling the robot via its connection to the Arduino which in turn controls the servomotors. A connection is established with the Arduino and values are sent via serial connection, which are subsequently interpreted by the Arduino script and servo signals are applied accordingly. As mentioned in Section XXXXX, the values of the current motor angles are compared with their targets, and iterated one degree closer if required before being written to the servomotors together.}
+\end{enumerate}
+
+\begin{landscape}
+
+\begin{center}
+\includegraphics[width=1.4\textwidth]{images/classDiagram.png}
+\captionof{figure}{Core classes and their associated fields and methods that are central to how the program runs.}
+\label{figure:classDiagram}
+\end{center}
+
+
+\end{landscape}
+
+
 
 \section{Physical Experiment}
 \subsection{Setup}

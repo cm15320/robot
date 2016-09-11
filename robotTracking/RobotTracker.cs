@@ -902,7 +902,7 @@ namespace robotTracking
         }
 
 
-        // Process the frame of data in temrs of the timestamp etc to check frames dropped
+        // Process the frame of data in terms of the timestamp etc to check frames dropped
         // can optionally clear the queue each time one is processed 
         void ProcessFrameOfData(ref NatNetML.FrameOfMocapData data)
         {
