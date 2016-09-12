@@ -250,6 +250,11 @@ E.~Nadaraya.
 \newblock On estimating regression.
 \newblock {\em Theory of Probability \& Its Applications}, 9(1):141--142, 1964.
 
+\bibitem{mohamad2013}
+I.~Mohamad and D.~Usman.
+\newblock Standardization and its effects on k-means clustering algorithm.
+\newblock {\em Res. J. Appl. Sci. Eng. Technol}, 6(17):3299--3303, 2013.
+
 \bibitem{natnet2016}
 Natural~Point Optitrack.
 \newblock Natnet api user's guide version 2.10.0, May 2016.

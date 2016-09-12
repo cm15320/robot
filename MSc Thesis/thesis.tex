@@ -505,15 +505,38 @@ The procedure for obtaining the calibration data involves sending a range of dif
 
 INSERT IMAGES XXXXXXX
 
+
 The calibration sampling is then performed at a chosen resolution (number of degrees interval) by stepping through the full range of motion for one servo for each step of a `parent' servo. Thus if each servo (apart from the last in line) has a `child` servo, the motions are performed recursively, with the servo stepping once, then its child covering the full range, with its grandchild then covering the full range for each step of its child and so on. Hence a recursive function was written as shown in Figure XXXXXX INSERT CODE OF CALIBRATE FUNCTION AND PUT IN BODY OR APPENDIX?? XXXXX. The function is written such that after each step of a motor, its child motor then covers the range of motion in the opposite direction to its previous one. This is to reduce the number of times a motor has to move all the way back to the start of its range before stepping again, making the motion smoother in general and reducing calibration time. 
 
 INSERT CODE IMAGE OR PUT IN APPENDIX XXXXX	
 
 
 \subsubsection{Calibration Results}
+In order to find an appropriate bandwidth for the regression function, it was first necessary to obtain calibration data through sampling. Once enough data is available to perform the regression, the function can be tested against other sampled data, not covered in the initial calibration data, referred to as the `test data'. By comparing the output of the function for different bandwidth values against the values of the test data, an absolute positional error can be determined. 
+
+The state-space of the arm was initially sampled at a chosen resolution of five points over a total range of 60\degree per servo, giving a total sample number of $5^4 = 625$ calibration points. This gave a suitable range of motion, with an improvement of 20\degree over the device in \cite{GreggSmithDesign}. Higher ranges were initially used without any long term issues, although temporary deformation of the foam arm meant that the cables need to be re-tensioned, which was especially time consuming. A one second pause was issued after each calibration step to ensure the tip was steady before the position was logged. Hence this calibration took just over 10 minutes. Of course, higher accuracy could be obtained through more samples, with an increase in time, but this was kept short due to the fact that it needed to be repeated a lot with small design changes. Also, a meaningful increase in accuracy would require numerous extra sample points, quickly increasing the required time to well over an hour, which introduces other problems such as battery issues and gradual deformation. 
+
+The number of test data points was considerably smaller, with the primary aim of just collecting data for motor angle vectors that were not covered in the initial sampling. Hence $3^4 = 81$ samples were obtained, with starting position and step selected to deliberately avoid any calibration samples. For the comparison between the function output and the test data, the motor angles were to be the input, thus comparing the output positional values with the recorded points for the same motor angles. This `forward' approach was used for two reasons. The first is because the errors could be compared in terms of millimetres in space, which is more meaningful than servo degrees. The other reason is due to the fact that a given 3D position could potentially be achieved (or very close to) by more than one configuration of servo angles, whereas there is only one matching position for a given angle configuration. 
+
+Due to the nature of the kernel function, large differential values (the $x - x_{i}$ term) can cause issues. The input to the kernel function becomes larger when divided by the bandwidth (typically less than one), meaning when this value is squared, negated and made an exponent, a very small number is the result. This becomes particularly problematic when the value is so small that the number of bits required to represent it exceed those available in the `double' data type, giving a result of zero out of the Gaussian kernel function. This then can then cause the regression itself to fail as the denominator becomes zero, giving NaN values as output as opposed to any meaningful values. Due to the typically observed differences in degrees between the servo angles of the input and the sample points, this issue was present. As such, the value of servo angles need to be scaled so that the difference between any values is guaranteed to be in the range of $-1 < x - x_{i} < 1$. This is known as feature scaling, or min-max normalization \cite{mohamad2013}, and is shown in \eqref{featureScaling}, where $x^{\prime}$ is the new value after the original value, $x$, was scaled. This was performed for all servo angles during the regression function, and converted back after output to get results in degrees.
+
+\begin{equation}\label{featureScaling}
+x^{\prime} = \frac{x - x_{min}}{x_{max} - x_{min}}
+\end{equation}
+
+The function was thus used for each of the 81 angle configurations covered by the test data, giving a mean positional error (mm) between the output and test data values. This was then repeated for a range of bandwidth values and plotted to determine the most suitable value to minimise error, as illustrated in Figure \ref{figure:bandwidthPlot}.
+
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{images/bandwidthPlot.png}
+\captionof{figure}{Mean positional error at various bandwidths for the output of the regression function compared with the corresponding real positional data}
+\label{figure:bandwidthPlot}
+\end{center}
+
+
 Low bandwidth shows high non-linearity as expected due to arm material etc
 
-FEATURE SCALING
+
 
 
 \pagebreak 

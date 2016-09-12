@@ -436,6 +436,7 @@ namespace robotTracking
             return output;
         }
 
+        // could also actually subtract the value of the min from the value coming in before dividing by the scale value, for true min-max normalization
         private void convertMotors(float[] origMotorAngles, bool reduce)
         {
             for (int i = 0; i < origMotorAngles.Length; i++)

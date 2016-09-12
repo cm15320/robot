@@ -33,20 +33,20 @@
 \contentsline {subsection}{\numberline {8.2}Kernel Regression Method}{27}
 \contentsline {subsubsection}{\numberline {8.2.1}Calibration Procedure}{28}
 \contentsline {subsubsection}{\numberline {8.2.2}Calibration Results}{29}
-\contentsline {subsection}{\numberline {8.3}Algorithm for Responding to Three-Dimensional State Targets}{30}
-\contentsline {subsubsection}{\numberline {8.3.1}Acquiring Target Position Relative to Orientation of Base}{30}
-\contentsline {subsubsection}{\numberline {8.3.2}Gesturing Algorithm for Distant Targets}{32}
-\contentsline {subsubsection}{\numberline {8.3.3}Running with a Live Target in Real Time}{34}
-\contentsline {subsection}{\numberline {8.4}Program Design}{35}
-\contentsline {section}{\numberline {9}Physical Experiment}{39}
-\contentsline {subsection}{\numberline {9.1}Setup}{39}
-\contentsline {subsection}{\numberline {9.2}Construction Environment Parallels}{39}
-\contentsline {subsection}{\numberline {9.3}Mental Aspect}{39}
-\contentsline {subsection}{\numberline {9.4}Physical Aspect}{39}
-\contentsline {section}{\numberline {10}Results}{39}
-\contentsline {section}{\numberline {11}Discussion}{39}
-\contentsline {section}{\numberline {12}Conclusion}{39}
-\contentsline {section}{\numberline {13}Further Work and Areas of Improvement}{39}
-\contentsline {section}{\numberline {14}References}{39}
-\contentsline {section}{\numberline {15}Appendix}{41}
-\contentsline {subsection}{\numberline {15.1}CAD Drawings}{41}
+\contentsline {subsection}{\numberline {8.3}Algorithm for Responding to Three-Dimensional State Targets}{31}
+\contentsline {subsubsection}{\numberline {8.3.1}Acquiring Target Position Relative to Orientation of Base}{31}
+\contentsline {subsubsection}{\numberline {8.3.2}Gesturing Algorithm for Distant Targets}{33}
+\contentsline {subsubsection}{\numberline {8.3.3}Running with a Live Target in Real Time}{35}
+\contentsline {subsection}{\numberline {8.4}Program Design}{36}
+\contentsline {section}{\numberline {9}Physical Experiment}{40}
+\contentsline {subsection}{\numberline {9.1}Setup}{40}
+\contentsline {subsection}{\numberline {9.2}Construction Environment Parallels}{40}
+\contentsline {subsection}{\numberline {9.3}Mental Aspect}{40}
+\contentsline {subsection}{\numberline {9.4}Physical Aspect}{40}
+\contentsline {section}{\numberline {10}Results}{40}
+\contentsline {section}{\numberline {11}Discussion}{40}
+\contentsline {section}{\numberline {12}Conclusion}{40}
+\contentsline {section}{\numberline {13}Further Work and Areas of Improvement}{40}
+\contentsline {section}{\numberline {14}References}{40}
+\contentsline {section}{\numberline {15}Appendix}{43}
+\contentsline {subsection}{\numberline {15.1}CAD Drawings}{43}
