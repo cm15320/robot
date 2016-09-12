@@ -19,7 +19,7 @@ namespace robotTracking
         public float inverseSqrt2Pi = 1f / (float)Math.Sqrt(2 * Math.PI);
         private RobotControl controller;
         private RigidBodyData robotBase, robotTip;
-        private Marker markerToFollow;
+        private RigidBodyData bodyToFollow;
         private CalibrationData newCalibrationData = new CalibrationData();
         private CalibrationData storedCalibrationData, storedTestData;
         //private int calibrationStep = 0;
@@ -30,7 +30,7 @@ namespace robotTracking
         private int maxAngle = 120;
         private float[] relativeTipAngles = new float[] { 0.0f, 0.0f, 0.0f };
         private float[] relativeTipPos = new float[] { 0.0f, 0.0f, 0.0f };
-        private float[] relativeMarkerFollowPos = new float[] { 0.0f, 0.0f, 0.0f };
+        private float[] relativeBodyFollowPos = new float[] { 0.0f, 0.0f, 0.0f };
         private FrameOfMocapData currentFrame;
         private object syncLock;
         private bool calibrating = false;
@@ -92,6 +92,7 @@ namespace robotTracking
             //}
             htRigidBodiesNameToBody.Add("robotBase", new RigidBodyData());
             htRigidBodiesNameToBody.Add("robotTip", new RigidBodyData());
+            htRigidBodiesNameToBody.Add("bodyToFollow", new RigidBodyData());
 
             //string[] requiredNames = new string[] { "robotBase", "robotTip" };
             if (mRigidBodies.Count == 0)
@@ -115,15 +116,12 @@ namespace robotTracking
             initialiseMotors();
         }
 
-        public void setMarkerToFollow(Marker markerToFollow)
-        {
-            this.markerToFollow = markerToFollow;
-        }
 
 
-        public bool markerFollowRequirements()
+        public bool bodyFollowRequirements()
         {
-            if (markerToFollow != null)
+            // check if there is actually a 
+            if ( rigidBodiesIDtoName.ContainsValue("bodyToFollow"))
             {
                 return true;
             }
@@ -460,9 +458,14 @@ namespace robotTracking
         private float[] getCopyVector(float[] inputVectorTarget)
         {
             float[] copyVector = new float[inputVectorTarget.Length];
-            for (int i = 0; i < copyVector.Length; i++)
+            // put a lock as the array copying from may be changed by another process
+            lock(syncLock)
             {
-                copyVector[i] = inputVectorTarget[i];
+                inputVectorTarget.CopyTo(copyVector, 0);
+                //for (int i = 0; i < copyVector.Length; i++)
+                //{
+                //    copyVector[i] = inputVectorTarget[i];
+                //}
             }
 
             return copyVector;
@@ -862,13 +865,13 @@ namespace robotTracking
             {
                 // in future would have to pass in a literal point then get the relative point 
                 // based on the position of the base as well
-                moveToRelTargetPoint(relativeTargetPoint);
+                getMotorAnglesForTargetPoint(relativeTargetPoint);
 
                 Thread.Sleep(50);
             }
         }
 
-        private void moveToRelTargetPoint(float[] relativeTargetPoint)
+        private void getMotorAnglesForTargetPoint(float[] relativeTargetPoint)
         {
             double[] motorAngleSolution = getRegressionMotorSolution(relativeTargetPoint);
             //double[] motorAngleSolution = NWRegression(convertedTargetPoint, RegressionInput.POSITION);
@@ -926,9 +929,19 @@ namespace robotTracking
         public void testMoveToRelTargetPoint(float[] relTargetPoint)
         {
             if (controller.isConnected()) controller.shareMotorAngles(motorAngles);
-            moveToRelTargetPoint(relTargetPoint);
+            getMotorAnglesForTargetPoint(relTargetPoint);
             setMotorAngles();
         }
+
+        
+        // Tests the movement towards a tracked rigid body
+        public void testMoveToTargetBody()
+        {
+            float[] relTargetPoint = getCopyVector(relativeBodyFollowPos);
+            getMotorAnglesForTargetPoint(relTargetPoint);
+            setMotorAngles();
+        }
+        
 
         private void updateNewMotorAngles(double[] newMotorAngles)
         {
@@ -1269,17 +1282,8 @@ namespace robotTracking
                         // THIS MAY NOT BE NEEDED NOW AS JUST UPDATING THE HT WITH THE STRING EQUAL TO THE NAME
                         if (name.Equals("robotBase")) robotBase = rb;
                         else if (name.Equals("robotTip")) robotTip = rb;
+                        else if (name.Equals("bodyToFollow")) bodyToFollow = rb;
 
-                    }
-                }
-                if (markerToFollow != null)
-                {
-                    foreach (Marker currentMarker in currentFrame.LabeledMarkers)
-                    {
-                        if (currentMarker.ID == markerToFollow.ID)
-                        {
-                            markerToFollow = currentMarker;
-                        }
                     }
                 }
                 getRelativeTipInfo();
@@ -1388,11 +1392,11 @@ namespace robotTracking
             relativeTipAngles[1] = yRDiff;
             relativeTipAngles[2] = zRDiff;
 
-            if (markerToFollow != null)
+            if (rigidBodiesIDtoName.ContainsValue("bodyToFollow"))
             {
-                relativeMarkerFollowPos[0] = (float)(markerToFollow.x - robotBase.x);
-                relativeMarkerFollowPos[1] = (float)(markerToFollow.y - robotBase.y);
-                relativeMarkerFollowPos[2] = (float)(markerToFollow.z - robotBase.z);
+                relativeBodyFollowPos[0] = (float)(bodyToFollow.x - robotBase.x);
+                relativeBodyFollowPos[1] = (float)(bodyToFollow.y - robotBase.y);
+                relativeBodyFollowPos[2] = (float)(bodyToFollow.z - robotBase.z);
             }
         }
 

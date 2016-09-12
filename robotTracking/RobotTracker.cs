@@ -1041,14 +1041,14 @@ namespace robotTracking
             {
                 followLivePointButton.Enabled = true;
                 testMoveToRelPointButton.Enabled = true;
-                moveToMarkerButton.Enabled = true;
+                moveToBodyButton.Enabled = true;
             }
             else
             {
                 followingLiveRelativePoint = false;
                 followLivePointButton.Enabled = false;
                 testMoveToRelPointButton.Enabled = false;
-                moveToMarkerButton.Enabled = false;
+                moveToBodyButton.Enabled = false;
                 experiment.stopLivePointFollowing();
                 followLivePointButton.Text = "Follow relative point live";
                 testMoveToRelPointButton.Text = "Test move to relative point";
@@ -1070,7 +1070,6 @@ namespace robotTracking
             {
                 experimentRunning = true;
                 experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
-                setMarkerToFollow();
                 //followLivePointButton.Enabled = true;
                 activateLivePointButtons(true);
                 experimentButton.Text = "Stop experiment";
@@ -1088,28 +1087,6 @@ namespace robotTracking
                 OutputMessage("Cannot locate all the required bodies (robotBase and robotTip)");
             }
         }
-
-
-        private void setMarkerToFollow()
-        {
-            lock (syncLock)
-            {
-                Marker markerToFollow = null;
-                int cnt = 0;
-                foreach (Marker currentMarker in m_CurrentFrameOfData.LabeledMarkers)
-                {
-                    markerToFollow = currentMarker;
-                    cnt++;
-                }
-                // Only set it as the marker to follow if it was the only one
-                // markers do not have names associated with them?
-                if (cnt == 1)
-                {
-                    experiment.setMarkerToFollow(markerToFollow);
-                }
-            }
-        }
-
 
 
         private bool requiredObjectsTracked()
@@ -1514,16 +1491,16 @@ namespace robotTracking
             }
         }
 
-        private void moveToMarkerButton_Click(object sender, EventArgs e)
+        private void moveToBodyButton_Click(object sender, EventArgs e)
         {
-            if(!experiment.markerFollowRequirements())
+            if(experiment.bodyFollowRequirements())
             {
-                Console.WriteLine("not following enough bodies");
-                return;
+                new Task(testMoveToTargetBody).Start();
             }
             else
             {
-                //experiment.moveToMarker();
+                Console.WriteLine("not following all required bodies");
+                return;
             }
         }
 
@@ -1538,6 +1515,11 @@ namespace robotTracking
         private void testMoveToRelTargetPoint()
         {
             experiment.testMoveToRelTargetPoint(relTargetPoint);
+        }
+
+        private void testMoveToTargetBody()
+        {
+            experiment.testMoveToTargetBody();
         }
 
         public int HighWord(int number)

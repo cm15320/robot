@@ -28,25 +28,25 @@
 \contentsline {subsection}{\numberline {7.1}Flexible Robotic Arms}{23}
 \contentsline {subsection}{\numberline {7.2}Physical Design of Four Degrees-Of-Freedom Device}{23}
 \contentsline {subsection}{\numberline {7.3}Controlling The Device}{25}
-\contentsline {section}{\numberline {8}Developed Program}{25}
-\contentsline {subsection}{\numberline {8.1}Interfacing With NatNet Optical Tracking System}{25}
-\contentsline {subsection}{\numberline {8.2}Kernel Regression Method}{26}
-\contentsline {subsubsection}{\numberline {8.2.1}Calibration Procedure}{26}
-\contentsline {subsubsection}{\numberline {8.2.2}Calibration Results}{26}
-\contentsline {subsection}{\numberline {8.3}Algorithm for Responding to Three-Dimensional State Targets}{27}
-\contentsline {subsubsection}{\numberline {8.3.1}Acquiring Target Position Relative to Orientation of Base}{27}
-\contentsline {subsubsection}{\numberline {8.3.2}Gesturing Algorithm for Distant Targets}{29}
-\contentsline {subsubsection}{\numberline {8.3.3}Running with a Live Target in Real Time}{31}
-\contentsline {subsection}{\numberline {8.4}Program Design}{32}
-\contentsline {section}{\numberline {9}Physical Experiment}{36}
-\contentsline {subsection}{\numberline {9.1}Setup}{36}
-\contentsline {subsection}{\numberline {9.2}Construction Environment Parallels}{36}
-\contentsline {subsection}{\numberline {9.3}Mental Aspect}{36}
-\contentsline {subsection}{\numberline {9.4}Physical Aspect}{36}
-\contentsline {section}{\numberline {10}Results}{36}
-\contentsline {section}{\numberline {11}Discussion}{36}
-\contentsline {section}{\numberline {12}Conclusion}{36}
-\contentsline {section}{\numberline {13}Further Work and Areas of Improvement}{36}
-\contentsline {section}{\numberline {14}References}{36}
-\contentsline {section}{\numberline {15}Appendix}{38}
-\contentsline {subsection}{\numberline {15.1}CAD Drawings}{38}
+\contentsline {section}{\numberline {8}Developed Program}{26}
+\contentsline {subsection}{\numberline {8.1}Interfacing With NatNet Optical Tracking System}{26}
+\contentsline {subsection}{\numberline {8.2}Kernel Regression Method}{27}
+\contentsline {subsubsection}{\numberline {8.2.1}Calibration Procedure}{28}
+\contentsline {subsubsection}{\numberline {8.2.2}Calibration Results}{29}
+\contentsline {subsection}{\numberline {8.3}Algorithm for Responding to Three-Dimensional State Targets}{30}
+\contentsline {subsubsection}{\numberline {8.3.1}Acquiring Target Position Relative to Orientation of Base}{30}
+\contentsline {subsubsection}{\numberline {8.3.2}Gesturing Algorithm for Distant Targets}{32}
+\contentsline {subsubsection}{\numberline {8.3.3}Running with a Live Target in Real Time}{34}
+\contentsline {subsection}{\numberline {8.4}Program Design}{35}
+\contentsline {section}{\numberline {9}Physical Experiment}{39}
+\contentsline {subsection}{\numberline {9.1}Setup}{39}
+\contentsline {subsection}{\numberline {9.2}Construction Environment Parallels}{39}
+\contentsline {subsection}{\numberline {9.3}Mental Aspect}{39}
+\contentsline {subsection}{\numberline {9.4}Physical Aspect}{39}
+\contentsline {section}{\numberline {10}Results}{39}
+\contentsline {section}{\numberline {11}Discussion}{39}
+\contentsline {section}{\numberline {12}Conclusion}{39}
+\contentsline {section}{\numberline {13}Further Work and Areas of Improvement}{39}
+\contentsline {section}{\numberline {14}References}{39}
+\contentsline {section}{\numberline {15}Appendix}{41}
+\contentsline {subsection}{\numberline {15.1}CAD Drawings}{41}

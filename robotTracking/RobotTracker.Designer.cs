@@ -84,7 +84,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.testMoveToRelPointButton = new System.Windows.Forms.Button();
-            this.moveToMarkerButton = new System.Windows.Forms.Button();
+            this.moveToBodyButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -604,22 +604,24 @@
             this.testMoveToRelPointButton.UseVisualStyleBackColor = true;
             this.testMoveToRelPointButton.Click += new System.EventHandler(this.testMoveToRelPointButton_Click);
             // 
-            // moveToMarkerButton
+            // moveToBodyButton
             // 
-            this.moveToMarkerButton.Location = new System.Drawing.Point(68, 528);
-            this.moveToMarkerButton.Name = "moveToMarkerButton";
-            this.moveToMarkerButton.Size = new System.Drawing.Size(110, 23);
-            this.moveToMarkerButton.TabIndex = 45;
-            this.moveToMarkerButton.Text = "Move to marker";
-            this.moveToMarkerButton.UseVisualStyleBackColor = true;
-            this.moveToMarkerButton.Click += new System.EventHandler(this.moveToMarkerButton_Click);
+            this.moveToBodyButton.Enabled = false;
+            this.moveToBodyButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.moveToBodyButton.Location = new System.Drawing.Point(68, 528);
+            this.moveToBodyButton.Name = "moveToBodyButton";
+            this.moveToBodyButton.Size = new System.Drawing.Size(110, 23);
+            this.moveToBodyButton.TabIndex = 45;
+            this.moveToBodyButton.Text = "Move to body";
+            this.moveToBodyButton.UseVisualStyleBackColor = true;
+            this.moveToBodyButton.Click += new System.EventHandler(this.moveToBodyButton_Click);
             // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
-            this.Controls.Add(this.moveToMarkerButton);
+            this.Controls.Add(this.moveToBodyButton);
             this.Controls.Add(this.testMoveToRelPointButton);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
@@ -735,7 +737,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button testMoveToRelPointButton;
-        private System.Windows.Forms.Button moveToMarkerButton;
+        private System.Windows.Forms.Button moveToBodyButton;
     }
 }
 

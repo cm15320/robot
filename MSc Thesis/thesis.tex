@@ -254,9 +254,9 @@ kinematics methods were not applicable to this design due to the non-linear inte
 of the carbon-fibre backbone, shown in Figure \ref{figure:mark1}. As such, a regression based method was employed.
 This entailed sending a wide range of commands to the arm and recording the resulting pose with the
 motion tracking equipment. In total, 14641 vectors of motor angles were sent, with the corresponding
-poses comprising a relative tip-to-base position and direction. A Nadaraya-Watson kernel regression technique
-was then used on the results to interpolate between the points to acquire pose estimated for unrecorded
-motor vectors. 
+poses comprising a relative tip-to-base position and direction. A regression technique
+was then used on the results to interpolate between the points to acquire estimated poses for unrecorded
+motor vectors. This is covered in more detail in Section XXXX.
 
 MENTION K-D TREES HERE FOR ACCELERATED SEARCH AND IMPROVED COMPUTATIONAL TIME, OR MENTION IT LATER ON IN THE CALIBRATION SECTION AS AN OPTION AND FUTURE IMPROVEMENT????XXXXXX
 
@@ -437,6 +437,7 @@ Furthermore, a brief overview was provided for robots in construction related ta
 \label{figure:schematic}
 \end{center}
 
+\pagebreak
 \section{Developed Program}
 PUT THIS SECTION AFTER THE REGRESSION FUNCTION SECTION AS IT ALLUDES TO THE REGRESSION A BIT?????? ESPECIALLY THE PROGRAM LAYOUT BIT ETC, COULD STILL HAVE THE OPTITRACK BIT BEFOREHAND, WHICH WOULD PROBABLY MAKE MORE SENSE XXXXXXX
 \subsection{Interfacing With NatNet Optical Tracking System}
@@ -459,11 +460,61 @@ Therefore, rigid body objects can be set up to represent the robot base and tip 
 Once the required tracking data has been extracted, it can then be manipulated to create relative target points to the base depending on the situation. These can then be used as inputs to the regression function in order to solve for the motor angles. The tracking data at certain points is also written to an XML file during the calibration procedure, as mentioned in SECTION XXXXX. 
 
 \subsection{Kernel Regression Method}
+Due to the nature of the design of the robot, particularly the flexible arm in which motion from one of the core arm linkages would affect the other, solving for the kinematics was non-trivial. The arm itself exhibits non-linear characteristics when flexing, rendering established forms of kinematic modelling unsuitable. Thus, an approach was taken similar to that in \cite{GreggSmithDesign}, which is to be expected due to the parallels between the two designs; the arms are of different size and material but are both non-linear and face this problem. The solution, as covered in \cite{GreggSmithDesign} and again in more detail in \cite{GreggSmithPhd} is to use a kernel regression method.
+
+The method specifically is known as the Nadayara-Watson kernel regression \cite{nadaraya1964}. It operates on the principle of using known data points to interpolate between, and yield a solution from an input that is not necessarily present in the known data. The function itself is given below in \eqref{nadaraya}.
+
+\begin{equation}\label{nadaraya}
+\bar{y}(\bar{x}) = \frac{\sum_{i=1}^{n}y_{i}K(\frac{x - x_{i}}{\alpha})}{\sum_{i=1}^{n}K(\frac{x - x_{i}}{\alpha})}
+\end{equation}
+
+Where $K$ represents a kernel function, $\alpha$ the bandwidth, $x$ the input and $y_{i}$ and $x_{i}$ the values of the stored data for the output and input values respectively. The bandwidth, as expected, will have a large effect on the output of the function. This could best be represented by a plot of the output of the function for a range of inputs at a given bandwidth. Of course, due to the number of dimensions in this case (three for the position and four for the motor angles), it is not easy to give a visual representation. For a smooth plot, covering the areas not covered by the stored points but missing the actual stored point values, a higher bandwidth would be expected. However, a lower bandwidth would result in a more jagged plot, virtually intersecting all of the stored points. For very high degrees of non-linearity, a low bandwidth would typically be the most suitable, coming close to the known points. 
+
+FIGURE ILLUSTRATING THIS EFFECT, USING 2D GRAPH AS IN AUSTIN THESIS???XXXXX
+
+Given the way this regression works, all of the recorded points will have an effect on the outcome. However, it is desirable for the recorded points close to the input point to have a greater effect on the result than those further away, meaning smaller values of $x - x_{i}$ will make less of a contribution to the $\bar{y}$ value. Therefore, to cater to this requirement, the chosen kernel function, $K$, was a Gaussian kernel function, as given in \eqref{equation:Gaussian}, due to its bell-curve shape and how input values close to zero have a larger output effect.
+
+\begin{equation}\label{equation:Gaussian}
+K(u) = \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}u^2}
+\end{equation}
+
+With the given kernel regression function, the corresponding output values could be found for various different types of input values. The function itself does not depend on the number of dimensions, and hence the $y$ and $x$ values can be of any vector size, as long as they are consistent and each input type value is paired with a corresponding output type value within the recorded data. This is because the value used as an argument for the kernel function depends on an absolute difference between the two vectors, which will be a single number regardless of their size, giving an overall output value of the correct number of dimensions. In the given scenario of the robot and the data that is recorded, the matching output types are shown for input types in Table \ref{table:regressionOutputs}.
+
+\begin{center}
+\captionof{table}{List of corresponding output vector types for a given input vector}
+\label{table:regressionOutputs}
+\begin{tabularx}{0.66\textwidth}{ | >{\centering\arraybackslash}p{12em} |>{\centering\arraybackslash}X|} 
+\hline
+Input vector & Output vector\\
+\hline
+motor angles $\bar{m}$ & relative tip position $\bar{p}$ \\
+relative tip position $\bar{p}$ & motor angles $\bar{m}$ \\
+relative tip orientation $\hat{d}$ & motor angles $\bar{m}$ \\
+$\bar{p}$ and $\hat{d}$ & motor angles $\bar{m}$\\
+\hline
+\end{tabularx}
+\end{center}
+
+This list of input and output types is similar to that observed for the table input/outputs given in \cite{GreggSmithDesign}, as expected due to the similar methods. However, in this instance, only the tip position is returned when given the motor angles, as this project is of much smaller time scale and the orientation is less critical to the required steps. Once the regression method itself was planned and tested with some sample data, it was necessary to acquire real calibration data in order for it to work and to fine tune the bandwidth appropriately.
+
+
 \subsubsection{Calibration Procedure}
-DON'T FORGET IMAGES OF ROBOT IN CLAMP FOR VISUALIZATION	
+DON'T FORGET IMAGES OF ROBOT IN CLAMP FOR VISUALIZATION XXXXX
+
+The procedure for obtaining the calibration data involves sending a range of different motor angle configurations to the servomotors, and recording the resulting tracking information (relative tip-to-base position and orientation). Each data point then comprised all of these values, and was written to disk for re-use in the future when using the regression function. When recording the data, it is imperative that the robot base remains stationary, so each data point is consistent with the same base position and orientation. As mentioned in Section INTERFACING WITH TRACKING XXXXX, the base is said to have zero orientation about any of the global axes if it is in the orientation that it was when it was first initialised in the Motive software (as a rigid body). Hence the base was secured in a vice and then initialised in Motive (along with the tip) before beginning the procedure. This set up is illustrated in Figure XXXXX, with the identification of the base and tip in the Motive software shown in Figure XXXXX. The physical orientation of the base during calibration is of little importance (as long as all points are always visible to the tracking device), as the targets will be relative to the base and converted to its orientation anyway, as covered in more detail in Section XXXX.
+
+INSERT IMAGES XXXXXXX
+
+The calibration sampling is then performed at a chosen resolution (number of degrees interval) by stepping through the full range of motion for one servo for each step of a `parent' servo. Thus if each servo (apart from the last in line) has a `child` servo, the motions are performed recursively, with the servo stepping once, then its child covering the full range, with its grandchild then covering the full range for each step of its child and so on. Hence a recursive function was written as shown in Figure XXXXXX INSERT CODE OF CALIBRATE FUNCTION AND PUT IN BODY OR APPENDIX?? XXXXX. The function is written such that after each step of a motor, its child motor then covers the range of motion in the opposite direction to its previous one. This is to reduce the number of times a motor has to move all the way back to the start of its range before stepping again, making the motion smoother in general and reducing calibration time. 
+
+INSERT CODE IMAGE OR PUT IN APPENDIX XXXXX	
+
 
 \subsubsection{Calibration Results}
 Low bandwidth shows high non-linearity as expected due to arm material etc
+
+FEATURE SCALING
+
 
 \pagebreak 
 \subsection{Algorithm for Responding to Three-Dimensional State Targets}
@@ -475,22 +526,17 @@ However, in order for this approach of obtaining servo angles from a given input
 \subsubsection{Acquiring Target Position Relative to Orientation of Base}
 The robot is fixed in place while the optical tracking software is configured to recognise the rigid bodies formed by the retro-reflective markers associated with the base and the tip, as covered in SECTION XXXXXXXX (just say 'is configured'?. At this point, the base is said to have zero orientation about any axis (as this was the point it was first initialised in). The calibration procedure is then of course undertaken while the robot is fixed in this position. Thus, the stored relative tip-to-base calibration data for different servo angle vectors is only valid for the robot in a zero orientation position compared to the starting position. Hence, in practice, when the base has changed orientation about any of the three axes inherent to the optical tracking device, a direct input for a relative tip-to-base position will yield incorrect motor angles to meet this position. Therefore, the target position must be adjusted in order to account for the varying orientation of the base.
 
-The orientation of the base itself is initially stored as a quaternion within the rigid body object from the NatNet library \cite{natnet2016}. This is then converted to euler angles using a built-in method to represent the orientation as three angles about the tracking device's X, Y and Z axes respectively, of which the order is important. It is thus necessary convert a real target point to an equivalent point relative to the original orientation of the base (zero orientation), so that the regression function and stored calibration data can be used to yield angles that result in the correct relative position in real space. This is accomplished using a rotation matrix that accounts for the rotation ordering of the base. Given that the base orientation is represented by rotation about the X, then Y, then Z axes, the converted point will be attained by taking the actual target point relative to the base and reversing these rotation operations; that is, the negatives of the base rotation values about the Z, then Y, then X axes. The rotation matrix in figure \ref{equation:rotationMatrix} is thus used to account for this axes of rotation order. 
+The orientation of the base itself is initially stored as a quaternion within the rigid body object from the NatNet library \cite{natnet2016}. This is then converted to euler angles using a built-in method to represent the orientation as three angles about the tracking device's X, Y and Z axes respectively, of which the order is important. It is thus necessary convert a real target point to an equivalent point relative to the original orientation of the base (zero orientation), so that the regression function and stored calibration data can be used to yield angles that result in the correct relative position in real space. This is accomplished using a rotation matrix that accounts for the rotation ordering of the base. Given that the base orientation is represented by rotation about the X, then Y, then Z axes, the converted point will be attained by taking the actual target point relative to the base and reversing these rotation operations; that is, the negatives of the base rotation values about the Z, then Y, then X axes. The rotation matrix in \eqref{equation:rotationMatrix} is thus used to account for this axes of rotation order. 
 
-\begin{center}
-\[
+\begin{equation}\label{equation:rotationMatrix}
 R_{x}R_{y}R_{z} = 
 \begin{bmatrix*}
 \cos\beta\cos\gamma & -\cos\beta\sin\gamma & \sin\beta \\
 \cos\alpha\sin\gamma + \sin\alpha\sin\beta\cos\gamma & \cos\alpha\cos\gamma - \sin\alpha\sin\beta\sin\gamma & -\sin\alpha\cos\beta \\
 \sin\alpha\sin\gamma - \cos\alpha\sin\beta\cos\gamma & \sin\alpha\cos\gamma + \cos\alpha\sin\beta\sin\gamma & \cos\alpha\cos\beta \\
 \end{bmatrix*}
-\]
-\captionof{figure}{Rotation Matrix for rotation about Z, then Y, then X axes. The symbols $\alpha$, $\beta$ and $\gamma$ represent rotations about the X, Y and Z axes respectively, adapted from \cite{3drotation}.}
-\label{equation:rotationMatrix}
-\end{center}
-
-A simplified example of solving from a target point to get the appropriate relative positional vector as an input to the regression function is illustrated in Figure \ref{figure:rotationExample}. Note that the target position in the image is not to scale and the coordinate system used in reality is determined by the optical tracking device position, not aligned with the longitudinal axis of the robot. 
+\end{equation}
+This equation gives the rotation matrix for rotation about Z, then Y, then X axes. The symbols $\alpha$, $\beta$ and $\gamma$ represent rotations about the X, Y and Z axes respectively, adapted from \cite{3drotation}. A simplified example of solving from a target point to get the appropriate relative positional vector as an input to the regression function is illustrated in Figure \ref{figure:rotationExample}. Note that the target position in the image is not to scale and the coordinate system used in reality is determined by the optical tracking device position, not aligned with the longitudinal axis of the robot. 
 
 
 \begin{center}
