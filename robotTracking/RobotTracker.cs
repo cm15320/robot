@@ -50,6 +50,7 @@ namespace robotTracking
         private bool calibrating = false;
         private bool pausedCalibration = false;
         private bool followingLiveRelativePoint = false;
+        private bool followingLiveBody = false;
         float relTargetPointX, relTargetPointY, relTargetPointZ;
         float[] relTargetPoint;
 
@@ -1040,18 +1041,20 @@ namespace robotTracking
             if(on)
             {
                 followLivePointButton.Enabled = true;
-                testMoveToRelPointButton.Enabled = true;
+                followBodyButton.Enabled = true;
+                moveToRelPointButton.Enabled = true;
                 moveToBodyButton.Enabled = true;
             }
             else
             {
                 followingLiveRelativePoint = false;
                 followLivePointButton.Enabled = false;
-                testMoveToRelPointButton.Enabled = false;
+                followBodyButton.Enabled = false;
+                moveToRelPointButton.Enabled = false;
                 moveToBodyButton.Enabled = false;
-                experiment.stopLivePointFollowing();
+                experiment.stopLiveExperiment();
                 followLivePointButton.Text = "Follow relative point live";
-                testMoveToRelPointButton.Text = "Test move to relative point";
+                moveToRelPointButton.Text = "Move to relative point";
             }
         }
 
@@ -1448,12 +1451,24 @@ namespace robotTracking
         {
             if(getRelativeTargetPoint())
             {
-                //testMoveToRelPointButton.Enabled = false;
+                //moveToRelPointButton.Enabled = false;
                 experiment.startLivePointFollowing(relTargetPoint);
-                //testMoveToRelPointButton.Enabled = true;
+                //moveToRelPointButton.Enabled = true;
             }
         }
 
+
+        private void followLiveBody()
+        {
+            if(experiment.bodyFollowRequirements())
+            {
+                experiment.startLiveBodyFollowing();
+            }
+            else
+            {
+                Console.WriteLine("Not tracking enough live bodies for body following");
+            }
+        }
 
         private bool getRelativeTargetPoint()
         {
@@ -1485,17 +1500,19 @@ namespace robotTracking
             }
             else
             {
-                experiment.stopLivePointFollowing();
+                experiment.stopLiveExperiment();
                 followLivePointButton.Text = "Follow relative point live";
                 followingLiveRelativePoint = false;
             }
+            changeFollowButtons();
+
         }
 
         private void moveToBodyButton_Click(object sender, EventArgs e)
         {
             if(experiment.bodyFollowRequirements())
             {
-                new Task(testMoveToTargetBody).Start();
+                new Task(moveToTargetBody).Start();
             }
             else
             {
@@ -1504,22 +1521,62 @@ namespace robotTracking
             }
         }
 
-        private void testMoveToRelPointButton_Click(object sender, EventArgs e)
+        private void moveToRelPointButton_Click(object sender, EventArgs e)
         {
             if(getRelativeTargetPoint())
             {
-                new Task(testMoveToRelTargetPoint).Start();
+                new Task(moveToRelTargetPoint).Start();
             }
         }
 
-        private void testMoveToRelTargetPoint()
+        private void changeFollowButtons()
         {
-            experiment.testMoveToRelTargetPoint(relTargetPoint);
+            if(followingLiveBody)
+            {
+                moveToBodyButton.Enabled = false;
+                followLivePointButton.Enabled = false;
+                moveToRelPointButton.Enabled = false;
+            }
+            else if(followingLiveRelativePoint)
+            {
+                moveToBodyButton.Enabled = false;
+                followBodyButton.Enabled = false;
+                moveToRelPointButton.Enabled = false;
+            }
+            else
+            {
+                moveToBodyButton.Enabled = true;
+                moveToRelPointButton.Enabled = true;
+                followBodyButton.Enabled = true;
+                followLivePointButton.Enabled = true;
+            }
         }
 
-        private void testMoveToTargetBody()
+        private void followBodyButton_Click(object sender, EventArgs e)
         {
-            experiment.testMoveToTargetBody();
+            if (!followingLiveBody)
+            {
+                followingLiveBody = true;
+                followBodyButton.Text = "Stop following";
+                new Task(followLiveBody).Start();
+            }
+            else
+            {
+                experiment.stopLiveExperiment();
+                followBodyButton.Text = "Follow body live";
+                followingLiveBody = false;
+            }
+            changeFollowButtons();
+        }
+
+        private void moveToRelTargetPoint()
+        {
+            experiment.moveToRelTargetPoint(relTargetPoint);
+        }
+
+        private void moveToTargetBody()
+        {
+            experiment.moveToTargetBody();
         }
 
         public int HighWord(int number)

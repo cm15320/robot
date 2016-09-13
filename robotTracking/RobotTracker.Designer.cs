@@ -83,8 +83,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.testMoveToRelPointButton = new System.Windows.Forms.Button();
+            this.moveToRelPointButton = new System.Windows.Forms.Button();
             this.moveToBodyButton = new System.Windows.Forms.Button();
+            this.followBodyButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -593,16 +594,16 @@
             this.label11.TabIndex = 43;
             this.label11.Text = "Z";
             // 
-            // testMoveToRelPointButton
+            // moveToRelPointButton
             // 
-            this.testMoveToRelPointButton.Enabled = false;
-            this.testMoveToRelPointButton.Location = new System.Drawing.Point(241, 528);
-            this.testMoveToRelPointButton.Name = "testMoveToRelPointButton";
-            this.testMoveToRelPointButton.Size = new System.Drawing.Size(231, 23);
-            this.testMoveToRelPointButton.TabIndex = 44;
-            this.testMoveToRelPointButton.Text = "Test move to relative point";
-            this.testMoveToRelPointButton.UseVisualStyleBackColor = true;
-            this.testMoveToRelPointButton.Click += new System.EventHandler(this.testMoveToRelPointButton_Click);
+            this.moveToRelPointButton.Enabled = false;
+            this.moveToRelPointButton.Location = new System.Drawing.Point(241, 528);
+            this.moveToRelPointButton.Name = "moveToRelPointButton";
+            this.moveToRelPointButton.Size = new System.Drawing.Size(231, 23);
+            this.moveToRelPointButton.TabIndex = 44;
+            this.moveToRelPointButton.Text = "Move to relative point";
+            this.moveToRelPointButton.UseVisualStyleBackColor = true;
+            this.moveToRelPointButton.Click += new System.EventHandler(this.moveToRelPointButton_Click);
             // 
             // moveToBodyButton
             // 
@@ -616,13 +617,25 @@
             this.moveToBodyButton.UseVisualStyleBackColor = true;
             this.moveToBodyButton.Click += new System.EventHandler(this.moveToBodyButton_Click);
             // 
+            // followBodyButton
+            // 
+            this.followBodyButton.Enabled = false;
+            this.followBodyButton.Location = new System.Drawing.Point(68, 489);
+            this.followBodyButton.Name = "followBodyButton";
+            this.followBodyButton.Size = new System.Drawing.Size(110, 23);
+            this.followBodyButton.TabIndex = 46;
+            this.followBodyButton.Text = "Follow body live";
+            this.followBodyButton.UseVisualStyleBackColor = true;
+            this.followBodyButton.Click += new System.EventHandler(this.followBodyButton_Click);
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.followBodyButton);
             this.Controls.Add(this.moveToBodyButton);
-            this.Controls.Add(this.testMoveToRelPointButton);
+            this.Controls.Add(this.moveToRelPointButton);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -736,8 +749,9 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button testMoveToRelPointButton;
+        private System.Windows.Forms.Button moveToRelPointButton;
         private System.Windows.Forms.Button moveToBodyButton;
+        private System.Windows.Forms.Button followBodyButton;
     }
 }
 

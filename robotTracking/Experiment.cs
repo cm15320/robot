@@ -858,6 +858,26 @@ namespace robotTracking
             }
         }
 
+
+        public void startLiveBodyFollowing()
+        {
+            experimentLive = true;
+            // start the thread to constantly set the motor angles
+            new Task(liveExperimentThreadLoop).Start();
+            float[] relativeTargetPoint;
+            while (experimentLive)
+            {
+                // in future would have to pass in a literal point then get the relative point 
+                // based on the position of the base as well
+                relativeTargetPoint = relativeBodyFollowPos;
+                getMotorAnglesForTargetPoint(relativeTargetPoint);
+
+                Thread.Sleep(50);
+            }
+
+
+        }
+
         public void startLivePointFollowing(float[] relativeTargetPoint)
         {
             experimentLive = true;
@@ -909,7 +929,8 @@ namespace robotTracking
         private double[] getRegressionMotorSolution(float[] targetPoint, float alpha = startingAlpha)
         {
             double[] motorAngleSolution;
-            // First convert the target orientation
+            // First convert the target orientation, not this gets a copy vector and doesn't change
+            // the original so don't have to get a copy before passing in
             float[] convertedTargetPoint = convertTargetOrientation(targetPoint);
 
             // then get the sphere intersection
@@ -922,12 +943,12 @@ namespace robotTracking
         }
 
 
-        public void stopLivePointFollowing()
+        public void stopLiveExperiment()
         {
             experimentLive = false;
         }
 
-        public void testMoveToRelTargetPoint(float[] relTargetPoint)
+        public void moveToRelTargetPoint(float[] relTargetPoint)
         {
             if (controller.isConnected()) controller.shareMotorAngles(motorAngles);
             getMotorAnglesForTargetPoint(relTargetPoint);
@@ -936,7 +957,7 @@ namespace robotTracking
 
         
         // Tests the movement towards a tracked rigid body
-        public void testMoveToTargetBody()
+        public void moveToTargetBody()
         {
             float[] relTargetPoint = getCopyVector(relativeBodyFollowPos);
             getMotorAnglesForTargetPoint(relTargetPoint);
