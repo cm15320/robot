@@ -372,7 +372,10 @@ The robot itself possessed a 6-DoF pose in world space, while the joint angles c
 
 The results of the completion time and the TLX combined scores in \cite{GreggSmithFeedback} indicate that the three forms of visual feedback (augmented reality, virtual reality and mounted screen) are shown to improve performance compared to the handheld wand. The gesturing mode of feedback does not show as great an improvement over the wand. However, there was little difference exhibited among the visual feedback methods when employed on the robot. The strong results demonstrate the effectiveness of the robot in assisted tasks, outlining its potential for use in the tool space.
 	
-\subsubsection{Added Value of New Experiment}
+\subsubsection{Added Value}
+
+TALK ABOUT ADDED VALUE OF DESIGN AND EXPERIMENT IN GENERAL. IE DEMONSTRATES THE DESIGN PROCESS THOROUGHLY FOR THIS TYPE OF FLEXIBLE TUBE CABLE DRIVEN ARM, ALLOWING OTHERS TO FOLLOW SUIT. ALSO SHOWS HOW THE FLEXIBLE TUBE IDEA IN GENERAL WORKS, ADVANTAGES AND DISADVANTAGES AS THIS HAS NEVER BEEN TESTED BEFORE. THEN OF COURSE ANY EXPERIMENTAL DETAILS. FURTHERS THE KNOWLEDGE OF HANDHELD ROBOTICS IN GENERAL AND ISSUES, AREAS OF OPPORTUNITY IT MAY FACE, PARTICULARLY FOR A CHEAPER, SHORTER TERM DESIGN THAN THE FULL 6 DOF MODEL
+
 The objectives of the current project entail interacting with physical objects in a 3D representative environment, which differs from the physical interaction task performed in \cite{GreggSmithDesign}. The tiling task, although in reality involved relocating 3D objects, can be represented by a 2D environment. The task knowledge did not involve the depth of the tiles, and therefore they could be assumed to be a perfect disk with zero depth. The user would lower the robot until the discs were picked up or placed, whereas the two dimensions the robot focused on were in the x and y axes; lining up the end effector with the centre of the chequerboard positions.
 
 Alternatively, this project aims to evaluate tasks performed in a 3D rich environment, interacting with objects of known width, height and depth, which must be placed accordingly to simulate a simplified construction environment. A different end effector will be designed, and although it may possess similarities to that used in the tiling task (electromagnet based) it will require an alternative mechanism to consider true 3D space. That is, the alignment of the objects will be important so the end effector must be such that different angles of approach will not cause alignment issues. Moreover, the work in \cite{GreggSmithDesign} focused more on generic tasks that would require no specific skill and be of little difficulty to the average person. As this project is investigating a more definitive scenario (building environment), the robot used in the new tasks will likely possess task knowledge and capabilities exceeding those of an unskilled worker. This coincides with the idea of enabling complex task completion by those without conventional training in that area, such as crowd-sourced building projects.
@@ -440,7 +443,7 @@ Furthermore, a brief overview was provided for robots in construction related ta
 
 \pagebreak
 \section{Developed Program}
-PUT THIS SECTION AFTER THE REGRESSION FUNCTION SECTION AS IT ALLUDES TO THE REGRESSION A BIT?????? ESPECIALLY THE PROGRAM LAYOUT BIT ETC, COULD STILL HAVE THE OPTITRACK BIT BEFOREHAND, WHICH WOULD PROBABLY MAKE MORE SENSE XXXXXXX
+
 \subsection{Interfacing With NatNet Optical Tracking System}
 
 In order to determine where in three dimensional space the robot is, as well as the relative distances between itself and other points, it is necessary to track physical objects. This was achieved using a single optical tracking device, the OptiTrack V120 Duo \cite{OptiTrackSite}. The device features two cameras in order to provide depth perception, and works as a stand-alone device unlike the syncing of several distinct cameras as used in \cite{GreggSmithDesign} and \cite{GreggSmithFeedback}. The accompanying software library however, the `NatNet SDK', as well as the actual tracking software, `OptiTrack Motive', are the same. This library was provided to run in a .NET framework environment, hence the decision to use C\# as the primary development language.
@@ -682,6 +685,7 @@ The core classes of the program are illustrated in Figure \ref{figure:classDiagr
 
 \section{Discussion}
 \section{Conclusion}
+WERE AIMS AND OBJECTIVES MET, WHAT ELSE WAS FOUND OUT????
 \section{Further Work and Areas of Improvement}
 
 \bibliography{mybib}
