@@ -51,6 +51,7 @@ namespace robotTracking
         private bool pausedCalibration = false;
         private bool followingLiveRelativePoint = false;
         private bool followingLiveBody = false;
+        private bool runningUserStudy = false;
         float relTargetPointX, relTargetPointY, relTargetPointZ;
         float[] relTargetPoint;
 
@@ -1567,6 +1568,53 @@ namespace robotTracking
                 followingLiveBody = false;
             }
             changeFollowButtons();
+        }
+
+
+        private void startStudy()
+        {
+            UserStudyType type = getUserStudyType();
+            experiment.startStudy(type);
+        }
+
+
+        private void userStudyButton_Click(object sender, EventArgs e)
+        {
+            if(!runningUserStudy)
+            {
+                runningUserStudy = true;
+                userStudyButton.Text = "Stop User Study";
+                showUserStudyRadioButtons(false);
+                bodePlotButton.Enabled = false;
+
+                new Task(startStudy).Start();
+            }
+            else
+            {
+                runningUserStudy = false;
+                userStudyButton.Text = "Start User Study";
+                showUserStudyRadioButtons(true);
+                bodePlotButton.Enabled = true;
+                experiment.stopStudy();
+            }
+        }
+
+        private void showUserStudyRadioButtons(bool show)
+        {
+            colourArrangeRobot.Enabled = show;
+            colourArrangeUser.Enabled = show;
+            gesturingPerformance.Enabled = show;
+        }
+
+        private UserStudyType getUserStudyType()
+        {
+            UserStudyType type;
+
+            if (colourArrangeRobot.Checked) type = UserStudyType.ROBOTCOLOUR;
+            else if (colourArrangeUser.Checked) type = UserStudyType.USERCOLOUR;
+            else type = UserStudyType.GESTURING;
+
+            return type;
         }
 
         private void moveToRelTargetPoint()

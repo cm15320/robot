@@ -86,6 +86,11 @@
             this.moveToRelPointButton = new System.Windows.Forms.Button();
             this.moveToBodyButton = new System.Windows.Forms.Button();
             this.followBodyButton = new System.Windows.Forms.Button();
+            this.userStudyButton = new System.Windows.Forms.Button();
+            this.colourArrangeRobot = new System.Windows.Forms.RadioButton();
+            this.gesturingPerformance = new System.Windows.Forms.RadioButton();
+            this.colourArrangeUser = new System.Windows.Forms.RadioButton();
+            this.bodePlotButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -350,7 +355,7 @@
             // 
             // buttonTestStorage
             // 
-            this.buttonTestStorage.Location = new System.Drawing.Point(590, 486);
+            this.buttonTestStorage.Location = new System.Drawing.Point(12, 486);
             this.buttonTestStorage.Name = "buttonTestStorage";
             this.buttonTestStorage.Size = new System.Drawing.Size(75, 23);
             this.buttonTestStorage.TabIndex = 24;
@@ -360,7 +365,7 @@
             // 
             // buttonTestRetrieval
             // 
-            this.buttonTestRetrieval.Location = new System.Drawing.Point(590, 527);
+            this.buttonTestRetrieval.Location = new System.Drawing.Point(12, 527);
             this.buttonTestRetrieval.Name = "buttonTestRetrieval";
             this.buttonTestRetrieval.Size = new System.Drawing.Size(75, 23);
             this.buttonTestRetrieval.TabIndex = 25;
@@ -433,7 +438,7 @@
             // logZeroButton
             // 
             this.logZeroButton.Enabled = false;
-            this.logZeroButton.Location = new System.Drawing.Point(590, 447);
+            this.logZeroButton.Location = new System.Drawing.Point(12, 447);
             this.logZeroButton.Name = "logZeroButton";
             this.logZeroButton.Size = new System.Drawing.Size(75, 23);
             this.logZeroButton.TabIndex = 34;
@@ -495,12 +500,10 @@
             // getMotorsRadioButton
             // 
             this.getMotorsRadioButton.AutoSize = true;
-            this.getMotorsRadioButton.Checked = true;
             this.getMotorsRadioButton.Location = new System.Drawing.Point(689, 269);
             this.getMotorsRadioButton.Name = "getMotorsRadioButton";
             this.getMotorsRadioButton.Size = new System.Drawing.Size(74, 17);
             this.getMotorsRadioButton.TabIndex = 38;
-            this.getMotorsRadioButton.TabStop = true;
             this.getMotorsRadioButton.Text = "get motors";
             this.getMotorsRadioButton.UseVisualStyleBackColor = true;
             // 
@@ -609,7 +612,7 @@
             // 
             this.moveToBodyButton.Enabled = false;
             this.moveToBodyButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.moveToBodyButton.Location = new System.Drawing.Point(68, 528);
+            this.moveToBodyButton.Location = new System.Drawing.Point(103, 527);
             this.moveToBodyButton.Name = "moveToBodyButton";
             this.moveToBodyButton.Size = new System.Drawing.Size(110, 23);
             this.moveToBodyButton.TabIndex = 45;
@@ -620,7 +623,7 @@
             // followBodyButton
             // 
             this.followBodyButton.Enabled = false;
-            this.followBodyButton.Location = new System.Drawing.Point(68, 489);
+            this.followBodyButton.Location = new System.Drawing.Point(103, 488);
             this.followBodyButton.Name = "followBodyButton";
             this.followBodyButton.Size = new System.Drawing.Size(110, 23);
             this.followBodyButton.TabIndex = 46;
@@ -628,11 +631,67 @@
             this.followBodyButton.UseVisualStyleBackColor = true;
             this.followBodyButton.Click += new System.EventHandler(this.followBodyButton_Click);
             // 
+            // userStudyButton
+            // 
+            this.userStudyButton.Location = new System.Drawing.Point(596, 424);
+            this.userStudyButton.Name = "userStudyButton";
+            this.userStudyButton.Size = new System.Drawing.Size(120, 23);
+            this.userStudyButton.TabIndex = 47;
+            this.userStudyButton.Text = "Start User Study";
+            this.userStudyButton.UseVisualStyleBackColor = true;
+            this.userStudyButton.Click += new System.EventHandler(this.userStudyButton_Click);
+            // 
+            // colourArrangeRobot
+            // 
+            this.colourArrangeRobot.AutoSize = true;
+            this.colourArrangeRobot.Location = new System.Drawing.Point(596, 453);
+            this.colourArrangeRobot.Name = "colourArrangeRobot";
+            this.colourArrangeRobot.Size = new System.Drawing.Size(140, 17);
+            this.colourArrangeRobot.TabIndex = 48;
+            this.colourArrangeRobot.Text = "arrange by colour (robot)";
+            this.colourArrangeRobot.UseVisualStyleBackColor = true;
+            // 
+            // gesturingPerformance
+            // 
+            this.gesturingPerformance.AutoSize = true;
+            this.gesturingPerformance.Checked = true;
+            this.gesturingPerformance.Location = new System.Drawing.Point(596, 499);
+            this.gesturingPerformance.Name = "gesturingPerformance";
+            this.gesturingPerformance.Size = new System.Drawing.Size(130, 17);
+            this.gesturingPerformance.TabIndex = 48;
+            this.gesturingPerformance.TabStop = true;
+            this.gesturingPerformance.Text = "gesturing performance";
+            this.gesturingPerformance.UseVisualStyleBackColor = true;
+            // 
+            // colourArrangeUser
+            // 
+            this.colourArrangeUser.AutoSize = true;
+            this.colourArrangeUser.Location = new System.Drawing.Point(596, 476);
+            this.colourArrangeUser.Name = "colourArrangeUser";
+            this.colourArrangeUser.Size = new System.Drawing.Size(136, 17);
+            this.colourArrangeUser.TabIndex = 48;
+            this.colourArrangeUser.Text = "arrange by colour (user)";
+            this.colourArrangeUser.UseVisualStyleBackColor = true;
+            // 
+            // bodePlotButton
+            // 
+            this.bodePlotButton.Location = new System.Drawing.Point(596, 528);
+            this.bodePlotButton.Name = "bodePlotButton";
+            this.bodePlotButton.Size = new System.Drawing.Size(120, 23);
+            this.bodePlotButton.TabIndex = 47;
+            this.bodePlotButton.Text = "Start Bode Plot";
+            this.bodePlotButton.UseVisualStyleBackColor = true;
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.colourArrangeUser);
+            this.Controls.Add(this.gesturingPerformance);
+            this.Controls.Add(this.colourArrangeRobot);
+            this.Controls.Add(this.bodePlotButton);
+            this.Controls.Add(this.userStudyButton);
             this.Controls.Add(this.followBodyButton);
             this.Controls.Add(this.moveToBodyButton);
             this.Controls.Add(this.moveToRelPointButton);
@@ -752,6 +811,11 @@
         private System.Windows.Forms.Button moveToRelPointButton;
         private System.Windows.Forms.Button moveToBodyButton;
         private System.Windows.Forms.Button followBodyButton;
+        private System.Windows.Forms.Button userStudyButton;
+        private System.Windows.Forms.RadioButton colourArrangeRobot;
+        private System.Windows.Forms.RadioButton gesturingPerformance;
+        private System.Windows.Forms.RadioButton colourArrangeUser;
+        private System.Windows.Forms.Button bodePlotButton;
     }
 }
 

@@ -28,6 +28,7 @@ namespace robotTracking
         private int numTestPoints = 3;
         //private int numPoints;
         private int maxAngle = 120;
+        private float[] basePosition;
         private float[] relativeTipAngles = new float[] { 0.0f, 0.0f, 0.0f };
         private float[] relativeTipPos = new float[] { 0.0f, 0.0f, 0.0f };
         private float[] relativeBodyFollowPos = new float[] { 0.0f, 0.0f, 0.0f };
@@ -53,6 +54,8 @@ namespace robotTracking
         private float tipToBaseSphereRadius;
         private float shiftFactor = 0.001f;
 
+        private UserStudy activeStudy;
+        private bool runningStudy = false;
 
         private NatNetClientML m_NatNet;
 
@@ -984,6 +987,38 @@ namespace robotTracking
         }
 
 
+        public void startStudy(UserStudyType type)
+        {
+            activeStudy = new UserStudy(type);
+            experimentLive = true;
+            new Task(liveExperimentThreadLoop).Start();
+
+            runUserStudy();
+
+        }
+
+        private void runUserStudy()
+        {
+            runningStudy = true;
+            bool triggerPress;
+
+            while(runningStudy)
+            {
+                triggerPress = controller.getTrigger();
+                float[] relativeTargetPosition = activeStudy.getRelativeTargetPosition();
+
+                runningStudy = activeStudy.update(basePosition, triggerPress);
+            }
+        }
+
+
+        public void stopStudy()
+        {
+            runningStudy = false;
+            experimentLive = false;
+        }
+
+
         private bool motorAnglesNaN(double[] newMotorAngles)
         {
             for (int i = 0; i < newMotorAngles.Length; i++)
@@ -1405,6 +1440,11 @@ namespace robotTracking
             float xRDiff = (float)RobotTracker.RadiansToDegrees(eulersRobotTip[0] - eulersRobotBase[0]);     // convert to degrees
             float yRDiff = (float)RobotTracker.RadiansToDegrees(eulersRobotTip[1] - eulersRobotBase[1]);
             float zRDiff = (float)RobotTracker.RadiansToDegrees(eulersRobotTip[2] - eulersRobotBase[2]);
+
+            basePosition[0] = robotBase.x;
+            basePosition[1] = robotBase.y;
+            basePosition[2] = robotBase.z;
+
 
             relativeTipPos[0] = xDiff;
             relativeTipPos[1] = yDiff;

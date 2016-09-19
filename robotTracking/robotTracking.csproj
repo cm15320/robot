@@ -82,6 +82,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserStudy.cs" />
+    <Compile Include="UserStudyType.cs" />
     <EmbeddedResource Include="RobotTracker.resx">
       <DependentUpon>RobotTracker.cs</DependentUpon>
     </EmbeddedResource>

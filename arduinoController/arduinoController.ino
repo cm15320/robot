@@ -1,6 +1,9 @@
 #include <Servo.h>
 
 int onBoardLed = 13;
+int triggerPin = 8;
+int magnetPowerPin = 12;
+int magnetControlPin = 3;
 
 byte inputBytes[5];
 bool connectedToPC = false;
@@ -10,6 +13,10 @@ Servo currentServo = myservo1;
 void setup() {
   // Set up pins etc
   pinMode(onBoardLed, OUTPUT);
+  pinMode(triggerPin, INPUT_PULLUP);
+  pinMode(magnetPowerPin, OUTPUT); // initiate the motor channel A
+  digitalWrite(magnetPowerPin, HIGH); // turn on the power
+
   Serial.begin(57600);
   digitalWrite(onBoardLed, LOW);
   myservo1.attach(9);
@@ -75,39 +82,48 @@ void loop() {
 //    currentServo.detach();
   }
 
+  else if (triggerQuery()) {
+    int num1 = Serial.read();
+    int num2 = Serial.read();
+    int num3 = Serial.read();
+
+    if(num1 == num2 == num3 == 7) {
+      bool trigger = digitalRead(triggerPin);
+      if(trigger == LOW) {
+        Serial.print(1);
+      }
+      else{
+        Serial.print(0);
+      }
+    }
+  }
+
   else if(userEntered()) {
-//    if(Serial.available() == 1) {
+
       int receivedInt = Serial.read();
-      char receivedChar = (char)receivedInt;
+      
       if(receivedInt == 1) {
-//        myservo1.attach(9);
-        currentServo = myservo1;
+        digitalWrite(magnetControlPin, HIGH); // full power
       }
       else if(receivedInt == 2) {
-//        myservo2.attach(10);
-        currentServo = myservo2;
+        digitalWrite(magnetControlPin, LOW); // no power
       }
-      else if(receivedInt == 3) {
-//        myservo3.attach(11);
-        currentServo = myservo3;
-      }
-      else if(receivedInt == 4) {
-//        myservo4.attach(6);
-        currentServo = myservo4;
-      }
-      
-      if(receivedInt >= 5 && receivedInt < 180) {
-        setServo(receivedInt);
-//        delay(1000);
-//        currentServo.detach();
-      }
-//
   }
 
 }
 
 boolean sentAllAngles() {
   if(connectedToPC && Serial.available() == 4) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+
+boolean triggerQuery(){
+  if(connectedToPC && Serial.available() == 3) {
     return true;
   }
   else {
