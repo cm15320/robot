@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using NatNetML;
 using System.Collections;
 using System.Xml.Serialization;
@@ -22,6 +23,7 @@ namespace robotTracking
         private RigidBodyData bodyToFollow;
         private CalibrationData newCalibrationData = new CalibrationData();
         private CalibrationData storedCalibrationData, storedTestData;
+        private BodePlot bodePlot;
         //private int calibrationStep = 0;
         private int[] motorAngles = new int[] { 90, 90, 90, 90 };
         private int numIterationPoints = 5;
@@ -48,6 +50,7 @@ namespace robotTracking
         private XmlSerializer ser = new XmlSerializer(typeof(CalibrationData));
         private string calibrationFilename = "calibrationData.xml";
         private string testDataFilename = "testPoints.xml";
+        private string bodeFileName = "bodePlot.xml";
         private bool currentlyTracked;
         private bool experimentLive = false;
         private float[] eulersRobotBase;
@@ -1322,25 +1325,59 @@ namespace robotTracking
         public void startBodePlot()
         {
             experimentLive = true;
-            
+            Stopwatch sw = new Stopwatch();
+            bodePlot = new BodePlot();
+                        
             // start the thread to constantly set the motor angles
             new Task(liveExperimentThreadLoop).Start();
             float[] relativeTargetPoint;
 
             // START TIMER
+            sw.Start();
 
             while (experimentLive)
             {
                 relativeTargetPoint = relativeBodyFollowPos;
                 getMotorAnglesForTargetPoint(relativeTargetPoint);
 
+                float timestamp = sw.ElapsedMilliseconds;
+                logBodeData(timestamp);
+
                 Thread.Sleep(newTargetDelay);
             }
 
+            sw.Stop();
+
+            saveBodeXML(bodeFileName);
 
             // STOP TIMER
 
         }
+
+        private void logBodeData(float timestamp)
+        {
+            BodeDataPoint newBodePoint;
+            lock(syncLock)
+            {
+                newBodePoint = new BodeDataPoint(timestamp, relativeBodyFollowPos, relativeTipPos);
+            }
+            // Add the bode point to the existing bode plot data
+            bodePlot.Add(newBodePoint);
+        }
+
+        private void saveBodeXML(string filename)
+        {
+            //if (dummyExperiment)
+            //{
+            //    return;
+            //}
+
+            TextWriter writer = new StreamWriter(filename);
+            ser.Serialize(writer, bodePlot);
+            writer.Close();
+            Console.WriteLine("should have written to " + filename);
+        }
+
 
 
         private void getCurrentTrackingData()
