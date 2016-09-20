@@ -52,6 +52,7 @@ namespace robotTracking
         private bool followingLiveRelativePoint = false;
         private bool followingLiveBody = false;
         private bool runningUserStudy = false;
+        private bool runningBode = false;
         float relTargetPointX, relTargetPointY, relTargetPointZ;
         float[] relTargetPoint;
 
@@ -897,7 +898,7 @@ namespace robotTracking
                 UIUpdateThread.Abort();
                 UIUpdateThread.Join();
             }
-               
+
 
             m_NatNet.Uninitialize();
 
@@ -1000,7 +1001,7 @@ namespace robotTracking
                 {
                     runCalibrationButton.Enabled = true;
                 }
-                
+
                 // make a dummy experiment just so can move the robot
                 experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
                 experiment.makeDummy();
@@ -1031,32 +1032,42 @@ namespace robotTracking
                 connectedRobot = false;
                 experimentButton.Enabled = false;
                 //followLivePointButton.Enabled = false;
-                //activateLivePointButtons(true);
+                //activateLiveExperimentButtons(true);
                 connectRobotButton.Text = "Connect";
                 robotConnectLabel.Text = "Not Connected";
             }
         }
 
-        private void activateLivePointButtons(bool on)
+        private void activateLiveExperimentButtons(bool on)
         {
-            if(on)
+            if (on)
             {
-                followLivePointButton.Enabled = true;
-                followBodyButton.Enabled = true;
-                moveToRelPointButton.Enabled = true;
-                moveToBodyButton.Enabled = true;
+                followLivePointButton.Enabled = on;
+                followBodyButton.Enabled = on;
+                moveToRelPointButton.Enabled = on;
+                moveToBodyButton.Enabled = on;
+                userStudyButton.Enabled = on;
+                showUserStudyRadioButtons(on);
+                bodePlotButton.Enabled = on;
             }
-            else
+            if (on == false)
             {
-                followingLiveRelativePoint = false;
-                followLivePointButton.Enabled = false;
-                followBodyButton.Enabled = false;
-                moveToRelPointButton.Enabled = false;
-                moveToBodyButton.Enabled = false;
-                experiment.stopLiveExperiment();
+                stopAllLive();
                 followLivePointButton.Text = "Follow relative point live";
                 moveToRelPointButton.Text = "Move to relative point";
+                userStudyButton.Text = "Start User Study";
+                bodePlotButton.Text = "Start Bode Plot";
             }
+        }
+
+
+        private void stopAllLive()
+        {
+            followingLiveBody = false;
+            followingLiveRelativePoint = false;
+            runningUserStudy = false;
+            runningBode = false;
+            experiment.stopAllLive();
         }
 
 
@@ -1075,7 +1086,7 @@ namespace robotTracking
                 experimentRunning = true;
                 experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
                 //followLivePointButton.Enabled = true;
-                activateLivePointButtons(true);
+                activateLiveExperimentButtons(true);
                 experimentButton.Text = "Stop experiment";
             }
             else if (experimentRunning)
@@ -1083,12 +1094,16 @@ namespace robotTracking
                 experimentRunning = false;
                 experimentButton.Text = "Start experiment";
                 //followLivePointButton.Enabled = false;
-                activateLivePointButtons(false);
+                activateLiveExperimentButtons(false);
                 followingLiveRelativePoint = false;
             }
             else if (!requiredObjectsTracked())
             {
                 OutputMessage("Cannot locate all the required bodies (robotBase and robotTip)");
+            }
+            else
+            {
+                OutputMessage("Not connected as required");
             }
         }
 
@@ -1189,12 +1204,13 @@ namespace robotTracking
 
         private void runCalibrationButton_Click(object sender, EventArgs e)
         {
-            if (!calibrating) {
+            if (!calibrating)
+            {
                 startCalibration(false);
                 runTestPointsButton.Enabled = false;
                 runCalibrationButton.Text = "Stop calibration";
             }
-            else if(calibrating && experiment != null)
+            else if (calibrating && experiment != null)
             {
                 experiment.stopCalibration();
                 runCalibrationButton.Text = "Run calibration";
@@ -1294,15 +1310,15 @@ namespace robotTracking
 
             if (experiment == null) experiment = new Experiment(false);
 
-            if(getMotorsRadioButton.Checked)
+            if (getMotorsRadioButton.Checked)
             {
-                float[] desiredPosition = new float[] { entered1, entered2, entered3};
+                float[] desiredPosition = new float[] { entered1, entered2, entered3 };
                 output = experiment.testRegression(desiredPosition, Experiment.RegressionInput.POSITION, bandwidth);
                 Console.WriteLine("output motor angles are {0}, {1}, {2}, {3}", output[0], output[1], output[2], output[3]);
             }
             else if (getPositionRadioButton.Checked)
             {
-                float[] desiredMotors = new float[] { entered1, entered2, entered3, entered4};
+                float[] desiredMotors = new float[] { entered1, entered2, entered3, entered4 };
                 output = experiment.testRegression(desiredMotors, Experiment.RegressionInput.MOTORS, bandwidth);
                 Console.WriteLine("output points are {0}, {1}, {2}", output[0], output[1], output[2]);
             }
@@ -1313,7 +1329,7 @@ namespace robotTracking
         {
             if (calibrating)
             {
-                if(!pausedCalibration)
+                if (!pausedCalibration)
                 {
                     pausedCalibration = true;
                     pauseCalibrationButton.Text = "Continue calibration";
@@ -1345,13 +1361,13 @@ namespace robotTracking
 
         private void runTestPointsButton_Click(object sender, EventArgs e)
         {
-            if(!calibrating)
+            if (!calibrating)
             {
                 startCalibration(true);
                 runCalibrationButton.Enabled = false;
                 runTestPointsButton.Text = "Stop test points";
             }
-            else if(calibrating && experiment != null)
+            else if (calibrating && experiment != null)
             {
                 experiment.stopCalibration();
                 runTestPointsButton.Text = "Run test points";
@@ -1439,7 +1455,7 @@ namespace robotTracking
         // this and get calibration data should be merged into one function?
         private void getAllDataButton_Click(object sender, EventArgs e)
         {
-            if(getAllData())
+            if (getAllData())
             {
                 // test the different alpha values
                 experiment.getBandwidthErrorPlot();
@@ -1450,7 +1466,7 @@ namespace robotTracking
 
         private void followLivePoint()
         {
-            if(getRelativeTargetPoint())
+            if (getRelativeTargetPoint())
             {
                 //moveToRelPointButton.Enabled = false;
                 experiment.startLivePointFollowing(relTargetPoint);
@@ -1461,7 +1477,7 @@ namespace robotTracking
 
         private void followLiveBody()
         {
-            if(experiment.bodyFollowRequirements())
+            if (experiment.bodyFollowRequirements())
             {
                 experiment.startLiveBodyFollowing();
             }
@@ -1479,7 +1495,7 @@ namespace robotTracking
                 relTargetPointY = float.Parse(relativeTargetPointY.Text);
                 relTargetPointZ = float.Parse(relativeTargetPointZ.Text);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 OutputMessage("Could not parse all values of target points:");
                 OutputMessage("Message: " + ex.Message);
@@ -1493,7 +1509,7 @@ namespace robotTracking
 
         private void followLivePointButton_Click(object sender, EventArgs e)
         {
-            if(!followingLiveRelativePoint)
+            if (!followingLiveRelativePoint)
             {
                 followingLiveRelativePoint = true;
                 followLivePointButton.Text = "Stop following";
@@ -1501,9 +1517,8 @@ namespace robotTracking
             }
             else
             {
-                experiment.stopLiveExperiment();
+                stopAllLive();
                 followLivePointButton.Text = "Follow relative point live";
-                followingLiveRelativePoint = false;
             }
             changeFollowButtons();
 
@@ -1511,7 +1526,7 @@ namespace robotTracking
 
         private void moveToBodyButton_Click(object sender, EventArgs e)
         {
-            if(experiment.bodyFollowRequirements())
+            if (experiment.bodyFollowRequirements())
             {
                 new Task(moveToTargetBody).Start();
             }
@@ -1524,7 +1539,7 @@ namespace robotTracking
 
         private void moveToRelPointButton_Click(object sender, EventArgs e)
         {
-            if(getRelativeTargetPoint())
+            if (getRelativeTargetPoint())
             {
                 new Task(moveToRelTargetPoint).Start();
             }
@@ -1532,13 +1547,13 @@ namespace robotTracking
 
         private void changeFollowButtons()
         {
-            if(followingLiveBody)
+            if (followingLiveBody)
             {
                 moveToBodyButton.Enabled = false;
                 followLivePointButton.Enabled = false;
                 moveToRelPointButton.Enabled = false;
             }
-            else if(followingLiveRelativePoint)
+            else if (followingLiveRelativePoint)
             {
                 moveToBodyButton.Enabled = false;
                 followBodyButton.Enabled = false;
@@ -1563,9 +1578,8 @@ namespace robotTracking
             }
             else
             {
-                experiment.stopLiveExperiment();
+                stopAllLive();
                 followBodyButton.Text = "Follow body live";
-                followingLiveBody = false;
             }
             changeFollowButtons();
         }
@@ -1580,7 +1594,7 @@ namespace robotTracking
 
         private void userStudyButton_Click(object sender, EventArgs e)
         {
-            if(!runningUserStudy)
+            if (!runningUserStudy)
             {
                 runningUserStudy = true;
                 userStudyButton.Text = "Stop User Study";
@@ -1595,7 +1609,7 @@ namespace robotTracking
                 userStudyButton.Text = "Start User Study";
                 showUserStudyRadioButtons(true);
                 bodePlotButton.Enabled = true;
-                experiment.stopStudy();
+                experiment.stopAllLive();
             }
         }
 
@@ -1617,6 +1631,38 @@ namespace robotTracking
             return type;
         }
 
+        private void bodePlotButton_Click(object sender, EventArgs e)
+        {
+            if (!runningBode)
+            {
+                runningBode = true;
+                bodePlotButton.Text = "Stop Bode Plot";
+                new Task(bodePlot).Start();
+                userStudyButton.Enabled = false;
+                showUserStudyRadioButtons(false);
+            }
+            else
+            {
+                stopAllLive();
+                bodePlotButton.Text = "Start Bode Plot";
+                userStudyButton.Enabled = true;
+                showUserStudyRadioButtons(true);
+            }
+        }
+
+        private void bodePlot()
+        {
+            if (experiment.bodyFollowRequirements())
+            {
+                experiment.startBodePlot();
+            }
+            else
+            {
+                Console.WriteLine("Not tracking enough live bodies for body following");
+            }
+        }
+
+
         private void moveToRelTargetPoint()
         {
             experiment.moveToRelTargetPoint(relTargetPoint);
@@ -1630,34 +1676,6 @@ namespace robotTracking
         public int HighWord(int number)
         {
             return ((number >> 16) & 0xFFFF);
-        }
-
-
-
-    }
-
-    [Serializable]
-    public struct structDataPoint
-    {
-        public int[] motorAngles;
-        public float[] relativeTipPosition;
-        public float[] relativeTipOrientation;
-
-        public void setMotorAngles(int[] motorAngles)
-        {
-            this.motorAngles[0] = motorAngles[0];
-            this.motorAngles[1] = motorAngles[1];
-            this.motorAngles[2] = motorAngles[2];
-            this.motorAngles[3] = motorAngles[3];
-
-        }
-        public void setTipPos(float[] relativeTipPosition)
-        {
-            this.relativeTipPosition = relativeTipPosition;
-        }
-        public void setTipOrientation(float[] relativeTipOrientation)
-        {
-            this.relativeTipOrientation = relativeTipOrientation;
         }
 
     }

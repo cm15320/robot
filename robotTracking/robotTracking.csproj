@@ -71,6 +71,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BodeDataPoint.cs" />
+    <Compile Include="BodePlotData.cs" />
     <Compile Include="DataPoint.cs" />
     <Compile Include="Experiment.cs" />
     <Compile Include="RobotControl.cs" />

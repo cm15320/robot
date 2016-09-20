@@ -53,20 +53,25 @@
 	{\large \today\par}
 \end{titlepage}
 
-\section{Executive Summary}
+\renewcommand{\thepage}{\roman{page}}% Roman numerals for page counter
+\section*{Executive Summary}
 \pagebreak
 
-\section{Acknowledgements}
+\section*{Acknowledgements}
 \pagebreak
 
+\renewcommand{\thepage}{\arabic{page}}% Arabic numerals for page counter
+
+\setcounter{page}{1}% Start page number with 1
 
 \tableofcontents
 \pagebreak
 
-\section{Introduction}
-\pagebreak
 
-\section{Aims and Objectives}
+
+\section{Introduction}
+
+\subsection{Aims and Objectives}
 \pagebreak
 
 \section{Project Background}
@@ -115,7 +120,7 @@ The model generated in \cite{lenz2011} could then be transferred to the robotic 
 \label{figure:jahir}
 \end{center}
 
-However, in reality, it is not feasible for assembly workers to wear a plethora of wired sensors while performing tasks. The physical and mental comfort is greatly reduced under such conditions, with the sensors creating a feeling of intrusiveness. A viable solution to this issue is the use of occupancy maps, which are commonly employed in robotics to determine position and motion, providing a robust approach to spatial perception and navigation problems. This technique, covered in depth in \cite{elfes1989}, was implemented for the robot assisted assembly task in \cite{lenz2011}, using the three-dimensional velocity, acceleration and jerk as input to the individual HMMs. This idea of measuring movement in physical space without excessive wiring is an essential component to the viability of handheld robotics, which have previously employed optical tracking from a separate device as a solution. Other sensing methods will be explored in the future, with the aim of improved practicality in real-world scenarios.
+However, in reality, it is not feasible for assembly workers to wear a plethora of wired sensors while performing tasks. The physical and mental comfort is greatly reduced under such conditions, with the sensors creating a feeling of intrusiveness. A viable solution to this issue is the use of occupancy maps, which are commonly employed in robotics to determine position and motion, providing a robust approach to spatial perception and navigation problems. This technique, covered in depth in \cite{elfes1989}, was implemented for the robot assisted assembly task in \cite{lenz2011}, using the three-dimensional velocity, acceleration and jerk as input to the individual HMMs. This idea of measuring movement in physical space without excessive wiring is an essential component to the viability of handheld robotics, which have previously employed optical tracking from an external device as a solution. Other sensing methods will be explored in the future, with the aim of improved practicality in real-world scenarios.
 
 This occupancy map method allowed for a recognition accuracy of 92.26\% for the right hand, comparable to the recognition rate of the reference experiment that relied on sensors. Therefore for the vast majority of the time, the system could accurately predict the task progress, and respond with the correct actions accordingly. The key here is that the robot must be context-aware. This enables much greater cognitive capabilities and a higher standard of interaction with the user. Cognitive Technical Systems (CoTeSys) is a group with a research focus on sensing and actuation in the physical world. As explained in \cite{buss2010}, this allows the robot to exhibit behaviours that suggest it can `learn'. The foundations of cognition in humans and animals are used to develop cognitive models, which can then be applied when designing control systems for more specific technical applications. 
 
@@ -147,7 +152,7 @@ The group uses a cognition-based perception-action closed loop as a basis for in
 From a fully autonomous perspective, using robots in construction environments is becoming an increasingly attractive proposition. Although machines have been utilised to assist in construction since the industrial revolution, there has typically been little in the way of automation. With advancements in robotics, they may be incorporated into building applications to reach unprecedented levels of speed and efficiency. Numerous investigations and demonstrations have been carried out of robots performing assembly operations from a set of known requirements, corresponding to `task knowledge'. However, most of these examples are based around two-dimensional systems, such as manipulating blocks to construct flat structures, as in \cite{werfel2006}, not considering height.
 
 \subsubsection{Mobile Robots} \label{mobilerobots}
-Petersen et al \cite{Petersen2011} present a hardware system in which a mobile robot manipulates blocks in three-dimensional space to match desired structures. As well as this, they also produced a high-level control scheme that could enable multiple robots to autonomously share the workload of a user-specified building task. The results were successful and the prototype robot constructed structures that were greater in height than itself, doing so via climbing, navigation and manipulation. This was accomplished without the need for complex sensing and control mechanisms by the design of the simplified interconnecting structural blocks and the way in which the robot interfaces with them, as illustrated in Figure \ref{figure:buildingrobot}.
+Petersen et al \cite{Petersen2011} present a hardware system in which a mobile robot manipulates blocks in three-dimensional space to match desired structures. As well as this, they also produced a high-level control scheme that could enable multiple robots to autonomously share the workload of a user-specified building task. The results were successful and the prototype robot constructed structures that were greater in height than itself, doing so via climbing, navigation and manipulation. This was accomplished without the need for complex sensing and control mechanisms by the design of the simplified interconnecting structural blocks and the way in which the robot interfaces with them, as illustrated in Figure \ref{figure:buildingrobot}. It has been suggested that there exists a future opportunity for a series of handheld robots and respective human users to work together to accomplish tasks of much higher complexity than possible from just a single device. This would bear parallels to the work in \cite{Petersen2011} in which the task knowledge is shared and updated between multiple devices accordingly.
 
 \begin{center}
 \includegraphics[width = 0.6\textwidth]{buildingrobot.png}
@@ -160,7 +165,8 @@ This idea of designing the structure blocks in a passive manner so that they nat
 \subsubsection{Drone-Based Assembly}
 With recent developments in Unmanned Aerial Vehicle (UAV) technology as a whole, it is becoming increasingly viable to deploy rotary wing platforms to interact with the physical environment. The main advantage they offer over typical ground based alternatives is improved speed and accessibility with regard to hard-to-reach regions. Moreover, using rotary wing based UAVs, such as quadcopters, over their fixed wing counterparts, allows for a more controlled operation in a tighter workspace. The design and control associated with transporting a payload with such a rotary based UAV is presented in \cite{mellinger2011}. The paper looks at different gripper designs and how successful the robot was in estimating and manipulating the mechanics of the varying payloads. Several issues arise when using UAVs to transport payloads, namely the limited weight bearing capacity and the fact that the dynamics are altered when carrying payloads. 
 
-The grippers investigated in this paper either operate by traditional clamping (impactive) or surface penetration (ingressive). However, the reduced motion of the fixed claws inevitably leads to more positional uncertainty during hovering. A solution is proposed in \cite{cano2013}, which covers the design of a 6-DoF aerial manipulator (see Figure \ref{figure:uavmanipulator}) for UAVs to assemble bar structures. This is made possible by developments in high power aerial platforms, reducing weight restrictions. The 6-DoF manipulator in the paper focuses on three main functions; the \textit{capture} (approaching and grasping the bar), the \textit{transport} (transferring load from storage to site) and the \textit{assembling} (installing to the structure). Although this design remains relatively untested in terms of control, it possesses similarities to the handheld robotics design (similar DoF but contains roll), and inspiration may be taken when designing a new end effector for assembly-based tasks. The new end effector must be designed in tandem with the assembly blocks, and each of impactive, ingressive, rollers or passive-jointed magnets are viable options at this stage.
+The grippers investigated in this paper either operate by traditional clamping (impactive) or surface penetration (ingressive). However, the reduced motion of the fixed claws inevitably leads to more positional uncertainty during hovering. A solution is proposed in \cite{cano2013}, which covers the design of a 6-DoF aerial manipulator (see Figure \ref{figure:uavmanipulator}) for UAVs to assemble bar structures. This is made possible by developments in high power aerial platforms, reducing weight restrictions. The 6-DoF manipulator in the paper focuses on three main functions; the \textit{capture} (approaching and grasping the bar), the \textit{transport} (transferring load from storage to site) and the \textit{assembling} (installing to the structure).
+\\
 
 \begin{center}
 \includegraphics[width = 0.5\textwidth]{uavmanipulator.png}
@@ -168,7 +174,12 @@ The grippers investigated in this paper either operate by traditional clamping (
 \label{figure:uavmanipulator}
 \end{center}
 
-The feasibility of using rotary UAVs to construct building-scale structures is explored in \cite{latteur2015}. In this paper, a project is outlined which envisions an alternative construction approach similar to that witnessed in nature; gradually adding more material to an existing structure in a safe and precise manner. Despite the energy considerations, it was concluded that large-scale construction may be possible through drones, with the potential improving in parallel with developing drone technology. An issue that was identified, as was the case in Section \ref{mobilerobots}, is the level of precision required for typical construction that is finer than afforded by fully mobile robots. This is even more evident in aerial vehicles. A similar solution was employed, allowing positional imprecisions through the use of modular self-aligning components. Three different approaches were investigated for such a component; \textit{droxels}, conical interlocking \textit{dricks}, and rounded conical interlocking \textit{dricks}. These designs provide further inspiration for designing the assembly components for the handheld robotics construction task.
+Although this aerial design remains relatively untested in terms of control, it possesses similarities to the Mark II handheld robotic design in \cite{GreggSmithKinematics} (similar DoF but contains roll), and inspiration may be taken in the future when considering alternative end effectors for assembly-based tasks. This project aims to provide further groundwork and breadth in the design of new handheld robotics, with less focus on advancing the physical capabilities, and as such magnets are to be used for interacting with external bodies due to design simplicity. However, in the future when application and capabilities become more of a focus, new end effectors may be designed in tandem with specific assembly blocks, and each of impactive, ingressive, rollers or passive-jointed magnets would all be viable options.
+
+
+The feasibility of using rotary UAVs to construct building-scale structures is explored in \cite{latteur2015}, in which a project is outlined that envisions an alternative construction approach similar to that observed in nature. This entails the gradual addition of more material to an existing structure in a safe and precise manner. Despite the energy considerations, it was concluded that large-scale construction may be possible through drones, with the potential improving in parallel with advancements in drone technology. An issue that was identified, as was also the case in Section \ref{mobilerobots}, is the level of precision required for typical construction that is finer than afforded by fully mobile robots. Certainly in the early stages of handheld robotics, this will be a key issue as well. In this project it is avoided by considering part dimensions based on the accuracy of the robot, not the other way round. 
+
+This achievable accuracy problem is even more evident in aerial vehicles, and in \cite{latteur2015}, a similar solution was employed to \cite{Petersen2011}, mitigating positional imprecisions through the use of modular self-aligning components. Three different approaches were investigated for such a component; \textit{droxels}, conical interlocking \textit{dricks}, and rounded conical interlocking \textit{dricks}. These designs provide further inspiration for designing the assembly components for the handheld robotics construction task. In future development, when the capabilities associated with construction are more rigorously investigated, these self-aligning designs will be used as strong inspiration. However, due to the limited time-scale of this project and the comparatively smaller focus on assembly capabilities, such designs were disregarded in favour of plain blocks sized to meet the precision afforded by the new device.
 \begin{itemize}
 \item{Droxels (Drone Voxels) - Voxels are three dimensional pixels, different designs can lead to strong space-filling capabilities and allow for construction of complex shapes. They are somewhat more difficult to grasp and position but possess strong potential. One of the key issues is the manufacture complexity, with 3D printing being the most viable. See Figure \ref{figure:droxel}.}
 \item{Conical Interlocking Dricks (Drone Bricks) - This option allows greater flexibility regarding positional tolerance. A lot of their potential lies in the fact that they can easily be constructed from more rigid structures such as concrete. However, unique blocks have to be designed to allow cornering. See Figure \ref{figure:cid}.}
@@ -197,7 +208,7 @@ The feasibility of using rotary UAVs to construct building-scale structures is e
 \subsubsection{Scene Knowledge}
 One of the key considerations in robots performing construction tasks is how they navigate around the environment. The careful pre-planning of the construction environment is often necessary, so that autonomous agents can be informed of valid paths to avoid undesired collisions. Whole studies have been dedicated to this area, such as in \cite{Arkin1990}. In this paper, the autonomous agents are given prior knowledge of the environment as a whole and not just specific paths. This behaviour-oriented approach encourages vision/ultrasonic sensing to detect obstacles, reducing reliance on dead-set routes. Being more than fifteen years old, such techniques have become more established now, as in \cite{Petersen2011}. In many situations however, there is still a relatively strong dependency on a well defined environment, beyond just the relative locations of source/targets.
 
-This reliance on environmental knowledge, as well as pre-planning of paths, is one of the areas in which handheld robotics can excel, providing an elegant solution to the guidance issues experienced by separate and autonomous robotics. As a user can transport and orientate a handheld robotic tool in any way they intuitively see fit, this mechanism provides much greater flexibility. The need for a rigidly defined environment and careful pre-planning, which is imperative to external robots, is vastly reduced with a handheld device. Of course, fixed obstacles can still be made known in order to provide the most efficient movement. However, as the user is in full control of the general location of the robot, the user actively recognises and avoids obstacles with virtually no cognitive effort. Hence this is an element of construction based robots that is of far less concern when designing the new experiment, further outlining the potential for handheld robotics as a whole. 
+This reliance on environmental knowledge, as well as pre-planning of paths, is one of the areas in which handheld robotics can excel, providing an elegant solution to the guidance issues experienced by separate and autonomous robotics. As a user can transport and orientate a handheld device in any way they intuitively see fit, much greater flexibility is provided. The need for a rigidly defined environment and careful pre-planning, which is imperative to external robots, is vastly reduced with handheld robotic tools. Of course, fixed obstacles can still be made known in order to provide the most efficient movement. However, as the user is in full control of the general location of the robot, the user actively recognises and avoids obstacles with minimal cognitive effort. Hence this is an element of construction based robots that is of far less concern when designing new applications, further outlining the potential for handheld robotics as a whole. 
 
 \pagebreak
 
@@ -272,7 +283,7 @@ ALSO MENTION SIMILARITIES WITH THE TLX STAGE IF ANY OF THIS GETS COMPLETED IN PR
  
 Subsequently, a more advanced six degrees-of-freedom device was constructed over a longer period of time, as covered extensively in \cite{GreggSmithKinematics}. This design comprised distinct solid sections connected by links, as opposed to a continuous backbone, to allow for a greater range of motion. Originally, this project's objectives comprised the design and evaluation of new applications for this device. However, the robot experienced an improbable critical failure during a capability demonstration, rendering it unrepairable within the project time-line. As such, the new direction was taken regarding the design and construction of a simpler four degrees-of-freedom device and the corresponding evaluation. Hence the details of the Mark II device have become largely irrelevant in terms of this project, and will therefore not be covered. Both the Mark I and II devices are made openly available at \cite{handheldrobotics}.
 
-\subsubsection{New Section}
+\subsubsection{New Design Inspiration}
 
 Section on cable driven robots and the flexible arm paper, called "Existing Designs" or "Design inspiration" or whatever, mentioning choices similar and different to mark 1??
 
@@ -339,7 +350,7 @@ In each case, an infra-red optical tracking system was used with retro-reflectiv
  
 The robot itself possessed a 6-DoF pose in world space, while the joint angles constitute a further six DoF, resulting in an overall 12-DoF pose. Solving from one of these fully defined poses to another is computationally expensive, requiring minutes to be calculated where sub-second times are needed for a responsive tool. In order to overcome this issue, the path planning ability of the human was exploited, reducing the robot path-planning problem to 3-DoF. A variant of informed Rapidly Exploring Random Trees (RRT*) \cite{Gammell2014} was then produced in \cite{GreggSmithFeedback} to calculate the shortest route from robot to target, using the frame of reference of the target as the root of the tree. Once such a trajectory is known, the robot can use it to gesture along the absolute line as one of the feedback methods, as well as searching for a valid solution, as explained in \cite{GreggSmithKinematics}. This algorithm was always run during robot use, regardless of the feedback method.
 
-The results of the completion time and the TLX combined scores in \cite{GreggSmithFeedback} indicate that all forms of feedback (augmented reality, virtual reality, mounted screen and gesturing) are shown to improve performance compared to the handheld wand. The gesturing mode itself does not show as great a performance difference as the visual methods, but does show an improvement nonetheless, justifying it as a viable option. There was little difference exhibited among the visual feedback methods when employed on the robot. The strong results demonstrate the effectiveness of the robot in assisted tasks, outlining its potential for use in the tool space.
+The results of the completion time and the TLX combined scores in \cite{GreggSmithFeedback} indicate that all forms of feedback (augmented reality, virtual reality, mounted screen and gesturing) are shown to improve performance compared to the handheld wand. Although the gesturing mode itself does not show as great a performance difference as the visual methods, it does show an improvement nonetheless, justifying it as a viable option. As such, feedback through gesturing was the chosen option for this project, given its feasibility in the time-frame compated to the alternatives. The visual feedback methods themselves exhibited little difference between them. These strong results demonstrate the effectiveness of the robot in assisted tasks, outlining its potential for use in the tool space.
 	
 \subsubsection{Added Value}
 
@@ -657,9 +668,11 @@ The core classes of the program are illustrated in Figure \ref{figure:classDiagr
 WERE AIMS AND OBJECTIVES MET, WHAT ELSE WAS FOUND OUT????
 \section{Further Work and Areas of Improvement}
 
+\pagebreak
 \bibliography{mybib}
 \bibliographystyle{unsrt}
 
+\pagebreak
 \section{Appendix}
 \subsection{CAD Drawings}
 \end{document}

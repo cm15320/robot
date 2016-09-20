@@ -14,6 +14,7 @@ namespace robotTracking
         private bool connectedToPort;
         private int cnt = 0;
         private bool running;
+        private int setMotorDelay = 6;
         private int[] targetMotorAngles, currentMotorAngles;
         private object syncLock;
 
@@ -233,7 +234,7 @@ namespace robotTracking
 
                     currentPort.Write(instructionBuffer, 0, 2);
 
-                    Thread.Sleep(6);
+                    Thread.Sleep(setMotorDelay);
                     updateCurrentMotorAngles(i, oldAngle);
 
                 }

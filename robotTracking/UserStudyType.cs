@@ -10,7 +10,6 @@ namespace robotTracking
     {
         ROBOTCOLOUR,
         USERCOLOUR,
-        GESTURING,
-        BODE
+        GESTURING
     }
 }

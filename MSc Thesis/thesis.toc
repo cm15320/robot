@@ -1,52 +1,50 @@
 \select@language {english}
-\contentsline {section}{\numberline {1}Executive Summary}{1}
-\contentsline {section}{\numberline {2}Acknowledgements}{2}
-\contentsline {section}{\numberline {3}Introduction}{5}
-\contentsline {section}{\numberline {4}Aims and Objectives}{6}
-\contentsline {section}{\numberline {5}Project Background}{7}
-\contentsline {subsection}{\numberline {5.1}Robotics with Humans In-The-Loop}{7}
-\contentsline {subsubsection}{\numberline {5.1.1}Safety}{7}
-\contentsline {subsubsection}{\numberline {5.1.2}Autonomy Study}{8}
-\contentsline {subsubsection}{\numberline {5.1.3}Collaboration with Assistive Robotics}{9}
-\contentsline {subsection}{\numberline {5.2}Robotics in Building Environments}{12}
-\contentsline {subsubsection}{\numberline {5.2.1}Mobile Robots}{12}
-\contentsline {subsubsection}{\numberline {5.2.2}Drone-Based Assembly}{12}
-\contentsline {subsubsection}{\numberline {5.2.3}Scene Knowledge}{14}
-\contentsline {subsection}{\numberline {5.3}Handheld Robotics}{15}
-\contentsline {subsubsection}{\numberline {5.3.1}Medical Devices}{15}
-\contentsline {subsection}{\numberline {5.4}University of Bristol Handheld Robotics Project}{16}
-\contentsline {subsubsection}{\numberline {5.4.1}Initial Work}{16}
-\contentsline {subsubsection}{\numberline {5.4.2}New Section}{17}
-\contentsline {subsection}{\numberline {5.5}Designing Experiments for Handheld Robotics}{17}
-\contentsline {subsubsection}{\numberline {5.5.1}Painting Task}{17}
-\contentsline {subsubsection}{\numberline {5.5.2}Tiling Task}{18}
-\contentsline {subsubsection}{\numberline {5.5.3}Spatial Guidance Task}{19}
-\contentsline {subsubsection}{\numberline {5.5.4}Added Value}{20}
-\contentsline {subsubsection}{\numberline {5.5.5}Task Load Index (TLX) and Perceived Effort}{21}
-\contentsline {section}{\numberline {6}Summary}{22}
-\contentsline {section}{\numberline {7}Handheld Robot Design}{23}
-\contentsline {subsection}{\numberline {7.1}Flexible Robotic Arms}{23}
-\contentsline {subsection}{\numberline {7.2}Physical Design of Four Degrees-Of-Freedom Device}{23}
-\contentsline {subsection}{\numberline {7.3}Controlling The Device}{25}
-\contentsline {section}{\numberline {8}Developed Program}{26}
-\contentsline {subsection}{\numberline {8.1}Interfacing With NatNet Optical Tracking System}{26}
-\contentsline {subsection}{\numberline {8.2}Kernel Regression Method}{27}
-\contentsline {subsubsection}{\numberline {8.2.1}Calibration Procedure}{28}
-\contentsline {subsubsection}{\numberline {8.2.2}Calibration Results}{29}
-\contentsline {subsection}{\numberline {8.3}Algorithm for Responding to Three-Dimensional State Targets}{31}
-\contentsline {subsubsection}{\numberline {8.3.1}Acquiring Target Position Relative to Orientation of Base}{31}
-\contentsline {subsubsection}{\numberline {8.3.2}Gesturing Algorithm for Distant Targets}{33}
-\contentsline {subsubsection}{\numberline {8.3.3}Running with a Live Target in Real Time}{35}
-\contentsline {subsection}{\numberline {8.4}Program Design}{36}
-\contentsline {section}{\numberline {9}Physical Experiment}{40}
-\contentsline {subsection}{\numberline {9.1}Setup}{40}
-\contentsline {subsection}{\numberline {9.2}Construction Environment Parallels}{40}
-\contentsline {subsection}{\numberline {9.3}Mental Aspect}{40}
-\contentsline {subsection}{\numberline {9.4}Physical Aspect}{40}
-\contentsline {section}{\numberline {10}Results}{40}
-\contentsline {section}{\numberline {11}Discussion}{40}
-\contentsline {section}{\numberline {12}Conclusion}{40}
-\contentsline {section}{\numberline {13}Further Work and Areas of Improvement}{40}
-\contentsline {section}{\numberline {14}References}{40}
-\contentsline {section}{\numberline {15}Appendix}{43}
-\contentsline {subsection}{\numberline {15.1}CAD Drawings}{43}
+\contentsline {section}{\numberline {1}Introduction}{3}
+\contentsline {subsection}{\numberline {1.1}Aims and Objectives}{3}
+\contentsline {section}{\numberline {2}Project Background}{4}
+\contentsline {subsection}{\numberline {2.1}Robotics with Humans In-The-Loop}{4}
+\contentsline {subsubsection}{\numberline {2.1.1}Safety}{4}
+\contentsline {subsubsection}{\numberline {2.1.2}Autonomy Study}{5}
+\contentsline {subsubsection}{\numberline {2.1.3}Collaboration with Assistive Robotics}{6}
+\contentsline {subsection}{\numberline {2.2}Robotics in Building Environments}{9}
+\contentsline {subsubsection}{\numberline {2.2.1}Mobile Robots}{9}
+\contentsline {subsubsection}{\numberline {2.2.2}Drone-Based Assembly}{9}
+\contentsline {subsubsection}{\numberline {2.2.3}Scene Knowledge}{11}
+\contentsline {subsection}{\numberline {2.3}Handheld Robotics}{13}
+\contentsline {subsubsection}{\numberline {2.3.1}Medical Devices}{13}
+\contentsline {subsection}{\numberline {2.4}University of Bristol Handheld Robotics Project}{14}
+\contentsline {subsubsection}{\numberline {2.4.1}Initial Work}{14}
+\contentsline {subsubsection}{\numberline {2.4.2}New Design Inspiration}{15}
+\contentsline {subsection}{\numberline {2.5}Designing Experiments for Handheld Robotics}{15}
+\contentsline {subsubsection}{\numberline {2.5.1}Painting Task}{15}
+\contentsline {subsubsection}{\numberline {2.5.2}Tiling Task}{16}
+\contentsline {subsubsection}{\numberline {2.5.3}Spatial Guidance Task}{17}
+\contentsline {subsubsection}{\numberline {2.5.4}Added Value}{18}
+\contentsline {subsubsection}{\numberline {2.5.5}Task Load Index (TLX) and Perceived Effort}{19}
+\contentsline {section}{\numberline {3}Summary}{20}
+\contentsline {section}{\numberline {4}Handheld Robot Design}{21}
+\contentsline {subsection}{\numberline {4.1}Flexible Robotic Arms}{21}
+\contentsline {subsection}{\numberline {4.2}Physical Design of Four Degrees-Of-Freedom Device}{21}
+\contentsline {subsection}{\numberline {4.3}Controlling The Device}{23}
+\contentsline {section}{\numberline {5}Developed Program}{24}
+\contentsline {subsection}{\numberline {5.1}Interfacing With NatNet Optical Tracking System}{24}
+\contentsline {subsection}{\numberline {5.2}Kernel Regression Method}{25}
+\contentsline {subsubsection}{\numberline {5.2.1}Calibration Procedure}{26}
+\contentsline {subsubsection}{\numberline {5.2.2}Calibration Results}{27}
+\contentsline {subsection}{\numberline {5.3}Algorithm for Responding to Three-Dimensional State Targets}{29}
+\contentsline {subsubsection}{\numberline {5.3.1}Acquiring Target Position Relative to Orientation of Base}{29}
+\contentsline {subsubsection}{\numberline {5.3.2}Gesturing Algorithm for Distant Targets}{31}
+\contentsline {subsubsection}{\numberline {5.3.3}Running with a Live Target in Real Time}{33}
+\contentsline {subsection}{\numberline {5.4}Program Design}{34}
+\contentsline {section}{\numberline {6}Physical Experiment}{38}
+\contentsline {subsection}{\numberline {6.1}Setup}{38}
+\contentsline {subsection}{\numberline {6.2}Construction Environment Parallels}{38}
+\contentsline {subsection}{\numberline {6.3}Mental Aspect}{38}
+\contentsline {subsection}{\numberline {6.4}Physical Aspect}{38}
+\contentsline {section}{\numberline {7}Results}{38}
+\contentsline {section}{\numberline {8}Discussion}{38}
+\contentsline {section}{\numberline {9}Conclusion}{38}
+\contentsline {section}{\numberline {10}Further Work and Areas of Improvement}{38}
+\contentsline {section}{\numberline {11}References}{39}
+\contentsline {section}{\numberline {12}Appendix}{42}
+\contentsline {subsection}{\numberline {12.1}CAD Drawings}{42}

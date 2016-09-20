@@ -40,6 +40,8 @@ namespace robotTracking
         private StringBuilder csv = new StringBuilder();
         private int motorScaler = 100;
 
+        private int newTargetDelay = 50;
+
         private Hashtable htRigidBodiesNameToBody = new Hashtable();
         private double distanceBetween;
 
@@ -875,7 +877,7 @@ namespace robotTracking
                 relativeTargetPoint = relativeBodyFollowPos;
                 getMotorAnglesForTargetPoint(relativeTargetPoint);
 
-                Thread.Sleep(50);
+                Thread.Sleep(newTargetDelay);
             }
 
 
@@ -891,7 +893,7 @@ namespace robotTracking
                 // based on the position of the base as well
                 getMotorAnglesForTargetPoint(relativeTargetPoint);
 
-                Thread.Sleep(50);
+                Thread.Sleep(newTargetDelay);
             }
         }
 
@@ -946,9 +948,10 @@ namespace robotTracking
         }
 
 
-        public void stopLiveExperiment()
+        public void stopAllLive()
         {
             experimentLive = false;
+            runningStudy = false;
         }
 
         public void moveToRelTargetPoint(float[] relTargetPoint)
@@ -1011,12 +1014,6 @@ namespace robotTracking
             }
         }
 
-
-        public void stopStudy()
-        {
-            runningStudy = false;
-            experimentLive = false;
-        }
 
 
         private bool motorAnglesNaN(double[] newMotorAngles)
@@ -1320,6 +1317,31 @@ namespace robotTracking
             //}
 
         }
+
+
+        public void startBodePlot()
+        {
+            experimentLive = true;
+            
+            // start the thread to constantly set the motor angles
+            new Task(liveExperimentThreadLoop).Start();
+            float[] relativeTargetPoint;
+
+            // START TIMER
+
+            while (experimentLive)
+            {
+                relativeTargetPoint = relativeBodyFollowPos;
+                getMotorAnglesForTargetPoint(relativeTargetPoint);
+
+                Thread.Sleep(newTargetDelay);
+            }
+
+
+            // STOP TIMER
+
+        }
+
 
         private void getCurrentTrackingData()
         {

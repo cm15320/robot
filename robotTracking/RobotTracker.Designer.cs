@@ -633,6 +633,7 @@
             // 
             // userStudyButton
             // 
+            this.userStudyButton.Enabled = false;
             this.userStudyButton.Location = new System.Drawing.Point(596, 424);
             this.userStudyButton.Name = "userStudyButton";
             this.userStudyButton.Size = new System.Drawing.Size(120, 23);
@@ -644,6 +645,7 @@
             // colourArrangeRobot
             // 
             this.colourArrangeRobot.AutoSize = true;
+            this.colourArrangeRobot.Enabled = false;
             this.colourArrangeRobot.Location = new System.Drawing.Point(596, 453);
             this.colourArrangeRobot.Name = "colourArrangeRobot";
             this.colourArrangeRobot.Size = new System.Drawing.Size(140, 17);
@@ -655,6 +657,7 @@
             // 
             this.gesturingPerformance.AutoSize = true;
             this.gesturingPerformance.Checked = true;
+            this.gesturingPerformance.Enabled = false;
             this.gesturingPerformance.Location = new System.Drawing.Point(596, 499);
             this.gesturingPerformance.Name = "gesturingPerformance";
             this.gesturingPerformance.Size = new System.Drawing.Size(130, 17);
@@ -666,6 +669,7 @@
             // colourArrangeUser
             // 
             this.colourArrangeUser.AutoSize = true;
+            this.colourArrangeUser.Enabled = false;
             this.colourArrangeUser.Location = new System.Drawing.Point(596, 476);
             this.colourArrangeUser.Name = "colourArrangeUser";
             this.colourArrangeUser.Size = new System.Drawing.Size(136, 17);
@@ -675,12 +679,14 @@
             // 
             // bodePlotButton
             // 
+            this.bodePlotButton.Enabled = false;
             this.bodePlotButton.Location = new System.Drawing.Point(596, 528);
             this.bodePlotButton.Name = "bodePlotButton";
             this.bodePlotButton.Size = new System.Drawing.Size(120, 23);
             this.bodePlotButton.TabIndex = 47;
             this.bodePlotButton.Text = "Start Bode Plot";
             this.bodePlotButton.UseVisualStyleBackColor = true;
+            this.bodePlotButton.Click += new System.EventHandler(this.bodePlotButton_Click);
             // 
             // RobotTracker
             // 
