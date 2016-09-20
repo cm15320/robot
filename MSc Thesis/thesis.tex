@@ -70,11 +70,26 @@
 
 
 \section{Introduction}
+\subsection{Current Robotics}
+Advancements in the field of robotics have been plentiful over recent years, stemming from increased knowledge of the subject, improved processing power, as well as mechanical and material developments. As such, the capabilities afforded by robots have also increased, enabling a range of applications that, until recently, would not have been possible. As the area has progressed since its inception, it has naturally split into two distinct categories; external robotics and wearable technology. They are each characterised by the respective workspace in which they operate. This branching has appeared to come about due to typical robotic task requirements catering to either one or the other.
+
+External robotics are distinctly separate from humans in terms of physical proximity. They are becoming increasingly common in large-scale industrial spaces due to their ability to provide improved efficiency and task precision through autonomy. A typical application is the automotive industry, in which production has been accelerated through the introduction of external robotics, performing specific assembly and painting operations, mostly in detached workspaces from the human workers. The other discrete area of robotics is referred to as `wearable technology', which, as implied by its name, is concerned with robotics that operate in the immediate personal space of the human user. This domain is typically associated with the augmentation of human actions, such as increasing physical strength or permitting certain motions that those with disabilities have been rendered incapable of. A well known use of this technology is the `exoskeleton', which can be tailored to accomplish either of these two functions through structural support and/or actuation.
+
+However, both of these forms of robotics comprise inherent limitations, reducing their suitability to certain situations. As such, certain physical tasks exist that cater to neither domain. One case where this is evident is the \textit{tool space}. This area encompasses the typical range of tasks that humans have long since utilised passive tools to accomplish, along with exceeding performance possible by hand. This area is closely associated with flexibility, where unique tools can be used to deal with the same general task in various environments, or with completely different tasks altogether. Conversely, external robotics are typically limited to a rigidly defined workspace, performing very specific and repetitive tasks that they were designed for. Whilst wearable technology is more suited to this flexibility, it suffers from its limited adaptability to different users. Devices such as exoskeletons are very costly, and are uniquely tailored to individual body dimensions. This lack of generality equates to reduced applicability to the tool space, in which it is essential that other users are able to operate the tool when a certain individual is absent, or where a tool is marketed to a wide variety of customers.
+
+\subsection{Motivation}
+A proposed solution to bridge the gap between the two established forms of robotics, providing performance improvements in areas that neither are suited to, is \textit{handheld robotics}. This area aims to combine the key benefits of robotic efficiency and augmentation of human performance afforded by both fields, whilst maintaining the flexibility from human intuition in traditional tool use. Early work in this area has hinted at a wide range of potential applications where handheld robotics may excel, particularly in the fields of assembly, construction and maintenance/quality control. The fundamentals of their operation is that they cooperate with a human user, who in turn, positions the robot in a general location in which it can perform its desired operations, leading to improved performance. This sequence of events however, relies heavily on a key aspect of the device; its \textit{task knowledge}. This refers to XXXXXX
+
+
 
 \subsection{Aims and Objectives}
 \pagebreak
 
-\section{Project Background}
+\subsection{Document Layout}
+
+\subsection{Summary}
+
+\section{Background and Context}
 \subsection{Robotics with Humans In-The-Loop} \label{intheloop}
 
 Although robots have become vastly more capable over recent years with technological improvements, many tasks still require some form of human assistance in order for the objectives to be adequately met. Robots can be perfectly equipped to handle operations which involve precise motion or repetitive tasks, which may be present physical challenges to humans \cite{Chipalkatty2012}. Conversely, they still lack ability in areas which require the high-level cognitive reasoning that comes naturally to humans. As such, there exists many applications in which humans are in-the-loop for robotic operations. This applies to both forms of robotics that the handheld area sits between; external robots and, especially so, wearable technology.  
@@ -105,7 +120,9 @@ A different approach was taken to shared control in \cite{Poncela2009}, where th
 \label{figure:autocar}
 \end{center}
 
-The results of this experiment showed that the weighting between the two inputs led to performance which, although not matching that offered by each member alone, did seem to combine the benefits of both when taking a range of scenarios into consideration. This is a rare situation in which the task at hand could be performed with equal skill by both human and robot, and caters to the speciality of neither. However, the approach of taking a weighting between the two inputs is interesting. It may be worth investigating such a method with a handheld robot in the future. This would entail combining the two signals of human intention and task planning, and deciding the action based on the weighting the given scenario. This could add a degree of flexibility to the robot, adapting to new changes in the task, as identified by the human, or compromising between the two signals. With such a case, different settings could be explored by tuning the weighting given to each signal on a scale with a range of values, as opposed to just three discrete levels of autonomy as was the case in \cite{GreggSmithDesign}. However, such an investigation would require an extensive user study, with participants performing tasks repeatedly for a large variety of weightings. This is outside the scope of what is hoped the current project will achieve.
+The results of this experiment showed that the weighting between the two inputs led to performance which, although not matching that offered by each member alone, did seem to combine the benefits of both when taking a range of scenarios into consideration. This is a rare situation in which the task at hand could be performed with equal skill by both human and robot, and caters to the speciality of neither. However, the approach of taking a weighting between the two inputs is interesting. 
+
+It may be worth investigating such a method with handheld robots in the future. This would entail combining the two signals of human intention and task planning, and deciding the action based on the weighting the given scenario. This could add a degree of flexibility to the robot, adapting to new changes in the task, as identified by the human, or compromising between the two signals. With such a case, different settings could be explored by tuning the weighting given to each signal on a scale with a range of values, as opposed to just three discrete levels of autonomy as was the case in \cite{GreggSmithDesign}. However, such an investigation would require an extensive user study, with participants performing tasks repeatedly for a large variety of weightings. This is outside the scope of what is hoped the current project will achieve.
 
 \subsubsection{Collaboration with Assistive Robotics}
 Rather than replacing human operations, robotics can be employed to assist in them, maintaining human flexibility while increasing productivity. One such case where this is applicable is in the manufacturing industry, particularly assembly. Robots with highly specific purposes have long been used on assembly lines to increase output, performing simple and repetitive tasks at a faster rate than is possible with human workers. However, humans are frequently used for more complicated procedures that require motion in multiple degrees of freedom. The adaptability and range of motion of human workers is often unrivalled compared with traditional robotics, as well as being much more available. 
@@ -151,6 +168,8 @@ The group uses a cognition-based perception-action closed loop as a basis for in
 
 From a fully autonomous perspective, using robots in construction environments is becoming an increasingly attractive proposition. Although machines have been utilised to assist in construction since the industrial revolution, there has typically been little in the way of automation. With advancements in robotics, they may be incorporated into building applications to reach unprecedented levels of speed and efficiency. Numerous investigations and demonstrations have been carried out of robots performing assembly operations from a set of known requirements, corresponding to `task knowledge'. However, most of these examples are based around two-dimensional systems, such as manipulating blocks to construct flat structures, as in \cite{werfel2006}, not considering height.
 
+The building and construction industry has been identified as an area of strong potential for handheld robotics. It is thus used as background to highlight examples where the introduction of a new field between the two established forms of robotics could prove worthwhile and beneficial. External robots, although able to possess task knowledge, are limited in this area in their ability to deal with changing requirements and their on-site mobility. Of course, the limitations of wearable technology remain their lack of adaptability to different users. These issues in particular may have a solution in handheld robotics. On top of this, the notion of unskilled workers being able to cooperate with such a device to accomplish a task may also have applicability to the construction area.
+
 \subsubsection{Mobile Robots} \label{mobilerobots}
 Petersen et al \cite{Petersen2011} present a hardware system in which a mobile robot manipulates blocks in three-dimensional space to match desired structures. As well as this, they also produced a high-level control scheme that could enable multiple robots to autonomously share the workload of a user-specified building task. The results were successful and the prototype robot constructed structures that were greater in height than itself, doing so via climbing, navigation and manipulation. This was accomplished without the need for complex sensing and control mechanisms by the design of the simplified interconnecting structural blocks and the way in which the robot interfaces with them, as illustrated in Figure \ref{figure:buildingrobot}. It has been suggested that there exists a future opportunity for a series of handheld robots and respective human users to work together to accomplish tasks of much higher complexity than possible from just a single device. This would bear parallels to the work in \cite{Petersen2011} in which the task knowledge is shared and updated between multiple devices accordingly.
 
@@ -180,6 +199,9 @@ Although this aerial design remains relatively untested in terms of control, it 
 The feasibility of using rotary UAVs to construct building-scale structures is explored in \cite{latteur2015}, in which a project is outlined that envisions an alternative construction approach similar to that observed in nature. This entails the gradual addition of more material to an existing structure in a safe and precise manner. Despite the energy considerations, it was concluded that large-scale construction may be possible through drones, with the potential improving in parallel with advancements in drone technology. An issue that was identified, as was also the case in Section \ref{mobilerobots}, is the level of precision required for typical construction that is finer than afforded by fully mobile robots. Certainly in the early stages of handheld robotics, this will be a key issue as well. In this project it is avoided by considering part dimensions based on the accuracy of the robot, not the other way round. 
 
 This achievable accuracy problem is even more evident in aerial vehicles, and in \cite{latteur2015}, a similar solution was employed to \cite{Petersen2011}, mitigating positional imprecisions through the use of modular self-aligning components. Three different approaches were investigated for such a component; \textit{droxels}, conical interlocking \textit{dricks}, and rounded conical interlocking \textit{dricks}. These designs provide further inspiration for designing the assembly components for the handheld robotics construction task. In future development, when the capabilities associated with construction are more rigorously investigated, these self-aligning designs will be used as strong inspiration. However, due to the limited time-scale of this project and the comparatively smaller focus on assembly capabilities, such designs were disregarded in favour of plain blocks sized to meet the precision afforded by the new device.
+
+KEEP THIS STUFF IN OR REMOVE???? ASK WALTERIO??? XXXXXXXX
+
 \begin{itemize}
 \item{Droxels (Drone Voxels) - Voxels are three dimensional pixels, different designs can lead to strong space-filling capabilities and allow for construction of complex shapes. They are somewhat more difficult to grasp and position but possess strong potential. One of the key issues is the manufacture complexity, with 3D printing being the most viable. See Figure \ref{figure:droxel}.}
 \item{Conical Interlocking Dricks (Drone Bricks) - This option allows greater flexibility regarding positional tolerance. A lot of their potential lies in the fact that they can easily be constructed from more rigid structures such as concrete. However, unique blocks have to be designed to allow cornering. See Figure \ref{figure:cid}.}
@@ -642,6 +664,8 @@ The core classes of the program are illustrated in Figure \ref{figure:classDiagr
 \item{RobotControl - This class is responsible for physically controlling the robot via its connection to the Arduino which in turn controls the servomotors. A connection is established with the Arduino and values are sent via serial connection, which are subsequently interpreted by the Arduino script and servo signals are applied accordingly. As mentioned in Section XXXXX, the values of the current motor angles are compared with their targets, and iterated one degree closer if required before being written to the servomotors together.}
 \end{enumerate}
 
+ADD ANY MORE FOR THE NEW CLASSES FOR BODE PLOT AND USER STUDY????XXXXX
+
 \begin{landscape}
 
 \begin{center}
@@ -667,12 +691,20 @@ The core classes of the program are illustrated in Figure \ref{figure:classDiagr
 \section{Conclusion}
 WERE AIMS AND OBJECTIVES MET, WHAT ELSE WAS FOUND OUT????
 \section{Further Work and Areas of Improvement}
+\subsection{Physical Design}
+\subsection{Experiment}
 
 \pagebreak
 \bibliography{mybib}
 \bibliographystyle{unsrt}
 
 \pagebreak
-\section{Appendix}
+\section{Appendices}
 \subsection{CAD Drawings}
+\subsection{Servomotors}
+\subsection{Tracking Device}
+\subsection{Arduino Board}
+\subsection{Code Snippets}
+Put code for writing the motor angles to the servos, perhaps starting the new thread that just continuously writes the angles. Perhaps code for starting an experiment and tracking the bodies, getting the information out, and using them as a target. Also perhaps the regression function code? XXXXXXX
+
 \end{document}
