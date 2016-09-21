@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.17)  20 SEP 2016 22:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.17)  21 SEP 2016 18:52
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -716,205 +716,220 @@ thesis.toc
 \tf@toc=\write3
 \openout3 = `thesis.toc'.
 
- [2] [3] <humanoid.png, id=29, 1021.8175pt x 766.865pt>
+ [2] [3] [4]
+Overfull \hbox (13.29878pt too wide) in paragraph at lines 107--109
+\OT1/cmr/m/n/10.95 ROBOTS ARE AND WHAT IS HOPED WILL BE AC-COM-PLISHED IN THIS 
+PROJECT???XXXXXX
+ []
+
+[5] <humanoid.png, id=36, 1021.8175pt x 766.865pt>
 File: humanoid.png Graphic file (type png)
  <use humanoid.png>
-Package pdftex.def Info: humanoid.png used on input line 104.
+Package pdftex.def Info: humanoid.png used on input line 122.
 (pdftex.def)             Requested size: 232.17242pt x 174.23389pt.
-
-[4] <autocar.png, id=34, 879.285pt x 635.37375pt>
+ [6 <./humanoid.png>] <autocar.png, id=40, 879.285pt x 635.37375pt>
 File: autocar.png Graphic file (type png)
  <use autocar.png>
-Package pdftex.def Info: autocar.png used on input line 118.
+Package pdftex.def Info: autocar.png used on input line 136.
 (pdftex.def)             Requested size: 232.17242pt x 167.76245pt.
- [5 <./humanoid.png>] [6 <./autocar.png>] <jahir.png, id=41, 614.295pt x 455.70
-25pt>
-File: jahir.png Graphic file (type png)
 
-<use jahir.png>
-Package pdftex.def Info: jahir.png used on input line 135.
+[7 <./autocar.png>] <jahir.png, id=44, 614.295pt x 455.7025pt>
+File: jahir.png Graphic file (type png)
+ <use jahir.png>
+Package pdftex.def Info: jahir.png used on input line 153.
 (pdftex.def)             Requested size: 299.8897pt x 222.4687pt.
- [7 <./jahir.png>]
-<cognitivearchitecture.png, id=45, 602.25pt x 539.01375pt>
+
+[8] <cognitivearchitecture.png, id=48, 602.25pt x 539.01375pt>
 File: cognitivearchitecture.png Graphic file (type png)
 
 <use cognitivearchitecture.png>
-Package pdftex.def Info: cognitivearchitecture.png used on input line 147.
+Package pdftex.def Info: cognitivearchitecture.png used on input line 165.
 (pdftex.def)             Requested size: 241.84843pt x 216.45703pt.
- [8 <./cognitivearchitecture.png>]
-<buildingrobot.png, id=49, 1717.41624pt x 614.295pt>
+ [9 <./jahir.png>] [10 <./cognitivearchitecture.png>] <buildingrobot.png, id=56
+, 1717.41624pt x 614.295pt>
 File: buildingrobot.png Graphic file (type png)
- <use buildingrobot.png>
-Package pdftex.def Info: buildingrobot.png used on input line 177.
-(pdftex.def)             Requested size: 290.22107pt x 103.80075pt.
 
-[9 <./buildingrobot.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 187--189
+<use buildingrobot.png>
+Package pdftex.def Info: buildingrobot.png used on input line 195.
+(pdftex.def)             Requested size: 290.22107pt x 103.80075pt.
+ [11 <./buildingrobot.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 205--207
 
  []
 
-<uavmanipulator.png, id=53, 847.165pt x 542.025pt>
+<uavmanipulator.png, id=60, 847.165pt x 542.025pt>
 File: uavmanipulator.png Graphic file (type png)
  <use uavmanipulator.png>
-Package pdftex.def Info: uavmanipulator.png used on input line 191.
+Package pdftex.def Info: uavmanipulator.png used on input line 209.
 (pdftex.def)             Requested size: 241.84843pt x 154.7351pt.
 
-[10 <./uavmanipulator.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 206.
+[12 <./uavmanipulator.png>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 224.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 206.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 224.
 
-<droxel.png, id=58, 914.41624pt x 379.4175pt>
+<droxel.png, id=64, 914.41624pt x 379.4175pt>
 File: droxel.png Graphic file (type png)
  <use droxel.png>
-Package pdftex.def Info: droxel.png used on input line 214.
+Package pdftex.def Info: droxel.png used on input line 232.
 (pdftex.def)             Requested size: 241.84843pt x 100.34831pt.
 
-<cid.png, id=59, 582.175pt x 254.9525pt>
+<cid.png, id=65, 582.175pt x 254.9525pt>
 File: cid.png Graphic file (type png)
  <use cid.png>
-Package pdftex.def Info: cid.png used on input line 218.
+Package pdftex.def Info: cid.png used on input line 236.
 (pdftex.def)             Requested size: 241.84843pt x 105.91223pt.
 
-<rcid.png, id=60, 509.905pt x 254.9525pt>
+<rcid.png, id=66, 509.905pt x 254.9525pt>
 File: rcid.png Graphic file (type png)
  <use rcid.png>
-Package pdftex.def Info: rcid.png used on input line 222.
+Package pdftex.def Info: rcid.png used on input line 240.
 (pdftex.def)             Requested size: 241.84843pt x 120.92473pt.
- [11 <./droxel.png> <./cid.png> <./rcid.png>] [12] <laparascopic.png, id=68, 99
+ [13 <./droxel.png> <./cid.png> <./rcid.png>] [14] <laparascopic.png, id=74, 99
 5.72pt x 680.5425pt>
 File: laparascopic.png Graphic file (type png)
 
 <use laparascopic.png>
-Package pdftex.def Info: laparascopic.png used on input line 255.
+Package pdftex.def Info: laparascopic.png used on input line 273.
 (pdftex.def)             Requested size: 241.84843pt x 165.29614pt.
- [13 <./laparascopic.png>]
-<images/mark1.png, id=72, 916.42375pt x 407.5225pt>
+ [15 <./laparascopic.png>]
+<images/mark1.png, id=78, 916.42375pt x 407.5225pt>
 File: images/mark1.png Graphic file (type png)
  <use images/mark1.png>
-Package pdftex.def Info: images/mark1.png used on input line 270.
+Package pdftex.def Info: images/mark1.png used on input line 288.
 (pdftex.def)             Requested size: 290.22107pt x 129.05428pt.
 
-[14 <./images/mark1.png>] [15] <painting.png, id=79, 1019.81pt x 368.37625pt>
-File: painting.png Graphic file (type png)
+[16 <./images/mark1.png>]
 
-<use painting.png>
-Package pdftex.def Info: painting.png used on input line 322.
+LaTeX Warning: Citation `godage2011' on page 17 undefined on input line 332.
+
+
+LaTeX Warning: Citation `zhang2011' on page 17 undefined on input line 332.
+
+
+LaTeX Warning: Citation `godage2011' on page 17 undefined on input line 334.
+
+
+LaTeX Warning: Citation `zhang2011' on page 17 undefined on input line 334.
+
+[17] <painting.png, id=87, 1019.81pt x 368.37625pt>
+File: painting.png Graphic file (type png)
+ <use painting.png>
+Package pdftex.def Info: painting.png used on input line 350.
 (pdftex.def)             Requested size: 241.84843pt x 87.36098pt.
- <tilingtask.png, id=80, 442.65375pt x 174.6525pt>
+ [18 <./painting.png>] <tilingtask.png, id=91, 442.65375pt x 174.6525pt>
 File: tilingtask.png Graphic file (type png)
 
 <use tilingtask.png>
-Package pdftex.def Info: tilingtask.png used on input line 333.
+Package pdftex.def Info: tilingtask.png used on input line 361.
 (pdftex.def)             Requested size: 241.84843pt x 95.4249pt.
- <tlxscores.png, id=81, 851.18pt x 549.05125pt>
+ <tlxscores.png, id=92, 851.18pt x 549.05125pt>
 File: tlxscores.png Graphic file (type png)
 
 <use tlxscores.png>
-Package pdftex.def Info: tlxscores.png used on input line 341.
+Package pdftex.def Info: tlxscores.png used on input line 369.
 (pdftex.def)             Requested size: 362.77264pt x 234.00974pt.
- [16 <./painting.png> <./tilingtask.png>] [17 <./tlxscores.png>] <vrrobot.png, 
-id=89, 1181.41376pt x 663.47874pt>
+ [19 <./tilingtask.png> <./tlxscores.png>]
+<vrrobot.png, id=96, 1181.41376pt x 663.47874pt>
 File: vrrobot.png Graphic file (type png)
  <use vrrobot.png>
-Package pdftex.def Info: vrrobot.png used on input line 368.
+Package pdftex.def Info: vrrobot.png used on input line 396.
 (pdftex.def)             Requested size: 266.03474pt x 149.39775pt.
-
-[18 <./vrrobot.png>] [19] [20] [21]
-<images/schematic.png, id=102, 1650.165pt x 1373.13pt>
+ [20 <./vrrobot.png>] [21] [22] [23] [24]
+<images/schematic.png, id=113, 1650.165pt x 1373.13pt>
 File: images/schematic.png Graphic file (type png)
 
 <use images/schematic.png>
-Package pdftex.def Info: images/schematic.png used on input line 441.
+Package pdftex.def Info: images/schematic.png used on input line 469.
 (pdftex.def)             Requested size: 314.40001pt x 261.60979pt.
- [22] [23 <./images/schematic.png>]
-<images/duoAxes.png, id=111, 723.45282pt x 290.58563pt>
+ [25] [26 <./images/schematic.png>]
+<images/duoAxes.png, id=121, 723.45282pt x 290.58563pt>
 File: images/duoAxes.png Graphic file (type png)
 
 <use images/duoAxes.png>
-Package pdftex.def Info: images/duoAxes.png used on input line 457.
+Package pdftex.def Info: images/duoAxes.png used on input line 485.
 (pdftex.def)             Requested size: 386.95897pt x 155.42851pt.
- [24 <./images/duoAxes.png>] [25] [26]
-<images/bandwidthPlot.png, id=129, 719.68875pt x 474.27188pt>
+ [27 <./images/duoAxes.png>] [28] [29]
+<images/bandwidthPlot.png, id=139, 719.68875pt x 474.27188pt>
 File: images/bandwidthPlot.png Graphic file (type png)
 
 <use images/bandwidthPlot.png>
-Package pdftex.def Info: images/bandwidthPlot.png used on input line 537.
+Package pdftex.def Info: images/bandwidthPlot.png used on input line 565.
 (pdftex.def)             Requested size: 435.32422pt x 286.88834pt.
- [27] [28 <./images/bandwidthPlot.png>]
-<images/rotationExampleAll.jpg, id=138, 351.56343pt x 619.56468pt>
+ [30] [31 <./images/bandwidthPlot.png>]
+<images/rotationExampleAll.jpg, id=147, 351.56343pt x 619.56468pt>
 File: images/rotationExampleAll.jpg Graphic file (type jpg)
 
 <use images/rotationExampleAll.jpg>
-Package pdftex.def Info: images/rotationExampleAll.jpg used on input line 572.
+Package pdftex.def Info: images/rotationExampleAll.jpg used on input line 600.
 (pdftex.def)             Requested size: 290.22107pt x 511.45914pt.
- [29] [30 <./images/rotationExampleAll.jpg>] <images/tipSphere.png, id=145, 653
+ [32] [33 <./images/rotationExampleAll.jpg>] <images/tipSphere.png, id=154, 653
 .44125pt x 639.13782pt>
 File: images/tipSphere.png Graphic file (type png)
 
 <use images/tipSphere.png>
-Package pdftex.def Info: images/tipSphere.png used on input line 590.
+Package pdftex.def Info: images/tipSphere.png used on input line 618.
 (pdftex.def)             Requested size: 290.22107pt x 283.86443pt.
- [31 <./images/tipSphere.png>]
-<images/gestureSolution.png, id=150, 1347.53438pt x 438.8897pt>
+ [34 <./images/tipSphere.png>]
+<images/gestureSolution.png, id=160, 1347.53438pt x 438.8897pt>
 File: images/gestureSolution.png Graphic file (type png)
 
 <use images/gestureSolution.png>
-Package pdftex.def Info: images/gestureSolution.png used on input line 600.
+Package pdftex.def Info: images/gestureSolution.png used on input line 628.
 (pdftex.def)             Requested size: 483.69687pt x 157.53809pt.
 
-<images/getSolution.png, id=151, 536.0025pt x 846.16125pt>
+<images/getSolution.png, id=161, 536.0025pt x 846.16125pt>
 File: images/getSolution.png Graphic file (type png)
 
 <use images/getSolution.png>
-Package pdftex.def Info: images/getSolution.png used on input line 615.
+Package pdftex.def Info: images/getSolution.png used on input line 643.
 (pdftex.def)             Requested size: 290.22107pt x 458.14685pt.
- [32 <./images/gestureSolution.png>]
-<images/separateThreads.png, id=156, 643.40375pt x 525.965pt>
+ [35 <./images/gestureSolution.png>]
+<images/separateThreads.png, id=166, 643.40375pt x 525.965pt>
 File: images/separateThreads.png Graphic file (type png)
 
 <use images/separateThreads.png>
-Package pdftex.def Info: images/separateThreads.png used on input line 626.
+Package pdftex.def Info: images/separateThreads.png used on input line 654.
 (pdftex.def)             Requested size: 314.40001pt x 257.01884pt.
- [33 <./images/getSolution.png>]
-<images/userInterface.png, id=161, 599.23875pt x 442.65375pt>
+ [36 <./images/getSolution.png>]
+<images/userInterface.png, id=171, 599.23875pt x 442.65375pt>
 File: images/userInterface.png Graphic file (type png)
 
 <use images/userInterface.png>
-Package pdftex.def Info: images/userInterface.png used on input line 639.
+Package pdftex.def Info: images/userInterface.png used on input line 667.
 (pdftex.def)             Requested size: 483.69687pt x 357.31151pt.
- [34 <./images/separateThreads.png>] [35 <./images/userInterface.png>] [36]
-<images/classDiagram.png, id=174, 1117.17375pt x 739.76375pt>
+ [37 <./images/separateThreads.png>] [38 <./images/userInterface.png>] [39]
+<images/classDiagram.png, id=183, 1117.17375pt x 739.76375pt>
 File: images/classDiagram.png Graphic file (type png)
 
 <use images/classDiagram.png>
-Package pdftex.def Info: images/classDiagram.png used on input line 672.
+Package pdftex.def Info: images/classDiagram.png used on input line 700.
 (pdftex.def)             Requested size: 677.17265pt x 448.42197pt.
- [37
+ [40
 
- <./images/classDiagram.png>] [38
+ <./images/classDiagram.png>] [41
 
-] (thesis.bbl [39]
+] (thesis.bbl [42]
 Underfull \hbox (badness 1838) in paragraph at lines 188--192
 []\OT1/cmr/m/n/10.95 Dynamixel mx-64t e-manual.  $\OT1/cmtt/m/n/10.95 http : / 
 / support . robotis . com / en / product / dynamixel / mx _
  []
 
-[40]) [41] [42] (thesis.aux)
+[43]) [44] [45] (thesis.aux)
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 5872 strings out of 493334
- 86815 string characters out of 3139225
- 171226 words of memory out of 3000000
- 9257 multiletter control sequences out of 15000+200000
+ 5874 strings out of 493334
+ 86838 string characters out of 3139225
+ 171230 words of memory out of 3000000
+ 9259 multiletter control sequences out of 15000+200000
  10038 words of font info for 36 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,11n,39p,1345b,290s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -932,9 +947,9 @@ es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX
  2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
 /public/amsfonts/cm/cmtt10.pfb>
-Output written on thesis.pdf (45 pages, 6789678 bytes).
+Output written on thesis.pdf (48 pages, 6797464 bytes).
 PDF statistics:
- 245 PDF objects out of 1000 (max. 8388607)
+ 254 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  131 words of extra memory for PDF output out of 10000 (max. 10000000)
 

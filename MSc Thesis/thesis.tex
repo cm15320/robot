@@ -78,16 +78,34 @@ External robotics are distinctly separate from humans in terms of physical proxi
 However, both of these forms of robotics comprise inherent limitations, reducing their suitability to certain situations. As such, certain physical tasks exist that cater to neither domain. One case where this is evident is the \textit{tool space}. This area encompasses the typical range of tasks that humans have long since utilised passive tools to accomplish, along with exceeding performance possible by hand. This area is closely associated with flexibility, where unique tools can be used to deal with the same general task in various environments, or with completely different tasks altogether. Conversely, external robotics are typically limited to a rigidly defined workspace, performing very specific and repetitive tasks that they were designed for. Whilst wearable technology is more suited to this flexibility, it suffers from its limited adaptability to different users. Devices such as exoskeletons are very costly, and are uniquely tailored to individual body dimensions. This lack of generality equates to reduced applicability to the tool space, in which it is essential that other users are able to operate the tool when a certain individual is absent, or where a tool is marketed to a wide variety of customers.
 
 \subsection{Motivation}
-A proposed solution to bridge the gap between the two established forms of robotics, providing performance improvements in areas that neither are suited to, is \textit{handheld robotics}. This area aims to combine the key benefits of robotic efficiency and augmentation of human performance afforded by both fields, whilst maintaining the flexibility from human intuition in traditional tool use. Early work in this area has hinted at a wide range of potential applications where handheld robotics may excel, particularly in the fields of assembly, construction and maintenance/quality control. The fundamentals of their operation is that they cooperate with a human user, who in turn, positions the robot in a general location in which it can perform its desired operations, leading to improved performance. This sequence of events however, relies heavily on a key aspect of the device; its \textit{task knowledge}. This refers to XXXXXX
+A proposed solution to bridge the gap between the two established forms of robotics, providing performance improvements in areas that neither are suited to, is \textit{handheld robotics}. This area aims to combine the key benefits of robotic efficiency and augmentation of human performance afforded by both fields, whilst maintaining the flexibility from human intuition in traditional tool use. Early work in this area has hinted at a wide range of potential applications where handheld robotics may excel, particularly in the fields of assembly, construction and maintenance/quality control. The fundamentals of their operation is that they cooperate with a human user, who in turn, positions the robot in a general location in which it can perform its desired operations, leading to improved performance. This sequence of events however, relies heavily on a key aspect of the device; its \textit{task knowledge}. 
+
+Task knowledge refers to the robot being context aware, that is, it knows what operations need to be performed as well as the current state of progression through the task. This can act to alleviate the cognitive burden on the user, or to share it, with the user focusing on other aspects of the task than the robot. Most importantly, it enables a degree of cooperation between the user and device, in which the robot indicates its preference of simple actions to be performed by the user, such as repositioning it. In turn, the more precise or demanding operations are carried out by the device. Such a cooperation can lead to reductions in perceived workload by the user, be it physically or mentally, as well as improved task performance. This amalgamation of human intuitiveness and robotic efficiency through task knowledge may lead to unprecedented flexibility in the field of robotics.
+
+The \textit{Handheld Robotics Project} at the University of Bristol has begun to lay the groundwork for the development of the field, investigating certain characteristics of two initial prototypes, namely the degree of cooperation with the user and the kinematics in general. This early work has warranted further investigation into the field, highlighting the potential for handheld robotics in general. As such, it is worth looking into alternative device configurations, whether in terms of cost, lead time, or general mechanical design. At such an early stage in its progression, further contribution to the breadth of the field can provide invaluable knowledge when developing it further, creating new devices or applications to improve their viability in the real world. As such, it was decided to design and build an alternative device to those existing currently, on a smaller time-scale at a reduced cost, and attempt to evaluate its performance. It is hoped this will shed more light on the potential of handheld robotics, as well as highlight areas of strengths and possible issues.
+
 
 
 
 \subsection{Aims and Objectives}
-\pagebreak
+The overarching aim of this project is to develop and evaluate the performance of a new handheld robotic device. As such, a new robot must be designed, assembled, and integrated with a control system so that it may be operable. This functionality should be such that it enables a degree of performance evaluation. In order to implement this aim, a number of objectives must be met:
+\begin{enumerate}
+\item{Design a new handheld robot using CAD. The exact design will be achieved through an iterative process of prototyping via 3D printing and physical testing. Once fully designed and dimensioned, the robot should be constructed and assembled to connect to an off-the-shelf handle.}
+\item{Develop a control system so that the actuation of the robot may be executed by a PC. This will entail using a microcontroller to sit between the robot and computer, receiving commands and controlling the actuation accordingly.}
+\item{Interface the robot with an external optical tracking system, so that the position of the robot relative to target positions can be determined. This will utilise existing infrastructure at the University, namely the \textit{OptiTrack} motion capture system, and the libraries and API included will dictate that the development language will be C\#.}
+\item{Implement an algorithm so that the robot may move to its intended target, or indicate the general position to the user when it is out of reach.}
+\item{Perform a small evaluation of the robot's performance, this will comprise its ability to successfully indicate a desired position, its response to a varying target and a small user study to assess its ability of alleviating mental workload.}
+\end{enumerate}
 
-\subsection{Document Layout}
+\subsection{Added Value}
+HERE OR IN ITS OWN SECTION IN THE BACKGROUND AND CONTEXT???XXXXXX
+
+\subsection{Document Overview}
+This thesis serves to cover the work accomplished throughout the project. Firstly, a background and context will be provided for existing areas of robotics in which the handheld domain may incorporate ideas or provide a potential improvement in the future. On top of this, a review will be provided of the current status of handheld robotics in general, with a focus on the work undertaken at the University of Bristol that is most relevant to this project. The design process of the robot will then be explained, along with the control system, the interfacing with the optical tracking system and the algorithm responsible for the robot's response to targets. Finally, the stages involved with evaluating the performance will be explained, and the corresponding results will be discussed.
 
 \subsection{Summary}
+NECESSARY TO HAVE A SMALL SUMMARY TO THE INTRO SAYING WHAT HANHDELD ROBOTS ARE AND WHAT IS HOPED WILL BE ACCOMPLISHED IN THIS PROJECT???XXXXXX
+\pagebreak
 
 \section{Background and Context}
 \subsection{Robotics with Humans In-The-Loop} \label{intheloop}
@@ -307,7 +325,17 @@ Subsequently, a more advanced six degrees-of-freedom device was constructed over
 
 \subsubsection{New Design Inspiration}
 
-Section on cable driven robots and the flexible arm paper, called "Existing Designs" or "Design inspiration" or whatever, mentioning choices similar and different to mark 1??
+Section on cable driven robots and the flexible arm paper, called "Existing Designs" or "Design inspiration" or whatever, mentioning choices similar and different to mark 1?? MENTION THE FLEXIBLE ARM PAPER FROM WALTERIO AND CABLE DRIVEN DESIGNS??
+
+Given the relatively small time-frame of this project in comparison to those typically associated with the development of new robotic devices, it was necessary to design the robot so that it may be built and evaluated within this period. As such, some initial decisions were made at the start of the design process. The first was that the robot was to be cable driven, due to already possessing four high torque servomotors that have been proven to be reliable and effective on an existing prototype. The other choice was for the arm to be of singular solid piece of material, mitigating the design complexity associated with numerous links. As such, the design began to take shape as a four degrees-of-freedom cable-driven device. 
+
+There are numerous existing designs that incorporate a single structure arm driven by cables connected to motors, such as those covered in \cite{godage2011} and \cite{zhang2011}. However, these designs relied on a method in which each connecting cable was driven by a single dedicated motor. This was improved upon in \cite{}, where a design was introduced that uses a single motor to drive a pair of opposing cables. This design was the inspiration for the first handheld robot prototype, as covered in \cite{GreggSmithDesign}. Given the similarities in the general design principles and handheld nature, inspiration was taken from the first prototype in the development of the new device.
+
+However, one area identified for potential improvement associated with the designs in \cite{godage2011}\cite{zhang2011}\cite{GreggSmithDesign} was the possible range of motion. All of these designs involve a solid carbon-fibre backbone, which, whilst affording rigidity and a degree of flexibility, has natural limits on its deflection before snapping. Thus a maximum range of motion in the first prototype was found to be about $\pm$20\degree of each motor from the starting straight-arm position. This value was discovered during the development stage as the carbon-fibre rods were found to snap with larger angles. As such, a new material for the arm was to be used, giving it discernible characteristic differences from the first prototype, with the hopes of achieving a greater range of motion whilst reducing vulnerability to damage on sudden impacts.
+
+In REFERENCE NEW ARM PAPER XXXXX, a flexible arm was.... XXXXX
+
+
 
 
 \subsection{Designing Experiments for Handheld Robotics} \label{designingexperiments}
