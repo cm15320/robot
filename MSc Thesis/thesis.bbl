@@ -117,6 +117,12 @@ R.~Cano, C.~P{\'e}rez, F.~Pruano, A.~Ollero, and G.~Heredia.
 \newblock In {\em 2nd RED-UAS 2013 Workshop on Research, Education and
   Development of Unmanned Aerial Systems}, 2013.
 
+\bibitem{GreggSmithKinematics}
+A.~Gregg-Smith and W.W. Mayol-Cuevas.
+\newblock Inverse kinematics and design of a novel 6-dof handheld robot arm.
+\newblock In {\em IEEE International Conference on Robotics and Automation
+  (ICRA)}, ICRA Proceedings. IEEE, February 2016.
+
 \bibitem{latteur2015}
 P.~Latteur, S.~Goessens, J.~Breton, J.~Leplat, Z.~Ma, and C.~Mueller.
 \newblock Drone-based additive manufacturing of architectural structures.
@@ -164,31 +170,42 @@ F.~Echtler, F.Sturm, and K.Kindermann.
 \newblock In {\em Virtual and Augmented Reality Applications in Manufacturing},
   pages 333--360. Springer London, London, 2004.
 
-\bibitem{GreggSmithKinematics}
-A.~Gregg-Smith and W.W. Mayol-Cuevas.
-\newblock Inverse kinematics and design of a novel 6-dof handheld robot arm.
-\newblock In {\em IEEE International Conference on Robotics and Automation
-  (ICRA)}, ICRA Proceedings. IEEE, February 2016.
-
-\bibitem{Horigome2014}
-A.~Horigome, H.~Yamada, G.~Endo, S.~Sen, S.~Hirose, and E.F. Fukushima.
-\newblock Development of a coupled tendon-driven 3d multi-joint manipulator.
-\newblock In {\em 2014 IEEE International Conference on Robotics and Automation
-  (ICRA)}, pages 5915--5920, May 2014.
-
 \bibitem{handheldrobotics}
 \url{http://handheldrobotics.org}.
 
-\bibitem{Aristidou2011}
-A.~Aristidou and J.~Lasenby.
-\newblock Fabrik: A fast, iterative solver for the inverse kinematics problem.
-\newblock {\em Graphical Models}, 73(5):243 -- 260, 2011.
+\bibitem{godage2011}
+I.S. Godage, D.T. Branson, E.~Guglielmino, G.A. Medrano-Cerda, and D.G
+  Caldwell.
+\newblock Shape function-based kinematics and dynamics for variable length
+  continuum robotic arms.
+\newblock In {\em Robotics and Automation (ICRA), 2011 IEEE International
+  Conference on}, pages 452--457. IEEE, 2011.
 
-\bibitem{DYNAMIXEL}
-{Dynamixel} mx-64t e-manual.
-\newblock
-  \url{http://support.robotis.com/en/product/dynamixel/mx_series/mx-64.htm}.
-\newblock Accessed: 2016-04-20.
+\bibitem{zhang2011}
+Z.~Zhang and S.H. Yang, G.and~Yeo.
+\newblock Inverse kinematics of modular cable-driven snake-like robots with
+  flexible backbones.
+\newblock In {\em 2011 IEEE 5th International Conference on Robotics,
+  Automation and Mechatronics (RAM)}, pages 41--46. IEEE, 2011.
+
+\bibitem{yoon2009}
+H.S. Yoon and B.J. Yi.
+\newblock A 4-dof flexible continuum robot using a spring backbone.
+\newblock In {\em 2009 International Conference on Mechatronics and
+  Automation}, pages 1249--1254, Aug 2009.
+
+\bibitem{reinecke2016}
+J.~Reinecke, B.~Deutschmann, and D.~Fehrenbach.
+\newblock A structurally flexible humanoid spine based on a tendon-driven
+  elastic continuum.
+\newblock In {\em 2016 IEEE International Conference on Robotics and Automation
+  (ICRA)}, pages 4714--4721. IEEE, 2016.
+
+\bibitem{webster2010}
+R.J. Webster and B.A. Jones.
+\newblock Design and kinematic modeling of constant curvature continuum robots:
+  A review.
+\newblock {\em The International Journal of Robotics Research}, 2010.
 
 \bibitem{fitts1954}
 P.M. Fitts.
@@ -238,6 +255,11 @@ S.G. Hart and L.E. Staveland.
 Natural Point.
 \newblock Optitrack v120:duo product page.
 \newblock Accessed: 2016-09-08.
+
+\bibitem{li2002}
+C.~Li and C.D. Rahn.
+\newblock Design of continuous backbone, cable-driven robots.
+\newblock {\em Journal of Mechanical Design}, 124(2):265--271, 2002.
 
 \bibitem{GreggSmithPhd}
 Gregg-Smith. A.
