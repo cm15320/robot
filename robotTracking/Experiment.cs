@@ -30,7 +30,7 @@ namespace robotTracking
         private int numTestPoints = 3;
         //private int numPoints;
         private int maxAngle = 120;
-        private float[] basePosition;
+        private float[] basePosition = new float[3];
         private float[] relativeTipAngles = new float[] { 0.0f, 0.0f, 0.0f };
         private float[] relativeTipPos = new float[] { 0.0f, 0.0f, 0.0f };
         private float[] relativeBodyFollowPos = new float[] { 0.0f, 0.0f, 0.0f };
@@ -48,6 +48,7 @@ namespace robotTracking
         private double distanceBetween;
 
         private XmlSerializer ser = new XmlSerializer(typeof(CalibrationData));
+        private XmlSerializer bodeSer = new XmlSerializer(typeof(BodePlot));
         private string calibrationFilename = "calibrationData.xml";
         private string testDataFilename = "testPoints.xml";
         private string bodeFileName = "bodePlot.xml";
@@ -1277,6 +1278,7 @@ namespace robotTracking
                 getTipToBaseSphereRadius();
                 //testMultiplyMatrix();
                 testRotation();
+                testBode();
             }
             return success;
 
@@ -1356,13 +1358,16 @@ namespace robotTracking
 
         private void logBodeData(float timestamp)
         {
-            BodeDataPoint newBodePoint;
+            BodeDataPoint newBodePoint = new BodeDataPoint();
             lock(syncLock)
             {
-                newBodePoint = new BodeDataPoint(timestamp, relativeBodyFollowPos, relativeTipPos);
+                newBodePoint.setTimeStamp(timestamp);
+                newBodePoint.setTargetPos(relativeBodyFollowPos);
+                newBodePoint.setTipPos(relativeTipPos);
             }
             // Add the bode point to the existing bode plot data
             bodePlot.Add(newBodePoint);
+            Console.WriteLine("added a new body point at a time at " + timestamp);
         }
 
         private void saveBodeXML(string filename)
@@ -1373,9 +1378,23 @@ namespace robotTracking
             //}
 
             TextWriter writer = new StreamWriter(filename);
-            ser.Serialize(writer, bodePlot);
+            bodeSer.Serialize(writer, bodePlot);
             writer.Close();
             Console.WriteLine("should have written to " + filename);
+        }
+
+
+        private void testBode()
+        {
+            bodePlot = new BodePlot();
+            BodeDataPoint testPoint = new BodeDataPoint();
+            testPoint.setTimeStamp(2f);
+            testPoint.setTipPos(new float[] { 4f, 5f, 6f });
+            testPoint.setTargetPos(new float[] { 1f, 2f, 3f });
+            bodePlot.Add(testPoint);
+            bodePlot.Add(testPoint);
+
+            saveBodeXML(bodeFileName);
         }
 
 

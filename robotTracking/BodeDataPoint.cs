@@ -9,19 +9,17 @@ namespace robotTracking
     [Serializable]
     public class BodeDataPoint
     {
-        private float timeStamp;
-        private float[] relativeTargetPosition = new float[3];
-        private float[] relativeTipPosition = new float[3];
+        public float timeStamp;
+        public float[] relativeTargetPosition = new float[3];
+        public float[] relativeTipPosition = new float[3];
 
-        public BodeDataPoint(float timeStamp, float[] relativeTargetPosition, float[] relativeTipPosition)
+
+        public void setTimeStamp(float timeStamp)
         {
             this.timeStamp = timeStamp;
-            setTargetPos(relativeTargetPosition);
-            setTipPos(relativeTipPosition);
         }
 
-
-        private void setTargetPos(float[] relativeTargetPosition)
+        public void setTargetPos(float[] relativeTargetPosition)
         {
             this.relativeTargetPosition[0] = relativeTargetPosition[0];
             this.relativeTargetPosition[1] = relativeTargetPosition[1];
@@ -30,7 +28,7 @@ namespace robotTracking
         }
 
 
-        private void setTipPos(float[] relativeTipPosition)
+        public void setTipPos(float[] relativeTipPosition)
         {
             this.relativeTipPosition[0] = relativeTipPosition[0];
             this.relativeTipPosition[1] = relativeTipPosition[1];

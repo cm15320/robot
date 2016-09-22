@@ -201,6 +201,19 @@ J.~Reinecke, B.~Deutschmann, and D.~Fehrenbach.
 \newblock In {\em 2016 IEEE International Conference on Robotics and Automation
   (ICRA)}, pages 4714--4721. IEEE, 2016.
 
+\bibitem{anderson1967}
+Tensor arm manipulator design.
+
+\bibitem{hirose1993}
+S.~Hirose.
+\newblock Biologically inspired robots, snake-like locomotors and manipulators.
+\newblock 1993.
+
+\bibitem{camarillo2008}
+D.B. Camarillo, C.F. Milne, C.R. Carlson, M.R. Zinn, and J.K. Salisbury.
+\newblock Mechanics modeling of tendon-driven continuum manipulators.
+\newblock {\em IEEE Transactions on Robotics}, 24(6):1262--1273, 2008.
+
 \bibitem{webster2010}
 R.J. Webster and B.A. Jones.
 \newblock Design and kinematic modeling of constant curvature continuum robots:

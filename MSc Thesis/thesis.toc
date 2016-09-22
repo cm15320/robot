@@ -21,7 +21,7 @@
 \contentsline {subsubsection}{\numberline {2.4.1}Initial Work}{16}
 \contentsline {subsubsection}{\numberline {2.4.2}New Design Inspiration}{17}
 \contentsline {subsection}{\numberline {2.5}Designing Experiments for Handheld Robotics}{18}
-\contentsline {subsubsection}{\numberline {2.5.1}Painting Task}{18}
+\contentsline {subsubsection}{\numberline {2.5.1}Painting Task}{19}
 \contentsline {subsubsection}{\numberline {2.5.2}Tiling Task}{19}
 \contentsline {subsubsection}{\numberline {2.5.3}Spatial Guidance Task}{20}
 \contentsline {subsubsection}{\numberline {2.5.4}Added Value}{21}
