@@ -183,68 +183,69 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Physical Design of Four Degrees-Of-Freedom Device}{24}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Controlling The Device}{26}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Schematic showing how the controlling equipment interfaces with the pc and the robot components.\relax }}{26}}
-\newlabel{figure:schematic}{{4.1}{26}}
+\newlabel{figure:schematic}{{4.1}{27}}
 \citation{OptiTrackSite}
 \citation{GreggSmithDesign}
 \citation{GreggSmithFeedback}
 \citation{OptiTrackSite}
 \citation{OptiTrackSite}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Developed Program}{27}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Interfacing With NatNet Optical Tracking System}{27}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Axes as used by the OptiTrack Motive software, these global axes originate from the centre of the device, image adapted from \cite  {OptiTrackSite}\relax }}{27}}
-\newlabel{figure:duoAxes}{{5.1}{27}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Developed Program}{28}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Interfacing With NatNet Optical Tracking System}{28}}
+\newlabel{section:natnet}{{5.1}{28}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Axes as used by the OptiTrack Motive software, these global axes originate from the centre of the device, image adapted from \cite  {OptiTrackSite}\relax }}{28}}
+\newlabel{figure:duoAxes}{{5.1}{28}}
 \citation{li2002}
 \citation{GreggSmithDesign}
 \citation{GreggSmithDesign}
 \citation{GreggSmithPhd}
 \citation{nadaraya1964}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Kernel Regression Method}{28}}
-\newlabel{nadaraya}{{1}{28}}
-\newlabel{equation:Gaussian}{{2}{28}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Kernel Regression Method}{29}}
+\newlabel{nadaraya}{{1}{29}}
 \citation{GreggSmithDesign}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces List of corresponding output vector types for a given input vector\relax }}{29}}
-\newlabel{table:regressionOutputs}{{1}{29}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Calibration Procedure}{29}}
+\newlabel{equation:Gaussian}{{2}{30}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces List of corresponding output vector types for a given input vector\relax }}{30}}
+\newlabel{table:regressionOutputs}{{1}{30}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Calibration Procedure}{30}}
 \citation{GreggSmithDesign}
 \citation{mohamad2013}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Calibration Results}{30}}
-\newlabel{featureScaling}{{3}{30}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Mean positional error at various bandwidths for the output of the regression function compared with the corresponding real positional data\relax }}{31}}
-\newlabel{figure:bandwidthPlot}{{5.2}{31}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Calibration Results}{31}}
+\newlabel{featureScaling}{{3}{32}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Mean positional error at various bandwidths for the output of the regression function compared with the corresponding real positional data\relax }}{32}}
+\newlabel{figure:bandwidthPlot}{{5.2}{32}}
 \citation{natnet2016}
 \citation{3drotation}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Algorithm for Responding to Three-Dimensional State Targets}{32}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}Acquiring Target Position Relative to Orientation of Base}{32}}
-\newlabel{equation:rotationMatrix}{{4}{32}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Example showing how the position and orientation of a point changes with base rotation\relax }}{33}}
-\newlabel{figure:rotationExample}{{5.3}{33}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Algorithm for Responding to Three-Dimensional State Targets}{33}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}Acquiring Target Position Relative to Orientation of Base}{33}}
+\newlabel{equation:rotationMatrix}{{4}{33}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Example showing how the position and orientation of a point changes with base rotation\relax }}{34}}
+\newlabel{figure:rotationExample}{{5.3}{34}}
 \citation{butterworth2003}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}Gesturing Algorithm for Distant Targets}{34}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces Concept of tip-to-base sphere marking immediately disregarded zone, and initial achievable range zone that requires further checking\relax }}{34}}
-\newlabel{figure:tipSphere}{{5.4}{34}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces Typical steps in obtaining a compromised gesture solution from an initially unachievable point\relax }}{35}}
-\newlabel{figure:gestureSolution}{{5.5}{35}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces General algorithm procedure for taking a 3D target point relative to the base and producing the most suitable solution in the form of angles to be applied to the servomotors\relax }}{36}}
-\newlabel{figure:getSolution}{{5.6}{36}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.3}Running with a Live Target in Real Time}{36}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces Simplified processes taking place in the two different threads, showing the servos are updated after a set interval regardless of the logic\relax }}{37}}
-\newlabel{figure:separateThreads}{{5.7}{37}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Program Design}{37}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces User interface of the program for controlling the current status and operations of the robot, as well as for connecting to the tracking system and reading key tracking data.\relax }}{38}}
-\newlabel{figure:userInterface}{{5.8}{38}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces Core classes and their associated fields and methods that are central to how the program runs.\relax }}{40}}
-\newlabel{figure:classDiagram}{{5.9}{40}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Physical Experiment}{41}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Setup}{41}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Construction Environment Parallels}{41}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Mental Aspect}{41}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Physical Aspect}{41}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Results}{41}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{41}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{41}}
-\@writefile{toc}{\contentsline {section}{\numberline {10}Further Work and Areas of Improvement}{41}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Physical Design}{41}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Experiment}{41}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}Gesturing Algorithm for Distant Targets}{35}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces Concept of tip-to-base sphere marking immediately disregarded zone, and initial achievable range zone that requires further checking\relax }}{35}}
+\newlabel{figure:tipSphere}{{5.4}{35}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces Typical steps in obtaining a compromised gesture solution from an initially unachievable point\relax }}{36}}
+\newlabel{figure:gestureSolution}{{5.5}{36}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces General algorithm procedure for taking a 3D target point relative to the base and producing the most suitable solution in the form of angles to be applied to the servomotors\relax }}{37}}
+\newlabel{figure:getSolution}{{5.6}{37}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.3}Running with a Live Target in Real Time}{37}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces Simplified processes taking place in the two different threads, showing the servos are updated after a set interval regardless of the logic\relax }}{38}}
+\newlabel{figure:separateThreads}{{5.7}{38}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Program Design}{39}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces User interface of the program for controlling the current status and operations of the robot, as well as for connecting to the tracking system and reading key tracking data.\relax }}{39}}
+\newlabel{figure:userInterface}{{5.8}{39}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces Core classes and their associated fields and methods that are central to how the program runs.\relax }}{42}}
+\newlabel{figure:classDiagram}{{5.9}{42}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Physical Experiment}{43}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Setup}{43}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Construction Environment Parallels}{43}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Mental Aspect}{43}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Physical Aspect}{43}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Results}{43}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{43}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{43}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Further Work and Areas of Improvement}{43}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Physical Design}{43}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Experiment}{43}}
 \bibdata{mybib}
 \bibcite{Chipalkatty2012}{1}
 \bibcite{Anderson2010}{2}
@@ -263,7 +264,7 @@
 \bibcite{buss2010}{15}
 \bibcite{werfel2006}{16}
 \bibcite{Petersen2011}{17}
-\@writefile{toc}{\contentsline {section}{\numberline {11}References}{42}}
+\@writefile{toc}{\contentsline {section}{\numberline {11}References}{44}}
 \bibcite{mellinger2011}{18}
 \bibcite{cano2013}{19}
 \bibcite{GreggSmithKinematics}{20}
@@ -300,9 +301,9 @@
 \bibcite{3drotation}{51}
 \bibcite{butterworth2003}{52}
 \bibstyle{unsrt}
-\@writefile{toc}{\contentsline {section}{\numberline {12}Appendices}{45}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {12.1}CAD Drawings}{45}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {12.2}Servomotors}{45}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {12.3}Tracking Device}{45}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {12.4}Arduino Board}{45}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {12.5}Code Snippets}{45}}
+\@writefile{toc}{\contentsline {section}{\numberline {12}Appendices}{47}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.1}CAD Drawings}{47}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.2}Servomotors}{47}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.3}Tracking Device}{47}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.4}Arduino Board}{47}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.5}Code Snippets}{47}}

@@ -31,31 +31,31 @@
 \contentsline {subsection}{\numberline {4.1}Flexible Robotic Arms}{24}
 \contentsline {subsection}{\numberline {4.2}Physical Design of Four Degrees-Of-Freedom Device}{24}
 \contentsline {subsection}{\numberline {4.3}Controlling The Device}{26}
-\contentsline {section}{\numberline {5}Developed Program}{27}
-\contentsline {subsection}{\numberline {5.1}Interfacing With NatNet Optical Tracking System}{27}
-\contentsline {subsection}{\numberline {5.2}Kernel Regression Method}{28}
-\contentsline {subsubsection}{\numberline {5.2.1}Calibration Procedure}{29}
-\contentsline {subsubsection}{\numberline {5.2.2}Calibration Results}{30}
-\contentsline {subsection}{\numberline {5.3}Algorithm for Responding to Three-Dimensional State Targets}{32}
-\contentsline {subsubsection}{\numberline {5.3.1}Acquiring Target Position Relative to Orientation of Base}{32}
-\contentsline {subsubsection}{\numberline {5.3.2}Gesturing Algorithm for Distant Targets}{34}
-\contentsline {subsubsection}{\numberline {5.3.3}Running with a Live Target in Real Time}{36}
-\contentsline {subsection}{\numberline {5.4}Program Design}{37}
-\contentsline {section}{\numberline {6}Physical Experiment}{41}
-\contentsline {subsection}{\numberline {6.1}Setup}{41}
-\contentsline {subsection}{\numberline {6.2}Construction Environment Parallels}{41}
-\contentsline {subsection}{\numberline {6.3}Mental Aspect}{41}
-\contentsline {subsection}{\numberline {6.4}Physical Aspect}{41}
-\contentsline {section}{\numberline {7}Results}{41}
-\contentsline {section}{\numberline {8}Discussion}{41}
-\contentsline {section}{\numberline {9}Conclusion}{41}
-\contentsline {section}{\numberline {10}Further Work and Areas of Improvement}{41}
-\contentsline {subsection}{\numberline {10.1}Physical Design}{41}
-\contentsline {subsection}{\numberline {10.2}Experiment}{41}
-\contentsline {section}{\numberline {11}References}{42}
-\contentsline {section}{\numberline {12}Appendices}{45}
-\contentsline {subsection}{\numberline {12.1}CAD Drawings}{45}
-\contentsline {subsection}{\numberline {12.2}Servomotors}{45}
-\contentsline {subsection}{\numberline {12.3}Tracking Device}{45}
-\contentsline {subsection}{\numberline {12.4}Arduino Board}{45}
-\contentsline {subsection}{\numberline {12.5}Code Snippets}{45}
+\contentsline {section}{\numberline {5}Developed Program}{28}
+\contentsline {subsection}{\numberline {5.1}Interfacing With NatNet Optical Tracking System}{28}
+\contentsline {subsection}{\numberline {5.2}Kernel Regression Method}{29}
+\contentsline {subsubsection}{\numberline {5.2.1}Calibration Procedure}{30}
+\contentsline {subsubsection}{\numberline {5.2.2}Calibration Results}{31}
+\contentsline {subsection}{\numberline {5.3}Algorithm for Responding to Three-Dimensional State Targets}{33}
+\contentsline {subsubsection}{\numberline {5.3.1}Acquiring Target Position Relative to Orientation of Base}{33}
+\contentsline {subsubsection}{\numberline {5.3.2}Gesturing Algorithm for Distant Targets}{35}
+\contentsline {subsubsection}{\numberline {5.3.3}Running with a Live Target in Real Time}{37}
+\contentsline {subsection}{\numberline {5.4}Program Design}{39}
+\contentsline {section}{\numberline {6}Physical Experiment}{43}
+\contentsline {subsection}{\numberline {6.1}Setup}{43}
+\contentsline {subsection}{\numberline {6.2}Construction Environment Parallels}{43}
+\contentsline {subsection}{\numberline {6.3}Mental Aspect}{43}
+\contentsline {subsection}{\numberline {6.4}Physical Aspect}{43}
+\contentsline {section}{\numberline {7}Results}{43}
+\contentsline {section}{\numberline {8}Discussion}{43}
+\contentsline {section}{\numberline {9}Conclusion}{43}
+\contentsline {section}{\numberline {10}Further Work and Areas of Improvement}{43}
+\contentsline {subsection}{\numberline {10.1}Physical Design}{43}
+\contentsline {subsection}{\numberline {10.2}Experiment}{43}
+\contentsline {section}{\numberline {11}References}{44}
+\contentsline {section}{\numberline {12}Appendices}{47}
+\contentsline {subsection}{\numberline {12.1}CAD Drawings}{47}
+\contentsline {subsection}{\numberline {12.2}Servomotors}{47}
+\contentsline {subsection}{\numberline {12.3}Tracking Device}{47}
+\contentsline {subsection}{\numberline {12.4}Arduino Board}{47}
+\contentsline {subsection}{\numberline {12.5}Code Snippets}{47}

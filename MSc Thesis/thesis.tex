@@ -473,19 +473,34 @@ Furthermore, a brief overview was provided for robots in construction related ta
 \item{Dimensions changed to afford more room to front servo to allow it to move full range of servo motion.....} 
 \end{itemize}
 
+
+\pagebreak
 \subsection{Controlling The Device}
 
+In order to properly control the device, it was necessary to implement a microcontroller to interface between the actual control program, and the robot. As such, an Arduino UNO R3 (APPENDIX XXXXX) was selected to sit between the PC that runs the program and the various electrical components of the robot (the servomotors and electromagnet). The servomotors themselves (APPENDIX XXXX) require a 6V power source, thus two 4 x AA (1.5V) battery boxes were connected in series. The position of each servo is determined by the value from the corresponding PWM (Pulse Width Modulation) pin on the Arduino. 
+
+The electromagnet requires 9V for generating adequate magnetic force. So in order to safely control this, enabling the magnet to be switched on and off as required, it was necessary to use an Arduino Motor Shield (APPENDIX XXX). This allows a 9V battery to be connected via the $V_{in}$ and $Gnd$ terminals, with the output power and ground wires connecting to the electromagnet. A pin on the Arduino is then designated for turning this output power on and off. There are then two options for controlling this magnet, by having the trigger of the strimmer base hooked up directly on the power wire to the electromagnet, or by having it connected to a pin on the Arduino that can respond by setting the pin that controls the power output. The former option would result in the magnet being on whenever the trigger is pressed, whereas the latter option allows for much more options. These include responding in other manners from the trigger press, counting the number of trigger presses and only turning on the magnet if the device is `in range', saving battery. Hence, the second option was chosen. A schematic of this set-up is illustrated in Figure \ref{figure:schematic}.
+
+
+FIX THIS DIAGRAM TO SHOW HOW THE TRIGGER REALLY WORKS, BY USING PULL UP RESISTOR TO DETERMINE IF A PIN IF TRIGGER IS CONNECTED THEN TURNING ON ELECTROMAGNET CONTROL PIN XXXXXXX
+
 \begin{center}
-\includegraphics[width=0.65\textwidth]{images/schematic.png}
+\includegraphics[width=0.9\textwidth]{images/schematic.png}
 \captionof{figure}{Schematic showing how the controlling equipment interfaces with the pc and the robot components.}
 \label{figure:schematic}
 \end{center}
+
+Of course, the optical tracking system also interfaces with the controlling PC in order to receive the necessary tracking information. This is shown in the schematic for completeness. To send commands and receive information from the Arduino, a serial connection is set up in C\# using the SerialPort class. Once a connection is established, commands are sent in the form of a buffer of bytes, which are interpreted and responded to by the Arduino sketch. These commands include setting the position of a servomotor and turning on the power for the electromagnet; an example of this process with the program command and Arduino response is shown in Appendix XXXXXX.
+
+All of the components were then assembled in place using an Arduino Proto-Shield and a mini breadboard. This was set up in a manner that allowed the battery packs and servomotors to be easily interchanged as required, whereas the control circuitry was fixed in place, as illustrated in Figure XXXXXX.
+
+INSERT PICTURE OF NEATLY ASSEMBLED CONTROL CIRCUITRY ON THE ROBOT WITH THE PROTOSHIELD AND MINI BREADBOARD ETC XXXXXXXXXXXX
 
 \pagebreak
 \section{Developed Program}
 
 \subsection{Interfacing With NatNet Optical Tracking System}
-
+\label{section:natnet}
 In order to determine where in three dimensional space the robot is, as well as the relative distances between itself and other points, it is necessary to track physical objects. This was achieved using a single optical tracking device, the OptiTrack V120 Duo \cite{OptiTrackSite}. The device features two cameras in order to provide depth perception, and works as a stand-alone device unlike the syncing of several distinct cameras as used in \cite{GreggSmithDesign} and \cite{GreggSmithFeedback}. The accompanying software library however, the `NatNet SDK', as well as the actual tracking software, `OptiTrack Motive', are the same. This library was provided to run in a .NET framework environment, hence the decision to use C\# as the primary development language.
 
 The device recognises the supplied retro-reflective markers, and is able to provide six degrees of freedom tracking. It is important to not that the coordinate system used by the software (the global axes) originates from the positioning of the Duo tracking device itself, as illustrated in Figure \ref{figure:duoAxes}. Single markers can be identified in terms of their X, Y and Z positions, and can be grouped together to form `rigid bodies`. These bodies, requiring a minimum of three markers, have a designated `centre' that can be used to refer to the position of the body as a whole, and provide a pivot about which rotation can be expressed. The rotation is inherently given as a quaternion, which can be converted using built-in library functions to give euler angles in the forms of roll, pitch and yaw (rotations about the global X, Y and Z axes respectively).
@@ -512,9 +527,11 @@ The method specifically is known as the Nadayara-Watson kernel regression \cite{
 \bar{y}(\bar{x}) = \frac{\sum_{i=1}^{n}y_{i}K(\frac{x - x_{i}}{\alpha})}{\sum_{i=1}^{n}K(\frac{x - x_{i}}{\alpha})}
 \end{equation}
 
-Where $K$ represents a kernel function, $\alpha$ the bandwidth, $x$ the input and $y_{i}$ and $x_{i}$ the values of the stored data for the output and input values respectively. The bandwidth, as expected, will have a large effect on the output of the function. This could best be represented by a plot of the output of the function for a range of inputs at a given bandwidth. Of course, due to the number of dimensions in this case (three for the position and four for the motor angles), it is not easy to give a visual representation. For a smooth plot, covering the areas not covered by the stored points but missing the actual stored point values, a higher bandwidth would be expected. However, a lower bandwidth would result in a more jagged plot, virtually intersecting all of the stored points. For very high degrees of non-linearity, a low bandwidth would typically be the most suitable, coming close to the known points. 
+Where $K$ represents a kernel function, $\alpha$ the bandwidth, $x$ the input and $y_{i}$ and $x_{i}$ the values of the stored data for the output and input values respectively. The bandwidth, as expected, will have a large effect on the output of the function. This could best be represented by a plot of the output of the function for a range of inputs at a given bandwidth. Of course, due to the number of dimensions in this case (three for the positional vector and four for the motor angles), it is not easy to give a visual representation, hence a 2D example is given in Figure XXXX for the non-linear  function $cos(\frac{x}{10}) + (\frac{x}{60})^2$. 
 
 FIGURE ILLUSTRATING THIS EFFECT, USING 2D GRAPH AS IN AUSTIN THESIS???XXXXX
+
+As shown in the figure, for a smoother plot, covering the areas not covered by the stored points at the expense of accuracy compared to the actual stored point values, a higher bandwidth would be expected. However, a lower bandwidth would result in a rougher, more sporadic plot, with the effect of intersecting all of the stored points exactly. As shown by the two plots, adding more samples acts to smoothen out this latter case, giving a smoother plot whilst improving the accuracy compared to the actual values. An optimal bandwidth would of course produce a minimal error for compared to the actual values of the points the sampling does not cover. High degrees of non-linearity are typically characterised by a comparatively lower optimum bandwidth.
 
 Given the way this regression works, all of the recorded points will have an effect on the outcome. However, it is desirable for the recorded points close to the input point to have a greater effect on the result than those further away, meaning smaller values of $x - x_{i}$ will make less of a contribution to the $\bar{y}$ value. Therefore, to cater to this requirement, the chosen kernel function, $K$, was a Gaussian kernel function, as given in \eqref{equation:Gaussian}, due to its bell-curve shape and how input values close to zero have a larger output effect.
 
@@ -579,7 +596,7 @@ The function was thus used for each of the 81 angle configurations covered by th
 \label{figure:bandwidthPlot}
 \end{center}
 
-
+AS SHOWN IN THE GRAPH, THE OPTIMAL BANDWIDTH IS AT ABOUT 0.0008, WHICH GIVES A MINIMAL ERROR OF ~8MM. THERE ARE A NUMBER OF REASONS WHY THIS ERROR IS NOT SMALLER THAN IT IS, SUCH AS THE FOAM DEFORMING SLIGHTLY AFTER EACH CALIBRATION PROCEDURE AND THE NUMBER OF SAMPLES NOT BEING PARTICULARLY HIGH. FURTHER DESIGN CHANGES TO MITIGATE THIS OUTSIDE OF THE SCOPE OF PROJECT, EXPECTED WITH LESS RIGID ARM ANYWAY, MITIGATION ACTION WAS TO NOT USE BLOCKS THAT WOULD BE SMALLER IN SIZE THAN THIS ERROR ETC ETC. XXXXXXXXXXX
 Low bandwidth shows high non-linearity as expected due to arm material etc
 
 
@@ -593,7 +610,7 @@ The process of responding to commands is fundamentally built on inputting a posi
 However, in order for this approach of obtaining servo angles from a given input to be useful in practice, it is first essential to determine the correct input to the regression function. This can depend on a variety of factors relating to the absolute 3D target point and its relation to the base of the robot, such as the current orientation of the base and the relative proximity of the target.
 
 \subsubsection{Acquiring Target Position Relative to Orientation of Base}
-The robot is fixed in place while the optical tracking software is configured to recognise the rigid bodies formed by the retro-reflective markers associated with the base and the tip, as covered in SECTION XXXXXXXX (just say 'is configured'?. At this point, the base is said to have zero orientation about any axis (as this was the point it was first initialised in). The calibration procedure is then of course undertaken while the robot is fixed in this position. Thus, the stored relative tip-to-base calibration data for different servo angle vectors is only valid for the robot in a zero orientation position compared to the starting position. Hence, in practice, when the base has changed orientation about any of the three axes inherent to the optical tracking device, a direct input for a relative tip-to-base position will yield incorrect motor angles to meet this position. Therefore, the target position must be adjusted in order to account for the varying orientation of the base.
+The robot is fixed in place while the optical tracking software is configured to recognise the rigid bodies formed by the retro-reflective markers associated with the base and the tip, as covered in Section \ref{section:natnet} (just say 'is configured'?. At this point, the base is said to have zero orientation about any axis (as this was the point it was first initialised in). The calibration procedure is then of course undertaken while the robot is fixed in this position. Thus, the stored relative tip-to-base calibration data for different servo angle vectors is only valid for the robot in a zero orientation state compared to the starting position. Hence, in practice, when the base has changed orientation about any of the three axes inherent to the optical tracking device, a direct input for a relative tip-to-base position will yield incorrect motor angles to meet this position. Therefore, the target position must be adjusted in order to account for the varying orientation of the base.
 
 The orientation of the base itself is initially stored as a quaternion within the rigid body object from the NatNet library \cite{natnet2016}. This is then converted to euler angles using a built-in method to represent the orientation as three angles about the tracking device's X, Y and Z axes respectively, of which the order is important. It is thus necessary convert a real target point to an equivalent point relative to the original orientation of the base (zero orientation), so that the regression function and stored calibration data can be used to yield angles that result in the correct relative position in real space. This is accomplished using a rotation matrix that accounts for the rotation ordering of the base. Given that the base orientation is represented by rotation about the X, then Y, then Z axes, the converted point will be attained by taking the actual target point relative to the base and reversing these rotation operations; that is, the negatives of the base rotation values about the Z, then Y, then X axes. The rotation matrix in \eqref{equation:rotationMatrix} is thus used to account for this axes of rotation order. 
 
@@ -658,9 +675,8 @@ With these steps of applying a rotation transformation and determining the best 
 \end{center}
 
 \subsubsection{Running with a Live Target in Real Time}
-RUNNING THE SET MOTOR INSTRUCTION IN A DIFFERENT THREAD IN A LOOP SO TARGET CAN BE UPDATED LIVE AND THE MOTION OF THE SERVOS IS ADJUSTED LIVE SO AS TO NOT FINISH THE PREVIOUS COMMAND AND JUST CONCENTRATE ON CURRENT TARGET.
+In order to have handheld robotic applications, the device must be able to run with a live target in real time, always trying to move or gesture to the required position. Without this feature, the cooperation between the user and handheld robot would be seriously hindered, with the device appearing unresponsive, undermining the usefulness of the robot altogether. As such, it was imperative to set up the control of the device so that it could receive a live input, and respond accordingly to changes in its own position and orientation. This entails taking a fixed vector as a constant input, converting it to a position that is relative to both the position and orientation of the base, obtaining the solution angles vector and moving towards this target motor configuration. A simplified representation of this process is illustrated in Figure \ref{figure:separateThreads}.
 
-SMALL PAIR OF FLOW DIAGRAMS TO SHOW ONE THREAD CONSTANTLY UPDATING THE POSITION AND THE OTHER WORKING OUT WHAT THE POSITION SHOULD BE AND CHANGING IT BASED ON TASK PROGRESSION AND TARGET POINT ETC. IN DIFFERENT DASHED BOXES TO SHOW THE DIFFERENT THREADS. THE LATTER WILL JUST SAY "POINT DETERMINATION ALGORITHM" AND WILL BE  A COMPRESSED VERSION OF THE LARGER FLOW DIAGRAM IN THE PREVIOUS SECTION.
 
 \begin{center}
 \includegraphics[width=0.65\textwidth]{images/separateThreads.png}
@@ -668,8 +684,15 @@ SMALL PAIR OF FLOW DIAGRAMS TO SHOW ONE THREAD CONSTANTLY UPDATING THE POSITION 
 \label{figure:separateThreads}
 \end{center}
 
-THE IMAGE SHOWS THAT THE TARGET ANGLES CAN CHANGE WHENEVER AND THE ROBOT WILL RESPOND BY JUST MOVING TOWARDS THE NEW TARGET, MAKING IT MORE RESPONSIVE. THIS IS OPPOSED TO HAVING TO COMPLETE ITS ORIGINAL MOTION BEFORE MOVING TO THE NEW TARGET MAKING IT HAVE A LAG. ALSO SAY THE 6MS DELAY IS TO SMOOTHEN THE MOTION AS QUICK JERKS CAN PULL CABLES LOOSE ETC
+The flow diagram shows how the control system splits this process into two threads. One thread is responsible for the logic of converting the target position and obtaining a servo configuration solution, as covered in the algorithm in the previous section. The other is solely responsible for taking the current solution for the servo configuration and iterating the servos towards this configuration (if they need to be changed). Hence these two threads share the servo configuration vector in a thread-safe manner, with the former updating it as necessary when a new solution is found, and the latter accessing it to determine how to iterate the servos towards the target. 
 
+There is a 6 millisecond delay after iterating each servo by one degree towards its target to give a smoother motion of the arm, anything less than this was found to cause a `jerked' motion that had the potential to pull a cable loose from its pulley groove. Also, there is a delay at the end of the logic operation to reduce computational demand and to try and minimise rapid perturbations in the target configuration from small fluctuations in the base position and orientation etcetera. This value can be varied accordingly to alter the responsiveness of the robot at the expense of these two traits. 
+
+This method of splitting the two tasks into separate threads, with one of them iterating the values as opposed to setting them directly is highly advantageous. As soon as the relative target is changed in real-time, requiring a different servo solution, the servos are instantaneously iterated towards this new solution. Thus, the arm does not continue moving towards an old target position, even when there is a more recent target. This contributes towards the device appearing more responsive to an ever-changing requirement, which is essential for the practicality of a cooperative handheld robot. 
+
+
+
+\pagebreak
 \subsection{Program Design}
 The developed program for using the robot was built around the fundamentals of the Motive software and the NatNet library. An example was provided that simply sets up a connection between the tracking program and displays the tracked data in a spreadsheet. This example took the form of Windows Form Application, due to the usefulness of a Graphical User Interface (GUI) with buttons and options to start/stop tracking etcetera. Hence the developed application was of the same type, adapting the example tracking code and removing and adding features as necessary for the specific purpose of tracking and controlling the robot. This entailed creating new classes that deal with interfacing with the robot as well as the logic involved with the calibration, target selection and solving processes. 
 
