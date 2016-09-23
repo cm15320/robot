@@ -577,7 +577,7 @@ namespace robotTracking
                         }
                         else
                         {
-                            OutputMessage("a rigid body is not tracked in this frame");
+                            //OutputMessage("a rigid body is not tracked in this frame");
                         }
 
                         //dataGridView1.Rows[rowIndex].Cells[1].Value = rb.x * m_ServerToMillimeters;

@@ -690,6 +690,7 @@ There is a 6 millisecond delay after iterating each servo by one degree towards 
 
 This method of splitting the two tasks into separate threads, with one of them iterating the values as opposed to setting them directly is highly advantageous. As soon as the relative target is changed in real-time, requiring a different servo solution, the servos are instantaneously iterated towards this new solution. Thus, the arm does not continue moving towards an old target position, even when there is a more recent target. This contributes towards the device appearing more responsive to an ever-changing requirement, which is essential for the practicality of a cooperative handheld robot. 
 
+PUT ANY CODE FOR THE DIFFERENT THREAD INITIALISATION IN THE APPENDIX TO SHOW HOW THIS IS DONE OR NOT? XXXXXXXXXXX
 
 
 \pagebreak
