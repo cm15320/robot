@@ -91,6 +91,8 @@
             this.gesturingPerformance = new System.Windows.Forms.RadioButton();
             this.colourArrangeUser = new System.Windows.Forms.RadioButton();
             this.bodePlotButton = new System.Windows.Forms.Button();
+            this.generateBode = new System.Windows.Forms.Button();
+            this.trackedStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -273,7 +275,7 @@
             this.columnHeader3});
             this.listView1.GridLines = true;
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView1.Location = new System.Drawing.Point(220, 244);
+            this.listView1.Location = new System.Drawing.Point(220, 267);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(363, 180);
             this.listView1.TabIndex = 17;
@@ -680,19 +682,41 @@
             // bodePlotButton
             // 
             this.bodePlotButton.Enabled = false;
-            this.bodePlotButton.Location = new System.Drawing.Point(596, 528);
+            this.bodePlotButton.Location = new System.Drawing.Point(554, 527);
             this.bodePlotButton.Name = "bodePlotButton";
-            this.bodePlotButton.Size = new System.Drawing.Size(120, 23);
+            this.bodePlotButton.Size = new System.Drawing.Size(95, 23);
             this.bodePlotButton.TabIndex = 47;
             this.bodePlotButton.Text = "Start Bode Plot";
             this.bodePlotButton.UseVisualStyleBackColor = true;
             this.bodePlotButton.Click += new System.EventHandler(this.bodePlotButton_Click);
+            // 
+            // generateBode
+            // 
+            this.generateBode.Location = new System.Drawing.Point(661, 527);
+            this.generateBode.Name = "generateBode";
+            this.generateBode.Size = new System.Drawing.Size(121, 23);
+            this.generateBode.TabIndex = 49;
+            this.generateBode.Text = "Generate Bode Plot";
+            this.generateBode.UseVisualStyleBackColor = true;
+            this.generateBode.Click += new System.EventHandler(this.generateBode_Click);
+            // 
+            // trackedStatus
+            // 
+            this.trackedStatus.AutoSize = true;
+            this.trackedStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.trackedStatus.Location = new System.Drawing.Point(309, 236);
+            this.trackedStatus.Name = "trackedStatus";
+            this.trackedStatus.Size = new System.Drawing.Size(117, 24);
+            this.trackedStatus.TabIndex = 50;
+            this.trackedStatus.Text = "Not Tracking";
             // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.trackedStatus);
+            this.Controls.Add(this.generateBode);
             this.Controls.Add(this.colourArrangeUser);
             this.Controls.Add(this.gesturingPerformance);
             this.Controls.Add(this.colourArrangeRobot);
@@ -822,6 +846,8 @@
         private System.Windows.Forms.RadioButton gesturingPerformance;
         private System.Windows.Forms.RadioButton colourArrangeUser;
         private System.Windows.Forms.Button bodePlotButton;
+        private System.Windows.Forms.Button generateBode;
+        private System.Windows.Forms.Label trackedStatus;
     }
 }
 

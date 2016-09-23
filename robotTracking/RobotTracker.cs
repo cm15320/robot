@@ -522,6 +522,7 @@ namespace robotTracking
             }
 
             // loop through RigidBody data
+            int numTracked = 0;
             for (int i = 0; i < m_CurrentFrameOfData.nRigidBodies; i++)
             {
                 NatNetML.RigidBodyData rb = m_CurrentFrameOfData.RigidBodies[i];
@@ -570,7 +571,11 @@ namespace robotTracking
                     if (rowIndex >= 0) // check if it is in hash table
                     {
                         bool tracked = rb.Tracked;
-                        if (!tracked)
+                        if (tracked)
+                        {
+                            numTracked++;
+                        }
+                        else
                         {
                             OutputMessage("a rigid body is not tracked in this frame");
                         }
@@ -632,6 +637,16 @@ namespace robotTracking
                     }
 
                 }
+            }
+            if(numTracked != m_CurrentFrameOfData.nRigidBodies)
+            {
+                trackedStatus.Text = "Not Tracking all";
+                trackedStatus.ForeColor = Color.Red;
+            }
+            else
+            {
+                trackedStatus.Text = "Tracking all";
+                trackedStatus.ForeColor = Color.Green;
             }
 
             // update Skeleton data if there is any (collection of rigid bodies)
@@ -1662,6 +1677,23 @@ namespace robotTracking
             }
         }
 
+        private void generateBode_Click(object sender, EventArgs e)
+        {
+            //make a dummy experiment, for testing only
+            if (experiment == null) experiment = new Experiment(false);
+
+            if (experiment.getBodeData())
+            {
+                OutputMessage("Bode data read in successdully");
+                experiment.generateBodePlot();
+                OutputMessage("Should have generated the bode plot");
+            }
+            else
+            {
+                OutputMessage("Cannot read bode data, must run a bode");
+            }
+
+        }
 
         private void moveToRelTargetPoint()
         {

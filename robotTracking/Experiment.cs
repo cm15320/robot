@@ -40,6 +40,7 @@ namespace robotTracking
         private bool pausedCalibration = false; // this can indicate the pause of the calibration and the test stage
         private const float startingAlpha = 0.0008f;
         private StringBuilder csv = new StringBuilder();
+        private StringBuilder bodeCsv = new StringBuilder();
         private int motorScaler = 100;
 
         private int newTargetDelay = 50;
@@ -153,26 +154,26 @@ namespace robotTracking
         {
             float[] baseRads = eulersRobotBase;
 
-            Console.WriteLine("relative target point was:");
-            for (int i = 0; i < 3; i++)
-            {
-                Console.WriteLine(targetPos[i]);
-            }
-            Console.WriteLine();
+            //Console.WriteLine("relative target point was:");
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    Console.WriteLine(targetPos[i]);
+            //}
+            //Console.WriteLine();
             //float[] baseRads = eulersRobotBase;
-            Console.WriteLine("base radians were");
-            for (int i = 0; i < 3; i++)
-            {
-                Console.WriteLine(baseRads[i]);
-            }
+            //Console.WriteLine("base radians were");
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    Console.WriteLine(baseRads[i]);
+            //}
 
             float[] convertedTargetPoint = convertTargetOrientation(targetPos, baseRads);
 
-            Console.WriteLine("converted target point is:");
-            for (int i = 0; i < 3; i++)
-            {
-                Console.WriteLine(convertedTargetPoint[i]);
-            }
+            //Console.WriteLine("converted target point is:");
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    Console.WriteLine(convertedTargetPoint[i]);
+            //}
 
             return convertedTargetPoint;
 
@@ -395,22 +396,22 @@ namespace robotTracking
             double[] output;
             if (outOfRecordedRange(inputVectorTarget))
             {
-                Console.WriteLine("out of recorded range, using closest point to intersection");
+                //Console.WriteLine("out of recorded range, using closest point to intersection");
                 output = getClosestCalibrationSolution(inputVectorTarget);
                 return output;
             }
             else
             {
-                Console.WriteLine("in range, attempting direct solution");
+                //Console.WriteLine("in range, attempting direct solution");
                 output = NWRegression(inputVectorTarget, RegressionInput.POSITION, bandwidth);
                 if (!motorAnglesNaN(output))
                 {
-                    Console.WriteLine("solution found directly");
+                    //Console.WriteLine("solution found directly");
                     return output;
                 }
                 else
                 {
-                    Console.WriteLine("solution not found, finding closest target point");
+                    //Console.WriteLine("solution not found, finding closest target point");
                     output = getClosestCalibrationSolution(inputVectorTarget);
                     return output;
                 }
@@ -506,19 +507,19 @@ namespace robotTracking
                     minAbsoluteDifference = absoluteDifference;
                 }
             }
-            Console.WriteLine("index of closest point is " + indexOfClosestPoint);
-            Console.WriteLine("at which the values are ");
+            //Console.WriteLine("index of closest point is " + indexOfClosestPoint);
+            //Console.WriteLine("at which the values are ");
             for (int j = 0; j < inputVectorTarget.Length; j++)
             {
-                Console.WriteLine(storedCalibrationData[indexOfClosestPoint].relativeTipPosition[j]);
+                //Console.WriteLine(storedCalibrationData[indexOfClosestPoint].relativeTipPosition[j]);
                 inputVectorTarget[j] = storedCalibrationData[indexOfClosestPoint].relativeTipPosition[j];
             }
 
-            Console.WriteLine("corresponding solution of:");
-            for (int j = 0; j < 4; j++)
-            {
-                Console.WriteLine(storedCalibrationData[indexOfClosestPoint].motorAngles[j]);
-            }
+            //Console.WriteLine("corresponding solution of:");
+            //for (int j = 0; j < 4; j++)
+            //{
+            //    Console.WriteLine(storedCalibrationData[indexOfClosestPoint].motorAngles[j]);
+            //}
 
 
             //inputVectorTarget = getCopyVector(storedCalibrationData[indexOfClosestPoint].relativeTipPosition);
@@ -555,11 +556,11 @@ namespace robotTracking
             //}
 
             float[] newInputVector = getCopyVector(inputVectorTarget);
-            Console.WriteLine("vector to have regression performed is:");
-            for (int i = 0; i < newInputVector.Length; i++)
-            {
-                Console.WriteLine(newInputVector[i]);
-            }
+            //Console.WriteLine("vector to have regression performed is:");
+            //for (int i = 0; i < newInputVector.Length; i++)
+            //{
+            //    Console.WriteLine(newInputVector[i]);
+            //}
 
 
             if (inputType == RegressionInput.MOTORS)
@@ -599,11 +600,11 @@ namespace robotTracking
                 convertOutputMotors(outputVector, false);
             }
 
-            Console.WriteLine("Vector output being returned is:");
-            for (int i = 0; i < outputVector.Length; i++)
-            {
-                Console.WriteLine(outputVector[i]);
-            }
+            //Console.WriteLine("Vector output being returned is:");
+            //for (int i = 0; i < outputVector.Length; i++)
+            //{
+            //    Console.WriteLine(outputVector[i]);
+            //}
 
             return outputVector;
 
@@ -628,15 +629,15 @@ namespace robotTracking
             if (absoluteTargetDistance > tipToBaseSphereRadius)
             {
                 float vectorFactor = tipToBaseSphereRadius / absoluteTargetDistance;
-                Console.WriteLine("absolute distance is: " + absoluteTargetDistance);
-                Console.WriteLine("sphere radius is :" + tipToBaseSphereRadius);
-                Console.WriteLine("so vector factor is: " + vectorFactor);
-                Console.WriteLine("converted target point to sphere intersection from:  x = {0}, y = {1}, z = {2}", relativeTargetPoint[0], relativeTargetPoint[1], relativeTargetPoint[2]);
+                //Console.WriteLine("absolute distance is: " + absoluteTargetDistance);
+                //Console.WriteLine("sphere radius is :" + tipToBaseSphereRadius);
+                //Console.WriteLine("so vector factor is: " + vectorFactor);
+                //Console.WriteLine("converted target point to sphere intersection from:  x = {0}, y = {1}, z = {2}", relativeTargetPoint[0], relativeTargetPoint[1], relativeTargetPoint[2]);
                 for (int i = 0; i < relativeTargetPoint.Length; i++)
                 {
                     relativeTargetPoint[i] *= vectorFactor;
                 }
-                Console.WriteLine("To:  x = {0}, y = {1}, z = {2}", relativeTargetPoint[0], relativeTargetPoint[1], relativeTargetPoint[2]);
+                //Console.WriteLine("To:  x = {0}, y = {1}, z = {2}", relativeTargetPoint[0], relativeTargetPoint[1], relativeTargetPoint[2]);
             }
             // also put in code for if it is less than the minimum radius experienced 
             // so that it can shift on to this minimum sphere before finding closest position
@@ -857,12 +858,12 @@ namespace robotTracking
                 if (motorAngles[i] > maxAngle)
                 {
                     motorAngles[i] = maxAngle;
-                    Console.WriteLine("Had to remove  exreme high angle");
+                    //Console.WriteLine("Had to remove  exreme high angle");
                 }
                 if (motorAngles[i] < 180 - maxAngle)
                 {
                     motorAngles[i] = 180 - maxAngle;
-                    Console.WriteLine("Had to remove extreme low angle");
+                    //Console.WriteLine("Had to remove extreme low angle");
                 }
             }
         }
@@ -905,14 +906,14 @@ namespace robotTracking
         {
             double[] motorAngleSolution = getRegressionMotorSolution(relativeTargetPoint);
             //double[] motorAngleSolution = NWRegression(convertedTargetPoint, RegressionInput.POSITION);
-            Console.WriteLine("motor solution is");
-            for (int i = 0; i < 4; i++)
-            {
-                Console.WriteLine(motorAngleSolution[i]);
-            }
+            //Console.WriteLine("motor solution is");
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    Console.WriteLine(motorAngleSolution[i]);
+            //}
 
             updateNewMotorAngles(motorAngleSolution);
-            Console.WriteLine("updated new motor angles");
+            //Console.WriteLine("updated new motor angles");
 
         }
 
@@ -1128,6 +1129,30 @@ namespace robotTracking
             dummyExperiment = true;
         }
 
+        private bool readInBodeData()
+        {
+            XmlSerializer reader = new XmlSerializer(typeof(BodePlot));
+            StreamReader file;
+            try
+            {
+                file = new StreamReader(bodeFileName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Could not open " + bodeFileName + " message: " + ex.Message);
+                return false;
+            }
+            BodePlot dataReadIn = (BodePlot)reader.Deserialize(file);
+            bodePlot = dataReadIn;
+
+            file.Close();
+            if(bodePlot.Count > 0)
+            {
+                return true;
+            }
+            else return false;
+
+        }
 
         private bool getData(string filename)
         {
@@ -1267,6 +1292,16 @@ namespace robotTracking
             return absoluteValue;
         }
 
+        public bool getBodeData()
+        {
+            bool success = readInBodeData();
+            if (!success)
+            {
+                Console.WriteLine("not able to read bode data");
+            }
+                return success;
+        }
+
         public bool getCalibrationData()
         {
             bool success = getData(calibrationFilename);
@@ -1277,8 +1312,8 @@ namespace robotTracking
                 getMaxAndMinValues();
                 getTipToBaseSphereRadius();
                 //testMultiplyMatrix();
-                testRotation();
-                testBode();
+                //testRotation();
+                //testBode();
             }
             return success;
 
@@ -1359,7 +1394,13 @@ namespace robotTracking
         private void logBodeData(float timestamp)
         {
             BodeDataPoint newBodePoint = new BodeDataPoint();
-            lock(syncLock)
+            if (!currentlyTracked)
+            {
+                Console.WriteLine("not logged a data point due to untracked rigid body");
+                return;
+            }
+
+            lock (syncLock)
             {
                 newBodePoint.setTimeStamp(timestamp);
                 newBodePoint.setTargetPos(relativeBodyFollowPos);
@@ -1367,7 +1408,7 @@ namespace robotTracking
             }
             // Add the bode point to the existing bode plot data
             bodePlot.Add(newBodePoint);
-            Console.WriteLine("added a new body point at a time at " + timestamp);
+            //Console.WriteLine("added a new body point at a time at " + timestamp);
         }
 
         private void saveBodeXML(string filename)
@@ -1403,11 +1444,16 @@ namespace robotTracking
         {
             lock (syncLock)
             {
+                int trackedBodies = 0;
                 // loop through RigidBody data
                 for (int i = 0; i < currentFrame.nRigidBodies; i++)
                 {
                     NatNetML.RigidBodyData rb = currentFrame.RigidBodies[i];
-                    currentlyTracked = rb.Tracked;
+                    if (rb.Tracked)
+                    {
+                        trackedBodies++;
+                    }
+                
                     // get the hashcode of the id for later displaying in grid form
                     int keyID = rb.ID.GetHashCode();
                     if (rigidBodiesIDtoName.ContainsKey(keyID))
@@ -1421,9 +1467,34 @@ namespace robotTracking
 
                     }
                 }
+                if(trackedBodies != currentFrame.nRigidBodies)
+                {
+                    currentlyTracked = false;
+                }
+                else currentlyTracked = true;
+               
                 getRelativeTipInfo();
 
             }
+        }
+
+        public void generateBodePlot()
+        {
+            string firstLine = String.Format("{0},{1},{2}", "Time (ms)", "y target (mm)", "y tip (mm)");
+            bodeCsv.AppendLine(firstLine);
+            //Console.WriteLine("appeneded first line to bode plot");
+            foreach(BodeDataPoint currentPoint in bodePlot)
+            {
+                float timestamp = currentPoint.timeStamp;
+                float yPosTarget = currentPoint.relativeTargetPosition[1];
+                float yPosTip = currentPoint.relativeTipPosition[1];
+                string newLine = String.Format("{0},{1},{2}", timestamp, yPosTarget , yPosTip);
+                bodeCsv.AppendLine(newLine);
+                //Console.WriteLine("appened line to bode plot with timestamp of " + timestamp);
+            }
+
+            File.WriteAllText("bodePlot.csv", bodeCsv.ToString());
+
         }
 
         public void getBandwidthErrorPlot()
