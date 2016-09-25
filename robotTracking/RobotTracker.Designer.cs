@@ -93,6 +93,7 @@
             this.bodePlotButton = new System.Windows.Forms.Button();
             this.generateBode = new System.Windows.Forms.Button();
             this.trackedStatus = new System.Windows.Forms.Label();
+            this.testReadTargetPositionsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -710,11 +711,22 @@
             this.trackedStatus.TabIndex = 50;
             this.trackedStatus.Text = "Not Tracking";
             // 
+            // testReadTargetPositionsButton
+            // 
+            this.testReadTargetPositionsButton.Location = new System.Drawing.Point(12, 408);
+            this.testReadTargetPositionsButton.Name = "testReadTargetPositionsButton";
+            this.testReadTargetPositionsButton.Size = new System.Drawing.Size(160, 23);
+            this.testReadTargetPositionsButton.TabIndex = 51;
+            this.testReadTargetPositionsButton.Text = "Test Read Target Positions";
+            this.testReadTargetPositionsButton.UseVisualStyleBackColor = true;
+            this.testReadTargetPositionsButton.Click += new System.EventHandler(this.testReadTargetPositionsButton_Click);
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.testReadTargetPositionsButton);
             this.Controls.Add(this.trackedStatus);
             this.Controls.Add(this.generateBode);
             this.Controls.Add(this.colourArrangeUser);
@@ -848,6 +860,7 @@
         private System.Windows.Forms.Button bodePlotButton;
         private System.Windows.Forms.Button generateBode;
         private System.Windows.Forms.Label trackedStatus;
+        private System.Windows.Forms.Button testReadTargetPositionsButton;
     }
 }
 

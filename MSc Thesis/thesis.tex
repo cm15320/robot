@@ -686,9 +686,9 @@ In order to have handheld robotic applications, the device must be able to run w
 
 The flow diagram shows how the control system splits this process into two threads. One thread is responsible for the logic of converting the target position and obtaining a servo configuration solution, as covered in the algorithm in the previous section. The other is solely responsible for taking the current solution for the servo configuration and iterating the servos towards this configuration (if they need to be changed). Hence these two threads share the servo configuration vector in a thread-safe manner, with the former updating it as necessary when a new solution is found, and the latter accessing it to determine how to iterate the servos towards the target. 
 
-There is a 6 millisecond delay after iterating each servo by one degree towards its target to give a smoother motion of the arm, anything less than this was found to cause a `jerked' motion that had the potential to pull a cable loose from its pulley groove. Also, there is a delay at the end of the logic operation to reduce computational demand and to try and minimise rapid perturbations in the target configuration from small fluctuations in the base position and orientation etcetera. This value can be varied accordingly to alter the responsiveness of the robot at the expense of these two traits. 
+There is a 6 millisecond delay after iterating each servo by one degree towards its target to give a smoother motion of the arm, anything less than this was found to cause a `jerked' motion that had the potential to pull a cable loose from its pulley groove. Moreover, by iterating towards the servo configuration one degree per loop with a small delay, the effects of overshoot will be greatly reduced. By rapidly advancing towards the target, the momentum of the heavier end effector (containing the magnet) means it is more likely to carry on past its target point. Also, there is a delay at the end of the logic operation to reduce computational demand and to try and minimise rapid perturbations in the target configuration from small fluctuations in the base position and orientation etcetera. This value can be varied accordingly to alter the responsiveness of the robot at the expense of these two traits. 
 
-This method of splitting the two tasks into separate threads, with one of them iterating the values as opposed to setting them directly is highly advantageous. As soon as the relative target is changed in real-time, requiring a different servo solution, the servos are instantaneously iterated towards this new solution. Thus, the arm does not continue moving towards an old target position, even when there is a more recent target. This contributes towards the device appearing more responsive to an ever-changing requirement, which is essential for the practicality of a cooperative handheld robot. 
+This method of splitting the two tasks into separate threads, with one of them iterating the values as opposed to setting them directly is highly advantageous. As soon as the relative target is changed in real-time, requiring a different servo solution, the servos are instantaneously iterated towards this new solution. Thus, the arm does not continue moving towards an old target position, even when there is a more recent target; which may also be construed as minimising a form of overshoot where the tip moves past the current target position due to referring to a past target. This contributes towards the device appearing more responsive to an ever-changing requirement, which is essential for the practicality of a cooperative handheld robot. 
 
 PUT ANY CODE FOR THE DIFFERENT THREAD INITIALISATION IN THE APPENDIX TO SHOW HOW THIS IS DONE OR NOT? XXXXXXXXXXX
 
@@ -745,11 +745,22 @@ ADD ANY MORE FOR THE NEW CLASSES FOR BODE PLOT AND USER STUDY????XXXXX
 
 \section{Physical Experiment}
 \subsection{Setup}
+\subsection{Response Times}
+\subsection{Gesturing Accuracy}
 \subsection{Construction Environment Parallels}
-\subsection{Mental Aspect}
+\subsection{Mental Assistance}
+arranging by last letter of different colours ascending, mental assistance (and) physical assistance
 \subsection{Physical Aspect}
 
 \section{Results}
+\subsection{Response Time}
+\subsubsection{Response to Typical Motion}
+\subsubsection{Step Response}
+
+\subsection{Gesturing to Correct Target}
+
+\subsection{Task Assistance}
+arranging by last letter of different colours ascending, mental assistance (and) physical assistance
 
 \section{Discussion}
 \section{Conclusion}

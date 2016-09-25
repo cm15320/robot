@@ -47,7 +47,6 @@ namespace robotTracking
         }
 
 
-
         public void uninitialise()
         {
             currentPort.Close();

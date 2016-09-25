@@ -1005,10 +1005,24 @@ namespace robotTracking
 
         }
 
+        public void testReadInTargetPositions()
+        {
+            activeStudy = new UserStudy(UserStudyType.GESTURING);
+
+            activeStudy.testTargetPositions();
+        }
+
         private void runUserStudy()
         {
-            runningStudy = true;
+            if(!activeStudy.isInitialised())
+            {
+                // Check that it has been initialise before attempting to run
+                Console.WriteLine("unable to initialise user study");
+                return;
+            }
+                
             bool triggerPress;
+
 
             while(runningStudy)
             {
@@ -1017,6 +1031,8 @@ namespace robotTracking
 
                 runningStudy = activeStudy.update(basePosition, triggerPress);
             }
+            controller.zeroMotors();
+            Console.WriteLine("finished study");
         }
 
 

@@ -1695,6 +1695,14 @@ namespace robotTracking
 
         }
 
+        private void testReadTargetPositionsButton_Click(object sender, EventArgs e)
+        {
+            //make a dummy experiment, for testing only
+            if (experiment == null) experiment = new Experiment(false);
+
+            experiment.testReadInTargetPositions();
+        }
+
         private void moveToRelTargetPoint()
         {
             experiment.moveToRelTargetPoint(relTargetPoint);

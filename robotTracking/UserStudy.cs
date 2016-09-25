@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,16 +13,35 @@ namespace robotTracking
         private UserStudyType type;
         private float[] basePosition;
         private float[] absoluteTargetPosition;
-        private float[] relativeTargetPosition;
+        private float[] relativeTargetPosition = new float[3];
         private bool triggerPress = false;
         private int numTriggerPresses = 0;
         private float[][] targetPositions;
-        private bool completed = false;
+        private bool running, initialised;
+        private string gesturingFilename = "gesturingPositions.csv";
+        private string robotColourFilename = "robotColourPositions.csv";
+        private string userColourFilename = "userColourPositions.csv";
 
 
         public UserStudy(UserStudyType type)
         {
             this.type = type;
+            running = true;
+
+            if (populateTargetPositions())
+            {
+                initialised = true;
+            }
+            else
+            {
+                initialised = false;
+                Console.WriteLine("Not able to read in positions from file correctly");
+            }
+        }
+
+        public bool isInitialised()
+        {
+            return initialised;
         }
 
 
@@ -30,7 +51,92 @@ namespace robotTracking
             updateTriggerPress(triggerPress);
             updateTarget();
 
-            return completed;
+            return running;
+        }
+
+
+        private bool populateTargetPositions()
+        {
+
+            bool success;
+
+            switch(type)
+            {
+                case UserStudyType.GESTURING:
+                    success = readPositionsFromFile(gesturingFilename);
+                    break;
+                case UserStudyType.ROBOTCOLOUR:
+                    success = readPositionsFromFile(robotColourFilename);
+                    break;
+                case UserStudyType.USERCOLOUR:
+                    success = readPositionsFromFile(userColourFilename);
+                    break;
+                default:
+                    return false;
+            }
+
+            return success;
+        }
+
+
+        // Get the positions of the targets from the stored csv files
+        private bool readPositionsFromFile(string filename)
+        {
+            int numLines;
+            StreamReader reader = new StreamReader(File.OpenRead(filename));
+            List<string> listOfPositions = new List<string>();
+            while(!reader.EndOfStream)
+            {
+                string line = reader.ReadLine();
+                listOfPositions.Add(line);
+            }
+            numLines = listOfPositions.Count;
+            if (numLines == 0) return false;
+            targetPositions = new float[numLines][];
+
+
+            for (int i = 0; i < listOfPositions.Count; i++)
+            {
+                string line = listOfPositions[i];
+                string[] stringValues = line.Split(';');
+                if (stringValues.Length != 3) return false;
+
+                for(int j = 0; j < stringValues.Length; j++)
+                {
+                    stringValues[j] = stringValues[j].Trim();
+                }
+
+                float[] position = getPositionFromString(stringValues);
+                if (position == null) return false;
+
+                targetPositions[i] = position;
+            }
+
+            return true;
+
+        }
+
+
+        // Reads an array of string values and returns it as an array of float values
+        private float[] getPositionFromString(string[] stringValues)
+        {
+            float[] position = new float[3];
+            for (int i = 0; i < stringValues.Length; i++)
+            {
+                try
+                {
+                    float value = float.Parse(stringValues[i], CultureInfo.InvariantCulture.NumberFormat);
+                    position[i] = value;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("error in converting string to float, mssage : " + ex.Message);
+                    return null;
+                }
+            }
+
+            return position;
+
         }
 
 
@@ -57,7 +163,7 @@ namespace robotTracking
         {
             if(numTriggerPresses > targetPositions.Length)
             {
-                completed = true;
+                running = false;
                 return;
             }
             absoluteTargetPosition = targetPositions[numTriggerPresses];
@@ -72,6 +178,27 @@ namespace robotTracking
             {
                 relativeTargetPosition[i] = absoluteTargetPosition[i] - basePosition[i];
             }
+        }
+
+        public void testTargetPositions()
+        {
+            if(!initialised)
+            {
+                Console.WriteLine("failed to read in positions correctly");
+                return;
+            }
+
+            Console.WriteLine("target positions are:");
+
+            for(int i = 0; i < targetPositions.Length; i++)
+            {
+                for(int j = 0; j < targetPositions[0].Length; j++)
+                {
+                    Console.Write(targetPositions[i][j] + "   ");
+                }
+                Console.WriteLine();
+            }
+            
         }
 
 
