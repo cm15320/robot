@@ -1003,7 +1003,12 @@ namespace robotTracking
 
             runUserStudy();
 
+            experimentLive = false;
+            controller.zeroMotors();
+            Console.WriteLine("finished study");
+
         }
+
 
         public void testReadInTargetPositions()
         {
@@ -1012,29 +1017,46 @@ namespace robotTracking
             activeStudy.testTargetPositions();
         }
 
+
         private void runUserStudy()
         {
-            if(!activeStudy.isInitialised())
+            bool triggerPress;
+            float[] relativeTargetPosition; 
+            if (!activeStudy.isInitialised())
             {
                 // Check that it has been initialise before attempting to run
                 Console.WriteLine("unable to initialise user study");
                 return;
             }
-                
-            bool triggerPress;
 
+            relativeTargetPosition = activeStudy.getRelativeTargetPosition();
 
+            activeStudy.update(basePosition, false); // update once to know the relative position
             while(runningStudy)
             {
                 triggerPress = controller.getTrigger();
-                float[] relativeTargetPosition = activeStudy.getRelativeTargetPosition();
-
                 runningStudy = activeStudy.update(basePosition, triggerPress);
+
+                if(triggerPress)
+                {
+                    zeroMotorAngles();
+                }
+                else if (runningStudy)
+                {
+                    getMotorAnglesForTargetPoint(relativeTargetPosition);
+                }
+                Thread.Sleep(40);
             }
-            controller.zeroMotors();
-            Console.WriteLine("finished study");
         }
 
+
+        private void zeroMotorAngles()
+        {
+            for(int i = 0; i < motorAngles.Length; i++)
+            {
+                motorAngles[i] = 90;
+            }
+        }
 
 
         private bool motorAnglesNaN(double[] newMotorAngles)

@@ -161,7 +161,7 @@ namespace robotTracking
 
         private void updateTarget()
         {
-            if(numTriggerPresses > targetPositions.Length)
+            if(numTriggerPresses >= targetPositions.Length)
             {
                 running = false;
                 return;
