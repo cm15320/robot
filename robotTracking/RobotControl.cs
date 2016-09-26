@@ -105,43 +105,71 @@ namespace robotTracking
 
         public bool getTrigger()
         {
-            lock(syncLock)
+       
+            int returnedInt = 2;
+            //try
+            //{
+            //    // Byte pattern to get a response from arduino
+            //    byte[] buffer = new byte[3];
+            //    buffer[0] = Convert.ToByte(7);
+            //    buffer[1] = Convert.ToByte(7);
+            //    buffer[2] = Convert.ToByte(7);
+
+            //    currentPort.Write(buffer, 0, 3);
+            //    Thread.Sleep(1000); // Pause for 10ms to allow arduino to process the sent bytes
+
+            //    int numReturningBytes = currentPort.BytesToRead;
+
+            //    while (numReturningBytes > 0)
+            //    {
+            //        returnedInt = currentPort.ReadByte();
+            //        numReturningBytes--;
+            //    }
+
+            //    Console.WriteLine(returnedInt);
+
+            //    if (returnedInt == 1)
+            //    {
+            //        return true;
+            //    }
+            //    else
+            //    {
+            //        return false;
+            //    }
+
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
+            try
             {
-                int returnedInt = 0;
-                try
+                byte[] buffer = new byte[1];
+                buffer[0] = Convert.ToByte(7);
+                currentPort.Write(buffer, 0, 1);
+                int numReturningBytes = currentPort.BytesToRead;
+
+                while (numReturningBytes > 0)
                 {
-                    // Byte pattern to get a response from arduino
-                    byte[] buffer = new byte[3];
-                    buffer[0] = Convert.ToByte(7);
-                    buffer[1] = Convert.ToByte(7);
-                    buffer[2] = Convert.ToByte(7);
-
-                    currentPort.Write(buffer, 0, 3);
-                    Thread.Sleep(10); // Pause for 10ms to allow arduino to process the sent bytes
-
-                    int numReturningBytes = currentPort.BytesToRead;
-
-                    while (numReturningBytes > 0)
-                    {
-                        returnedInt = currentPort.ReadByte();
-                        numReturningBytes--;
-                    }
-
-                    if (returnedInt == 1)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-
+                    returnedInt = currentPort.ReadByte();
+                    numReturningBytes--;
                 }
-                catch
+
+                returnedInt = (int)Char.GetNumericValue((char)returnedInt);
+
+                if (returnedInt == 1)
+                {
+                    return true;
+                }
+                else
                 {
                     return false;
                 }
 
+            }
+            catch
+            {
+                return false;
             }
 
         }

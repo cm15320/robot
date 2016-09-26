@@ -53,6 +53,7 @@ namespace robotTracking
         private bool followingLiveBody = false;
         private bool runningUserStudy = false;
         private bool runningBode = false;
+        private bool testingTrigger = false;
         float relTargetPointX, relTargetPointY, relTargetPointZ;
         float[] relTargetPoint;
 
@@ -1011,6 +1012,7 @@ namespace robotTracking
                 testMovementButton.Enabled = true;
                 experimentButton.Enabled = true;
                 zeroMotorsButton.Enabled = true;
+                testTriggerButton.Enabled = true;
                 getDataDescriptions();
                 if (connected)
                 {
@@ -1081,6 +1083,7 @@ namespace robotTracking
             followingLiveBody = false;
             followingLiveRelativePoint = false;
             runningUserStudy = false;
+            testingTrigger = false;
             runningBode = false;
             experiment.stopAllLive();
         }
@@ -1702,6 +1705,32 @@ namespace robotTracking
 
             experiment.testReadInTargetPositions();
         }
+
+
+        private void testTriggerButton_Click(object sender, EventArgs e)
+        {
+            //make a dummy experiment, for testing only
+            if (experiment == null) experiment = new Experiment(false);
+
+            if (!testingTrigger)
+            {
+                testingTrigger = true;
+                testTriggerButton.Text = "Stop trigger";
+                new Task(testTrigger).Start();
+            }
+            else
+            {
+                stopAllLive();
+                testTriggerButton.Text = "Test trigger";
+            }
+        }
+
+
+        private void testTrigger()
+        {
+            experiment.testTrigger();
+        }
+
 
         private void moveToRelTargetPoint()
         {

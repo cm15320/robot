@@ -94,6 +94,7 @@
             this.generateBode = new System.Windows.Forms.Button();
             this.trackedStatus = new System.Windows.Forms.Label();
             this.testReadTargetPositionsButton = new System.Windows.Forms.Button();
+            this.testTriggerButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -721,11 +722,23 @@
             this.testReadTargetPositionsButton.UseVisualStyleBackColor = true;
             this.testReadTargetPositionsButton.Click += new System.EventHandler(this.testReadTargetPositionsButton_Click);
             // 
+            // testTriggerButton
+            // 
+            this.testTriggerButton.Enabled = false;
+            this.testTriggerButton.Location = new System.Drawing.Point(103, 447);
+            this.testTriggerButton.Name = "testTriggerButton";
+            this.testTriggerButton.Size = new System.Drawing.Size(110, 23);
+            this.testTriggerButton.TabIndex = 52;
+            this.testTriggerButton.Text = "Test trigger";
+            this.testTriggerButton.UseVisualStyleBackColor = true;
+            this.testTriggerButton.Click += new System.EventHandler(this.testTriggerButton_Click);
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.testTriggerButton);
             this.Controls.Add(this.testReadTargetPositionsButton);
             this.Controls.Add(this.trackedStatus);
             this.Controls.Add(this.generateBode);
@@ -861,6 +874,7 @@
         private System.Windows.Forms.Button generateBode;
         private System.Windows.Forms.Label trackedStatus;
         private System.Windows.Forms.Button testReadTargetPositionsButton;
+        private System.Windows.Forms.Button testTriggerButton;
     }
 }
 

@@ -847,7 +847,10 @@ namespace robotTracking
             if (controller.isConnected())
             {
                 eliminateExtremeAngles();
-                controller.setMotorAngles();
+                lock(syncLock)
+                {
+                    controller.setMotorAngles();
+                }
             }
         }
 
@@ -1031,10 +1034,11 @@ namespace robotTracking
 
             relativeTargetPosition = activeStudy.getRelativeTargetPosition();
 
-            activeStudy.update(basePosition, false); // update once to know the relative position
+            runningStudy = true;
+            //activeStudy.update(basePosition, false); // update once to know the relative position
             while(runningStudy)
             {
-                triggerPress = controller.getTrigger();
+                triggerPress = getTrigger();
                 runningStudy = activeStudy.update(basePosition, triggerPress);
 
                 if(triggerPress)
@@ -1047,6 +1051,17 @@ namespace robotTracking
                 }
                 Thread.Sleep(40);
             }
+        }
+
+
+        private bool getTrigger()
+        {
+            bool trigger;
+            lock(syncLock)
+            {
+               trigger = controller.getTrigger();
+            }
+            return trigger;
         }
 
 
@@ -1338,6 +1353,24 @@ namespace robotTracking
                 Console.WriteLine("not able to read bode data");
             }
                 return success;
+        }
+
+
+        public void testTrigger()
+        {
+            bool triggerPress;
+
+            runningStudy = true;
+            while (runningStudy)
+            {
+                triggerPress = controller.getTrigger();
+
+                if (triggerPress)
+                {
+                    Console.WriteLine("trigger is pressed down");
+                }
+                Thread.Sleep(40);
+            }
         }
 
         public bool getCalibrationData()
