@@ -147,6 +147,7 @@ namespace robotTracking
                 byte[] buffer = new byte[1];
                 buffer[0] = Convert.ToByte(7);
                 currentPort.Write(buffer, 0, 1);
+                Thread.Sleep(3);
                 int numReturningBytes = currentPort.BytesToRead;
 
                 while (numReturningBytes > 0)
@@ -172,6 +173,25 @@ namespace robotTracking
                 return false;
             }
 
+        }
+
+
+        public void activateMagnet(bool on)
+        {
+            int code;
+            if (on) code = 1;
+            else code = 0;
+            try
+            {
+                byte[] buffer = new byte[1];
+                buffer[0] = Convert.ToByte(code);
+                currentPort.Write(buffer, 0, 1);
+                Thread.Sleep(3); // sleep after writing 
+            }
+            catch
+            {
+                Console.WriteLine("Not able to change magnet");
+            }
         }
 
 

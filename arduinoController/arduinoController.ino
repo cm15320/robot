@@ -34,12 +34,10 @@ void loop() {
   
   else{
     trigger = digitalRead(triggerPin);
-//    if(trigger == LOW) {
-//      Serial.print(1);
-//    }
-//    else {
-////      Serial.print(0);
-//    }
+    // always set magnet to off if the trigger is not pressed unless in future activate magnet without trigger
+    if(trigger == HIGH) {
+      digitalWrite(magnetControlPin, LOW);
+    }
   }
 
 //  if(sentAllAngles()) {
@@ -63,16 +61,9 @@ void loop() {
 //    
 //  }
 
-  if (triggerQuery() && Serial.read() == 7) {
-    if(trigger == LOW) {
-      Serial.print(1);
-    }
-    else {
-      Serial.print(0);
-    }
-  }
+ 
 
-  else if (sentFromPC()) {
+  if (sentFromPC()) {
     int selectedServo = Serial.read();
     int angle = Serial.read();
 
@@ -101,6 +92,22 @@ void loop() {
 //    delay(200);
 //    currentServo.detach();
   }
+
+  else  if (triggerInstruction() ) {
+    int code = Serial.read();
+    if(code == 7) {
+      respondTriggerValue();
+    }
+    else if(code == 1) {
+      digitalWrite(magnetControlPin, HIGH);
+    }
+    else if(code == 0) {
+      digitalWrite(magnetControlPin, LOW);
+    }
+
+  }
+
+
 //
 //  else if (triggerQuery()) {
 //    int num1 = Serial.read();
@@ -144,7 +151,7 @@ boolean sentAllAngles() {
 }
 
 
-boolean triggerQuery(){
+boolean triggerInstruction(){
   if(connectedToPC && Serial.available() == 1) {
     return true;
   }
@@ -152,6 +159,8 @@ boolean triggerQuery(){
     return false;
   }
 }
+
+
 
 boolean sentFromPC() {
   if(connectedToPC && Serial.available() == 2) {
@@ -200,5 +209,14 @@ void setServo(int angle) {
 
 void turnLedOff() {
   digitalWrite(onBoardLed, LOW);
+}
+
+void respondTriggerValue() {
+      if(trigger == LOW) {
+      Serial.print(1);
+    }
+    else {
+      Serial.print(0);
+    }
 }
 

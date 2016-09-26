@@ -1059,7 +1059,7 @@ namespace robotTracking
             bool trigger;
             lock(syncLock)
             {
-               trigger = controller.getTrigger();
+                trigger = controller.getTrigger();
             }
             return trigger;
         }
@@ -1363,15 +1363,27 @@ namespace robotTracking
             runningStudy = true;
             while (runningStudy)
             {
-                triggerPress = controller.getTrigger();
+                triggerPress = getTrigger();
 
                 if (triggerPress)
                 {
                     Console.WriteLine("trigger is pressed down");
+                    if (triggerPress) {
+                        controller.activateMagnet(true);
+                    }
                 }
                 Thread.Sleep(40);
             }
         }
+
+        private void activateManget(bool on)
+        {
+            lock(syncLock)
+            {
+                controller.activateMagnet(on);
+            }
+        }
+
 
         public bool getCalibrationData()
         {
