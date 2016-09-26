@@ -59,7 +59,8 @@ namespace robotTracking
         private float[] maxRelativePositionValues;
         private float[] minRelativePositionValues;
         private float tipToBaseSphereRadius;
-        private float shiftFactor = 0.001f;
+        private float minSphereRadius;
+        //private float shiftFactor = 0.001f;
 
         private UserStudy activeStudy;
         private bool runningStudy = false;
@@ -402,11 +403,11 @@ namespace robotTracking
             }
             else
             {
-                //Console.WriteLine("in range, attempting direct solution");
+                Console.WriteLine("in range, attempting direct solution");
                 output = NWRegression(inputVectorTarget, RegressionInput.POSITION, bandwidth);
                 if (!motorAnglesNaN(output))
                 {
-                    //Console.WriteLine("solution found directly");
+                    Console.WriteLine("solution found directly");
                     return output;
                 }
                 else
@@ -1054,6 +1055,14 @@ namespace robotTracking
         }
 
 
+        public void undoTarget()
+        {
+            if (activeStudy == null) return;
+
+            activeStudy.undoTarget();
+        }
+
+
         private bool getTrigger()
         {
             bool trigger;
@@ -1309,9 +1318,11 @@ namespace robotTracking
         }
 
 
+        // need to get max and min radius in order to properly shift
+        // assume max radius is at neutral position
         private bool getTipToBaseSphereRadius()
         {
-            float[] zeroPosition;
+            //float[] zeroPosition;
             foreach (DataPoint currentDataPoint in storedCalibrationData)
             {
                 int cnt = 0;
@@ -1331,6 +1342,29 @@ namespace robotTracking
             }
             Console.WriteLine("ERROR, NO ZERO POSITION RECORDED TO GIVE SPHERE RADIUS");
             return false;
+        }
+
+
+        private bool getMinSphereRadius()
+        {
+            float minRadius = 10f;
+            float currentRadius;
+            foreach (DataPoint currentDataPoint in storedCalibrationData)
+            {
+
+                currentRadius = getAbsoluteValue(currentDataPoint.relativeTipPosition);
+                if(currentRadius < minRadius)
+                {
+                    minRadius = currentRadius;
+                }
+            }
+            if(minRadius > 9)
+            {
+                Console.WriteLine("Error, no proper min radius set");
+                return false;
+            }
+            return true;
+
         }
 
 

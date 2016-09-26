@@ -1618,16 +1618,17 @@ namespace robotTracking
                 userStudyButton.Text = "Stop User Study";
                 showUserStudyRadioButtons(false);
                 bodePlotButton.Enabled = false;
+                undoTargetButton.Enabled = true;
 
                 new Task(startStudy).Start();
             }
             else
             {
-                runningUserStudy = false;
+                stopAllLive();
                 userStudyButton.Text = "Start User Study";
                 showUserStudyRadioButtons(true);
                 bodePlotButton.Enabled = true;
-                experiment.stopAllLive();
+                undoTargetButton.Enabled = false;
             }
         }
 
@@ -1731,6 +1732,15 @@ namespace robotTracking
             experiment.testTrigger();
         }
 
+        private void undoTargetButton_Click(object sender, EventArgs e)
+        {
+            if (experiment == null)
+            {
+                Console.WriteLine("No active experiment");
+                return;
+            }
+            experiment.undoTarget();
+        }
 
         private void moveToRelTargetPoint()
         {

@@ -95,6 +95,7 @@
             this.trackedStatus = new System.Windows.Forms.Label();
             this.testReadTargetPositionsButton = new System.Windows.Forms.Button();
             this.testTriggerButton = new System.Windows.Forms.Button();
+            this.undoTargetButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -733,11 +734,22 @@
             this.testTriggerButton.UseVisualStyleBackColor = true;
             this.testTriggerButton.Click += new System.EventHandler(this.testTriggerButton_Click);
             // 
+            // undoTargetButton
+            // 
+            this.undoTargetButton.Location = new System.Drawing.Point(733, 424);
+            this.undoTargetButton.Name = "undoTargetButton";
+            this.undoTargetButton.Size = new System.Drawing.Size(75, 23);
+            this.undoTargetButton.TabIndex = 53;
+            this.undoTargetButton.Text = "Undo target";
+            this.undoTargetButton.UseVisualStyleBackColor = true;
+            this.undoTargetButton.Click += new System.EventHandler(this.undoTargetButton_Click);
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 562);
+            this.ClientSize = new System.Drawing.Size(820, 562);
+            this.Controls.Add(this.undoTargetButton);
             this.Controls.Add(this.testTriggerButton);
             this.Controls.Add(this.testReadTargetPositionsButton);
             this.Controls.Add(this.trackedStatus);
@@ -875,6 +887,7 @@
         private System.Windows.Forms.Label trackedStatus;
         private System.Windows.Forms.Button testReadTargetPositionsButton;
         private System.Windows.Forms.Button testTriggerButton;
+        private System.Windows.Forms.Button undoTargetButton;
     }
 }
 

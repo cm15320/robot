@@ -163,7 +163,7 @@ namespace robotTracking
         {
             if(numTriggerPresses >= targetPositions.Length)
             {
-                running = false;
+                Console.WriteLine("finished study");
                 return;
             }
             absoluteTargetPosition = targetPositions[numTriggerPresses];
@@ -199,6 +199,16 @@ namespace robotTracking
                 Console.WriteLine();
             }
             
+        }
+
+
+        public void undoTarget()
+        {
+            if(numTriggerPresses > 0)
+            {
+                numTriggerPresses--;
+                Console.WriteLine("num trigger presses is now: " + numTriggerPresses);
+            }
         }
 
 
