@@ -17,6 +17,7 @@ void setup() {
   pinMode(triggerPin, INPUT_PULLUP);
   pinMode(magnetPowerPin, OUTPUT); // initiate the motor channel A
   digitalWrite(magnetPowerPin, HIGH); // turn on the power
+  digitalWrite(magnetControlPin, LOW);
 
   Serial.begin(57600);
   digitalWrite(onBoardLed, LOW);
