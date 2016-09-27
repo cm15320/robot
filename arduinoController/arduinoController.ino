@@ -64,48 +64,34 @@ void loop() {
  
 
   if (sentFromPC()) {
-    int selectedServo = Serial.read();
-    int angle = Serial.read();
-
-    switch(selectedServo) {
-      case 1:
-//        myservo1.attach(9);
-        currentServo = myservo1;
-        break;
-      case 2:
-//        myservo2.attach(10);
-        currentServo = myservo2;
-        break;
-      case 3:
-//        myservo3.attach(11);
-        currentServo = myservo3;
-        break;
-      case 4:
-//        myservo4.attach(6);
-        currentServo = myservo4;
-        break;
-      default:
-        break;
+ 
+    int controlCode = Serial.read();
+    int instruction = Serial.read();
+    if(controlCode > 0 && controlCode < 5) {
+      motorInstruction(controlCode, instruction);
     }
-
-    currentServo.write(angle);
+    else if(controlCode == 7) {
+      triggerInstruction(instruction);
+    }
 //    delay(200);
 //    currentServo.detach();
   }
-
-  else  if (triggerInstruction() ) {
-    int code = Serial.read();
-    if(code == 7) {
-      respondTriggerValue();
-    }
-    else if(code == 1) {
-      digitalWrite(magnetControlPin, HIGH);
-    }
-    else if(code == 0) {
-      digitalWrite(magnetControlPin, LOW);
-    }
-
-  }
+//
+//  else  if (triggerInstruction() ) {
+//    int code = Serial.read();
+//    Serial.read();
+//    Serial.read();
+//    if(code == 7) {
+//      respondTriggerValue();
+//    }
+//    else if(code == 1) {
+//      digitalWrite(magnetControlPin, HIGH);
+//    }
+//    else if(code == 0) {
+//      digitalWrite(magnetControlPin, LOW);
+//    }
+//
+//  }
 
 
 //
@@ -151,14 +137,14 @@ boolean sentAllAngles() {
 }
 
 
-boolean triggerInstruction(){
-  if(connectedToPC && Serial.available() == 1) {
-    return true;
-  }
-  else {
-    return false;
-  }
-}
+//boolean triggerInstruction(){
+//  if(connectedToPC && Serial.available() == 3) {
+//    return true;
+//  }
+//  else {
+//    return false;
+//  }
+//}
 
 
 
@@ -217,6 +203,44 @@ void respondTriggerValue() {
     }
     else {
       Serial.print(0);
+    }
+}
+
+void motorInstruction(int selectedServo, int angle) {
+  switch(selectedServo) {
+      case 1:
+//        myservo1.attach(9);
+        currentServo = myservo1;
+        break;
+      case 2:
+//        myservo2.attach(10);
+        currentServo = myservo2;
+        break;
+      case 3:
+//        myservo3.attach(11);
+        currentServo = myservo3;
+        break;
+      case 4:
+//        myservo4.attach(6);
+        currentServo = myservo4;
+        break;
+      default:
+        break;
+    }
+
+    currentServo.write(angle);
+}
+
+void triggerInstruction(int instruction) {
+  
+    if(instruction == 7) {
+      respondTriggerValue();
+    }
+    else if(instruction == 1) {
+      digitalWrite(magnetControlPin, HIGH);
+    }
+    else if(instruction == 0) {
+      digitalWrite(magnetControlPin, LOW);
     }
 }
 

@@ -15,6 +15,7 @@ namespace robotTracking
         private int cnt = 0;
         private bool running;
         private int setMotorDelay = 6;
+        private int triggerCode = 7;
         private int[] targetMotorAngles, currentMotorAngles;
         private object syncLock;
 
@@ -107,6 +108,7 @@ namespace robotTracking
         {
        
             int returnedInt = 2;
+            int code = 7;
             //try
             //{
             //    // Byte pattern to get a response from arduino
@@ -144,9 +146,11 @@ namespace robotTracking
             //}
             try
             {
-                byte[] buffer = new byte[1];
-                buffer[0] = Convert.ToByte(7);
-                currentPort.Write(buffer, 0, 1);
+                byte[] buffer = new byte[2];
+                buffer[0] = Convert.ToByte(triggerCode);
+                buffer[1] = Convert.ToByte(code);
+
+                currentPort.Write(buffer, 0, 2);
                 Thread.Sleep(3);
                 int numReturningBytes = currentPort.BytesToRead;
 
@@ -183,9 +187,10 @@ namespace robotTracking
             else code = 0;
             try
             {
-                byte[] buffer = new byte[1];
-                buffer[0] = Convert.ToByte(code);
-                currentPort.Write(buffer, 0, 1);
+                byte[] buffer = new byte[2];
+                buffer[0] = Convert.ToByte(triggerCode);
+                buffer[1] = Convert.ToByte(code);
+                currentPort.Write(buffer, 0, 2);
                 Thread.Sleep(3); // sleep after writing 
             }
             catch
@@ -279,6 +284,7 @@ namespace robotTracking
 
                     instructionBuffer[1] = Convert.ToByte(oldAngle);
 
+                    Console.WriteLine("writing to arduino: {0} and {1}", instructionBuffer[0], instructionBuffer[1]);
                     currentPort.Write(instructionBuffer, 0, 2);
 
                     Thread.Sleep(setMotorDelay);

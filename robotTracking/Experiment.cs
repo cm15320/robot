@@ -627,21 +627,32 @@ namespace robotTracking
         private void sphereIntersectionConvert(float[] relativeTargetPoint)
         {
             float absoluteTargetDistance = getAbsoluteValue(relativeTargetPoint);
+            float vectorFactor = 1;
             if (absoluteTargetDistance > tipToBaseSphereRadius)
             {
-                float vectorFactor = tipToBaseSphereRadius / absoluteTargetDistance;
+                vectorFactor = tipToBaseSphereRadius / absoluteTargetDistance;
                 //Console.WriteLine("absolute distance is: " + absoluteTargetDistance);
                 //Console.WriteLine("sphere radius is :" + tipToBaseSphereRadius);
                 //Console.WriteLine("so vector factor is: " + vectorFactor);
-                //Console.WriteLine("converted target point to sphere intersection from:  x = {0}, y = {1}, z = {2}", relativeTargetPoint[0], relativeTargetPoint[1], relativeTargetPoint[2]);
-                for (int i = 0; i < relativeTargetPoint.Length; i++)
-                {
-                    relativeTargetPoint[i] *= vectorFactor;
-                }
+                //Console.WriteLine("converted target point to sphere intersection from:  x = {0}, y = {1}, z = {2}", relativeTargetPoint[0], relativeTargetPoint[1], relativeTargetPoint[2)
                 //Console.WriteLine("To:  x = {0}, y = {1}, z = {2}", relativeTargetPoint[0], relativeTargetPoint[1], relativeTargetPoint[2]);
             }
+            else if(absoluteTargetDistance < minSphereRadius)
+            {
+                vectorFactor = minSphereRadius / absoluteTargetDistance;
+            }
+            shiftToSphere(vectorFactor, relativeTargetPoint);
             // also put in code for if it is less than the minimum radius experienced 
             // so that it can shift on to this minimum sphere before finding closest position
+        }
+
+
+        private void shiftToSphere(float vectorFactor, float[] relativeTargetPoint)
+        {
+            for (int i = 0; i < relativeTargetPoint.Length; i++)
+            {
+                relativeTargetPoint[i] *= vectorFactor;
+            }
         }
 
 
@@ -1340,7 +1351,7 @@ namespace robotTracking
                     return true;
                 }
             }
-            Console.WriteLine("ERROR, NO ZERO POSITION RECORDED TO GIVE SPHERE RADIUS");
+            Console.WriteLine("Error, no neutral position recorded to give max sphere radius");
             return false;
         }
 
@@ -1363,6 +1374,8 @@ namespace robotTracking
                 Console.WriteLine("Error, no proper min radius set");
                 return false;
             }
+            Console.WriteLine("min sphere radius is " + minRadius);
+
             return true;
 
         }
@@ -1428,6 +1441,7 @@ namespace robotTracking
                 Console.WriteLine("feature scaling result is " + motorScaler);
                 getMaxAndMinValues();
                 getTipToBaseSphereRadius();
+                getMinSphereRadius();
                 //testMultiplyMatrix();
                 //testRotation();
                 //testBode();
