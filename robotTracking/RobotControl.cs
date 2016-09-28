@@ -107,6 +107,7 @@ namespace robotTracking
         public bool getTrigger()
         {
        
+            
             int returnedInt = 2;
             int code = 7;
             //try
@@ -149,6 +150,10 @@ namespace robotTracking
                 byte[] buffer = new byte[2];
                 buffer[0] = Convert.ToByte(triggerCode);
                 buffer[1] = Convert.ToByte(code);
+
+
+                // could put a lock here with a different object (not syncLock) to write safely
+                // shared with the set motor angles method
 
                 currentPort.Write(buffer, 0, 2);
                 //Thread.Sleep(3);
@@ -268,6 +273,9 @@ namespace robotTracking
         public void setMotorAngles()
         {
             // Already eliminated extreme angles in the Experiment class and no NaN values should have been added
+
+            // Could put a different lock here (not syncLock) so can write to arduino safely, and share this lock with 
+            // the method that deals with trigger instructions
 
             byte[] instructionBuffer = new byte[2];
             while (anglesNotEqual())

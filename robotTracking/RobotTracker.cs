@@ -243,6 +243,7 @@ namespace robotTracking
             }
             else
             {
+                controller.zeroMotors();
                 Disconnect();
                 connectButton.Text = "Connect";
 

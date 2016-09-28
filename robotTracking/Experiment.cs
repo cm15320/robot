@@ -403,19 +403,19 @@ namespace robotTracking
             }
             else
             {
-                Console.WriteLine("in range, attempting direct solution");
-                output = NWRegression(inputVectorTarget, RegressionInput.POSITION, bandwidth);
-                if (!motorAnglesNaN(output))
-                {
-                    Console.WriteLine("solution found directly");
-                    return output;
-                }
-                else
-                {
+                //Console.WriteLine("in range, attempting direct solution");
+                //output = NWRegression(inputVectorTarget, RegressionInput.POSITION, bandwidth);
+                //if (!motorAnglesNaN(output))
+                //{
+                //    Console.WriteLine("solution found directly");
+                //    return output;
+                //}
+                //else
+                //{
                     //Console.WriteLine("solution not found, finding closest target point");
                     output = getClosestCalibrationSolution(inputVectorTarget);
                     return output;
-                }
+                //}
             }
 
         }
@@ -1057,10 +1057,12 @@ namespace robotTracking
                 if(triggerPress)
                 {
                     zeroMotorAngles();
+                    controller.activateMagnet(true);
                 }
                 else if (runningStudy)
                 {
                     getMotorAnglesForTargetPoint(relativeTargetPosition);
+                    controller.activateMagnet(false);
                 }
                 Thread.Sleep(40);
             }
@@ -1113,7 +1115,7 @@ namespace robotTracking
             while (experimentLive)
             {
                 setMotorAngles();
-                Thread.Sleep(20);
+                //Thread.Sleep(5);
             }
         }
 
@@ -1416,9 +1418,7 @@ namespace robotTracking
                 if (triggerPress)
                 {
                     Console.WriteLine("trigger is pressed down");
-                    if (triggerPress) {
-                        controller.activateMagnet(true);
-                    }
+                    controller.activateMagnet(true);
                 }
                 Thread.Sleep(40);
             }
