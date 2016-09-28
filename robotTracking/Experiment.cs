@@ -311,8 +311,8 @@ namespace robotTracking
 
         public void testRotation()
         {
-            float[] targetPos = new float[] { -30, 1, 5 };
-            RotationFromStartPoint baseRotation = new RotationFromStartPoint(90, -15, 0);
+            float[] targetPos = new float[] { 0, 0, 5 };
+            RotationFromStartPoint baseRotation = new RotationFromStartPoint(0, 90, 0);
             float[] baseRads = baseRotation.getRads();
 
 
@@ -631,17 +631,18 @@ namespace robotTracking
             if (absoluteTargetDistance > tipToBaseSphereRadius)
             {
                 vectorFactor = tipToBaseSphereRadius / absoluteTargetDistance;
+                shiftToSphere(vectorFactor, relativeTargetPoint);
                 //Console.WriteLine("absolute distance is: " + absoluteTargetDistance);
                 //Console.WriteLine("sphere radius is :" + tipToBaseSphereRadius);
                 //Console.WriteLine("so vector factor is: " + vectorFactor);
                 //Console.WriteLine("converted target point to sphere intersection from:  x = {0}, y = {1}, z = {2}", relativeTargetPoint[0], relativeTargetPoint[1], relativeTargetPoint[2)
                 //Console.WriteLine("To:  x = {0}, y = {1}, z = {2}", relativeTargetPoint[0], relativeTargetPoint[1], relativeTargetPoint[2]);
             }
-            else if(absoluteTargetDistance < minSphereRadius)
-            {
-                vectorFactor = minSphereRadius / absoluteTargetDistance;
-            }
-            shiftToSphere(vectorFactor, relativeTargetPoint);
+            //else if(absoluteTargetDistance < minSphereRadius)
+            //{
+            //    vectorFactor = minSphereRadius / absoluteTargetDistance;
+            //}
+            //shiftToSphere(vectorFactor, relativeTargetPoint);
             // also put in code for if it is less than the minimum radius experienced 
             // so that it can shift on to this minimum sphere before finding closest position
         }
@@ -859,10 +860,10 @@ namespace robotTracking
             if (controller.isConnected())
             {
                 eliminateExtremeAngles();
-                lock(syncLock)
-                {
+                //lock(syncLock)
+                //{
                     controller.setMotorAngles();
-                }
+                //}
             }
         }
 
@@ -921,11 +922,11 @@ namespace robotTracking
         {
             double[] motorAngleSolution = getRegressionMotorSolution(relativeTargetPoint);
             //double[] motorAngleSolution = NWRegression(convertedTargetPoint, RegressionInput.POSITION);
-            //Console.WriteLine("motor solution is");
-            //for (int i = 0; i < 4; i++)
-            //{
-            //    Console.WriteLine(motorAngleSolution[i]);
-            //}
+            Console.WriteLine("motor solution is");
+            for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine(motorAngleSolution[i]);
+            }
 
             updateNewMotorAngles(motorAngleSolution);
             //Console.WriteLine("updated new motor angles");

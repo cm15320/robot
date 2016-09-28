@@ -174,9 +174,11 @@ namespace robotTracking
 
         private void calculateRelativeTarget()
         {
+            //Console.WriteLine("new rel target is:");
             for(int i = 0; i < absoluteTargetPosition.Length; i++)
             {
                 relativeTargetPosition[i] = absoluteTargetPosition[i] - basePosition[i];
+                //Console.Write(relativeTargetPosition[i]);
             }
         }
 
