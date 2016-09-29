@@ -21,6 +21,8 @@ namespace robotTracking
         private string gesturingFilename = "gesturingPositions.csv";
         private string robotColourFilename = "robotColourPositions.csv";
         private string userColourFilename = "userColourPositions.csv";
+        private bool randomisedOrder = false;
+        private int[] newOrder;
 
 
         public UserStudy(UserStudyType type)
@@ -200,6 +202,9 @@ namespace robotTracking
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine("randomising....");
+            randomiseOrder(targetPositions.Length, targetPositions);
+            printRandomisedOrder();
             
         }
 
@@ -210,6 +215,64 @@ namespace robotTracking
             {
                 numTriggerPresses--;
                 Console.WriteLine("num trigger presses is now: " + numTriggerPresses);
+            }
+        }
+
+
+        private void randomiseOrder(int newArraySize, float[][] positions)
+        {
+            Random rnd = new Random();
+            if(newArraySize > positions.Length)
+            {
+                Console.WriteLine("Cannot have a new array size greater than the number of positions");
+                return;
+            }
+
+            newOrder = new int[newArraySize];
+            float[][] newPositions = new float[newArraySize][];
+            initialiseArrayTo(newOrder, -1); // set it to -1 so the array contains no numbers that will come up randomly
+
+            for (int i = 0; i < newArraySize; i++)
+            {
+                int newLocationIndex = rnd.Next(0, positions.Length);
+                while(newOrder.Contains(newLocationIndex))
+                {
+                    newLocationIndex = rnd.Next(positions.Length);
+                }
+                newOrder[i] = newLocationIndex;
+                newPositions[i] = positions[newLocationIndex];
+            }
+
+            randomisedOrder = true;
+            targetPositions = newPositions;
+        }
+
+
+        private void initialiseArrayTo(int[] array, int value)
+        {
+            for(int i = 0; i < array.Length; i++)
+            {
+                array[i] = value;
+            }
+        }
+
+
+        private void printRandomisedOrder()
+        {
+            Console.WriteLine("new order was");
+            for(int i = 0; i < newOrder.Length; i++)
+            {
+                Console.Write(newOrder[i] + "  ");
+            }
+            Console.WriteLine();
+            Console.WriteLine("with actual values of:" );
+            for (int i = 0; i < targetPositions.Length; i++)
+            {
+                for (int j = 0; j < targetPositions[0].Length; j++)
+                {
+                    Console.Write(targetPositions[i][j] + "   ");
+                }
+                Console.WriteLine();
             }
         }
 
