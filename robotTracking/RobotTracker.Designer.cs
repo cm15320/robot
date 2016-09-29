@@ -98,6 +98,14 @@
             this.undoTargetButton = new System.Windows.Forms.Button();
             this.moveToCurrentPositionButton = new System.Windows.Forms.Button();
             this.generatePositionsButton = new System.Windows.Forms.Button();
+            this.m3Offset = new System.Windows.Forms.TextBox();
+            this.m1Offset = new System.Windows.Forms.TextBox();
+            this.writeOffsetButton = new System.Windows.Forms.Button();
+            this.storeOffsetButton = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.readOffsetsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -282,7 +290,7 @@
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listView1.Location = new System.Drawing.Point(220, 267);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(370, 180);
+            this.listView1.Size = new System.Drawing.Size(342, 180);
             this.listView1.TabIndex = 17;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -507,7 +515,7 @@
             // getMotorsRadioButton
             // 
             this.getMotorsRadioButton.AutoSize = true;
-            this.getMotorsRadioButton.Location = new System.Drawing.Point(689, 269);
+            this.getMotorsRadioButton.Location = new System.Drawing.Point(596, 285);
             this.getMotorsRadioButton.Name = "getMotorsRadioButton";
             this.getMotorsRadioButton.Size = new System.Drawing.Size(74, 17);
             this.getMotorsRadioButton.TabIndex = 38;
@@ -517,7 +525,7 @@
             // getPositionRadioButton
             // 
             this.getPositionRadioButton.AutoSize = true;
-            this.getPositionRadioButton.Location = new System.Drawing.Point(689, 292);
+            this.getPositionRadioButton.Location = new System.Drawing.Point(596, 308);
             this.getPositionRadioButton.Name = "getPositionRadioButton";
             this.getPositionRadioButton.Size = new System.Drawing.Size(79, 17);
             this.getPositionRadioButton.TabIndex = 38;
@@ -768,11 +776,95 @@
             this.generatePositionsButton.UseVisualStyleBackColor = true;
             this.generatePositionsButton.Click += new System.EventHandler(this.generatePositionsButton_Click);
             // 
+            // m3Offset
+            // 
+            this.m3Offset.Location = new System.Drawing.Point(802, 282);
+            this.m3Offset.Name = "m3Offset";
+            this.m3Offset.Size = new System.Drawing.Size(56, 20);
+            this.m3Offset.TabIndex = 56;
+            this.m3Offset.Text = "90";
+            // 
+            // m1Offset
+            // 
+            this.m1Offset.Location = new System.Drawing.Point(740, 282);
+            this.m1Offset.Name = "m1Offset";
+            this.m1Offset.Size = new System.Drawing.Size(56, 20);
+            this.m1Offset.TabIndex = 56;
+            this.m1Offset.Text = "90";
+            // 
+            // writeOffsetButton
+            // 
+            this.writeOffsetButton.Enabled = false;
+            this.writeOffsetButton.Location = new System.Drawing.Point(740, 308);
+            this.writeOffsetButton.Name = "writeOffsetButton";
+            this.writeOffsetButton.Size = new System.Drawing.Size(60, 23);
+            this.writeOffsetButton.TabIndex = 57;
+            this.writeOffsetButton.Text = "Write";
+            this.writeOffsetButton.UseVisualStyleBackColor = true;
+            this.writeOffsetButton.Click += new System.EventHandler(this.writeOffsetButton_Click);
+            // 
+            // storeOffsetButton
+            // 
+            this.storeOffsetButton.Enabled = false;
+            this.storeOffsetButton.Location = new System.Drawing.Point(806, 308);
+            this.storeOffsetButton.Name = "storeOffsetButton";
+            this.storeOffsetButton.Size = new System.Drawing.Size(88, 23);
+            this.storeOffsetButton.TabIndex = 58;
+            this.storeOffsetButton.Text = "Store offset";
+            this.storeOffsetButton.UseVisualStyleBackColor = true;
+            this.storeOffsetButton.Click += new System.EventHandler(this.storeOffsetButton_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(772, 236);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(66, 24);
+            this.label12.TabIndex = 59;
+            this.label12.Text = "Offsets";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(761, 266);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(21, 13);
+            this.label13.TabIndex = 60;
+            this.label13.Text = "m1";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(817, 266);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(21, 13);
+            this.label14.TabIndex = 60;
+            this.label14.Text = "m3";
+            // 
+            // readOffsetsButton
+            // 
+            this.readOffsetsButton.Location = new System.Drawing.Point(776, 52);
+            this.readOffsetsButton.Name = "readOffsetsButton";
+            this.readOffsetsButton.Size = new System.Drawing.Size(82, 23);
+            this.readOffsetsButton.TabIndex = 61;
+            this.readOffsetsButton.Text = "Read Offsets";
+            this.readOffsetsButton.UseVisualStyleBackColor = true;
+            this.readOffsetsButton.Click += new System.EventHandler(this.readOffsetsButton_Click);
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(850, 562);
+            this.ClientSize = new System.Drawing.Size(926, 562);
+            this.Controls.Add(this.readOffsetsButton);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.storeOffsetButton);
+            this.Controls.Add(this.writeOffsetButton);
+            this.Controls.Add(this.m1Offset);
+            this.Controls.Add(this.m3Offset);
             this.Controls.Add(this.generatePositionsButton);
             this.Controls.Add(this.moveToCurrentPositionButton);
             this.Controls.Add(this.undoTargetButton);
@@ -916,6 +1008,14 @@
         private System.Windows.Forms.Button undoTargetButton;
         private System.Windows.Forms.Button moveToCurrentPositionButton;
         private System.Windows.Forms.Button generatePositionsButton;
+        private System.Windows.Forms.TextBox m3Offset;
+        private System.Windows.Forms.TextBox m1Offset;
+        private System.Windows.Forms.Button writeOffsetButton;
+        private System.Windows.Forms.Button storeOffsetButton;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button readOffsetsButton;
     }
 }
 

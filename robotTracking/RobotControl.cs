@@ -5,6 +5,7 @@ using System.Text;
 using System.IO.Ports;
 using System.Threading;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace robotTracking
 {
@@ -14,14 +15,19 @@ namespace robotTracking
         private bool connectedToPort;
         private int cnt = 0;
         private bool running;
-        private int setMotorDelay = 6;
+        private int setMotorDelay = 3;
         private int triggerCode = 7;
         private int[] targetMotorAngles, currentMotorAngles;
-        private object syncLock;
+        private int m1Offset = 0, m3Offset = 0;
+        private bool usingOffset = false;
+        public static string offsetFilename = "offset.csv";
 
-        public RobotControl(object syncLock)
+        public object motorAngleLock;
+        public object arduinoLock = new object();
+
+        public RobotControl(object motorAngleLock)
         {
-            this.syncLock = syncLock;
+            this.motorAngleLock = motorAngleLock;
         }
 
         public bool initialise()
@@ -89,8 +95,11 @@ namespace robotTracking
                     instructionBuffer[0] = Convert.ToByte(i + 1);
                     instructionBuffer[1] = Convert.ToByte(90);
 
-                    currentPort.Write(instructionBuffer, 0, 2);
-                    Thread.Sleep(25);
+                    lock(arduinoLock)
+                    {
+                        currentPort.Write(instructionBuffer, 0, 2);
+                    }
+                    Thread.Sleep(setMotorDelay);
 
                 }
                 currentMotorAngles = new int[] { 90, 90, 90, 90 };
@@ -150,14 +159,16 @@ namespace robotTracking
                 byte[] buffer = new byte[2];
                 buffer[0] = Convert.ToByte(triggerCode);
                 buffer[1] = Convert.ToByte(code);
+                int numReturningBytes;
 
 
-                // could put a lock here with a different object (not syncLock) to write safely
+                // could put a lock here with a different object (arduinoLock) to write safely
                 // shared with the set motor angles method
-
-                currentPort.Write(buffer, 0, 2);
-                //Thread.Sleep(3);
-                int numReturningBytes = currentPort.BytesToRead;
+                lock(arduinoLock)
+                {
+                    currentPort.Write(buffer, 0, 2);
+                    numReturningBytes = currentPort.BytesToRead;
+                }
 
                 while (numReturningBytes > 0)
                 {
@@ -195,7 +206,10 @@ namespace robotTracking
                 byte[] buffer = new byte[2];
                 buffer[0] = Convert.ToByte(triggerCode);
                 buffer[1] = Convert.ToByte(code);
-                currentPort.Write(buffer, 0, 2);
+                lock(arduinoLock)
+                {
+                    currentPort.Write(buffer, 0, 2);
+                }
                 //Thread.Sleep(3); // sleep after writing 
             }
             catch
@@ -278,12 +292,13 @@ namespace robotTracking
             // the method that deals with trigger instructions
 
             byte[] instructionBuffer = new byte[2];
-            int oldAngle, newAngle;
+            int oldAngle, newAngle, toWrite;
             while (anglesNotEqual())
             {
                 for (int i = 0; i < 4; i++)
                 {
                     instructionBuffer[0] = Convert.ToByte(i + 1);
+                    // put lock here if needed (motoranglelock)
                     oldAngle = currentMotorAngles[i];
                     newAngle = targetMotorAngles[i];
 
@@ -291,9 +306,17 @@ namespace robotTracking
                     else if (oldAngle > newAngle) oldAngle--;
                     else continue;
 
-                    instructionBuffer[1] = Convert.ToByte(oldAngle);
+                    toWrite = oldAngle;
 
-                    currentPort.Write(instructionBuffer, 0, 2);
+                    if (usingOffset && i == 0) toWrite += m1Offset;
+                    if (usingOffset && i == 2) toWrite += m3Offset;
+
+                    instructionBuffer[1] = Convert.ToByte(toWrite);
+
+                    lock(arduinoLock)
+                    {
+                        currentPort.Write(instructionBuffer, 0, 2);
+                    }
 
                     Thread.Sleep(setMotorDelay);
                     updateCurrentMotorAngles(i, oldAngle);
@@ -307,7 +330,7 @@ namespace robotTracking
         private bool anglesNotEqual()
         {
             int cnt = 0;
-            lock(syncLock)
+            lock(motorAngleLock)
             {
                 for (int i = 0; i < 4; i++)
                 {
@@ -491,5 +514,58 @@ namespace robotTracking
                 return false;
             }
         }
+
+
+        public void readOffset()
+        {
+            StreamReader reader;
+            string line;
+            int m1OffsetStored, m3OffsetStored;
+
+            try
+            {
+                reader = new StreamReader(File.OpenRead(offsetFilename));
+                line = reader.ReadLine();
+            }
+            catch(Exception)
+            {
+                Console.WriteLine("Failed to read in offsets properly");
+                return;
+            }
+
+            string[] stringValues = line.Split(';');
+            if (stringValues.Length != 2)
+            {
+                Console.WriteLine("Failed to read in offsets properly");
+                return;
+            }
+
+            for (int j = 0; j < stringValues.Length; j++)
+            {
+                stringValues[j] = stringValues[j].Trim();
+            }
+
+            try
+            {
+                m1OffsetStored = Convert.ToInt32(stringValues[0]);
+                m3OffsetStored = Convert.ToInt32(stringValues[1]);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("error in converting string to float, mssage : " + ex.Message);
+                return;
+            }
+
+            m1Offset = m1OffsetStored;
+            m3Offset = m3OffsetStored;
+
+            Console.WriteLine("read in offsets of: {0} and {1}", m1Offset, m3Offset);
+
+            usingOffset = true;
+        }
+
+
     }
+
 }
+

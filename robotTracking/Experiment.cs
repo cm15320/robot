@@ -36,7 +36,8 @@ namespace robotTracking
         private float[] relativeBodyFollowPos = new float[] { 0.0f, 0.0f, 0.0f };
         private FrameOfMocapData currentFrame;
         private object syncLock;
-        private object motorAngleLock;
+        private object motorAngleLock = new object();
+        private object positionLock = new object();
         private bool calibrating = false;
         private bool pausedCalibration = false; // this can indicate the pause of the calibration and the test stage
         private const float startingAlpha = 0.0008f;
@@ -45,7 +46,8 @@ namespace robotTracking
         private StringBuilder newPositionsCsv = new StringBuilder();
         private int motorScaler = 100;
 
-        private int newTargetDelay = 25; // 50 is safe
+        private int newTargetDelay = 10; // 50 is safe
+        private int calibrationPause = 1000;
 
         private Hashtable htRigidBodiesNameToBody = new Hashtable();
         private double distanceBetween;
@@ -91,6 +93,7 @@ namespace robotTracking
         public Experiment(RobotControl controller, List<RigidBody> mRigidBodies, object syncLock, NatNetML.NatNetClientML m_NatNet)
         {
             this.syncLock = syncLock;
+            this.motorAngleLock = controller.motorAngleLock;
             this.controller = controller;
             this.m_NatNet = m_NatNet;
 
@@ -344,7 +347,6 @@ namespace robotTracking
         }
 
 
-        // perhaps put a lock on this in case the currentFrame object is changed mid-read???????
         public void update(NatNetML.FrameOfMocapData newCurrentFrame)
         {
             // get the correct rigid body data objects from the frame
@@ -847,7 +849,7 @@ namespace robotTracking
 
                     //Console.WriteLine("setting motor angles");
                     setMotorAngles();
-                    Thread.Sleep(1000);
+                    Thread.Sleep(calibrationPause);
                     // log the new data to the list, it will be already updated every time update is called from another thread
                     logCalibrationData();
 
@@ -923,11 +925,11 @@ namespace robotTracking
         {
             double[] motorAngleSolution = getRegressionMotorSolution(relativeTargetPoint);
             //double[] motorAngleSolution = NWRegression(convertedTargetPoint, RegressionInput.POSITION);
-            Console.WriteLine("motor solution is");
-            for (int i = 0; i < 4; i++)
-            {
-                Console.WriteLine(motorAngleSolution[i]);
-            }
+            //Console.WriteLine("motor solution is");
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    Console.WriteLine(motorAngleSolution[i]);
+            //}
 
             updateNewMotorAngles(motorAngleSolution);
             //Console.WriteLine("updated new motor angles");
@@ -995,7 +997,7 @@ namespace robotTracking
 
         private void updateNewMotorAngles(double[] newMotorAngles)
         {
-            lock (syncLock)
+            lock (motorAngleLock)
             {
                 // don't update any angles if they are NaN
                 if (motorAnglesNaN(newMotorAngles))
@@ -1023,6 +1025,10 @@ namespace robotTracking
             experimentLive = false;
             controller.zeroMotors();
             Console.WriteLine("finished study");
+            if(type == UserStudyType.GESTURING)
+            {
+                activeStudy.printRandomisedOrder();
+            }
 
         }
 
@@ -1065,7 +1071,7 @@ namespace robotTracking
                     getMotorAnglesForTargetPoint(relativeTargetPosition);
                     controller.activateMagnet(false);
                 }
-                Thread.Sleep(40);
+                Thread.Sleep(newTargetDelay);
             }
         }
 
@@ -1081,10 +1087,10 @@ namespace robotTracking
         private bool getTrigger()
         {
             bool trigger;
-            lock(syncLock)
-            {
-                trigger = controller.getTrigger();
-            }
+            //lock(syncLock)
+            //{
+                trigger = controller.getTrigger(); // lock already in place when writing to arduino
+            //}
             return trigger;
         }
 
@@ -1385,6 +1391,15 @@ namespace robotTracking
         }
 
 
+        public void writeOffset(int m1, int m3)
+        {
+            motorAngles[0] = m1;
+            motorAngles[2] = m3;
+
+            setMotorAngles();
+        }
+
+
         private float getAbsoluteValue(float[] relativePosition)
         {
             float absoluteValue, difference = 0f;
@@ -1421,16 +1436,16 @@ namespace robotTracking
                     Console.WriteLine("trigger is pressed down");
                     controller.activateMagnet(true);
                 }
-                Thread.Sleep(40);
+                Thread.Sleep(newTargetDelay);
             }
         }
 
         private void activateManget(bool on)
         {
-            lock(syncLock)
-            {
-                controller.activateMagnet(on);
-            }
+            //lock(syncLock)
+            //{
+                controller.activateMagnet(on); // lock already in place for writing arduino
+            //}
         }
 
 
@@ -1533,7 +1548,7 @@ namespace robotTracking
                 return;
             }
 
-            lock (syncLock)
+            lock(positionLock)
             {
                 newBodePoint.setTimeStamp(timestamp);
                 newBodePoint.setTargetPos(relativeBodyFollowPos);
@@ -1879,7 +1894,7 @@ namespace robotTracking
 
             DataPoint newDataPoint = new DataPoint();
             // lock so it doesn't change as adding it to the list of data points
-            lock (syncLock)
+            lock (positionLock)
             {
                 if (!currentlyTracked)
                 {

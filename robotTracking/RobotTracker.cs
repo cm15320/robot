@@ -41,7 +41,10 @@ namespace robotTracking
         private NatNetML.NatNetClientML m_NatNet;
         private bool connected = false;
 
-        private RobotControl controller = new RobotControl(syncLock);
+        private static object syncLock = new object();
+        private static object motorAngleLock = new object();
+
+        private RobotControl controller = new RobotControl(motorAngleLock);
         private bool connectedRobot = false;
         private bool connectingToRobot = false;
 
@@ -56,6 +59,7 @@ namespace robotTracking
         private bool testingTrigger = false;
         float relTargetPointX, relTargetPointY, relTargetPointZ;
         float[] relTargetPoint;
+        private int m1 = 0, m3 = 0;
 
 
 
@@ -94,7 +98,6 @@ namespace robotTracking
 
         private string strLocalIP, strServerIP;
 
-        private static object syncLock = new object();
         private bool needMarkerListUpdate = false;
         private bool mPaused = false;
 
@@ -1014,6 +1017,8 @@ namespace robotTracking
                 experimentButton.Enabled = true;
                 zeroMotorsButton.Enabled = true;
                 testTriggerButton.Enabled = true;
+                writeOffsetButton.Enabled = true;
+                storeOffsetButton.Enabled = true;
                 getDataDescriptions();
                 if (connected)
                 {
@@ -1798,6 +1803,54 @@ namespace robotTracking
         {
             UserStudyType type = getUserStudyType();
             experiment.generatePositions(type);
+        }
+
+        private void writeOffsetButton_Click(object sender, EventArgs e)
+        {
+            // make a dummy experiment just so can move the robot
+            experiment = new Experiment(controller, mRigidBodies, syncLock, m_NatNet);
+            experiment.makeDummy();
+            string m1Entered, m3Entered;
+            m1Entered = m1Offset.Text;
+            m3Entered = m3Offset.Text;
+
+            try
+            {
+                m1 = Convert.ToInt32(m1Entered);
+                m3 = Convert.ToInt32(m3Entered);
+            }
+            catch(Exception)
+            {
+                OutputMessage("Not parsed entered text to int properly");
+                return;
+            }
+
+            experiment.writeOffset(m1, m3);
+
+        }
+
+        private void readOffsetsButton_Click(object sender, EventArgs e)
+        {
+            controller.readOffset();
+        }
+
+        private void storeOffsetButton_Click(object sender, EventArgs e)
+        {
+            int offsetM1, offsetM3;
+
+            string offsetLine;
+            if(m1 == 0 || m3 == 0)
+            {
+                OutputMessage("Not entered an offset position");
+                return;
+            }
+            offsetM1 = m1 - 90;
+            offsetM3 = m3 - 90;
+
+            offsetLine = string.Format("{0};{1}", offsetM1, offsetM3);
+
+            File.WriteAllText(RobotControl.offsetFilename, offsetLine);
+
         }
 
         private void moveToTargetBody()

@@ -23,6 +23,7 @@ namespace robotTracking
         public static string userColourFilename = "userColourPositions.csv";
         private bool randomisedOrder = false;
         private int[] newOrder;
+        private bool toRandom = false; // Set to true if want to randomise the order of the target positions
 
 
         public UserStudy(UserStudyType type)
@@ -75,6 +76,11 @@ namespace robotTracking
                     break;
                 default:
                     return false;
+            }
+
+            if(success && type == UserStudyType.GESTURING && toRandom)
+            {
+                randomiseOrder(5, targetPositions);
             }
 
             return success;
@@ -257,7 +263,7 @@ namespace robotTracking
         }
 
 
-        private void printRandomisedOrder()
+        public void printRandomisedOrder()
         {
             if (!randomisedOrder) return;
 
