@@ -278,13 +278,14 @@ namespace robotTracking
             // the method that deals with trigger instructions
 
             byte[] instructionBuffer = new byte[2];
+            int oldAngle, newAngle;
             while (anglesNotEqual())
             {
                 for (int i = 0; i < 4; i++)
                 {
                     instructionBuffer[0] = Convert.ToByte(i + 1);
-                    int oldAngle = currentMotorAngles[i];
-                    int newAngle = targetMotorAngles[i];
+                    oldAngle = currentMotorAngles[i];
+                    newAngle = targetMotorAngles[i];
 
                     if (oldAngle < newAngle) oldAngle++;
                     else if (oldAngle > newAngle) oldAngle--;

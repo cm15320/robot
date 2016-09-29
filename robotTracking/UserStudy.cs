@@ -18,9 +18,9 @@ namespace robotTracking
         private int numTriggerPresses = 0;
         private float[][] targetPositions;
         private bool running, initialised;
-        private string gesturingFilename = "gesturingPositions.csv";
-        private string robotColourFilename = "robotColourPositions.csv";
-        private string userColourFilename = "userColourPositions.csv";
+        public static string gesturingFilename = "gesturingPositions.csv";
+        public static string robotColourFilename = "robotColourPositions.csv";
+        public static string userColourFilename = "userColourPositions.csv";
         private bool randomisedOrder = false;
         private int[] newOrder;
 
@@ -259,6 +259,8 @@ namespace robotTracking
 
         private void printRandomisedOrder()
         {
+            if (!randomisedOrder) return;
+
             Console.WriteLine("new order was");
             for(int i = 0; i < newOrder.Length; i++)
             {

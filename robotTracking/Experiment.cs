@@ -36,14 +36,16 @@ namespace robotTracking
         private float[] relativeBodyFollowPos = new float[] { 0.0f, 0.0f, 0.0f };
         private FrameOfMocapData currentFrame;
         private object syncLock;
+        private object motorAngleLock;
         private bool calibrating = false;
         private bool pausedCalibration = false; // this can indicate the pause of the calibration and the test stage
         private const float startingAlpha = 0.0008f;
         private StringBuilder csv = new StringBuilder();
         private StringBuilder bodeCsv = new StringBuilder();
+        private StringBuilder newPositionsCsv = new StringBuilder();
         private int motorScaler = 100;
 
-        private int newTargetDelay = 50;
+        private int newTargetDelay = 25; // 50 is safe
 
         private Hashtable htRigidBodiesNameToBody = new Hashtable();
         private double distanceBetween;
@@ -471,7 +473,7 @@ namespace robotTracking
         {
             float[] copyVector = new float[inputVectorTarget.Length];
             // put a lock as the array copying from may be changed by another process
-            lock(syncLock)
+            lock(motorAngleLock)
             {
                 inputVectorTarget.CopyTo(copyVector, 0);
                 //for (int i = 0; i < copyVector.Length; i++)
@@ -855,17 +857,16 @@ namespace robotTracking
 
         }
 
+
         private void setMotorAngles()
         {
             if (controller.isConnected())
             {
                 eliminateExtremeAngles();
-                //lock(syncLock)
-                //{
-                    controller.setMotorAngles();
-                //}
+                controller.setMotorAngles();
             }
         }
+
 
         private void eliminateExtremeAngles()
         {
@@ -1718,6 +1719,8 @@ namespace robotTracking
             eulersRobotTip = m_NatNet.QuatToEuler(quatRobotTip, (int)NATEulerOrder.NAT_XYZr);
             eulersRobotBase = m_NatNet.QuatToEuler(quatRobotBase, (int)NATEulerOrder.NAT_XYZr);
 
+            eulersRobotBase[2] = eulersRobotBase[2] * -1;
+
             float xRDiff = (float)RobotTracker.RadiansToDegrees(eulersRobotTip[0] - eulersRobotBase[0]);     // convert to degrees
             float yRDiff = (float)RobotTracker.RadiansToDegrees(eulersRobotTip[1] - eulersRobotBase[1]);
             float zRDiff = (float)RobotTracker.RadiansToDegrees(eulersRobotTip[2] - eulersRobotBase[2]);
@@ -1744,7 +1747,52 @@ namespace robotTracking
         }
 
 
+        // Way of gauging where the robot is based on where it 'thinks' it is by trying to move there
+        // with no error it should stay still
+        public void moveToCurrentPosition()
+        {
+            float[] relTargetPoint = getCopyVector(relativeTipPos);
+            getMotorAnglesForTargetPoint(relTargetPoint);
+            setMotorAngles();
+        }
 
+
+        // generates a csv file for the target positions based on where the tip was when the user
+        // presses then releases the trigger
+        public void generatePositions(UserStudyType type)
+        {
+            zeroMotorAngles();
+            experimentLive = true;
+            string filename;
+            if (type == UserStudyType.USERCOLOUR) filename = UserStudy.userColourFilename;
+            else if (type == UserStudyType.ROBOTCOLOUR) filename = UserStudy.robotColourFilename;
+            else filename = UserStudy.gesturingFilename;
+            bool triggerPress = false;
+            bool oldTriggerPress = false;
+
+
+            while(experimentLive)
+            {
+                triggerPress = getTrigger();
+                if(triggerPress == false && oldTriggerPress == true)
+                {
+                    logNewPosition();
+                }
+                oldTriggerPress = triggerPress;
+            }
+            File.WriteAllText(filename, newPositionsCsv.ToString());
+        }
+
+
+        private void logNewPosition()
+        {
+            float[] currentRelTipPosition = getCopyVector(relativeTipPos);
+            float x = relativeTipPos[0];
+            float y = relativeTipPos[1];
+            float z = relativeTipPos[2];
+
+            newPositionsCsv.AppendLine(String.Format("{0};{1};{2};", x, y, z));
+        }
 
         // This method checks to see if the calibration should be paused, whether from user or if batteries run out
         private void checkForPause()
@@ -1904,10 +1952,14 @@ namespace robotTracking
                 rotationRads[2] = zRotDeg * ((float)Math.PI / 180);
             }
 
+
             public float[] getRads()
             {
                 return rotationRads;
             }
+
+
+          
 
         }
     }

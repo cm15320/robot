@@ -96,6 +96,8 @@
             this.testReadTargetPositionsButton = new System.Windows.Forms.Button();
             this.testTriggerButton = new System.Windows.Forms.Button();
             this.undoTargetButton = new System.Windows.Forms.Button();
+            this.moveToCurrentPositionButton = new System.Windows.Forms.Button();
+            this.generatePositionsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -280,7 +282,7 @@
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listView1.Location = new System.Drawing.Point(220, 267);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(363, 180);
+            this.listView1.Size = new System.Drawing.Size(370, 180);
             this.listView1.TabIndex = 17;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -744,11 +746,35 @@
             this.undoTargetButton.UseVisualStyleBackColor = true;
             this.undoTargetButton.Click += new System.EventHandler(this.undoTargetButton_Click);
             // 
+            // moveToCurrentPositionButton
+            // 
+            this.moveToCurrentPositionButton.Enabled = false;
+            this.moveToCurrentPositionButton.Location = new System.Drawing.Point(487, 456);
+            this.moveToCurrentPositionButton.Name = "moveToCurrentPositionButton";
+            this.moveToCurrentPositionButton.Size = new System.Drawing.Size(75, 55);
+            this.moveToCurrentPositionButton.TabIndex = 54;
+            this.moveToCurrentPositionButton.Text = "Move to current position";
+            this.moveToCurrentPositionButton.UseVisualStyleBackColor = true;
+            this.moveToCurrentPositionButton.Click += new System.EventHandler(this.moveToCurrentPositionButton_Click);
+            // 
+            // generatePositionsButton
+            // 
+            this.generatePositionsButton.Enabled = false;
+            this.generatePositionsButton.Location = new System.Drawing.Point(751, 456);
+            this.generatePositionsButton.Name = "generatePositionsButton";
+            this.generatePositionsButton.Size = new System.Drawing.Size(87, 53);
+            this.generatePositionsButton.TabIndex = 55;
+            this.generatePositionsButton.Text = "Generate positions by trigger";
+            this.generatePositionsButton.UseVisualStyleBackColor = true;
+            this.generatePositionsButton.Click += new System.EventHandler(this.generatePositionsButton_Click);
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(820, 562);
+            this.ClientSize = new System.Drawing.Size(850, 562);
+            this.Controls.Add(this.generatePositionsButton);
+            this.Controls.Add(this.moveToCurrentPositionButton);
             this.Controls.Add(this.undoTargetButton);
             this.Controls.Add(this.testTriggerButton);
             this.Controls.Add(this.testReadTargetPositionsButton);
@@ -888,6 +914,8 @@
         private System.Windows.Forms.Button testReadTargetPositionsButton;
         private System.Windows.Forms.Button testTriggerButton;
         private System.Windows.Forms.Button undoTargetButton;
+        private System.Windows.Forms.Button moveToCurrentPositionButton;
+        private System.Windows.Forms.Button generatePositionsButton;
     }
 }
 

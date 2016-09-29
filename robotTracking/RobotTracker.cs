@@ -640,7 +640,7 @@ namespace robotTracking
 
                 }
             }
-            if(numTracked != m_CurrentFrameOfData.nRigidBodies)
+            if (numTracked != m_CurrentFrameOfData.nRigidBodies)
             {
                 trackedStatus.Text = "Not Tracking all";
                 trackedStatus.ForeColor = Color.Red;
@@ -1571,12 +1571,15 @@ namespace robotTracking
                 moveToBodyButton.Enabled = false;
                 followLivePointButton.Enabled = false;
                 moveToRelPointButton.Enabled = false;
+                moveToCurrentPositionButton.Enabled = true;
             }
             else if (followingLiveRelativePoint)
             {
                 moveToBodyButton.Enabled = false;
                 followBodyButton.Enabled = false;
                 moveToRelPointButton.Enabled = false;
+                moveToCurrentPositionButton.Enabled = false;
+
             }
             else
             {
@@ -1638,6 +1641,7 @@ namespace robotTracking
             colourArrangeRobot.Enabled = show;
             colourArrangeUser.Enabled = show;
             gesturingPerformance.Enabled = show;
+            generatePositionsButton.Enabled = show;
         }
 
         private UserStudyType getUserStudyType()
@@ -1700,6 +1704,7 @@ namespace robotTracking
 
         }
 
+
         private void testReadTargetPositionsButton_Click(object sender, EventArgs e)
         {
             //make a dummy experiment, for testing only
@@ -1743,14 +1748,66 @@ namespace robotTracking
             experiment.undoTarget();
         }
 
+        private void moveToCurrentPositionButton_Click(object sender, EventArgs e)
+        {
+            if (requiredObjectsTracked())
+            {
+                new Task(moveToTargetBody).Start();
+            }
+            else
+            {
+                Console.WriteLine("not following all required bodies");
+                return;
+            }
+        }
+
         private void moveToRelTargetPoint()
         {
             experiment.moveToRelTargetPoint(relTargetPoint);
         }
 
+        private void generatePositionsButton_Click(object sender, EventArgs e)
+        {
+            if(!requiredObjectsTracked())
+            {
+                OutputMessage("Need to be tracking the base AND the tip");
+                return;
+            }
+
+            if (!runningUserStudy)
+            {
+                runningUserStudy = true;
+                generatePositionsButton.Text = "Stop generating positions";
+                showUserStudyRadioButtons(false);
+                bodePlotButton.Enabled = false;
+
+                new Task(generatePositions).Start();
+            }
+            else
+            {
+                stopAllLive();
+                userStudyButton.Text = "Generate positions by trigger";
+                showUserStudyRadioButtons(true);
+                bodePlotButton.Enabled = true;
+            }
+
+        }
+
+        
+        private void generatePositions()
+        {
+            UserStudyType type = getUserStudyType();
+            experiment.generatePositions(type);
+        }
+
         private void moveToTargetBody()
         {
             experiment.moveToTargetBody();
+        }
+
+        private void moveToCurrentPosition()
+        {
+            experiment.moveToCurrentPosition();
         }
 
         public int HighWord(int number)
