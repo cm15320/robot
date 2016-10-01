@@ -18,6 +18,7 @@ namespace robotTracking
         private int numTriggerPresses = 0;
         private float[][] targetPositions;
         private bool running, initialised;
+        private bool justReleased = false;
         public static string gesturingFilename = "gesturingPositions.csv";
         public static string robotColourFilename = "robotColourPositions.csv";
         public static string userColourFilename = "userColourPositions.csv";
@@ -154,24 +155,32 @@ namespace robotTracking
         }
 
 
+        public bool isJustReleased()
+        {
+            return justReleased;
+        }
+
         private void updateTriggerPress(bool triggerPress)
         {
             bool oldTriggerPress = this.triggerPress;
             this.triggerPress = triggerPress;
+            justReleased = false;
 
             // If trigger has been released, increase number of trigger presses
             if(oldTriggerPress == true && triggerPress == false)
             {
+                justReleased = true;
                 numTriggerPresses++;
+                Console.WriteLine("num trigger presses is " + numTriggerPresses);
             }
         }
 
-
+        
         private void updateTarget()
         {
             if(numTriggerPresses >= targetPositions.Length)
             {
-                Console.WriteLine("finished study");
+                //Console.WriteLine("finished study");
                 return;
             }
             absoluteTargetPosition = targetPositions[numTriggerPresses];

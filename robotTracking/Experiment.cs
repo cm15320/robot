@@ -31,6 +31,7 @@ namespace robotTracking
         //private int numPoints;
         private int maxAngle = 120;
         private float[] basePosition = new float[3];
+        private float[] actualTipPos = new float[3];
         private float[] relativeTipAngles = new float[] { 0.0f, 0.0f, 0.0f };
         private float[] relativeTipPos = new float[] { 0.0f, 0.0f, 0.0f };
         private float[] relativeBodyFollowPos = new float[] { 0.0f, 0.0f, 0.0f };
@@ -225,7 +226,8 @@ namespace robotTracking
                 }
             }
 
-            motorScaler = (int)Math.Round(maxDifference);
+            //motorScaler = (int)Math.Round(maxDifference);
+            motorScaler = 10000;
         }
 
         private float[][] buildInverseRotationMatrix(float[] baseRotation)
@@ -455,11 +457,13 @@ namespace robotTracking
         // could also actually subtract the value of the min from the value coming in before dividing by the scale value, for true min-max normalization
         private void convertMotors(float[] origMotorAngles, bool reduce)
         {
+            //Console.WriteLine("last motor angle gone from " + origMotorAngles[3]);
             for (int i = 0; i < origMotorAngles.Length; i++)
             {
                 if (reduce) origMotorAngles[i] = origMotorAngles[i] / motorScaler;
                 else origMotorAngles[i] = origMotorAngles[i] * motorScaler;
             }
+            //Console.WriteLine("to " + origMotorAngles[3]);
         }
 
         private void convertOutputMotors(double[] origMotorAngles, bool reduce)
@@ -609,8 +613,9 @@ namespace robotTracking
             //Console.WriteLine("Vector output being returned is:");
             //for (int i = 0; i < outputVector.Length; i++)
             //{
-            //    Console.WriteLine(outputVector[i]);
+            //    Console.Write(outputVector[i] + "   ");
             //}
+            //Console.WriteLine();
 
             return outputVector;
 
@@ -619,6 +624,7 @@ namespace robotTracking
 
         private double kernelFunction(float kernelInput)
         {
+            //Console.WriteLine("input was " + kernelInput);
             double exponent = -0.5 * Math.Pow(kernelInput, 2);
             //Console.WriteLine("exponent is " + exponent);
             double output = inverseSqrt2Pi * Math.Exp(exponent);
@@ -704,6 +710,7 @@ namespace robotTracking
                 // Need to use motor angles if they are not the input used to find what matches them
 
                 // convert to float here (don't need to do this in the future as can just save the motor angles as float array anyway)
+                // or use get copy vector function
                 currentVector = new float[4];
                 currentVector[0] = currentDataPoint.motorAngles[0];
                 currentVector[1] = currentDataPoint.motorAngles[1];
@@ -739,20 +746,21 @@ namespace robotTracking
             {
                 difference += (float)Math.Pow((inputVectorTarget[j] - currentVector[j]), 2);
             }
-            //Console.WriteLine("difference is " + difference);
 
             difference = (float)Math.Sqrt(difference);
-
-            //Console.WriteLine("difference is " + difference);
-            //Console.WriteLine("alpha is " + alpha);
-
-            kernelInput = difference / alpha;
 
             //Console.WriteLine("the kernel parameters are:");
             //for (int m = 0; m < inputVectorTarget.Length; m++)
             //{
             //    Console.WriteLine(inputVectorTarget[m] + " : " + currentVector[m]);
             //}
+
+            //Console.WriteLine("difference is " + difference);
+            //Console.WriteLine("alpha is " + alpha);
+
+            kernelInput = difference / alpha;
+
+
 
             //Console.WriteLine("and the kernel input was   " + kernelInput);
 
@@ -1069,8 +1077,10 @@ namespace robotTracking
                 }
                 else if (runningStudy)
                 {
-                    getMotorAnglesForTargetPoint(relativeTargetPosition);
                     controller.activateMagnet(false);
+                    if (activeStudy.isJustReleased()) Thread.Sleep(500);
+
+                    getMotorAnglesForTargetPoint(relativeTargetPosition);
                 }
                 Thread.Sleep(newTargetDelay);
             }
@@ -1675,9 +1685,9 @@ namespace robotTracking
         public void getBandwidthErrorPlot()
         {
             float alpha = 0.000f;
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 200; i++)
             {
-                alpha += 0.0001f;
+                alpha += 0.001f;
                 testAlphaValueFindPositions(alpha);
                 //testAlphaValueFindMotors(alpha);
             }
@@ -1694,7 +1704,7 @@ namespace robotTracking
                 float[] currentMotorAngles = currentDataPoint.motorAngles;
                 float[] realPositionMatch = currentDataPoint.relativeTipPosition;
 
-
+                
                 double[] regressionPositionMatch = NWRegression(currentMotorAngles, RegressionInput.MOTORS, alpha);
                 //Console.WriteLine("real position match starts with " + realPositionMatch[0]);
                 //Console.WriteLine("regression position match starts with " + regressionPositionMatch[0]);
@@ -1761,7 +1771,8 @@ namespace robotTracking
             eulersRobotTip = m_NatNet.QuatToEuler(quatRobotTip, (int)NATEulerOrder.NAT_XYZr);
             eulersRobotBase = m_NatNet.QuatToEuler(quatRobotBase, (int)NATEulerOrder.NAT_XYZr);
 
-            eulersRobotBase[2] = eulersRobotBase[2] * -1;
+            // potentially negate the roll as had a bit of trouble with that?? although it could be pitch?
+            //eulersRobotBase[2] = eulersRobotBase[2] * -1;
 
             float xRDiff = (float)RobotTracker.RadiansToDegrees(eulersRobotTip[0] - eulersRobotBase[0]);     // convert to degrees
             float yRDiff = (float)RobotTracker.RadiansToDegrees(eulersRobotTip[1] - eulersRobotBase[1]);
@@ -1770,6 +1781,11 @@ namespace robotTracking
             basePosition[0] = robotBase.x;
             basePosition[1] = robotBase.y;
             basePosition[2] = robotBase.z;
+
+            actualTipPos[0] = robotTip.x;
+            actualTipPos[1] = robotTip.y;
+            actualTipPos[2] = robotTip.z;
+
 
 
             relativeTipPos[0] = xDiff;
@@ -1816,24 +1832,30 @@ namespace robotTracking
             while(experimentLive)
             {
                 triggerPress = getTrigger();
-                if(triggerPress == false && oldTriggerPress == true)
+                //if (triggerPress) Console.WriteLine("trigger down");
+                if (oldTriggerPress == true && triggerPress == false )
                 {
+                    Console.WriteLine("released trigger");
                     logNewPosition();
                 }
                 oldTriggerPress = triggerPress;
+                Thread.Sleep(10);
             }
             File.WriteAllText(filename, newPositionsCsv.ToString());
+            Console.WriteLine("should have written new coords to: " + filename);
         }
 
 
         private void logNewPosition()
         {
-            float[] currentRelTipPosition = getCopyVector(relativeTipPos);
-            float x = relativeTipPos[0];
-            float y = relativeTipPos[1];
-            float z = relativeTipPos[2];
+            float[] currentRelTipPosition = getCopyVector(actualTipPos);
+            float x = actualTipPos[0];
+            float y = actualTipPos[1];
+            float z = actualTipPos[2];
 
-            newPositionsCsv.AppendLine(String.Format("{0};{1};{2};", x, y, z));
+            newPositionsCsv.AppendLine(String.Format("{0};{1};{2}", x, y, z));
+            Console.WriteLine("logged new coordinate of x = {0},  y = {1},  z = {2}", x, y, z);
+
         }
 
         // This method checks to see if the calibration should be paused, whether from user or if batteries run out

@@ -1650,7 +1650,10 @@ namespace robotTracking
             colourArrangeRobot.Enabled = show;
             colourArrangeUser.Enabled = show;
             gesturingPerformance.Enabled = show;
-            generatePositionsButton.Enabled = show;
+            if(show)
+            {
+                generatePositionsButton.Enabled = show;
+            }
         }
 
         private UserStudyType getUserStudyType()
@@ -1795,7 +1798,7 @@ namespace robotTracking
             else
             {
                 stopAllLive();
-                userStudyButton.Text = "Generate positions by trigger";
+                generatePositionsButton.Text = "Generate positions by trigger";
                 showUserStudyRadioButtons(true);
                 bodePlotButton.Enabled = true;
             }
