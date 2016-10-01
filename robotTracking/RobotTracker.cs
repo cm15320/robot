@@ -1485,6 +1485,10 @@ namespace robotTracking
                 experiment.getBandwidthErrorPlot();
                 OutputMessage("Finished getting bandwidth plot");
             }
+            else
+            {
+                Console.WriteLine("could not get all data");
+            }
         }
 
 

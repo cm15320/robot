@@ -15,7 +15,7 @@ namespace robotTracking
         private bool connectedToPort;
         private int cnt = 0;
         private bool running;
-        private int setMotorDelay = 3;
+        private int setMotorDelay = 6;
         private int triggerCode = 7;
         private int[] targetMotorAngles, currentMotorAngles;
         private int m1Offset = 0, m3Offset = 0;

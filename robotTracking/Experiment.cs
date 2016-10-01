@@ -62,6 +62,7 @@ namespace robotTracking
         private float[] eulersRobotBase;
         private float[] maxRelativePositionValues;
         private float[] minRelativePositionValues;
+        private float[][] targetBuffer = new float[10][];
         private float tipToBaseSphereRadius;
         private float minSphereRadius;
         //private float shiftFactor = 0.001f;
@@ -407,19 +408,19 @@ namespace robotTracking
             }
             else
             {
-                //Console.WriteLine("in range, attempting direct solution");
-                //output = NWRegression(inputVectorTarget, RegressionInput.POSITION, bandwidth);
-                //if (!motorAnglesNaN(output))
-                //{
-                //    Console.WriteLine("solution found directly");
-                //    return output;
-                //}
-                //else
-                //{
-                    //Console.WriteLine("solution not found, finding closest target point");
+                Console.WriteLine("in range, attempting direct solution");
+                output = NWRegression(inputVectorTarget, RegressionInput.POSITION, bandwidth);
+                if (!motorAnglesNaN(output))
+                {
+                    Console.WriteLine("solution found directly");
+                    return output;
+                }
+                else
+                {
+                    Console.WriteLine("solution not found, finding closest target point");
                     output = getClosestCalibrationSolution(inputVectorTarget);
                     return output;
-                //}
+                }
             }
 
         }
@@ -1539,6 +1540,31 @@ namespace robotTracking
 
         }
 
+
+        private float[] updateBufferTargets(float[] newTargetPosition)
+        {
+            int bufferSize = targetBuffer.Length;
+            for(int i = 0; i < bufferSize - 1; i++)
+            {
+                targetBuffer[i] = getCopyVector(targetBuffer[i + 1]);
+            }
+            targetBuffer[bufferSize - 1] = getCopyVector(newTargetPosition);
+
+            float[] averageTarget = new float[3];
+            for(int i = 0; i < averageTarget.Length; i++)
+            {
+                float averageCoord = 0;
+                for(int j = 0; j < bufferSize; j++)
+                {
+                    averageCoord += targetBuffer[j][i];
+                }
+                averageCoord = averageCoord / bufferSize;
+                averageTarget[i] = averageCoord;
+            }
+
+            return averageTarget;
+        }
+
         private void logBodeData(float timestamp)
         {
             BodeDataPoint newBodePoint = new BodeDataPoint();
@@ -1628,6 +1654,7 @@ namespace robotTracking
 
         public void generateBodePlot()
         {
+            bodeCsv.Clear();
             string firstLine = String.Format("{0},{1},{2}", "Time (ms)", "y target (mm)", "y tip (mm)");
             bodeCsv.AppendLine(firstLine);
             //Console.WriteLine("appeneded first line to bode plot");
@@ -1915,7 +1942,7 @@ namespace robotTracking
             {
                 return;
             }
-
+            Console.WriteLine("saving data to: " + filename);
             TextWriter writer = new StreamWriter(filename);
             ser.Serialize(writer, newCalibrationData);
             writer.Close();
