@@ -1436,6 +1436,8 @@ namespace robotTracking
         public void testTrigger()
         {
             bool triggerPress;
+            bool oldTriggerPress = false;
+            bool oldestTriggerPress = false;
 
             runningStudy = true;
             while (runningStudy)
@@ -1447,6 +1449,13 @@ namespace robotTracking
                     Console.WriteLine("trigger is pressed down");
                     controller.activateMagnet(true);
                 }
+                if (oldestTriggerPress == true && oldTriggerPress == false && triggerPress == false)
+                {
+                    Console.WriteLine("released trigger");
+                }
+                oldestTriggerPress = oldTriggerPress;
+                oldTriggerPress = triggerPress;
+
                 Thread.Sleep(newTargetDelay);
             }
         }

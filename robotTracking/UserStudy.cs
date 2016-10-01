@@ -14,6 +14,7 @@ namespace robotTracking
         private float[] basePosition;
         private float[] absoluteTargetPosition;
         private float[] relativeTargetPosition = new float[3];
+        private bool oldestTriggerPress = false, oldTriggerPress = false;
         private bool triggerPress = false;
         private int numTriggerPresses = 0;
         private float[][] targetPositions;
@@ -160,14 +161,16 @@ namespace robotTracking
             return justReleased;
         }
 
-        private void updateTriggerPress(bool triggerPress)
+        private void updateTriggerPress(bool newTriggerPress)
         {
-            bool oldTriggerPress = this.triggerPress;
-            this.triggerPress = triggerPress;
+            oldestTriggerPress = oldTriggerPress;
+            oldTriggerPress = triggerPress;
+            triggerPress = newTriggerPress;
+
             justReleased = false;
 
             // If trigger has been released, increase number of trigger presses
-            if(oldTriggerPress == true && triggerPress == false)
+            if(oldestTriggerPress == true && oldTriggerPress == false && triggerPress == false)
             {
                 justReleased = true;
                 numTriggerPresses++;

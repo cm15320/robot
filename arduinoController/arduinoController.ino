@@ -5,9 +5,14 @@ int triggerPin = 2;
 int magnetPowerPin = 12;
 int magnetControlPin = 3;
 
+bool trigger;
+bool lastTriggerState = HIGH;
+unsigned long lastDebounceTime = 0;
+unsigned long debounceDelay = 50;
+
 byte inputBytes[5];
 bool connectedToPC = false;
-bool trigger;
+
 Servo myservo1, myservo2, myservo3, myservo4;
 Servo currentServo = myservo1;
 
@@ -34,11 +39,30 @@ void loop() {
   }
   
   else{
-    trigger = digitalRead(triggerPin);
+    bool reading = digitalRead(triggerPin);
+
+    // if trigger has changed, due to noise or pressing:
+    if(reading != lastTriggerState) {
+      // reset debounce timer
+      lastDebounceTime = millis();
+    }
+
+    if((millis() - lastDebounceTime) > debounceDelay) {
+      // whatever reading, it's been there for longer than debounce delay,
+      // so use it as actual current state
+
+      // if trigger state has changed
+      if (reading != trigger) {
+        trigger = reading;
+      }
+    }
+//    trigger = reading;
     // always set magnet to off if the trigger is not pressed unless in future activate magnet without trigger
     if(trigger == HIGH) {
       digitalWrite(magnetControlPin, LOW);
     }
+
+    lastTriggerState = reading;
   }
 
 //  if(sentAllAngles()) {
