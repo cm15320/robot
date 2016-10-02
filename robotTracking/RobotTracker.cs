@@ -1619,7 +1619,14 @@ namespace robotTracking
         private void startStudy()
         {
             UserStudyType type = getUserStudyType();
-            experiment.startStudy(type);
+            if(type == UserStudyType.USERCOLOUR)
+            {
+                testTrigger();
+            }
+            else
+            {
+                experiment.startStudy(type);
+            }
         }
 
 
