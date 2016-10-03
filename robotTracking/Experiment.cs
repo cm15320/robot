@@ -30,16 +30,32 @@ namespace robotTracking
         private int numTestPoints = 3;
         //private int numPoints;
         private int maxAngle = 120;
+        private int newTargetDelay = 10; // 50 is safe
+        private int calibrationPause = 1000;
+        private int solutionBufferSize = 15;
+        private float tipToBaseSphereRadius;
+        private float minSphereRadius;
         private float[] basePosition = new float[3];
         private float[] actualTipPos = new float[3];
         private float[] relativeTipAngles = new float[] { 0.0f, 0.0f, 0.0f };
         private float[] relativeTipPos = new float[] { 0.0f, 0.0f, 0.0f };
         private float[] relativeBodyFollowPos = new float[] { 0.0f, 0.0f, 0.0f };
+        private float[] eulersRobotBase;
+        private float[] maxRelativePositionValues;
+        private float[] minRelativePositionValues;
+        private float[][] targetBuffer = new float[10][];
         private FrameOfMocapData currentFrame;
         private object syncLock;
         private object motorAngleLock = new object();
         private object positionLock = new object();
+        private string bodeFileName = "bodePlot.xml";
+        private string calibrationFilename = "calibrationData.xml";
+        private string testDataFilename = "testPoints.xml";
         private bool calibrating = false;
+        private bool onlyBase = false;
+        private bool currentlyTracked;
+        private bool experimentLive = false;
+        private bool usingAngleAveraging = false;
         private bool pausedCalibration = false; // this can indicate the pause of the calibration and the test stage
         private const float startingAlpha = 0.0008f;
         private StringBuilder csv = new StringBuilder();
@@ -47,25 +63,13 @@ namespace robotTracking
         private StringBuilder newPositionsCsv = new StringBuilder();
         private int motorScaler = 100;
 
-        private int newTargetDelay = 10; // 50 is safe
-        private int calibrationPause = 1000;
 
         private Hashtable htRigidBodiesNameToBody = new Hashtable();
         private double distanceBetween;
 
         private XmlSerializer ser = new XmlSerializer(typeof(CalibrationData));
         private XmlSerializer bodeSer = new XmlSerializer(typeof(BodePlot));
-        private string calibrationFilename = "calibrationData.xml";
-        private string testDataFilename = "testPoints.xml";
-        private string bodeFileName = "bodePlot.xml";
-        private bool currentlyTracked;
-        private bool experimentLive = false;
-        private float[] eulersRobotBase;
-        private float[] maxRelativePositionValues;
-        private float[] minRelativePositionValues;
-        private float[][] targetBuffer = new float[10][];
-        private float tipToBaseSphereRadius;
-        private float minSphereRadius;
+        private double[][] solutionBuffer;
         //private float shiftFactor = 0.001f;
 
         private UserStudy activeStudy;
@@ -131,9 +135,24 @@ namespace robotTracking
                 Console.WriteLine("Error, not added necessary rigid bodies to the hash table");
             }
 
+            else if (rigidBodiesIDtoName.Count == 1 && rigidBodiesIDtoName.ContainsValue("robotBase"))
+            {
+                onlyBase = true;
+            }
+
+            initialiseSolutionBuffer();
             initialiseMotors();
         }
 
+
+        private void initialiseSolutionBuffer()
+        {
+            solutionBuffer = new double[solutionBufferSize][];
+            for(int i = 0; i < solutionBufferSize; i++)
+            {
+                solutionBuffer[i] = new double[] { 90, 90, 90, 90 };
+            }
+        }
 
 
         public bool bodyFollowRequirements()
@@ -395,6 +414,10 @@ namespace robotTracking
 
         public double getDistanceBetween()
         {
+            if(onlyBase)
+            {
+                return 0;
+            }
             return distanceBetween;
         }
 
@@ -476,6 +499,7 @@ namespace robotTracking
 
         }
 
+
         private float[] getCopyVector(float[] inputVectorTarget)
         {
             float[] copyVector = new float[inputVectorTarget.Length];
@@ -491,6 +515,24 @@ namespace robotTracking
 
             return copyVector;
         }
+
+
+        private double[] getCopyVector(double[] inputVectorTarget)
+        {
+            double[] copyVector = new double[inputVectorTarget.Length];
+            // put a lock as the array copying from may be changed by another process
+            lock (motorAngleLock)
+            {
+                inputVectorTarget.CopyTo(copyVector, 0);
+                //for (int i = 0; i < copyVector.Length; i++)
+                //{
+                //    copyVector[i] = inputVectorTarget[i];
+                //}
+            }
+
+            return copyVector;
+        }
+
 
 
         // This is for points that have already been identified as out of possible range,
@@ -550,6 +592,18 @@ namespace robotTracking
             }
             return output;
         }
+
+        private float[] doubleToFloat(double[] input)
+        {
+            float[] output = new float[input.Length];
+            for (int i = 0; i < input.Length; i++)
+            {
+                output[i] = (float)input[i];
+            }
+            return output;
+        }
+
+
 
         private double[] NWRegression(float[] inputVectorTarget, RegressionInput inputType, float alpha = startingAlpha)
         {
@@ -940,7 +994,15 @@ namespace robotTracking
             //    Console.WriteLine(motorAngleSolution[i]);
             //}
 
-            updateNewMotorAngles(motorAngleSolution);
+            if(!usingAngleAveraging)
+            {
+                updateNewMotorAngles(motorAngleSolution);
+            }
+            else
+            {
+                double[] averageSolution = updateSolutionBuffer(motorAngleSolution);
+                updateNewMotorAngles(averageSolution);
+            }
             //Console.WriteLine("updated new motor angles");
 
         }
@@ -1435,6 +1497,7 @@ namespace robotTracking
 
         public void testTrigger()
         {
+            controller.zeroMotors();
             bool triggerPress;
             bool oldTriggerPress = false;
             bool oldestTriggerPress = false;
@@ -1582,6 +1645,31 @@ namespace robotTracking
             }
 
             return averageTarget;
+        }
+
+
+        private double[] updateSolutionBuffer(double[] newSolution)
+        {
+            for (int i = 0; i < solutionBufferSize - 1; i++)
+            {
+                solutionBuffer[i] = getCopyVector(solutionBuffer[i + 1]);
+            }
+            solutionBuffer[solutionBufferSize - 1] = getCopyVector(newSolution);
+
+            double[] averageSolution= new double[newSolution.Length];
+            for (int i = 0; i < averageSolution.Length; i++)
+            {
+                double averageAngle= 0;
+                for (int j = 0; j < solutionBufferSize; j++)
+                {
+                    averageAngle += solutionBuffer[j][i];
+                }
+                averageAngle = averageAngle / solutionBufferSize;
+                averageSolution[i] = averageAngle;
+            }
+
+            return averageSolution;
+
         }
 
         private void logBodeData(float timestamp)
@@ -1769,16 +1857,27 @@ namespace robotTracking
 
         private void getRelativeTipInfo()
         {
+            basePosition[0] = robotBase.x;
+            basePosition[1] = robotBase.y;
+            basePosition[2] = robotBase.z;
+            
+            float[] quatRobotBase = new float[4] { robotBase.qx, robotBase.qy, robotBase.qz, robotBase.qw };
+            eulersRobotBase = m_NatNet.QuatToEuler(quatRobotBase, (int)NATEulerOrder.NAT_XYZr);
+
+
+            if(onlyBase)
+            {
+                return;
+            }
+
             float xDiff = robotTip.x - robotBase.x;
             float yDiff = robotTip.y - robotBase.y;
             float zDiff = robotTip.z - robotBase.z;
 
             // Convert quaternion to eulers.  Motive coordinate conventions: X(Pitch), Y(Yaw), Z(Roll), Relative, RHS
             float[] quatRobotTip = new float[4] { robotTip.qx, robotTip.qy, robotTip.qz, robotTip.qw };
-            float[] quatRobotBase = new float[4] { robotBase.qx, robotBase.qy, robotBase.qz, robotBase.qw };
             float[] eulersRobotTip = new float[3];
             eulersRobotTip = m_NatNet.QuatToEuler(quatRobotTip, (int)NATEulerOrder.NAT_XYZr);
-            eulersRobotBase = m_NatNet.QuatToEuler(quatRobotBase, (int)NATEulerOrder.NAT_XYZr);
 
             // potentially negate the roll as had a bit of trouble with that?? although it could be pitch?
             //eulersRobotBase[2] = eulersRobotBase[2] * -1;
@@ -1787,15 +1886,10 @@ namespace robotTracking
             float yRDiff = (float)RobotTracker.RadiansToDegrees(eulersRobotTip[1] - eulersRobotBase[1]);
             float zRDiff = (float)RobotTracker.RadiansToDegrees(eulersRobotTip[2] - eulersRobotBase[2]);
 
-            basePosition[0] = robotBase.x;
-            basePosition[1] = robotBase.y;
-            basePosition[2] = robotBase.z;
 
             actualTipPos[0] = robotTip.x;
             actualTipPos[1] = robotTip.y;
             actualTipPos[2] = robotTip.z;
-
-
 
             relativeTipPos[0] = xDiff;
             relativeTipPos[1] = yDiff;
@@ -1914,11 +2008,17 @@ namespace robotTracking
             pausedCalibration = true;
         }
 
+
         public void resumeCalibration()
         {
             pausedCalibration = false;
         }
 
+
+        public void useAngleAveraging(bool on)
+        {
+            usingAngleAveraging = on;
+        }
 
 
         //private void testFullMotion(int startingServo)

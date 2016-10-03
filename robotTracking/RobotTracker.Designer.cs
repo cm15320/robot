@@ -106,6 +106,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.readOffsetsButton = new System.Windows.Forms.Button();
+            this.angleAveragingButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -515,10 +516,12 @@
             // getMotorsRadioButton
             // 
             this.getMotorsRadioButton.AutoSize = true;
+            this.getMotorsRadioButton.Checked = true;
             this.getMotorsRadioButton.Location = new System.Drawing.Point(596, 285);
             this.getMotorsRadioButton.Name = "getMotorsRadioButton";
             this.getMotorsRadioButton.Size = new System.Drawing.Size(74, 17);
             this.getMotorsRadioButton.TabIndex = 38;
+            this.getMotorsRadioButton.TabStop = true;
             this.getMotorsRadioButton.Text = "get motors";
             this.getMotorsRadioButton.UseVisualStyleBackColor = true;
             // 
@@ -663,21 +666,19 @@
             this.colourArrangeRobot.Enabled = false;
             this.colourArrangeRobot.Location = new System.Drawing.Point(596, 453);
             this.colourArrangeRobot.Name = "colourArrangeRobot";
-            this.colourArrangeRobot.Size = new System.Drawing.Size(140, 17);
+            this.colourArrangeRobot.Size = new System.Drawing.Size(128, 17);
             this.colourArrangeRobot.TabIndex = 48;
-            this.colourArrangeRobot.Text = "arrange by colour (robot)";
+            this.colourArrangeRobot.Text = "arrange blocks (robot)";
             this.colourArrangeRobot.UseVisualStyleBackColor = true;
             // 
             // gesturingPerformance
             // 
             this.gesturingPerformance.AutoSize = true;
-            this.gesturingPerformance.Checked = true;
             this.gesturingPerformance.Enabled = false;
             this.gesturingPerformance.Location = new System.Drawing.Point(596, 499);
             this.gesturingPerformance.Name = "gesturingPerformance";
             this.gesturingPerformance.Size = new System.Drawing.Size(130, 17);
             this.gesturingPerformance.TabIndex = 48;
-            this.gesturingPerformance.TabStop = true;
             this.gesturingPerformance.Text = "gesturing performance";
             this.gesturingPerformance.UseVisualStyleBackColor = true;
             // 
@@ -687,9 +688,9 @@
             this.colourArrangeUser.Enabled = false;
             this.colourArrangeUser.Location = new System.Drawing.Point(596, 476);
             this.colourArrangeUser.Name = "colourArrangeUser";
-            this.colourArrangeUser.Size = new System.Drawing.Size(136, 17);
+            this.colourArrangeUser.Size = new System.Drawing.Size(124, 17);
             this.colourArrangeUser.TabIndex = 48;
-            this.colourArrangeUser.Text = "arrange by colour (user)";
+            this.colourArrangeUser.Text = "arrange blocks (user)";
             this.colourArrangeUser.UseVisualStyleBackColor = true;
             // 
             // bodePlotButton
@@ -852,11 +853,23 @@
             this.readOffsetsButton.UseVisualStyleBackColor = true;
             this.readOffsetsButton.Click += new System.EventHandler(this.readOffsetsButton_Click);
             // 
+            // angleAveragingButton
+            // 
+            this.angleAveragingButton.Enabled = false;
+            this.angleAveragingButton.Location = new System.Drawing.Point(789, 94);
+            this.angleAveragingButton.Name = "angleAveragingButton";
+            this.angleAveragingButton.Size = new System.Drawing.Size(69, 39);
+            this.angleAveragingButton.TabIndex = 62;
+            this.angleAveragingButton.Text = "Use angle averaging";
+            this.angleAveragingButton.UseVisualStyleBackColor = true;
+            this.angleAveragingButton.Click += new System.EventHandler(this.angleAveragingButton_Click);
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(926, 562);
+            this.Controls.Add(this.angleAveragingButton);
             this.Controls.Add(this.readOffsetsButton);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
@@ -1016,6 +1029,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button readOffsetsButton;
+        private System.Windows.Forms.Button angleAveragingButton;
     }
 }
 

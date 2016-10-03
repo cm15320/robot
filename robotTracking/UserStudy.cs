@@ -232,7 +232,7 @@ namespace robotTracking
             if(numTriggerPresses > 0)
             {
                 numTriggerPresses--;
-                Console.WriteLine("num trigger presses is now: " + numTriggerPresses);
+                Console.WriteLine("num trigger presses now reduced to: " + numTriggerPresses);
             }
         }
 

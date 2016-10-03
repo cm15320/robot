@@ -57,6 +57,7 @@ namespace robotTracking
         private bool runningUserStudy = false;
         private bool runningBode = false;
         private bool testingTrigger = false;
+        private bool usingAngleAveraging = false;
         float relTargetPointX, relTargetPointY, relTargetPointZ;
         float[] relTargetPoint;
         private int m1 = 0, m3 = 0;
@@ -1072,6 +1073,7 @@ namespace robotTracking
                 userStudyButton.Enabled = on;
                 showUserStudyRadioButtons(on);
                 bodePlotButton.Enabled = on;
+                angleAveragingButton.Enabled = on;
             }
             if (on == false)
             {
@@ -1135,13 +1137,15 @@ namespace robotTracking
         private bool requiredObjectsTracked()
         {
             int cnt = 0;
+            bool containsBase = false;
             string[] requiredObjects = new string[] { "robotBase", "robotTip" };
             foreach (RigidBody rb in mRigidBodies)
             {
                 if (requiredObjects.Contains(rb.Name)) cnt++;
+                if (rb.Name.Equals("robotBase")) containsBase = true;
             }
 
-            if (cnt == requiredObjects.Length)
+            if (cnt == requiredObjects.Length || containsBase)
             {
                 return true;
             }
@@ -1847,6 +1851,23 @@ namespace robotTracking
         {
             controller.readOffset();
         }
+
+        private void angleAveragingButton_Click(object sender, EventArgs e)
+        {
+            if(!usingAngleAveraging)
+            {
+                experiment.useAngleAveraging(true);
+                usingAngleAveraging = true;
+                angleAveragingButton.Text = "Stop angle averaging";
+            }
+            else
+            {
+                experiment.useAngleAveraging(false);
+                usingAngleAveraging = false;
+                angleAveragingButton.Text = "Use angle averaging";
+            }
+        }
+
 
         private void storeOffsetButton_Click(object sender, EventArgs e)
         {
