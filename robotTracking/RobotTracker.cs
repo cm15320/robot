@@ -1661,6 +1661,7 @@ namespace robotTracking
             colourArrangeRobot.Enabled = show;
             colourArrangeUser.Enabled = show;
             gesturingPerformance.Enabled = show;
+            randomiseCheckBox.Enabled = show;
             if(show)
             {
                 generatePositionsButton.Enabled = show;
@@ -1868,6 +1869,10 @@ namespace robotTracking
             }
         }
 
+        private void randomiseCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            experiment.setRandomiseGesturing(randomiseCheckBox.Checked);
+        }
 
         private void storeOffsetButton_Click(object sender, EventArgs e)
         {

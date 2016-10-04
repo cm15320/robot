@@ -107,6 +107,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.readOffsetsButton = new System.Windows.Forms.Button();
             this.angleAveragingButton = new System.Windows.Forms.Button();
+            this.randomiseCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -516,12 +517,10 @@
             // getMotorsRadioButton
             // 
             this.getMotorsRadioButton.AutoSize = true;
-            this.getMotorsRadioButton.Checked = true;
             this.getMotorsRadioButton.Location = new System.Drawing.Point(596, 285);
             this.getMotorsRadioButton.Name = "getMotorsRadioButton";
             this.getMotorsRadioButton.Size = new System.Drawing.Size(74, 17);
             this.getMotorsRadioButton.TabIndex = 38;
-            this.getMotorsRadioButton.TabStop = true;
             this.getMotorsRadioButton.Text = "get motors";
             this.getMotorsRadioButton.UseVisualStyleBackColor = true;
             // 
@@ -674,11 +673,13 @@
             // gesturingPerformance
             // 
             this.gesturingPerformance.AutoSize = true;
+            this.gesturingPerformance.Checked = true;
             this.gesturingPerformance.Enabled = false;
             this.gesturingPerformance.Location = new System.Drawing.Point(596, 499);
             this.gesturingPerformance.Name = "gesturingPerformance";
             this.gesturingPerformance.Size = new System.Drawing.Size(130, 17);
             this.gesturingPerformance.TabIndex = 48;
+            this.gesturingPerformance.TabStop = true;
             this.gesturingPerformance.Text = "gesturing performance";
             this.gesturingPerformance.UseVisualStyleBackColor = true;
             // 
@@ -769,7 +770,7 @@
             // generatePositionsButton
             // 
             this.generatePositionsButton.Enabled = false;
-            this.generatePositionsButton.Location = new System.Drawing.Point(751, 456);
+            this.generatePositionsButton.Location = new System.Drawing.Point(820, 456);
             this.generatePositionsButton.Name = "generatePositionsButton";
             this.generatePositionsButton.Size = new System.Drawing.Size(87, 53);
             this.generatePositionsButton.TabIndex = 55;
@@ -864,11 +865,24 @@
             this.angleAveragingButton.UseVisualStyleBackColor = true;
             this.angleAveragingButton.Click += new System.EventHandler(this.angleAveragingButton_Click);
             // 
+            // randomiseCheckBox
+            // 
+            this.randomiseCheckBox.AutoSize = true;
+            this.randomiseCheckBox.Enabled = false;
+            this.randomiseCheckBox.Location = new System.Drawing.Point(728, 499);
+            this.randomiseCheckBox.Name = "randomiseCheckBox";
+            this.randomiseCheckBox.Size = new System.Drawing.Size(79, 17);
+            this.randomiseCheckBox.TabIndex = 63;
+            this.randomiseCheckBox.Text = "Randomise";
+            this.randomiseCheckBox.UseVisualStyleBackColor = true;
+            this.randomiseCheckBox.CheckedChanged += new System.EventHandler(this.randomiseCheckBox_CheckedChanged);
+            // 
             // RobotTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(926, 562);
+            this.Controls.Add(this.randomiseCheckBox);
             this.Controls.Add(this.angleAveragingButton);
             this.Controls.Add(this.readOffsetsButton);
             this.Controls.Add(this.label14);
@@ -1030,6 +1044,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button readOffsetsButton;
         private System.Windows.Forms.Button angleAveragingButton;
+        private System.Windows.Forms.CheckBox randomiseCheckBox;
     }
 }
 

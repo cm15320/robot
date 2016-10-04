@@ -30,7 +30,7 @@ namespace robotTracking
         private int numTestPoints = 3;
         //private int numPoints;
         private int maxAngle = 120;
-        private int newTargetDelay = 10; // 50 is safe
+        private int newTargetDelay = 20; // 50 is safe
         private int calibrationPause = 1000;
         private int solutionBufferSize = 15;
         private float tipToBaseSphereRadius;
@@ -57,6 +57,7 @@ namespace robotTracking
         private bool experimentLive = false;
         private bool usingAngleAveraging = false;
         private bool pausedCalibration = false; // this can indicate the pause of the calibration and the test stage
+        private bool randomiseGesturing = false;
         private const float startingAlpha = 0.0008f;
         private StringBuilder csv = new StringBuilder();
         private StringBuilder bodeCsv = new StringBuilder();
@@ -433,16 +434,16 @@ namespace robotTracking
             }
             else
             {
-                Console.WriteLine("in range, attempting direct solution");
+                //Console.WriteLine("in range, attempting direct solution");
                 output = NWRegression(inputVectorTarget, RegressionInput.POSITION, bandwidth);
                 if (!motorAnglesNaN(output))
                 {
-                    Console.WriteLine("solution found directly");
+                    //Console.WriteLine("solution found directly");
                     return output;
                 }
                 else
                 {
-                    Console.WriteLine("solution not found, finding closest target point");
+                    //Console.WriteLine("solution not found, finding closest target point");
                     output = getClosestCalibrationSolution(inputVectorTarget);
                     return output;
                 }
@@ -1087,7 +1088,7 @@ namespace robotTracking
 
         public void startStudy(UserStudyType type)
         {
-            activeStudy = new UserStudy(type);
+            activeStudy = new UserStudy(type, randomiseGesturing);
             experimentLive = true;
             new Task(liveExperimentThreadLoop).Start();
 
@@ -1106,7 +1107,7 @@ namespace robotTracking
 
         public void testReadInTargetPositions()
         {
-            activeStudy = new UserStudy(UserStudyType.GESTURING);
+            activeStudy = new UserStudy(UserStudyType.GESTURING, randomiseGesturing);
 
             activeStudy.testTargetPositions();
         }
@@ -1140,8 +1141,6 @@ namespace robotTracking
                 else if (runningStudy)
                 {
                     controller.activateMagnet(false);
-                    if (activeStudy.isJustReleased()) Thread.Sleep(500);
-
                     getMotorAnglesForTargetPoint(relativeTargetPosition);
                 }
                 Thread.Sleep(newTargetDelay);
@@ -1925,27 +1924,40 @@ namespace robotTracking
             zeroMotorAngles();
             experimentLive = true;
             string filename;
+            int numCoordinates = 0;
             if (type == UserStudyType.USERCOLOUR) filename = UserStudy.userColourFilename;
             else if (type == UserStudyType.ROBOTCOLOUR) filename = UserStudy.robotColourFilename;
             else filename = UserStudy.gesturingFilename;
             bool triggerPress = false;
-            bool oldTriggerPress = false;
+            bool oldTriggerPress = false, oldestTriggerPress = false;
 
 
             while(experimentLive)
             {
                 triggerPress = getTrigger();
                 //if (triggerPress) Console.WriteLine("trigger down");
-                if (oldTriggerPress == true && triggerPress == false )
+                if (oldestTriggerPress == true && oldTriggerPress == false && triggerPress == false )
                 {
                     Console.WriteLine("released trigger");
                     logNewPosition();
+                    numCoordinates++;
+                    Console.WriteLine(numCoordinates + " currently logged");
                 }
+                oldestTriggerPress = oldTriggerPress;
                 oldTriggerPress = triggerPress;
-                Thread.Sleep(10);
+                Thread.Sleep(5);
             }
             File.WriteAllText(filename, newPositionsCsv.ToString());
             Console.WriteLine("should have written new coords to: " + filename);
+            newPositionsCsv.Clear();
+        }
+
+
+
+
+        public void setRandomiseGesturing(bool on)
+        {
+            randomiseGesturing = on;
         }
 
 

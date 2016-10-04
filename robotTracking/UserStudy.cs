@@ -28,9 +28,10 @@ namespace robotTracking
         private bool toRandom = false; // Set to true if want to randomise the order of the target positions
 
 
-        public UserStudy(UserStudyType type)
+        public UserStudy(UserStudyType type, bool toRandom)
         {
             this.type = type;
+            this.toRandom = toRandom;
             running = true;
 
             if (populateTargetPositions())
@@ -184,6 +185,7 @@ namespace robotTracking
             if(numTriggerPresses >= targetPositions.Length)
             {
                 //Console.WriteLine("finished study");
+                running = false;
                 return;
             }
             absoluteTargetPosition = targetPositions[numTriggerPresses];
