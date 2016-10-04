@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.17)  25 SEP 2016 13:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.17)  4 OCT 2016 23:40
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -835,86 +835,105 @@ File: vrrobot.png Graphic file (type png)
 Package pdftex.def Info: vrrobot.png used on input line 403.
 (pdftex.def)             Requested size: 266.03474pt x 149.39775pt.
 
-[21 <./vrrobot.png>] [22] [23] [24] [25]
-<images/schematic.png, id=118, 1650.165pt x 1373.13pt>
+[21 <./vrrobot.png>] [22] [23]
+<images/initialConcept.png, id=112, 566.20557pt x 402.64714pt>
+File: images/initialConcept.png Graphic file (type png)
+
+<use images/initialConcept.png>
+Package pdftex.def Info: images/initialConcept.png used on input line 462.
+(pdftex.def)             Requested size: 362.77264pt x 257.98204pt.
+ [24 <./images/initialConcept.png>]
+<images/cubicConcept.png, id=117, 568.02869pt x 425.51495pt>
+File: images/cubicConcept.png Graphic file (type png)
+
+<use images/cubicConcept.png>
+Package pdftex.def Info: images/cubicConcept.png used on input line 474.
+(pdftex.def)             Requested size: 362.77264pt x 271.76375pt.
+ [25 <./images/cubicConcept.png>]
+Overfull \hbox (20.21625pt too wide) in paragraph at lines 485--486
+\OT1/cmr/m/n/10.95 SIGN OF THE LONGER LINK-AGE WITH MORE HOLES ETC AND THE BOLT
+ HOLES XXXXXXXX 
+ []
+
+[26] [27] [28] <images/schematic.png, id=132, 1650.165pt x 1373.13pt>
 File: images/schematic.png Graphic file (type png)
 
 <use images/schematic.png>
-Package pdftex.def Info: images/schematic.png used on input line 488.
+Package pdftex.def Info: images/schematic.png used on input line 534.
 (pdftex.def)             Requested size: 435.32422pt x 362.22249pt.
- [26 <./images/schematic.png>] [27]
-<images/duoAxes.png, id=128, 723.45282pt x 290.58563pt>
+ [29 <./images/schematic.png>] [30]
+<images/duoAxes.png, id=142, 723.45282pt x 290.58563pt>
 File: images/duoAxes.png Graphic file (type png)
 
 <use images/duoAxes.png>
-Package pdftex.def Info: images/duoAxes.png used on input line 510.
+Package pdftex.def Info: images/duoAxes.png used on input line 556.
 (pdftex.def)             Requested size: 386.95897pt x 155.42851pt.
- [28 <./images/duoAxes.png>] [29] [30] [31]
-<images/bandwidthPlot.png, id=147, 719.68875pt x 474.27188pt>
+ [31 <./images/duoAxes.png>] [32] [33] [34]
+<images/bandwidthPlot.png, id=161, 719.68875pt x 474.27188pt>
 File: images/bandwidthPlot.png Graphic file (type png)
 
 <use images/bandwidthPlot.png>
-Package pdftex.def Info: images/bandwidthPlot.png used on input line 594.
+Package pdftex.def Info: images/bandwidthPlot.png used on input line 640.
 (pdftex.def)             Requested size: 435.32422pt x 286.88834pt.
- [32 <./images/bandwidthPlot.png>]
-<images/rotationExampleAll.jpg, id=152, 351.56343pt x 619.56468pt>
+ [35 <./images/bandwidthPlot.png>]
+<images/rotationExampleAll.jpg, id=166, 351.56343pt x 619.56468pt>
 File: images/rotationExampleAll.jpg Graphic file (type jpg)
 
 <use images/rotationExampleAll.jpg>
-Package pdftex.def Info: images/rotationExampleAll.jpg used on input line 629.
+Package pdftex.def Info: images/rotationExampleAll.jpg used on input line 675.
 (pdftex.def)             Requested size: 290.22107pt x 511.45914pt.
- [33] [34 <./images/rotationExampleAll.jpg>] <images/tipSphere.png, id=160, 653
+ [36] [37 <./images/rotationExampleAll.jpg>] <images/tipSphere.png, id=173, 653
 .44125pt x 639.13782pt>
 File: images/tipSphere.png Graphic file (type png)
 
 <use images/tipSphere.png>
-Package pdftex.def Info: images/tipSphere.png used on input line 647.
+Package pdftex.def Info: images/tipSphere.png used on input line 693.
 (pdftex.def)             Requested size: 290.22107pt x 283.86443pt.
- [35 <./images/tipSphere.png>]
-<images/gestureSolution.png, id=165, 1347.53438pt x 438.8897pt>
+ [38 <./images/tipSphere.png>]
+<images/gestureSolution.png, id=178, 1347.53438pt x 438.8897pt>
 File: images/gestureSolution.png Graphic file (type png)
 
 <use images/gestureSolution.png>
-Package pdftex.def Info: images/gestureSolution.png used on input line 657.
+Package pdftex.def Info: images/gestureSolution.png used on input line 703.
 (pdftex.def)             Requested size: 483.69687pt x 157.53809pt.
 
-<images/getSolution.png, id=166, 536.0025pt x 846.16125pt>
+<images/getSolution.png, id=179, 536.0025pt x 846.16125pt>
 File: images/getSolution.png Graphic file (type png)
 
 <use images/getSolution.png>
-Package pdftex.def Info: images/getSolution.png used on input line 672.
+Package pdftex.def Info: images/getSolution.png used on input line 718.
 (pdftex.def)             Requested size: 290.22107pt x 458.14685pt.
- [36 <./images/gestureSolution.png>]
-<images/separateThreads.png, id=171, 643.40375pt x 525.965pt>
+ [39 <./images/gestureSolution.png>]
+<images/separateThreads.png, id=184, 643.40375pt x 525.965pt>
 File: images/separateThreads.png Graphic file (type png)
 
 <use images/separateThreads.png>
-Package pdftex.def Info: images/separateThreads.png used on input line 682.
+Package pdftex.def Info: images/separateThreads.png used on input line 728.
 (pdftex.def)             Requested size: 314.40001pt x 257.01884pt.
- [37 <./images/getSolution.png>] [38 <./images/separateThreads.png>]
-<images/userInterface.png, id=180, 599.23875pt x 442.65375pt>
+ [40 <./images/getSolution.png>] [41 <./images/separateThreads.png>]
+<images/userInterface.png, id=194, 599.23875pt x 442.65375pt>
 File: images/userInterface.png Graphic file (type png)
 
 <use images/userInterface.png>
-Package pdftex.def Info: images/userInterface.png used on input line 703.
+Package pdftex.def Info: images/userInterface.png used on input line 749.
 (pdftex.def)             Requested size: 483.69687pt x 357.31151pt.
- [39 <./images/userInterface.png>] [40] [41]
-<images/classDiagram.png, id=192, 1117.17375pt x 739.76375pt>
+ [42 <./images/userInterface.png>] [43] [44]
+<images/classDiagram.png, id=205, 1117.17375pt x 739.76375pt>
 File: images/classDiagram.png Graphic file (type png)
 
 <use images/classDiagram.png>
-Package pdftex.def Info: images/classDiagram.png used on input line 736.
+Package pdftex.def Info: images/classDiagram.png used on input line 782.
 (pdftex.def)             Requested size: 677.17265pt x 448.42197pt.
- [42
+ [45
 
- <./images/classDiagram.png>] [43
+ <./images/classDiagram.png>] [46
 
-] (thesis.bbl [44] [45]) [46] [47] (thesis.aux) ) 
+] (thesis.bbl [47] [48]) [49] [50] (thesis.aux) ) 
 Here is how much of TeX's memory you used:
- 5885 strings out of 493334
- 87060 string characters out of 3139225
- 171277 words of memory out of 3000000
- 9269 multiletter control sequences out of 15000+200000
+ 5897 strings out of 493334
+ 87368 string characters out of 3139225
+ 171299 words of memory out of 3000000
+ 9279 multiletter control sequences out of 15000+200000
  10038 words of font info for 36 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,11n,39p,1345b,290s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -932,9 +951,9 @@ fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
 /amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti
 12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on thesis.pdf (50 pages, 7012511 bytes).
+Output written on thesis.pdf (53 pages, 7742839 bytes).
 PDF statistics:
- 263 PDF objects out of 1000 (max. 8388607)
+ 276 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 136 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 146 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -34,7 +34,7 @@
 	\includegraphics[width=0.6\textwidth]{bristol.png}
 	\vspace{2cm}
 
-	{\huge\bfseries The Design and Evaluation of a Four Degree-Of-Freedom Cooperative Handheld Robotic Device in a Simplified 3D Construction Environment\par}
+	{\huge\bfseries The Design and Evaluation of a Novel Versatile Four Degree-Of-Freedom Cooperative Handheld Robotic Device\par}
 	\vspace{1.5cm}
 
 	{\Large\itshape By Chris Meehan\par}
@@ -448,9 +448,55 @@ Furthermore, a brief overview was provided for robots in construction related ta
 \pagebreak
 \pagebreak
 
-\section{Handheld Robot Design}
-\subsection{Flexible Robotic Arms} PUT INTO THE BACKGROUND SECTION NOT HERE XXXXX
-\subsection{Physical Design of Four Degrees-Of-Freedom Device}
+\section{Design of Handheld Robotic Device}
+
+\subsection{Physical Design}
+\subsubsection{General Shape Concepts}
+The initial design of the device was influenced by the availability of four Hi-Tec MS7980 servomotors (APPENDIX XXXXX). These servos, having already been proven in terms of reliability and sufficient torque provision, were thus selected to provide the necessary driving force in a cable-driven design. As a result, a number of configurations were initially explored, with the servos housed in various physical arrangements. Initial inspiration was taken from the general shape of the design in \cite{GreggSmithDesign}, in which the servos are positioned in two opposing pairs.
+
+As covered in SECTION XXXXX (RESEARCH REVIEW SECTION ABOUT THE DESIGN INSPIRATION), the key novel feature of the new design compared with previous handheld robot devices was to be the addition of a highly flexible continuum arm. This must meet the requirements of being a singular structure, with no real material limits on deflection, as well as being highly tolerant to collisions. These features are essential for the device providing a more versatile solution than in \cite{GreggSmithDesign}, especially in unstructured evironments where impacts are common, such as a building site. Moreover, the device had to remain comparatively simple and cheap, with a much shorter lead time than the 6 degrees of freedom device in \cite{GreggSmithKinematics}, in order to be feasible within the time-frame of the project. Taking these factors into consideration, the arm structure was selected as a flexible foam tube, with an internal and external diameter of 17mm and 42mm respectively. It was found to exhibit no signs of breaking when bent to extreme positions, folding it in on itself.
+
+With these components in place, prototypes were constructed of the base of the robot, with the primary purpose of housing the servos and one end of the arm. The initial concept comprised of a single structure, where the servos were mounted in two opposing pairs, all of which were a conservative distance apart from each other so that the cables could be connected directly from the servos to the arm, eliminating the need to account for friction. The arm was then located in a tubular mounting, with a smaller axially located cylinder to sit within the bore of the arm, providing more structural support. This general concept is illustrated in Figure \ref{figure:initialConcept}.
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{images/initialConcept.png}
+\captionof{figure}{Initial concept for the base of the robot, to house the servos and the arm.}
+\label{figure:initialConcept}
+\end{center}
+
+At this point, the linkages to connect the arm to the servo cables were assumed to be circular discs with tabs for attaching the cables, sitting at the midpoint and tip of the arm to provide two degrees of freedom at each. This structure was then 3D printed at its initial dimensions in order to gain an insight into appropriate sizing and shape. The first issue was the physical finish of the printed part from the extrusion type 3D printer. Due to the design being a single structure with overhanging elements, a support structure was necessary to prevent collapse of the material during printing. When removing this excess material, abrasive edges were still present, making fittings such as the mounting bolts of the servos more difficult and scratching the foam when locating it within the holder, while also resulting in a generally unprofessional appearance. As such, it was decided to ensure future designs do not require support material during printing. 
+
+When the servos were mounted to the base, the structure appeared unnecessarily large, where the makeshift wire reached the linkages without any points of near-intersection. Furthermore, due to the wide gap between the two horizontally configured servos, potential issues were discovered with stabilising the device through holding and manoeuvring it. Turning the device about the axis of the arm whilst these servos are particularly distant gives a much larger angular momentum than if they were close, making it more difficult for the user to turn the device in such a manner, as well as slowing it once started. Therefore, for any subsequent designs where the servos are in a twin-pair opposing configuration, the distance between the horizontal servos was to be minimised.
+
+At this point, an alternative design was also considered, with the intention of minimising the distance of the servos from the user, requiring less moment force to hold. This design focused on being as compact as possible, and in such a manner that it could be printed in one piece without the difficulties associated with the first print. This concept thus took on a `cubic' shape, as depicted in Figure \ref{figure:cubicConcept}.
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{images/cubicConcept.png}
+\captionof{figure}{Cubic concept for the base of the robot, with the intention of being compact in length.}
+\label{figure:cubicConcept}
+\end{center}
+
+In conjunction with the formation of this concept, the earlier prototype from Figure \ref{figure:initialConcept} was assembled using the generic servo arms and some spare wire to drive a pair of printed rings acting as the linkages on the arm. The servos were then connected to an Arduino UNO (coverd in more detail in SECTION XXXXX) in order to issue simple positional commands to test the motion of the arm. This revealed a few traits which warranted further design changes. The most notable was the way in which the servos were connected to the linkages; whilst the `direct line' approach as shown in both of the early concepts had the advantage of being virtually frictionless, motion response issues were found as a result. 
+
+When a servo actuates, the response direction of the arm is not constant with increasing servo motion. That is, the arm initially moves in the direction along the connecting cable, and as the servo moves further, so does the starting position of the cable, changing the direction of motion of the arm. This response is made more unpredictable by the fact that the linkage in question could be in different starting positions depending on the angles of the other servos. Hence the actuation of a single servo is not constrained to an arm response in a single degree of freedom. This was envisioned to cause added complexity further down the design and control process, in that it would be much more logical and easier to account for if the cables were connected in such a manner that the actuation of a single servo could be ensured to result in motion in only one degree of freedom.
+
+Other problems were also identified with the early implementations of linkages. Firstly, as the linkages were pulled in one direction and the arm deflected in response, gaps appeared between the arm and the linkage, causing the linkage to shift its position somewhat on the arm. Hence, the linkages were re-designed to be much longer axially, so that they interact with a larger portion of the arm so that there are no full gaps between the linkage and arm. Also, wrapping the cable around the tabs of the linkages was found to be a non-suitable solution, as they constantly came unravelled and lost tension almost instantaneously. Therefore, a series of holes along the tabs were to be used to interweave the wire between, creating a stronger grip through friction before fastening them through other means. This design transition of the linkages is illustrated in Figure XXXXX.
+
+INSERT FIGURE OF EARLY DESIGN OF `FLAT LIKE' LINKAGE AND THE CURRENT DESIGN OF THE LONGER LINKAGE WITH MORE HOLES ETC AND THE BOLT HOLES XXXXXXXX
+
+\subsubsection{Cable Routing}
+
+\subsubsection{Pulleys}
+
+\subsubsection{Final Design}
+
+\subsubsection{Electromagnetic End Effector}
+
+\subsubsection{Connecting to Strimmer Base \& Trigger}
+
+
+
+
 \begin{itemize}
 \item{The initial design took direction based on the use of four Hi-Tec MS7980 servomotors to provide a degree of freedom each, driving the arm via some form of lightweight cable.}
 \item{A flexible foam tube was provided to act as the arm of the robot with outer diameter 42mm and inner diameter 19mm}
