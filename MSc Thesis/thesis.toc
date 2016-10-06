@@ -32,42 +32,42 @@
 \contentsline {subsubsection}{\numberline {4.1.1}General Shape Concepts}{24}
 \contentsline {subsubsection}{\numberline {4.1.2}Cable Routing}{26}
 \contentsline {subsubsection}{\numberline {4.1.3}Pulleys}{28}
-\contentsline {subsubsection}{\numberline {4.1.4}Final Design}{28}
-\contentsline {subsubsection}{\numberline {4.1.5}Electromagnetic End Effector}{28}
-\contentsline {subsubsection}{\numberline {4.1.6}Connecting to Strimmer Base \& Trigger}{28}
-\contentsline {subsection}{\numberline {4.2}Controlling The Device}{30}
-\contentsline {section}{\numberline {5}Developed Program}{32}
-\contentsline {subsection}{\numberline {5.1}Interfacing With NatNet Optical Tracking System}{32}
-\contentsline {subsection}{\numberline {5.2}Kernel Regression Method}{33}
-\contentsline {subsubsection}{\numberline {5.2.1}Calibration Procedure}{34}
-\contentsline {subsubsection}{\numberline {5.2.2}Calibration Results}{35}
-\contentsline {subsection}{\numberline {5.3}Algorithm for Responding to Three-Dimensional State Targets}{37}
-\contentsline {subsubsection}{\numberline {5.3.1}Acquiring Target Position Relative to Orientation of Base}{37}
-\contentsline {subsubsection}{\numberline {5.3.2}Gesturing Algorithm for Distant Targets}{39}
-\contentsline {subsubsection}{\numberline {5.3.3}Running with a Live Target in Real Time}{41}
-\contentsline {subsection}{\numberline {5.4}Program Design}{43}
-\contentsline {section}{\numberline {6}Physical Experiment}{47}
-\contentsline {subsection}{\numberline {6.1}Setup}{47}
-\contentsline {subsection}{\numberline {6.2}Response Times}{47}
-\contentsline {subsection}{\numberline {6.3}Gesturing Accuracy}{47}
-\contentsline {subsection}{\numberline {6.4}Construction Environment Parallels}{47}
-\contentsline {subsection}{\numberline {6.5}Mental Assistance}{47}
-\contentsline {subsection}{\numberline {6.6}Physical Aspect}{47}
-\contentsline {section}{\numberline {7}Results}{47}
-\contentsline {subsection}{\numberline {7.1}Response Time}{47}
-\contentsline {subsubsection}{\numberline {7.1.1}Response to Typical Motion}{47}
-\contentsline {subsubsection}{\numberline {7.1.2}Step Response}{47}
-\contentsline {subsection}{\numberline {7.2}Gesturing to Correct Target}{47}
-\contentsline {subsection}{\numberline {7.3}Task Assistance}{47}
-\contentsline {section}{\numberline {8}Discussion}{47}
-\contentsline {section}{\numberline {9}Conclusion}{47}
-\contentsline {section}{\numberline {10}Further Work and Areas of Improvement}{47}
-\contentsline {subsection}{\numberline {10.1}Physical Design}{47}
-\contentsline {subsection}{\numberline {10.2}Experiment}{47}
-\contentsline {section}{\numberline {11}References}{48}
-\contentsline {section}{\numberline {12}Appendices}{51}
-\contentsline {subsection}{\numberline {12.1}CAD Drawings}{51}
-\contentsline {subsection}{\numberline {12.2}Servomotors}{51}
-\contentsline {subsection}{\numberline {12.3}Tracking Device}{51}
-\contentsline {subsection}{\numberline {12.4}Arduino Board}{51}
-\contentsline {subsection}{\numberline {12.5}Code Snippets}{51}
+\contentsline {subsubsection}{\numberline {4.1.4}Final Design}{30}
+\contentsline {subsubsection}{\numberline {4.1.5}Electromagnetic End Effector}{31}
+\contentsline {subsubsection}{\numberline {4.1.6}Connecting to Strimmer Base \& Trigger}{31}
+\contentsline {subsection}{\numberline {4.2}Controlling The Device}{33}
+\contentsline {section}{\numberline {5}Developed Program}{35}
+\contentsline {subsection}{\numberline {5.1}Interfacing With NatNet Optical Tracking System}{35}
+\contentsline {subsection}{\numberline {5.2}Kernel Regression Method}{36}
+\contentsline {subsubsection}{\numberline {5.2.1}Calibration Procedure}{37}
+\contentsline {subsubsection}{\numberline {5.2.2}Calibration Results}{38}
+\contentsline {subsection}{\numberline {5.3}Algorithm for Responding to Three-Dimensional State Targets}{40}
+\contentsline {subsubsection}{\numberline {5.3.1}Acquiring Target Position Relative to Orientation of Base}{40}
+\contentsline {subsubsection}{\numberline {5.3.2}Gesturing Algorithm for Distant Targets}{42}
+\contentsline {subsubsection}{\numberline {5.3.3}Running with a Live Target in Real Time}{44}
+\contentsline {subsection}{\numberline {5.4}Program Design}{46}
+\contentsline {section}{\numberline {6}Physical Experiment}{50}
+\contentsline {subsection}{\numberline {6.1}Setup}{50}
+\contentsline {subsection}{\numberline {6.2}Response Times}{50}
+\contentsline {subsection}{\numberline {6.3}Gesturing Accuracy}{50}
+\contentsline {subsection}{\numberline {6.4}Construction Environment Parallels}{50}
+\contentsline {subsection}{\numberline {6.5}Mental Assistance}{50}
+\contentsline {subsection}{\numberline {6.6}Physical Aspect}{50}
+\contentsline {section}{\numberline {7}Results}{50}
+\contentsline {subsection}{\numberline {7.1}Response Time}{50}
+\contentsline {subsubsection}{\numberline {7.1.1}Response to Typical Motion}{50}
+\contentsline {subsubsection}{\numberline {7.1.2}Step Response}{50}
+\contentsline {subsection}{\numberline {7.2}Gesturing to Correct Target}{50}
+\contentsline {subsection}{\numberline {7.3}Task Assistance}{50}
+\contentsline {section}{\numberline {8}Discussion}{50}
+\contentsline {section}{\numberline {9}Conclusion}{50}
+\contentsline {section}{\numberline {10}Further Work and Areas of Improvement}{50}
+\contentsline {subsection}{\numberline {10.1}Physical Design}{50}
+\contentsline {subsection}{\numberline {10.2}Experiment}{50}
+\contentsline {section}{\numberline {11}References}{51}
+\contentsline {section}{\numberline {12}Appendices}{54}
+\contentsline {subsection}{\numberline {12.1}CAD Drawings}{54}
+\contentsline {subsection}{\numberline {12.2}Servomotors}{54}
+\contentsline {subsection}{\numberline {12.3}Tracking Device}{54}
+\contentsline {subsection}{\numberline {12.4}Arduino Board}{54}
+\contentsline {subsection}{\numberline {12.5}Code Snippets}{54}
