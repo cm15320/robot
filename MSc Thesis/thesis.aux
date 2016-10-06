@@ -181,8 +181,8 @@
 \citation{GreggSmithDesign}
 \citation{GreggSmithDesign}
 \citation{GreggSmithKinematics}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Design of Handheld Robotic Device}{24}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Physical Design}{24}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Design of New Handheld Robotic Device}{24}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Physical Design Process}{24}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}General Shape Concepts}{24}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Initial concept for the base of the robot, to house the servos and the arm.\relax }}{24}}
 \newlabel{figure:initialConcept}{{4.1}{24}}
@@ -202,80 +202,87 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces Three separate parts that make up the pulley design, including the supplied circular servo arm to interweave the cable into to constrain it.\relax }}{30}}
 \newlabel{figure:pulleyDesign}{{4.7}{30}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.4}Final Design}{30}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Varying length of the cable on the side opposite the pulling (taught) cable during arm deflection. Adding guidance linkages increases the cable extension during deflection (assuming constant arm curvature), reducing excess cable released from the pulley. Left: neutral position, Centre: deflection without guide linkages, Right: deflection with two added guide linkages.\relax }}{31}}
+\newlabel{figure:slackReduction}{{4.8}{31}}
+\newlabel{equation:guidanceLength}{{1}{31}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.5}Electromagnetic End Effector}{31}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.6}Connecting to Strimmer Base \& Trigger}{31}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Controlling The Device}{33}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Schematic showing how the controlling equipment interfaces with the pc and the robot components.\relax }}{33}}
-\newlabel{figure:schematic}{{4.8}{34}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Controlling The Device}{34}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces Schematic showing how the controlling equipment interfaces with the pc and the robot components.\relax }}{34}}
+\newlabel{figure:schematic}{{4.9}{35}}
 \citation{OptiTrackSite}
 \citation{GreggSmithDesign}
 \citation{GreggSmithFeedback}
 \citation{OptiTrackSite}
 \citation{OptiTrackSite}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Developed Program}{35}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Interfacing With NatNet Optical Tracking System}{35}}
-\newlabel{section:natnet}{{5.1}{35}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Axes as used by the OptiTrack Motive software, these global axes originate from the centre of the device, image adapted from \cite  {OptiTrackSite}\relax }}{35}}
-\newlabel{figure:duoAxes}{{5.1}{35}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Developed Program}{36}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Interfacing With NatNet Optical Tracking System}{36}}
+\newlabel{section:natnet}{{5.1}{36}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Axes as used by the OptiTrack Motive software, these global axes originate from the centre of the device, image adapted from \cite  {OptiTrackSite}\relax }}{36}}
+\newlabel{figure:duoAxes}{{5.1}{36}}
 \citation{li2002}
 \citation{GreggSmithDesign}
 \citation{GreggSmithDesign}
 \citation{GreggSmithPhd}
 \citation{nadaraya1964}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Kernel Regression Method}{36}}
-\newlabel{nadaraya}{{1}{36}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Kernel Regression Method}{37}}
+\newlabel{nadaraya}{{2}{37}}
 \citation{GreggSmithDesign}
-\newlabel{equation:Gaussian}{{2}{37}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces List of corresponding output vector types for a given input vector\relax }}{37}}
-\newlabel{table:regressionOutputs}{{1}{37}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Calibration Procedure}{37}}
+\newlabel{equation:Gaussian}{{3}{38}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces List of corresponding output vector types for a given input vector\relax }}{38}}
+\newlabel{table:regressionOutputs}{{1}{38}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Calibration Procedure}{38}}
 \citation{GreggSmithDesign}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Calibration Results}{39}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Three alternate views of the surface plot for the 3D area covered by the calibration points, note the forward and backward spikes for when the arm took on an `S' shape, pulling the tip inwards somewhat.\relax }}{40}}
+\newlabel{figure:surfacePlot}{{5.2}{40}}
 \citation{mohamad2013}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Calibration Results}{38}}
-\newlabel{featureScaling}{{3}{39}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Mean positional error at various bandwidths for the output of the regression function compared with the corresponding real positional data\relax }}{39}}
-\newlabel{figure:bandwidthPlot}{{5.2}{39}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Calibration and test points represented in 3D space, note that although some of the points in 3D space may intersect, the underlying servo angles will all be different.\relax }}{41}}
+\newlabel{figure:calibrationTestPoints}{{5.3}{41}}
+\newlabel{featureScaling}{{4}{41}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces Mean positional error at various bandwidths for the output of the regression function compared with the corresponding real positional data\relax }}{42}}
+\newlabel{figure:bandwidthPlot}{{5.4}{42}}
 \citation{natnet2016}
 \citation{3drotation}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Algorithm for Responding to Three-Dimensional State Targets}{40}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}Acquiring Target Position Relative to Orientation of Base}{40}}
-\newlabel{equation:rotationMatrix}{{4}{40}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Example showing how the position and orientation of a point changes with base rotation\relax }}{41}}
-\newlabel{figure:rotationExample}{{5.3}{41}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Algorithm for Responding to Three-Dimensional State Targets}{43}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}Acquiring Target Position Relative to Orientation of Base}{43}}
+\newlabel{equation:rotationMatrix}{{5}{43}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces Example showing how the position and orientation of a point changes with base rotation\relax }}{44}}
+\newlabel{figure:rotationExample}{{5.5}{44}}
 \citation{butterworth2003}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}Gesturing Algorithm for Distant Targets}{42}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces Concept of tip-to-base sphere marking immediately disregarded zone, and initial achievable range zone that requires further checking\relax }}{42}}
-\newlabel{figure:tipSphere}{{5.4}{42}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces Typical steps in obtaining a compromised gesture solution from an initially unachievable point\relax }}{43}}
-\newlabel{figure:gestureSolution}{{5.5}{43}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces General algorithm procedure for taking a 3D target point relative to the base and producing the most suitable solution in the form of angles to be applied to the servomotors\relax }}{44}}
-\newlabel{figure:getSolution}{{5.6}{44}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.3}Running with a Live Target in Real Time}{44}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces Simplified processes taking place in the two different threads, showing the servos are updated after a set interval regardless of the logic\relax }}{45}}
-\newlabel{figure:separateThreads}{{5.7}{45}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Program Design}{46}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces User interface of the program for controlling the current status and operations of the robot, as well as for connecting to the tracking system and reading key tracking data.\relax }}{46}}
-\newlabel{figure:userInterface}{{5.8}{46}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces Core classes and their associated fields and methods that are central to how the program runs.\relax }}{49}}
-\newlabel{figure:classDiagram}{{5.9}{49}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Physical Experiment}{50}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Setup}{50}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Response Times}{50}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Gesturing Accuracy}{50}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Construction Environment Parallels}{50}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Mental Assistance}{50}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.6}Physical Aspect}{50}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Results}{50}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Response Time}{50}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.1.1}Response to Typical Motion}{50}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.1.2}Step Response}{50}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Gesturing to Correct Target}{50}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Task Assistance}{50}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{50}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{50}}
-\@writefile{toc}{\contentsline {section}{\numberline {10}Further Work and Areas of Improvement}{50}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Physical Design}{50}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Experiment}{50}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}Gesturing Algorithm for Distant Targets}{45}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces Concept of tip-to-base sphere marking immediately disregarded zone, and initial achievable range zone that requires further checking\relax }}{45}}
+\newlabel{figure:tipSphere}{{5.6}{45}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces Typical steps in obtaining a compromised gesture solution from an initially unachievable point\relax }}{46}}
+\newlabel{figure:gestureSolution}{{5.7}{46}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces General algorithm procedure for taking a 3D target point relative to the base and producing the most suitable solution in the form of angles to be applied to the servomotors\relax }}{47}}
+\newlabel{figure:getSolution}{{5.8}{47}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.3}Running with a Live Target in Real Time}{47}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces Simplified processes taking place in the two different threads, showing the servos are updated after a set interval regardless of the logic\relax }}{48}}
+\newlabel{figure:separateThreads}{{5.9}{48}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Program Design}{49}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.10}{\ignorespaces User interface of the program for controlling the current status and operations of the robot, as well as for connecting to the tracking system and reading key tracking data.\relax }}{49}}
+\newlabel{figure:userInterface}{{5.10}{49}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.11}{\ignorespaces Core classes and their associated fields and methods that are central to how the program runs.\relax }}{52}}
+\newlabel{figure:classDiagram}{{5.11}{52}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Physical Experiment}{53}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Setup}{53}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Response Times}{53}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Gesturing Accuracy}{53}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Construction Environment Parallels}{53}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Mental Assistance}{53}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6}Physical Aspect}{53}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Results}{53}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Response Time}{53}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.1.1}Response to Typical Motion}{53}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.1.2}Step Response}{53}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Gesturing to Correct Target}{53}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Task Assistance}{53}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{53}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{53}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Further Work and Areas of Improvement}{53}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Physical Design}{53}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Experiment}{53}}
 \bibdata{mybib}
 \bibcite{Chipalkatty2012}{1}
 \bibcite{Anderson2010}{2}
@@ -294,7 +301,7 @@
 \bibcite{buss2010}{15}
 \bibcite{werfel2006}{16}
 \bibcite{Petersen2011}{17}
-\@writefile{toc}{\contentsline {section}{\numberline {11}References}{51}}
+\@writefile{toc}{\contentsline {section}{\numberline {11}References}{54}}
 \bibcite{mellinger2011}{18}
 \bibcite{cano2013}{19}
 \bibcite{GreggSmithKinematics}{20}
@@ -331,11 +338,11 @@
 \bibcite{3drotation}{51}
 \bibcite{butterworth2003}{52}
 \bibstyle{unsrt}
-\@writefile{toc}{\contentsline {section}{\numberline {12}Appendices}{54}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {12.1}CAD Drawings}{54}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {12.2}Servomotors}{54}}
-\@writefile{lof}{\contentsline {figure}{\numberline {12.1}{\ignorespaces Specifications for the Hi-Tec HS-7980TH Monster Torque Servomotors used on the robot.\relax }}{54}}
-\newlabel{figure:servoSpes}{{12.1}{54}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {12.3}Tracking Device}{54}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {12.4}Arduino Board}{54}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {12.5}Code Snippets}{54}}
+\@writefile{toc}{\contentsline {section}{\numberline {12}Appendices}{57}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.1}CAD Drawings}{57}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.2}Servomotors}{57}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12.1}{\ignorespaces Specifications for the Hi-Tec HS-7980TH Monster Torque Servomotors used on the robot.\relax }}{57}}
+\newlabel{figure:servoSpes}{{12.1}{57}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.3}Tracking Device}{57}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.4}Arduino Board}{57}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.5}Code Snippets}{57}}

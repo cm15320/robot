@@ -448,9 +448,9 @@ Furthermore, a brief overview was provided for robots in construction related ta
 \pagebreak
 \pagebreak
 
-\section{Design of Handheld Robotic Device}
+\section{Design of New Handheld Robotic Device}
 
-\subsection{Physical Design}
+\subsection{Physical Design Process}
 \subsubsection{General Shape Concepts}
 The initial design of the device was influenced by the availability of four Hi-Tec MS7980 servomotors (APPENDIX XXXXX). These servos, having already been proven in terms of reliability and sufficient torque provision, were thus selected to provide the necessary driving force in a cable-driven design. As a result, a number of configurations were initially explored, with the servos housed in various physical arrangements. Initial inspiration was taken from the general shape of the design in \cite{GreggSmithDesign}, in which the servos are positioned in two opposing pairs.
 
@@ -540,9 +540,24 @@ As the image depicts, the cables also remain at a constant angle going off to th
 
 \subsubsection{Final Design}
 
-Once the pulleys were constructed and fitted to the servomotors, the motion of the arm was much improved in terms of smoothness and maximum range. However, when the arm was moved from its neutral position, an issue was identified with its stability. Of course, the cables that were currently pulling the arm were taught, although the opposing cables had become particularly slack. The implication of this was that the opposing cables offered no resistance against further arm motion in the direction it was being pulled. This issue was exacerbated when the device was held parallel to the ground, as the arm appeared to `sag' towards the ground when pulled downwards, due to the added force of gravity and no tension in the upper cables to resist this motion. This comes about as a result of the path of the cable on the non-taught side of the arm. As the arm deflects, the amount of cable let out by the pulley is greater than the increase in length required to follow the arm motion, hence the loss of tension. Specifically, this is a result of the cable being connected in discreet straight-line segments to the linkages, whereas the arm itself curves when deflected. The effects of this problem can be reduced by adding more linkages to the arm, purely to guide the cable and increase the total distance the cable covers during arm deflection. This problem, along with the solution, is illustrated in Figure XXXXX.
+Once the pulleys were constructed and fitted to the servomotors, the motion of the arm was much improved in terms of smoothness and maximum range. However, when the arm was moved from its neutral position, an issue was identified with its stability. Of course, the cables that were currently pulling the arm were taught, although the opposing cables had become particularly slack. The implication of this was that the opposing cables offered no resistance against further arm motion in the direction it was being pulled. This issue was exacerbated when the device was held parallel to the ground, as the arm appeared to `sag' towards the ground when pulled downwards, due to the added force of gravity and no tension in the upper cables to resist this motion. This comes about as a result of the path of the cable on the non-taught side of the arm. As the arm deflects, the amount of cable let out by the pulley is greater than the increase in length required to follow the arm motion, hence the loss of tension. Specifically, this is a result of the cable being connected in discreet straight-line segments to the linkages, whereas the arm itself curves when deflected. The effects of this problem can be reduced by adding more linkages to the arm, purely to guide the cable and increase the total distance the cable covers during arm deflection. This problem, along with the solution, is illustrated in Figure \ref{figure:slackReduction}.
 
 
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/slackReduction.png}
+\captionof{figure}{Varying length of the cable on the side opposite the pulling (taught) cable during arm deflection. Adding guidance linkages increases the cable extension during deflection (assuming constant arm curvature), reducing excess cable released from the pulley. Left: neutral position, Centre: deflection without guide linkages, Right: deflection with two added guide linkages.}
+\label{figure:slackReduction}
+\end{center}
+
+As more guidance linkages are added to the arm, the distance the cable must travel from the central linkage to the tip linkage during deflection is increased. This is because the guidance linkages maintain the cable at a set perpendicular distance away from the surface of the arm as it passes through their guide holes. Without this, as shown in the central image of Figure \ref{figure:slackReduction}, the cable goes from the mid-point to the tip of the arm in a straight line, coming much closer to the surface of the arm. Hence, this length comparison can be expressed as:
+
+
+
+\begin{equation}\label{equation:guidanceLength}
+2(\frac{L}{2} + \Delta L_{2}) > L + \Delta L_{1}
+\end{equation}
+
+Therefore, there is a smaller difference between the amount of cable let out by the pulley and the extra amount taken up to follow the deflection of the arm. This means that there is less loss of tension, and thus more stability of the arm and resistance to further motion in the direction of the deflection. As such, two guidance linkages were added to the arm, at the mid-points between the two sections of the arm. A simple mounting surface for the magnetic end effector was then glued to the linkage at the tip, giving a total arm length from base to tip of XXXXXXX. 
 
 \subsubsection{Electromagnetic End Effector}
 
@@ -672,14 +687,34 @@ The calibration sampling is then performed at a chosen resolution (number of deg
 INSERT CODE IMAGE OR PUT IN APPENDIX XXXXX	
 
 
+
+
+
 \subsubsection{Calibration Results}
 In order to find an appropriate bandwidth for the regression function, it was first necessary to obtain calibration data through sampling. Once enough data is available to perform the regression, the function can be tested against other sampled data, not covered in the initial calibration data, referred to as the `test data'. By comparing the output of the function for different bandwidth values against the values of the test data, an absolute positional error can be determined. 
 
 FOLLOWING TWO PARAGRAPHS SHOULD REALLY BE IN THE CALIBRATION PROCEDURE SECTION NOT THE RESULTS XXXXXX
 
-The state-space of the arm was initially sampled at a chosen resolution of five points over a total range of 60\degree per servo, giving a total sample number of $5^4 = 625$ calibration points. This gave a suitable range of motion, with an improvement of 20\degree over the device in \cite{GreggSmithDesign}. Higher ranges were initially used without any long term issues, although temporary deformation of the foam arm meant that the cables need to be re-tensioned, which was especially time consuming. A one second pause was issued after each calibration step to ensure the tip was steady before the position was logged. Hence this calibration took just over 10 minutes. Of course, higher accuracy could be obtained through more samples, with an increase in time, but this was kept short due to the fact that it needed to be repeated a lot with small design changes. Also, a meaningful increase in accuracy would require numerous extra sample points, quickly increasing the required time to well over an hour, which introduces other problems such as battery issues and gradual deformation. 
+The state-space of the arm was initially sampled at a chosen resolution of five points over a total range of 60\degree per servo, giving a total sample number of $5^4 = 625$ calibration points. This gave a suitable range of motion, with an improvement of 20\degree over the device in \cite{GreggSmithDesign}. Higher ranges were initially used without any long term issues, although temporary deformation of the foam arm meant that the cables need to be re-tensioned, which was especially time consuming. A one second pause was issued after each calibration step to ensure the tip was steady before the position was logged. Hence this calibration took just over 10 minutes. Of course, higher accuracy could be obtained through more samples, with an increase in time, but this was kept short due to the fact that it needed to be repeated a lot with small design changes. Also, a meaningful increase in accuracy would require numerous extra sample points, quickly increasing the required time to well over an hour, which introduces other problems such as battery issues and gradual deformation. The surface covered by this calibration procedure is illustrated in the Figure XXXX, displaying alternate views to better represent the curved shape of the area covered, similar to a portion on a sphere.
 
-The number of test data points was considerably smaller, with the primary aim of just collecting data for motor angle vectors that were not covered in the initial sampling. Hence $3^4 = 81$ samples were obtained, with starting position and step selected to deliberately avoid any calibration samples. For the comparison between the function output and the test data, the motor angles were to be the input, thus comparing the output positional values with the recorded points for the same motor angles. This `forward' approach was used for two reasons. The first is because the errors could be compared in terms of millimetres in space, which is more meaningful than servo degrees. The other reason is due to the fact that a given 3D position could potentially be achieved (or very close to) by more than one configuration of servo angles, whereas there is only one matching position for a given angle configuration. 
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{images/surfacePlotTogether.png}
+\captionof{figure}{Three alternate views of the surface plot for the 3D area covered by the calibration points, note the forward and backward spikes for when the arm took on an `S' shape, pulling the tip inwards somewhat.}
+\label{figure:surfacePlot}
+\end{center}
+
+
+The number of test data points was considerably smaller, with the primary aim of just collecting data for motor angle vectors that were not covered in the initial sampling. Hence $3^4 = 81$ samples were obtained, with starting position and step selected to deliberately avoid any calibration samples. For the comparison between the function output and the test data, the motor angles were to be the input, thus comparing the output positional values with the recorded points for the same motor angles. This `forward' approach was used for two reasons. The first is because the errors could be compared in terms of millimetres in space, which is more meaningful than servo degrees. The other reason is due to the fact that a given 3D position could potentially be achieved (or very close to) by more than one configuration of servo angles, whereas there is only one matching position for a given angle configuration. The 3D points for the calibration and the test points are illustrated in Figure \ref{figure:calibrationTestPoints}. 
+
+
+\begin{center}
+\includegraphics[width=\textwidth]{images/calibrationTestPoints.png}
+\captionof{figure}{Calibration and test points represented in 3D space, note that although some of the points in 3D space may intersect, the underlying servo angles will all be different.}
+\label{figure:calibrationTestPoints}
+\end{center}
+
+
 
 Due to the nature of the kernel function, large differential values (the $x - x_{i}$ term) can cause issues. The input to the kernel function becomes larger when divided by the bandwidth (typically less than one), meaning when this value is squared, negated and made an exponent, a very small number is the result. This becomes particularly problematic when the value is so small that the number of bits required to represent it exceed those available in the `double' data type, giving a result of zero out of the Gaussian kernel function. This then can then cause the regression itself to fail as the denominator becomes zero, giving NaN values as output as opposed to any meaningful values. Due to the typically observed differences in degrees between the servo angles of the input and the sample points, this issue was present. As such, the value of servo angles need to be scaled so that the difference between any values is guaranteed to be in the range of $-1 < x - x_{i} < 1$. This is known as feature scaling, or min-max normalization \cite{mohamad2013}, and is shown in \eqref{featureScaling}, where $x^{\prime}$ is the new value after the original value, $x$, was scaled. This was performed for all servo angles during the regression function, and converted back after output to get results in degrees.
 
@@ -744,7 +779,7 @@ In order to be cooperative and interactive in practice, a handheld robot must be
 In order to gesture effectively to the user, the 3D target points must be categorised as achievable or not from the outset before deciding the next step. Initially, a point can be said to be immediately unachievable if the relative distance between itself and the base of the robot is greater than (or a certain amount less than) the typical tip-to-base distance in a straight-arm configuration. This tip-to-base distance can be used as the radius of a sphere which governs whether the points can be immediately disregarded as attainable, and requires gesturing, or whether further checking is required to assess whether it is appropriate to attempt to match this point directly. This concept is illustrated in Figure \ref{figure:tipSphere}.
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{images/tipSphere.png}
+\includegraphics[width=0.6\textwidth]{images/tipSphere2.png}
 \captionof{figure}{Concept of tip-to-base sphere marking immediately disregarded zone, and initial achievable range zone that requires further checking}
 \label{figure:tipSphere}
 \end{center}
@@ -754,7 +789,7 @@ If the point lies at an absolute distance that falls within the range between th
 The current target then lies within this intermediate range, and there is a further check to determine whether the coordinates of the target point relative to the base fall outside any of the recorded minimum and maximum values for the X, Y and Z dimensions. If not, then the target may be directly achievable, and the positional vector is inserted straight into the regression function to check if motor angles can be yielded, giving a solution. However in the event of this still not generating a valid solution, or if the point does fall outside any of the min/max ranges, a compromise is required. This entails selecting a new target point from the stored calibration data that is geometrically closest to the target point in question. Thus, if not able to match the point, a new point should be determined to exhibit a suitable gesture motion. The typical process for responding to a far-off point is illustrated in Figure \ref{figure:gestureSolution}.
 
 \begin{center}
-\includegraphics[width=\textwidth]{images/gestureSolution.png}
+\includegraphics[width=\textwidth]{images/gestureSolution2.png}
 \captionof{figure}{Typical steps in obtaining a compromised gesture solution from an initially unachievable point}
 \label{figure:gestureSolution}
 \end{center}

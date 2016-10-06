@@ -63,6 +63,8 @@ namespace robotTracking
         private StringBuilder bodeCsv = new StringBuilder();
         private StringBuilder newPositionsCsv = new StringBuilder();
         private StringBuilder calibCsv = new StringBuilder();
+        private StringBuilder testDataCsv = new StringBuilder();
+
         private int motorScaler = 100;
 
 
@@ -1378,7 +1380,12 @@ namespace robotTracking
 
         public bool getTestData()
         {
-            return getData(testDataFilename);
+            bool success;
+            success = getData(testDataFilename);
+            testDataToCSV();
+
+            return success;
+
         }
 
         private void getMaxAndMinValues()
@@ -1544,6 +1551,21 @@ namespace robotTracking
 
 
             File.WriteAllText("calibrationPositions.csv", calibCsv.ToString());
+        }
+
+
+        private void testDataToCSV()
+        {
+            foreach (DataPoint currentDataPoint in storedTestData)
+            {
+                float[] relCoords = currentDataPoint.relativeTipPosition;
+                string line = string.Format("{0},{1},{2}", relCoords[0], relCoords[1], relCoords[2]);
+
+                testDataCsv.AppendLine(line);
+            }
+
+
+            File.WriteAllText("testPositions.csv", testDataCsv.ToString());
         }
 
 

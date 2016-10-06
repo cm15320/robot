@@ -27,47 +27,47 @@
 \contentsline {subsubsection}{\numberline {2.5.4}Added Value}{21}
 \contentsline {subsubsection}{\numberline {2.5.5}Task Load Index (TLX) and Perceived Effort}{22}
 \contentsline {section}{\numberline {3}Summary}{23}
-\contentsline {section}{\numberline {4}Design of Handheld Robotic Device}{24}
-\contentsline {subsection}{\numberline {4.1}Physical Design}{24}
+\contentsline {section}{\numberline {4}Design of New Handheld Robotic Device}{24}
+\contentsline {subsection}{\numberline {4.1}Physical Design Process}{24}
 \contentsline {subsubsection}{\numberline {4.1.1}General Shape Concepts}{24}
 \contentsline {subsubsection}{\numberline {4.1.2}Cable Routing}{26}
 \contentsline {subsubsection}{\numberline {4.1.3}Pulleys}{28}
 \contentsline {subsubsection}{\numberline {4.1.4}Final Design}{30}
 \contentsline {subsubsection}{\numberline {4.1.5}Electromagnetic End Effector}{31}
 \contentsline {subsubsection}{\numberline {4.1.6}Connecting to Strimmer Base \& Trigger}{31}
-\contentsline {subsection}{\numberline {4.2}Controlling The Device}{33}
-\contentsline {section}{\numberline {5}Developed Program}{35}
-\contentsline {subsection}{\numberline {5.1}Interfacing With NatNet Optical Tracking System}{35}
-\contentsline {subsection}{\numberline {5.2}Kernel Regression Method}{36}
-\contentsline {subsubsection}{\numberline {5.2.1}Calibration Procedure}{37}
-\contentsline {subsubsection}{\numberline {5.2.2}Calibration Results}{38}
-\contentsline {subsection}{\numberline {5.3}Algorithm for Responding to Three-Dimensional State Targets}{40}
-\contentsline {subsubsection}{\numberline {5.3.1}Acquiring Target Position Relative to Orientation of Base}{40}
-\contentsline {subsubsection}{\numberline {5.3.2}Gesturing Algorithm for Distant Targets}{42}
-\contentsline {subsubsection}{\numberline {5.3.3}Running with a Live Target in Real Time}{44}
-\contentsline {subsection}{\numberline {5.4}Program Design}{46}
-\contentsline {section}{\numberline {6}Physical Experiment}{50}
-\contentsline {subsection}{\numberline {6.1}Setup}{50}
-\contentsline {subsection}{\numberline {6.2}Response Times}{50}
-\contentsline {subsection}{\numberline {6.3}Gesturing Accuracy}{50}
-\contentsline {subsection}{\numberline {6.4}Construction Environment Parallels}{50}
-\contentsline {subsection}{\numberline {6.5}Mental Assistance}{50}
-\contentsline {subsection}{\numberline {6.6}Physical Aspect}{50}
-\contentsline {section}{\numberline {7}Results}{50}
-\contentsline {subsection}{\numberline {7.1}Response Time}{50}
-\contentsline {subsubsection}{\numberline {7.1.1}Response to Typical Motion}{50}
-\contentsline {subsubsection}{\numberline {7.1.2}Step Response}{50}
-\contentsline {subsection}{\numberline {7.2}Gesturing to Correct Target}{50}
-\contentsline {subsection}{\numberline {7.3}Task Assistance}{50}
-\contentsline {section}{\numberline {8}Discussion}{50}
-\contentsline {section}{\numberline {9}Conclusion}{50}
-\contentsline {section}{\numberline {10}Further Work and Areas of Improvement}{50}
-\contentsline {subsection}{\numberline {10.1}Physical Design}{50}
-\contentsline {subsection}{\numberline {10.2}Experiment}{50}
-\contentsline {section}{\numberline {11}References}{51}
-\contentsline {section}{\numberline {12}Appendices}{54}
-\contentsline {subsection}{\numberline {12.1}CAD Drawings}{54}
-\contentsline {subsection}{\numberline {12.2}Servomotors}{54}
-\contentsline {subsection}{\numberline {12.3}Tracking Device}{54}
-\contentsline {subsection}{\numberline {12.4}Arduino Board}{54}
-\contentsline {subsection}{\numberline {12.5}Code Snippets}{54}
+\contentsline {subsection}{\numberline {4.2}Controlling The Device}{34}
+\contentsline {section}{\numberline {5}Developed Program}{36}
+\contentsline {subsection}{\numberline {5.1}Interfacing With NatNet Optical Tracking System}{36}
+\contentsline {subsection}{\numberline {5.2}Kernel Regression Method}{37}
+\contentsline {subsubsection}{\numberline {5.2.1}Calibration Procedure}{38}
+\contentsline {subsubsection}{\numberline {5.2.2}Calibration Results}{39}
+\contentsline {subsection}{\numberline {5.3}Algorithm for Responding to Three-Dimensional State Targets}{43}
+\contentsline {subsubsection}{\numberline {5.3.1}Acquiring Target Position Relative to Orientation of Base}{43}
+\contentsline {subsubsection}{\numberline {5.3.2}Gesturing Algorithm for Distant Targets}{45}
+\contentsline {subsubsection}{\numberline {5.3.3}Running with a Live Target in Real Time}{47}
+\contentsline {subsection}{\numberline {5.4}Program Design}{49}
+\contentsline {section}{\numberline {6}Physical Experiment}{53}
+\contentsline {subsection}{\numberline {6.1}Setup}{53}
+\contentsline {subsection}{\numberline {6.2}Response Times}{53}
+\contentsline {subsection}{\numberline {6.3}Gesturing Accuracy}{53}
+\contentsline {subsection}{\numberline {6.4}Construction Environment Parallels}{53}
+\contentsline {subsection}{\numberline {6.5}Mental Assistance}{53}
+\contentsline {subsection}{\numberline {6.6}Physical Aspect}{53}
+\contentsline {section}{\numberline {7}Results}{53}
+\contentsline {subsection}{\numberline {7.1}Response Time}{53}
+\contentsline {subsubsection}{\numberline {7.1.1}Response to Typical Motion}{53}
+\contentsline {subsubsection}{\numberline {7.1.2}Step Response}{53}
+\contentsline {subsection}{\numberline {7.2}Gesturing to Correct Target}{53}
+\contentsline {subsection}{\numberline {7.3}Task Assistance}{53}
+\contentsline {section}{\numberline {8}Discussion}{53}
+\contentsline {section}{\numberline {9}Conclusion}{53}
+\contentsline {section}{\numberline {10}Further Work and Areas of Improvement}{53}
+\contentsline {subsection}{\numberline {10.1}Physical Design}{53}
+\contentsline {subsection}{\numberline {10.2}Experiment}{53}
+\contentsline {section}{\numberline {11}References}{54}
+\contentsline {section}{\numberline {12}Appendices}{57}
+\contentsline {subsection}{\numberline {12.1}CAD Drawings}{57}
+\contentsline {subsection}{\numberline {12.2}Servomotors}{57}
+\contentsline {subsection}{\numberline {12.3}Tracking Device}{57}
+\contentsline {subsection}{\numberline {12.4}Arduino Board}{57}
+\contentsline {subsection}{\numberline {12.5}Code Snippets}{57}

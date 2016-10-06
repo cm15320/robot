@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.17)  6 OCT 2016 20:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.17)  7 OCT 2016 00:21
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -889,96 +889,122 @@ File: images/pulleyDesign.png Graphic file (type png)
 <use images/pulleyDesign.png>
 Package pdftex.def Info: images/pulleyDesign.png used on input line 534.
 (pdftex.def)             Requested size: 386.95897pt x 180.64795pt.
- [30 <./images/pulleyDesign.png>] [31] [32]
-<images/schematic.png, id=154, 1650.165pt x 1373.13pt>
+
+<images/slackReduction.png, id=144, 768.9528pt x 489.9906pt>
+File: images/slackReduction.png Graphic file (type png)
+
+<use images/slackReduction.png>
+Package pdftex.def Info: images/slackReduction.png used on input line 547.
+(pdftex.def)             Requested size: 386.95897pt x 246.57974pt.
+ [30 <./images/pulleyDesign.png>] [31 <./images/slackReduction.png>] [32] [33]
+<images/schematic.png, id=161, 1650.165pt x 1373.13pt>
 File: images/schematic.png Graphic file (type png)
 
 <use images/schematic.png>
-Package pdftex.def Info: images/schematic.png used on input line 588.
+Package pdftex.def Info: images/schematic.png used on input line 603.
 (pdftex.def)             Requested size: 435.32422pt x 362.22249pt.
- [33 <./images/schematic.png>] [34]
-<images/duoAxes.png, id=165, 723.45282pt x 290.58563pt>
+ [34 <./images/schematic.png>] [35]
+<images/duoAxes.png, id=171, 723.45282pt x 290.58563pt>
 File: images/duoAxes.png Graphic file (type png)
 
 <use images/duoAxes.png>
-Package pdftex.def Info: images/duoAxes.png used on input line 610.
+Package pdftex.def Info: images/duoAxes.png used on input line 625.
 (pdftex.def)             Requested size: 386.95897pt x 155.42851pt.
- [35 <./images/duoAxes.png>] [36] [37] [38]
-<images/bandwidthPlot.png, id=183, 719.68875pt x 474.27188pt>
+ [36 <./images/duoAxes.png>] [37] [38]
+<images/surfacePlotTogether.png, id=185, 394.1124pt x 615.2586pt>
+File: images/surfacePlotTogether.png Graphic file (type png)
+
+<use images/surfacePlotTogether.png>
+Package pdftex.def Info: images/surfacePlotTogether.png used on input line 702.
+
+(pdftex.def)             Requested size: 435.32422pt x 679.62175pt.
+ [39] [40 <./images/surfacePlotTogether.png>] <images/calibrationTestPoints.png
+, id=194, 679.338pt x 379.6584pt>
+File: images/calibrationTestPoints.png Graphic file (type png)
+
+<use images/calibrationTestPoints.png>
+Package pdftex.def Info: images/calibrationTestPoints.png used on input line 71
+2.
+(pdftex.def)             Requested size: 483.69687pt x 270.32983pt.
+ [41 <./images/calibrationTestPoints.png>] <images/bandwidthPlot.png, id=199, 7
+19.68875pt x 474.27188pt>
 File: images/bandwidthPlot.png Graphic file (type png)
 
 <use images/bandwidthPlot.png>
-Package pdftex.def Info: images/bandwidthPlot.png used on input line 694.
+Package pdftex.def Info: images/bandwidthPlot.png used on input line 729.
 (pdftex.def)             Requested size: 435.32422pt x 286.88834pt.
- [39 <./images/bandwidthPlot.png>]
-<images/rotationExampleAll.jpg, id=188, 351.56343pt x 619.56468pt>
+ [42 <./images/bandwidthPlot.png>]
+<images/rotationExampleAll.jpg, id=204, 351.56343pt x 619.56468pt>
 File: images/rotationExampleAll.jpg Graphic file (type jpg)
 
 <use images/rotationExampleAll.jpg>
-Package pdftex.def Info: images/rotationExampleAll.jpg used on input line 729.
+Package pdftex.def Info: images/rotationExampleAll.jpg used on input line 764.
 (pdftex.def)             Requested size: 290.22107pt x 511.45914pt.
- [40] [41 <./images/rotationExampleAll.jpg>] <images/tipSphere.png, id=196, 653
-.44125pt x 639.13782pt>
-File: images/tipSphere.png Graphic file (type png)
+ [43] [44 <./images/rotationExampleAll.jpg>] <images/tipSphere2.png, id=211, 45
+0.9648pt x 441.8106pt>
+File: images/tipSphere2.png Graphic file (type png)
 
-<use images/tipSphere.png>
-Package pdftex.def Info: images/tipSphere.png used on input line 747.
-(pdftex.def)             Requested size: 290.22107pt x 283.86443pt.
- [42 <./images/tipSphere.png>]
-<images/gestureSolution.png, id=201, 1347.53438pt x 438.8897pt>
-File: images/gestureSolution.png Graphic file (type png)
+<use images/tipSphere2.png>
+Package pdftex.def Info: images/tipSphere2.png used on input line 782.
+(pdftex.def)             Requested size: 290.22107pt x 284.34206pt.
+ [45 <./images/tipSphere2.png>]
+<images/gestureSolution2.png, id=216, 1616.439pt x 539.1342pt>
+File: images/gestureSolution2.png Graphic file (type png)
 
-<use images/gestureSolution.png>
-Package pdftex.def Info: images/gestureSolution.png used on input line 757.
-(pdftex.def)             Requested size: 483.69687pt x 157.53809pt.
+<use images/gestureSolution2.png>
+Package pdftex.def Info: images/gestureSolution2.png used on input line 792.
+(pdftex.def)             Requested size: 483.69687pt x 161.33018pt.
 
-<images/getSolution.png, id=202, 536.0025pt x 846.16125pt>
+<images/getSolution.png, id=217, 536.0025pt x 846.16125pt>
 File: images/getSolution.png Graphic file (type png)
 
 <use images/getSolution.png>
-Package pdftex.def Info: images/getSolution.png used on input line 772.
+Package pdftex.def Info: images/getSolution.png used on input line 807.
 (pdftex.def)             Requested size: 290.22107pt x 458.14685pt.
- [43 <./images/gestureSolution.png>]
-<images/separateThreads.png, id=207, 643.40375pt x 525.965pt>
+ [46 <./images/gestureSolution2.png
+
+pdfTeX warning: pdflatex (file ./images/gestureSolution2.png): large interlaced
+ PNG might cause out of memory (use non-interlaced PNG to fix this)
+>] <images/separateThreads.png, id=223, 643.40375pt x 525.965pt>
 File: images/separateThreads.png Graphic file (type png)
 
 <use images/separateThreads.png>
-Package pdftex.def Info: images/separateThreads.png used on input line 782.
+Package pdftex.def Info: images/separateThreads.png used on input line 817.
 (pdftex.def)             Requested size: 314.40001pt x 257.01884pt.
- [44 <./images/getSolution.png>] [45 <./images/separateThreads.png>]
-<images/userInterface.png, id=216, 599.23875pt x 442.65375pt>
+ [47 <./images/getSolution.png>] [48 <./images/separateThreads.png>]
+<images/userInterface.png, id=232, 599.23875pt x 442.65375pt>
 File: images/userInterface.png Graphic file (type png)
 
 <use images/userInterface.png>
-Package pdftex.def Info: images/userInterface.png used on input line 803.
+Package pdftex.def Info: images/userInterface.png used on input line 838.
 (pdftex.def)             Requested size: 483.69687pt x 357.31151pt.
- [46 <./images/userInterface.png>] [47] [48]
-<images/classDiagram.png, id=228, 1117.17375pt x 739.76375pt>
+ [49 <./images/userInterface.png>] [50] [51]
+<images/classDiagram.png, id=243, 1117.17375pt x 739.76375pt>
 File: images/classDiagram.png Graphic file (type png)
 
 <use images/classDiagram.png>
-Package pdftex.def Info: images/classDiagram.png used on input line 836.
+Package pdftex.def Info: images/classDiagram.png used on input line 871.
 (pdftex.def)             Requested size: 677.17265pt x 448.42197pt.
- [49
+ [52
 
- <./images/classDiagram.png>] [50
+ <./images/classDiagram.png>] [53
 
-] (thesis.bbl [51] [52]) [53] <images/servoSpecs.png, id=247, 339.1872pt x 362.
+] (thesis.bbl [54] [55]) [56] <images/servoSpecs.png, id=262, 339.1872pt x 362.
 3136pt>
 File: images/servoSpecs.png Graphic file (type png)
 
 <use images/servoSpecs.png>
-Package pdftex.def Info: images/servoSpecs.png used on input line 882.
+Package pdftex.def Info: images/servoSpecs.png used on input line 917.
 (pdftex.def)             Requested size: 386.95897pt x 413.37903pt.
- [54 <./images/servoSpecs.png>] (thesis.aux) ) 
+ [57 <./images/servoSpecs.png>] (thesis.aux) ) 
 Here is how much of TeX's memory you used:
- 5933 strings out of 493334
- 88243 string characters out of 3139225
- 171366 words of memory out of 3000000
- 9309 multiletter control sequences out of 15000+200000
+ 5952 strings out of 493334
+ 88822 string characters out of 3139225
+ 171410 words of memory out of 3000000
+ 9325 multiletter control sequences out of 15000+200000
  10038 words of font info for 36 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,11n,39p,1434b,290s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 40i,11n,39p,1479b,290s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/font
 s/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
 public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
@@ -993,9 +1019,9 @@ ublic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
 sfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.
 pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on thesis.pdf (57 pages, 8236607 bytes).
+Output written on thesis.pdf (60 pages, 9100351 bytes).
 PDF statistics:
- 301 PDF objects out of 1000 (max. 8388607)
+ 316 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 176 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 191 words of extra memory for PDF output out of 10000 (max. 10000000)
 
