@@ -17,6 +17,7 @@ namespace robotTracking
         private bool oldestTriggerPress = false, oldTriggerPress = false;
         private bool triggerPress = false;
         private int numTriggerPresses = 0;
+        private int numRandomTargets = 5;
         private float[][] targetPositions;
         private bool running, initialised;
         private bool justReleased = false;
@@ -83,7 +84,7 @@ namespace robotTracking
 
             if(success && type == UserStudyType.GESTURING && toRandom)
             {
-                randomiseOrder(5, targetPositions);
+                randomiseOrder(numRandomTargets, targetPositions);
             }
 
             return success;
@@ -186,6 +187,7 @@ namespace robotTracking
             {
                 //Console.WriteLine("finished study");
                 running = false;
+                printRandomisedOrder();
                 return;
             }
             absoluteTargetPosition = targetPositions[numTriggerPresses];

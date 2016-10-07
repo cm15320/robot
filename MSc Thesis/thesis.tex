@@ -13,6 +13,7 @@
 \usepackage{graphicx}
 \usepackage{pdflscape, lscape}
 \usepackage{array}
+%\usepackage{textcomp}
 \usepackage{gensymb}
 \usepackage{tabularx}
 \usepackage{caption}
@@ -21,6 +22,8 @@
 \usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \setlist{noitemsep}
 
 \title{An Evaluation of Cooperative Handheld Robotics in a Simplified 3D Construction Environment}
@@ -70,8 +73,10 @@
 
 
 \section{Introduction}
-\subsection{Current Robotics}
+\subsection{Contemporary Robotics}
 Advancements in the field of robotics have been plentiful over recent years, stemming from increased knowledge of the subject, improved processing power, as well as mechanical and material developments. As such, the capabilities afforded by robots have also increased, enabling a range of applications that, until recently, would not have been possible. As the area has progressed since its inception, it has naturally split into two distinct categories; external robotics and wearable technology. They are each characterised by the respective workspace in which they operate. This branching has appeared to come about due to typical robotic task requirements catering to either one or the other.
+
+SIDE BY SIDE OF TWO ESTABLISHED FORMS OF ROBOTICS, WITH SPACE IN THE MIDDLE FOR `COOPERATIVE HANDHELD ROBOTICS'? XXXXXX
 
 External robotics are distinctly separate from humans in terms of physical proximity. They are becoming increasingly common in large-scale industrial spaces due to their ability to provide improved efficiency and task precision through autonomy. A typical application is the automotive industry, in which production has been accelerated through the introduction of external robotics, performing specific assembly and painting operations, mostly in detached workspaces from the human workers. The other discrete area of robotics is referred to as `wearable technology', which, as implied by its name, is concerned with robotics that operate in the immediate personal space of the human user. This domain is typically associated with the augmentation of human actions, such as increasing physical strength or permitting certain motions that those with disabilities have been rendered incapable of. A well known use of this technology is the `exoskeleton', which can be tailored to accomplish either of these two functions through structural support and/or actuation.
 
@@ -88,13 +93,13 @@ The \textit{Handheld Robotics Project} at the University of Bristol has begun to
 
 
 \subsection{Aims and Objectives}
-The overarching aim of this project is to develop and evaluate the performance of a new handheld robotic device. As such, a new robot must be designed, assembled, and integrated with a control system so that it may be operable. This functionality should be such that it enables a degree of performance evaluation. In order to implement this aim, a number of objectives must be met:
+The overarching aim of this project is to develop a new handheld robotic device and evaluate its performance in mentally assisting the user through task knowledge. As such, a new robot must be designed, assembled, and integrated with a control system so that it is fully operable. The functionality must be such that it enables a degree of performance evaluation. In order to implement this aim, a number of objectives must be met:
 \begin{enumerate}
 \item{Design a new handheld robot using CAD. The exact design will be achieved through an iterative process of prototyping via 3D printing and physical testing. Once fully designed and dimensioned, the robot should be constructed and assembled to connect to an off-the-shelf handle.}
 \item{Develop a control system so that the actuation of the robot may be executed by a PC. This will entail using a microcontroller to sit between the robot and computer, receiving commands and controlling the actuation accordingly.}
 \item{Interface the robot with an external optical tracking system, so that the position of the robot relative to target positions can be determined. This will utilise existing infrastructure at the University, namely the \textit{OptiTrack} motion capture system, and the libraries and API included will dictate that the development language will be C\#.}
 \item{Implement an algorithm so that the robot may move to its intended target, or indicate the general position to the user when it is out of reach.}
-\item{Perform a small evaluation of the robot's performance, this will comprise its ability to successfully indicate a desired position, its response to a varying target and a small user study to assess its ability of alleviating mental workload.}
+\item{Perform a small evaluation of the robot's performance, this will comprise its ability to successfully indicate a desired position, its response to a varying target input and a small user study to assess its ability of alleviating cognitive workload.}
 \end{enumerate}
 
 \subsection{Added Value}
@@ -203,7 +208,7 @@ This idea of designing the structure blocks in a passive manner so that they nat
 With recent developments in Unmanned Aerial Vehicle (UAV) technology as a whole, it is becoming increasingly viable to deploy rotary wing platforms to interact with the physical environment. The main advantage they offer over typical ground based alternatives is improved speed and accessibility with regard to hard-to-reach regions. Moreover, using rotary wing based UAVs, such as quadcopters, over their fixed wing counterparts, allows for a more controlled operation in a tighter workspace. The design and control associated with transporting a payload with such a rotary based UAV is presented in \cite{mellinger2011}. The paper looks at different gripper designs and how successful the robot was in estimating and manipulating the mechanics of the varying payloads. Several issues arise when using UAVs to transport payloads, namely the limited weight bearing capacity and the fact that the dynamics are altered when carrying payloads. 
 
 The grippers investigated in this paper either operate by traditional clamping (impactive) or surface penetration (ingressive). However, the reduced motion of the fixed claws inevitably leads to more positional uncertainty during hovering. A solution is proposed in \cite{cano2013}, which covers the design of a 6-DoF aerial manipulator (see Figure \ref{figure:uavmanipulator}) for UAVs to assemble bar structures. This is made possible by developments in high power aerial platforms, reducing weight restrictions. The 6-DoF manipulator in the paper focuses on three main functions; the \textit{capture} (approaching and grasping the bar), the \textit{transport} (transferring load from storage to site) and the \textit{assembling} (installing to the structure).
-\\
+
 
 \begin{center}
 \includegraphics[width = 0.5\textwidth]{uavmanipulator.png}
@@ -277,8 +282,7 @@ An example of such a device is the handheld master-slave combined manipulator (M
 
 However, up until 2015, there had been little research in the way of handheld robotics in the \textit{toolspace}. Tools have become a fundamental part of the way humans interact with the physical world, enabling the completion of tasks which would otherwise propose physical or mental challenges. They often allow operations to be performed that would otherwise be impossible, or simply reduce the task duration and workload, thus leading to an improved quality of life. One such example of work in this area is a handheld automated welding device, which enables welding to occur only when positioned correctly \cite{Echtler2004}. Although this constitutes an application of handheld robotics in the tool space, it is constrained by similar limitations to those present in the examples cited above when looking to classify this as a generalised handheld robotic tool that cooperates with the user. The aforementioned novel devices were designed with relatively few degrees of freedom and with very specific tasks in mind. This means that they are limited to single tasks, and cannot easily be adapted to alternative applications. The other key factor associated with the existing devices is their limited 'task knowledge', reducing the potential for cooperation between the device and the user.
 
-\subsection{University of Bristol Handheld Robotics Project} \label{bristolhandheld}
-\subsubsection{Initial Work}
+\subsubsection{University of Bristol Handheld Robotics Project} \label{bristolhandheld}
 Recent work undertaken at the University of Bristol has formulated the “Bristol Handheld Robotics Project”. This has focused on the potential of multi-degree-of-freedom handheld robotic devices operating in the tool space. A critical component of the research has been the capability of the robot to assume task knowledge for the desired procedure. The foundation for this branch of work was laid by A.Gregg-Smith and W.W.Mayol-Cuevas in \cite{GreggSmithDesign}, where a handheld robot was constructed and evaluated in terms of user cooperation. The underlying motivation of the paper was the assertion that there exists a much greater potential for handheld robotic applications than just the medical industry.
 
 The work in \cite{GreggSmithDesign} covers the development of a four degree-of-freedom (4-DoF) prototype handheld robot, in which the aim was not to design a robot which can surpass human capability, but rather to evaluate the cooperation between the user and robot for various degrees of autonomy. This design and evaluation here has certainly laid the groundwork for future development of handheld robotics. The arm comprises a carbon-fibre backbone, and is cable-driven by two pairs of motors and pulleys located in the base; one opposing pair providing a degree of freedom each to the midpoint and the tip, with the other pair providing a second degree to each point, as illustrated in Figure \ref{figure:mark1}.
@@ -365,7 +369,7 @@ The tiling task, also from \cite{GreggSmithDesign}, involved fitting the end-eff
 In the two modes that comprise task knowledge, the arm moves towards the nearest hopper that it knows will provide a suitable colour, before moving towards the nearest suitable empty space on the board. In both cases, the robot will refuse to perform an action that conflicts with the task specification. In the case of full autonomy, the electromagnet is also controlled by the robot. Thus the tool will keep seeking to perform necessary actions, gesturing to the user where it should be positioned to do so, until the task is complete.
 
 \begin{center}
-\includegraphics[width=0.5\textwidth]{tilingtask.png}
+\includegraphics[width=0.65\textwidth]{tilingtask.png}
 \captionof{figure}{Pick and Place Tiling Task with tip of first prototype, image from \cite{GreggSmithDesign}}
 \label{figure:tilingtask}
 \end{center}
@@ -511,7 +515,6 @@ As the cables change directions sharply at distinct points, namely the guidance 
 \subsubsection{Pulleys}
 With the design for the base structure in place, final parts were 3D printed and assembled to give the underlying foundation of the device so that the robot motion could be tested at the real base dimensions and servo locations etcetera. When setting the servos to a range of positions whilst moving the device to different orientations, issues were found with the way in which the servo horn drives the cables. Initially, the servos were fitted with the supplied standard two-sided servo horn (arm) with an overall diameter (furthest hole from the centre on one side to the other) of 50mm, as shown in Figure \ref{figure:servoArmChange}. The cable was connected by interweaving it between the holes on the arm, giving a friction grip, and knotting the loose end so it cannot pass through the hole. However, it proved a limited option of driving the cables in terms of available motion. At small servo movements from the starting position, a large response of the arm takes place due to the servo horn being perpendicular to the cable. However, at similar servo movements at higher angles, much smaller responses of the arm are observed. This is due to the cable being at an angle to the servo horn in relation to the perpendicular starting position, thus servo motion does not `pull' the cable as much. This effect is illustrated in Figure \ref{figure:servoArmChange}.
 
-INSERT IMAGE OF THE SERVO MOVING AT SMALL ANGLES AND SHOW MATHS TO SHOW A LARGE VERTICAL MOTION OF THE CABLE. THEN COMPARE IT TO MOTION AT HIGH ANGLES AND SHOW MATHS TO SHOW A SMALLER MOTION XXXXXXX
 
 \begin{center}
 \includegraphics[width=0.8\textwidth]{images/servoArmChange.png}
@@ -557,36 +560,20 @@ As more guidance linkages are added to the arm, the distance the cable must trav
 2(\frac{L}{2} + \Delta L_{2}) > L + \Delta L_{1}
 \end{equation}
 
-Therefore, there is a smaller difference between the amount of cable let out by the pulley and the extra amount taken up to follow the deflection of the arm. This means that there is less loss of tension, and thus more stability of the arm and resistance to further motion in the direction of the deflection. As such, two guidance linkages were added to the arm, at the mid-points between the two sections of the arm. A simple mounting surface for the magnetic end effector was then glued to the linkage at the tip, giving a total arm length from base to tip of XXXXXXX. 
+Therefore, there is a smaller difference between the amount of cable let out by the pulley and the extra amount taken up to follow the deflection of the arm. This means that there is less loss of tension, and thus more stability of the arm and resistance to further motion in the direction of the deflection. As such, two guidance linkages were added to the arm, at the mid-points between the two sections of the arm. A simple mounting surface for the magnetic end effector was then used as a linkage cap and glued to the tip linkage, giving a total arm length from base to tip of XXXXXXX. This completed the physical design of the mechanical aspects of the robot, including the base, the arm and the cable driving mechanism, as illustrated in Figure \ref{figure:rendering}.
 
-\subsubsection{Electromagnetic End Effector}
+\begin{center}
+\includegraphics[width=\textwidth]{images/rendering.png}
+\captionof{figure}{Rendering of the design of the base and arm of the robot}
+\label{figure:rendering}
+\end{center}
 
-\subsubsection{Connecting to Strimmer Base \& Trigger}
+\subsubsection{Ancillaries}
+Due to the nature of the project, it was unrealistic within the scope to also design a novel end effector for the robot. Therefore, it was decided to simply use an electromagnet of some form, and design the physical aspect of manipulating objects around magnetic interaction, i.e metallic strips enabling them to be picked up. The chosen option for employing an electromagnet was to use the copper coil and metallic cylinder from the central core of a small solenoid (APPENDIX XXXXX). This solenoid was disassembled to obtain just the necessary components for the electromagnet, and was then fitted to the surface mount at the tip of the arm. A small groove in the metallic cylinder of the solenoid slotted onto a similar sized semi-circle bore at the front face of the surface mount (visible in Figure \ref{figure:rendering}, to prevent the cylinder from moving axially when the current flows through the coil and magnetic force is induced. The exposed end of this cylinder is then, in essence, the `grabbing' part of the robot, as it is magnetised and put in contact with metallic targets.
 
+PERHAPS IMAGE OF THE DISASSEMBLED ELECTROMAGNET HERE? XXXXXXXXX
 
-
-
-\begin{itemize}
-\item{The initial design took direction based on the use of four Hi-Tec MS7980 servomotors to provide a degree of freedom each, driving the arm via some form of lightweight cable.}
-\item{A flexible foam tube was provided to act as the arm of the robot with outer diameter 42mm and inner diameter 19mm}
-\item{Early design was based around a single solid part, where two servos were mounted at the back and another two slightly offset. A tubular section was also present to attach the foam arm. However, after attempting to 3D print this, the quality was severely hindered by the need for excessive scaffolding to support the overhanging elements of the design}
-\item{As a result, the base was designed in two halves, with a separate piece for the tubular mount for the arm. These three parts could then be printed separately in an orientation that didn't result in any overhanging sections. As such, a much higher 3D print quality could be achieved.}
-\item{At this point, alternate shapes were explored based around this fundamental design, with compactness being a priority. One such design would entail a cubic section, where all servomotors would be at the same level, reducing the required moment arm to hold the device}
-\item{The cable management was then accounted for in order to drive the arm. Tubular linkages are attached to the arm with holes to connect the cables to the servomotors. When connecting the cables from the servomotors to the tubular linkages, the orientation of the cables in 3D space must be considered in order to determine how the arm will move in response to servomotor angle changes. Initially, the cables were planned to be connected in a straight line direct from the servomotor to the arm linkages, eliminating the need to account for friction}
-\item{INSERT IMAGE OF THE CAD OF THE CUBIC DESIGN WITH CONNECTING LINES}
-\item{However, by connecting the cables directly, in a manner with a relative angle between the axis of the arm, the motion of the arm in response to a servo angle change is unpredictable, and more importantly, a single servo motion may not necessarily constrain the arm to motion in a single degree of freedom. That is, the arm will move in one direction initially, resulting in a different angle between the cable and the arm, and further servo motion will cause movement along the axis of the cable (in a different direction to the initial motion). }
-\item{As such, it was decided that a configuration was necessary that routed the cables so that each servo acts solely on a single degree of freedom, with the cables running parallel to the arm. This of course required changing the direction of the cables by passing them through guiding holes, accepting friction where they make contact with the edges of the holes.}
-\item{Further iterations of the dimensions in the design were explored in order to find a configuration in which the cables of the rear pair of servos did not interfere at all with those of the front pair. Holes were implemented on the central tube holder pillar so that the cables could pass through in an orientation normal to the servo horns of the rear (so the driving force on the servo horn would be tangent to the radius  of the servo horn motion), meaning that motion from the servo would result in the maximum movement of the arm. If it was directed non-tangentially, motion from the servo would have less of an effect on the motion of the arm.} 
-\item{PUT IN IMAGE OF SERVO ARM WITH CABLE ATTACHED TANGENTIALLY AND MOTION TO SHOW LARGE CORRESPONDING MOTION, AND THEN SIMILAR FOR ATTACHED AT AN ANGLE SHOWING LESS MOTION.}
-\item{A similar approach was taken to guiding the cables of the front two servos by passing them through holes in the base mounting for the tube holder }
-\item{Once the cables have been guided in such a way that they are perpendicular to the servo horns, they then required another set of holes in order to guide them along the axis of the arm. Therefore a faceplate with four guiding holes was fitted to the front of the housing.}
-\item{A low friction fishing wire was thus selected as the cable material [INSERT REFERENCE TO PRODUCT??], and was found to move freely against the 3D printed PLA plastic with little signs of wear or grazing}
-\item{An initial prototype was printed with relatively low percentage infill in order to test the concept. The medium sized servo horns that were supplied with the servo were used, feeding the cables through the set of holes along each side of the arm to lock it in place. Exiting the cable at the outermost hole gave an effective diameter (which acts on the cable) of 45mm, whereas the overall diameter of the servo horn was 52mm. Initially, this prototype was ran with all four servos connected to the respective arm linkages, achieving correct motion. This proved that the friction of the cables was not a cause for concern, and the routing of the cables was successful. However, the range of motion of the front two servos were limited by potential collision with the base mounting for the central tube holder, only affording 35 degrees either side of the neutral position. (the max range of the servos is 70 degrees either side but this should have been mentioned already.}
-\item{Another issue found was the inconsistent rate of motion in a given degree of freedom with increasing servo angle, this is for similar reasons as explained earlier in FIGURE X [THE ONE SHOWING THE CABLE ATTACHED TANGENTIALLY TO THE servo horn]. At larger angles, a similar movement of the servo horn results in a smaller response motion from the arm. Hence the effect is an overall reduced range of motion of the arm as high servo angles have minimal effect on the motion as they don't pull the cable further. The other key problem observed was that on the opposite side to the pulling action of the arm, the cable became slack. This is because as the arm flexes, the extra cable available afforded by the forward motion of this end of the servo horn [USE A DIFFERENT WORD TO ARM] is not made up by the increase in arc length on that side of the robot arm  as the cable itself does not follow the curve, but takes the  direct path between the two linkages, a distance which has actually become shorter as it will always be a maximum when the arm is straight [THE CABLE IS FED THROUGH THE MIDDLE LINKAGE ON WAY TO THE TOP OF COURSE, MENTION THIS EARLIER], [ALSO PUT IMAGE OF THIS EFFECT AND MAYBE REFERENCE AUSTIN PAPER AS SIMILAR EFFECT WAS OBSERVED}
-\item{The latter problem was addressed by adding another pair of linkages that merely act to guide the cable, and are not driven unlike the other two. This reduces the relative difference of the distance the cable has to cover in normal and flexed states, thus reducing the amount of slack occurring.}
-\item{Pulleys used to address other problem....}
-\item{Dimensions changed to afford more room to front servo to allow it to move full range of servo motion.....} 
-\end{itemize}
+In order to use the robot in an intuitive, user friendly manner, it was decided to modify a conventional handheld power tool. This must be ergonomic in terms of handling the robot, while also providing a trigger or switch so that the user may send signals to the device to instigate a required action. As a result, a standard outdoor grass strimmer was procured (APPENDIX XXX) and modified to remove everything but its base (handle, trigger and shaft). A sleeve was then designed to connect the robot with this base. This was a near-cylindrical cross-section tube which was simply bolted to the bases of the robot and the strimmer, completing the handheld component of the device.
 
 
 \pagebreak
@@ -597,10 +584,8 @@ In order to properly control the device, it was necessary to implement a microco
 The electromagnet requires 9V for generating adequate magnetic force. So in order to safely control this, enabling the magnet to be switched on and off as required, it was necessary to use an Arduino Motor Shield (APPENDIX XXX). This allows a 9V battery to be connected via the $V_{in}$ and $Gnd$ terminals, with the output power and ground wires connecting to the electromagnet. A pin on the Arduino is then designated for turning this output power on and off. There are then two options for controlling this magnet, by having the trigger of the strimmer base hooked up directly on the power wire to the electromagnet, or by having it connected to a pin on the Arduino that can respond by setting the pin that controls the power output. The former option would result in the magnet being on whenever the trigger is pressed, whereas the latter option allows for much more options. These include responding in other manners from the trigger press, counting the number of trigger presses and only turning on the magnet if the device is `in range', saving battery. Hence, the second option was chosen. A schematic of this set-up is illustrated in Figure \ref{figure:schematic}.
 
 
-FIX THIS DIAGRAM TO SHOW HOW THE TRIGGER REALLY WORKS, BY USING PULL UP RESISTOR TO DETERMINE IF A PIN IF TRIGGER IS CONNECTED THEN TURNING ON ELECTROMAGNET CONTROL PIN XXXXXXX
-
 \begin{center}
-\includegraphics[width=0.9\textwidth]{images/schematic.png}
+\includegraphics[width=0.95\textwidth]{images/newSchematic.png}
 \captionof{figure}{Schematic showing how the controlling equipment interfaces with the pc and the robot components.}
 \label{figure:schematic}
 \end{center}
@@ -610,6 +595,10 @@ Of course, the optical tracking system also interfaces with the controlling PC i
 All of the components were then assembled in place using an Arduino Proto-Shield and a mini breadboard. This was set up in a manner that allowed the battery packs and servomotors to be easily interchanged as required, whereas the control circuitry was fixed in place, as illustrated in Figure XXXXXX.
 
 INSERT PICTURE OF NEATLY ASSEMBLED CONTROL CIRCUITRY ON THE ROBOT WITH THE PROTOSHIELD AND MINI BREADBOARD ETC XXXXXXXXXXXX
+
+The finalised construction of the new handheld robotic device is thus illustrated in XXXXXXX.
+
+INSERT FULL PICTURE OF THE ROBOT AS A WHOLE, MAYBE WITH CLOSE UPS OF THE BATTERIES, CIRCUITRY, AND END EFFECTOR ETC AS SIDE IMAGES IN A COLLAGE XXXXXXXXXXXXXX
 
 \pagebreak
 \section{Developed Program}
@@ -675,7 +664,7 @@ This list of input and output types is similar to that observed for the table in
 
 
 \subsubsection{Calibration Procedure}
-DON'T FORGET IMAGES OF ROBOT IN CLAMP FOR VISUALIZATION XXXXX
+DON'T FORGET IMAGES OF ROBOT IN CLAMP FOR VISUALIZATION, SHOWING IT IN TWO DIFFERENT POSITIONS TO SHOW DIFFERENT DATA POINTS BEING LOGGED XXXXX
 
 The procedure for obtaining the calibration data involves sending a range of different motor angle configurations to the servomotors, and recording the resulting tracking information (relative tip-to-base position and orientation). Each data point then comprised all of these values, and was written to disk for re-use in the future when using the regression function. When recording the data, it is imperative that the robot base remains stationary, so each data point is consistent with the same base position and orientation. As mentioned in Section INTERFACING WITH TRACKING XXXXX, the base is said to have zero orientation about any of the global axes if it is in the orientation that it was when it was first initialised in the Motive software (as a rigid body). Hence the base was secured in a vice and then initialised in Motive (along with the tip) before beginning the procedure. This set up is illustrated in Figure XXXXX, with the identification of the base and tip in the Motive software shown in Figure XXXXX. The physical orientation of the base during calibration is of little importance (as long as all points are always visible to the tracking device), as the targets will be relative to the base and converted to its orientation anyway, as covered in more detail in Section XXXX.
 
@@ -698,6 +687,9 @@ FOLLOWING TWO PARAGRAPHS SHOULD REALLY BE IN THE CALIBRATION PROCEDURE SECTION N
 The state-space of the arm was initially sampled at a chosen resolution of five points over a total range of 60\degree per servo, giving a total sample number of $5^4 = 625$ calibration points. This gave a suitable range of motion, with an improvement of 20\degree over the device in \cite{GreggSmithDesign}. Higher ranges were initially used without any long term issues, although temporary deformation of the foam arm meant that the cables need to be re-tensioned, which was especially time consuming. A one second pause was issued after each calibration step to ensure the tip was steady before the position was logged. Hence this calibration took just over 10 minutes. Of course, higher accuracy could be obtained through more samples, with an increase in time, but this was kept short due to the fact that it needed to be repeated a lot with small design changes. Also, a meaningful increase in accuracy would require numerous extra sample points, quickly increasing the required time to well over an hour, which introduces other problems such as battery issues and gradual deformation. The surface covered by this calibration procedure is illustrated in the Figure XXXX, displaying alternate views to better represent the curved shape of the area covered, similar to a portion on a sphere.
 
 
+MAYBE JUST SHOW THE TOP AND BOTTOM CALIBRATION SURFACE PLOT OR EVEN JUST TOP? XXXXXXXXX
+
+
 \begin{center}
 \includegraphics[width=0.9\textwidth]{images/surfacePlotTogether.png}
 \captionof{figure}{Three alternate views of the surface plot for the 3D area covered by the calibration points, note the forward and backward spikes for when the arm took on an `S' shape, pulling the tip inwards somewhat.}
@@ -709,7 +701,7 @@ The number of test data points was considerably smaller, with the primary aim of
 
 
 \begin{center}
-\includegraphics[width=\textwidth]{images/calibrationTestPoints.png}
+\includegraphics[width=0.95\textwidth]{images/calibrationTestPoints.png}
 \captionof{figure}{Calibration and test points represented in 3D space, note that although some of the points in 3D space may intersect, the underlying servo angles will all be different.}
 \label{figure:calibrationTestPoints}
 \end{center}
@@ -735,7 +727,7 @@ AS SHOWN IN THE GRAPH, THE OPTIMAL BANDWIDTH IS AT ABOUT 0.0008, WHICH GIVES A M
 Low bandwidth shows high non-linearity as expected due to arm material etc
 
 
-
+CHANGE THIS TO SHOW THE OPTIMAL BANDWIDTH VALUE WHEN ACTUALLY USING THE FEATURE SCALING, NOT DIVIDING BY 10000? XXXXX
 
 \pagebreak 
 \subsection{Algorithm for Responding to Three-Dimensional State Targets}
@@ -761,7 +753,7 @@ This equation gives the rotation matrix for rotation about Z, then Y, then X axe
 
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{images/rotationExampleAll.jpg}
+\includegraphics[width=0.83\textwidth]{images/rotationExampleAll.jpg}
 \captionof{figure}{Example showing how the position and orientation of a point changes with base rotation}
 \label{figure:rotationExample}
 \end{center}
@@ -779,14 +771,14 @@ In order to be cooperative and interactive in practice, a handheld robot must be
 In order to gesture effectively to the user, the 3D target points must be categorised as achievable or not from the outset before deciding the next step. Initially, a point can be said to be immediately unachievable if the relative distance between itself and the base of the robot is greater than (or a certain amount less than) the typical tip-to-base distance in a straight-arm configuration. This tip-to-base distance can be used as the radius of a sphere which governs whether the points can be immediately disregarded as attainable, and requires gesturing, or whether further checking is required to assess whether it is appropriate to attempt to match this point directly. This concept is illustrated in Figure \ref{figure:tipSphere}.
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{images/tipSphere2.png}
+\includegraphics[width=0.7\textwidth]{images/tipSphere2.png}
 \captionof{figure}{Concept of tip-to-base sphere marking immediately disregarded zone, and initial achievable range zone that requires further checking}
 \label{figure:tipSphere}
 \end{center}
 
 If the point lies at an absolute distance that falls within the range between the radius of the sphere and another minimum radius, $R_{minSphere}$, the point is not disregarded as being unachievable straight away. This minimum radius is determined by the smallest absolute tip-to-base difference from the stored calibration data (3D Pythagoras). However, if it lies outside this range, a new target point is required that is equivalent to shifting the original along the vector between itself and the base until it falls in this range. 
 
-The current target then lies within this intermediate range, and there is a further check to determine whether the coordinates of the target point relative to the base fall outside any of the recorded minimum and maximum values for the X, Y and Z dimensions. If not, then the target may be directly achievable, and the positional vector is inserted straight into the regression function to check if motor angles can be yielded, giving a solution. However in the event of this still not generating a valid solution, or if the point does fall outside any of the min/max ranges, a compromise is required. This entails selecting a new target point from the stored calibration data that is geometrically closest to the target point in question. Thus, if not able to match the point, a new point should be determined to exhibit a suitable gesture motion. The typical process for responding to a far-off point is illustrated in Figure \ref{figure:gestureSolution}.
+The current target then lies within this intermediate range, and there is a further check to determine whether the coordinates of the target point relative to the base fall outside any of the recorded minimum and maximum values for the X, Y and Z dimensions. If not, then the target may be directly achievable, and the positional vector is inserted straight into the regression function to check if motor angles can be yielded, giving a solution. However in the event of this still not generating a valid solution, or if the point does fall outside any of the min/max ranges, a compromise is required. This entails selecting a new target point from the stored calibration data that is geometrically closest to the target point in question. Thus, if not able to match the point, a new point should be determined to exhibit a suitable gesture motion. The typical process for responding to a far-off point is illustrated in Figure \ref{figure:gestureSolution} and Algorithm \ref{algorithm:1}.
 
 \begin{center}
 \includegraphics[width=\textwidth]{images/gestureSolution2.png}
@@ -794,27 +786,54 @@ The current target then lies within this intermediate range, and there is a furt
 \label{figure:gestureSolution}
 \end{center}
 
+
 \begin{enumerate}
 \item{The given target point is immediately disregarded as it lies at an absolute distance above the radius of the sphere.}
 \item{A new target point is formed that is the equivalent of shifting the original point along the line from itself to the base. This is done by determining the required factor to shift the target to lie on the sphere. This factor is $Shift Factor = R_{Sphere} / absolute distance$, and each coordinate of the target point is multiplied by this to give a new vector on the sphere.}
 \item{The point is still unachievable as it lies beyond the max/min range of some of the dimensions from the calibration data. The compromise is therefore to find the point in the calibration data that has the closest absolute proximity to this point and use that either as an input to the function of using the stored motor angles for this point (quicker). }
 \end{enumerate}
 
-With these steps of applying a rotation transformation and determining the best point to aim for relative to the base, there now exists a general algorithm from going from any given target point, expressed as relative to the base, and generating a solution in the form of angles to be applied to the servomotors, moving the arm to the required position. Regardless of the task or application at hand, this algorithm will be central, receiving inputs based on the situation and yielding solutions to be applied. This fundamental step sequence is illustrated in Figure \ref{figure:getSolution}.
+\begin{algorithm}
+\begin{algorithmic}
+\WHILE{running experiment}
+\STATE{get new frame data and separate into rigid bodies}
+\STATE{calculate target relative to base}
+\STATE{convert target position to local axes of the base orientation}
+\IF{$relativeDistance > maxSphereRadius$ \OR $relativeDistance < minSphereRadius$}
+\STATE{shift along direct vector until on sphere}
+\ENDIF
+\IF{target falls within recorded max and min values for recorded x, y, and z positions}
+\STATE{attempt direct solution from kernel regression function}
+\ENDIF
+\IF{3D point outside recorded max or min values \OR direct solution failed (NaN values)}
+\STATE{find closest geometrical point from calibration data}
+\STATE{use corresponding motor angles at this point}
+\ENDIF
+\STATE{set the motor angles to the solution via Arduino}
+\ENDWHILE
+\end{algorithmic}
+\caption{General algorithm for getting from 3D target position to solution in motor angles}
+\label{algorithm:1}
+\end{algorithm}
+
+With these steps of applying a rotation transformation and determining the best point to aim for relative to the base, there now exists a general algorithm from going from any given target point, expressed as relative to the base, and generating a solution in the form of angles to be applied to the servomotors, moving the arm to the required position, as outlined in  Regardless of the task or application at hand, this algorithm will be central, receiving inputs based on the situation and yielding solutions to be applied. This fundamental step sequence is illustrated in Figure \ref{figure:getSolution}.
 
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{images/getSolution.png}
+\includegraphics[width=0.65\textwidth]{images/getSolution.png}
 \captionof{figure}{General algorithm procedure for taking a 3D target point relative to the base and producing the most suitable solution in the form of angles to be applied to the servomotors}
 \label{figure:getSolution}
 \end{center}
+
+
+
 
 \subsubsection{Running with a Live Target in Real Time}
 In order to have handheld robotic applications, the device must be able to run with a live target in real time, always trying to move or gesture to the required position. Without this feature, the cooperation between the user and handheld robot would be seriously hindered, with the device appearing unresponsive, undermining the usefulness of the robot altogether. As such, it was imperative to set up the control of the device so that it could receive a live input, and respond accordingly to changes in its own position and orientation. This entails taking a fixed vector as a constant input, converting it to a position that is relative to both the position and orientation of the base, obtaining the solution angles vector and moving towards this target motor configuration. A simplified representation of this process is illustrated in Figure \ref{figure:separateThreads}.
 
 
 \begin{center}
-\includegraphics[width=0.65\textwidth]{images/separateThreads.png}
+\includegraphics[width=0.8\textwidth]{images/separateThreads.png}
 \captionof{figure}{Simplified processes taking place in the two different threads, showing the servos are updated after a set interval regardless of the logic}
 \label{figure:separateThreads}
 \end{center}
@@ -825,7 +844,7 @@ There is a 6 millisecond delay after iterating each servo by one degree towards 
 
 This method of splitting the two tasks into separate threads, with one of them iterating the values as opposed to setting them directly is highly advantageous. As soon as the relative target is changed in real-time, requiring a different servo solution, the servos are instantaneously iterated towards this new solution. Thus, the arm does not continue moving towards an old target position, even when there is a more recent target; which may also be construed as minimising a form of overshoot where the tip moves past the current target position due to referring to a past target. This contributes towards the device appearing more responsive to an ever-changing requirement, which is essential for the practicality of a cooperative handheld robot. 
 
-PUT ANY CODE FOR THE DIFFERENT THREAD INITIALISATION IN THE APPENDIX TO SHOW HOW THIS IS DONE OR NOT? XXXXXXXXXXX
+PUT CODE FOR DIFFERENT THREAD STUFF IN APPENDIX? XXX
 
 
 \pagebreak
@@ -878,31 +897,30 @@ ADD ANY MORE FOR THE NEW CLASSES FOR BODE PLOT AND USER STUDY????XXXXX
 
 
 
-\section{Physical Experiment}
-\subsection{Setup}
-\subsection{Response Times}
-\subsection{Gesturing Accuracy}
-\subsection{Construction Environment Parallels}
-\subsection{Mental Assistance}
-arranging by last letter of different colours ascending, mental assistance (and) physical assistance
-\subsection{Physical Aspect}
+\section{Evaluation}
+
+In order to evaluate the new handheld robotic device, it was important to identify the key characteristics that need to be identified so that the aims of the project can be achieved. This project is primarily focused on the design of a new device, and importantly, how it can utilise pre-acquired task knowledge to effectively cooperate with the user. Specifically, it is the alleviation of cognitive effort that is of concern, as this demonstrates the notion that operators unskilled or untrained in a certain task could achieve the objectives regardless through assistance from the robot. Therefore it is essential to highlight this ability, and as such, a user study was to be carried out to compare the completion of a mentally demanding task without mental assistance from the robot, to a physically similar task where the cognitive burden is dealt with by the device, gesturing to the user the required actions.
+
+The physical performance of the robot is of much less importance in this project, based on the design and construction taking place over a much shorter time-scale than is typical for robotics. However, is is still necessary to evaluate certain traits that would directly affect how effectively the robot can gesture (or cooperate) with the user. These traits could be dependent on the mechanical design of the robot, or the underlying algorithm and data that governs how the robot responds. Therefore, it was important to quantify the control performance of the robot in terms of step and frequency response. To complement the user study evaluation, it is also beneficial to test how effectively and accurately the robot can gesture to specific target points. Therefore an experiment was set up to ascertain how reliably desired physical locations can be conveyed to the user. 
+\subsection{Experimental Setup}
+\subsubsection{Response Performance}
+
+\subsubsection{Effectiveness and Accuracy of Gesturing}
+\subsubsection{Alleviation of Cognitive Workload in Users}
+MENTION THE USER STUDY CLASS OF THE PROGRAM THAT TAKES TRIGGER CLICKS AND LOGS THE ABSOLUTE POSITION OF THE TIP INTO A CSV FILE XXXXXXX
+
 
 \section{Results}
-\subsection{Response Time}
-\subsubsection{Response to Typical Motion}
-\subsubsection{Step Response}
-
-\subsection{Gesturing to Correct Target}
-
-\subsection{Task Assistance}
-arranging by last letter of different colours ascending, mental assistance (and) physical assistance
+\subsection{Response Performance}
+\subsubsection{Effectiveness and Accuracy of Gesturing}
+\subsubsection{Alleviation of Cognitive Workload in Users}
 
 \section{Discussion}
 \section{Conclusion}
 WERE AIMS AND OBJECTIVES MET, WHAT ELSE WAS FOUND OUT????
 \section{Further Work and Areas of Improvement}
 \subsection{Physical Design}
-\subsection{Experiment}
+\subsection{Evaluation}
 
 \pagebreak
 \bibliography{mybib}

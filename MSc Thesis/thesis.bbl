@@ -202,7 +202,9 @@ J.~Reinecke, B.~Deutschmann, and D.~Fehrenbach.
   (ICRA)}, pages 4714--4721. IEEE, 2016.
 
 \bibitem{anderson1967}
-Tensor arm manipulator design.
+V.~Anderson and R.~Horn.
+\newblock Tensor arm manipulator design.
+\newblock {\em ASME Transactions}, 67-DE-57(2):1--12.
 
 \bibitem{hirose1993}
 S.~Hirose.
