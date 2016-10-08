@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.17)  8 OCT 2016 00:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.17)  8 OCT 2016 18:19
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -990,56 +990,80 @@ Package pdftex.def Info: images/tipSphere2.png used on input line 774.
 File: images/gestureSolution2.png Graphic file (type png)
 
 <use images/gestureSolution2.png>
-Package pdftex.def Info: images/gestureSolution2.png used on input line 784.
+Package pdftex.def Info: images/gestureSolution2.png used on input line 807.
 (pdftex.def)             Requested size: 483.69687pt x 161.33018pt.
  [45 <./images/tipSphere2.png>]
-<images/getSolution.png, id=219, 536.0025pt x 846.16125pt>
-File: images/getSolution.png Graphic file (type png)
+<images/algorithmFlowDiagram.png, id=219, 586.19pt x 847.165pt>
+File: images/algorithmFlowDiagram.png Graphic file (type png)
 
-<use images/getSolution.png>
-Package pdftex.def Info: images/getSolution.png used on input line 823.
-(pdftex.def)             Requested size: 314.40001pt x 496.32576pt.
+<use images/algorithmFlowDiagram.png>
+Package pdftex.def Info: images/algorithmFlowDiagram.png used on input line 825
+.
+(pdftex.def)             Requested size: 362.77264pt x 524.28029pt.
  [46 <./images/gestureSolution2.png
 
 pdfTeX warning: pdflatex (file ./images/gestureSolution2.png): large interlaced
  PNG might cause out of memory (use non-interlaced PNG to fix this)
->] <images/separateThreads.png, id=225, 643.40375pt x 525.965pt>
-File: images/separateThreads.png Graphic file (type png)
+>] <images/separateThreads2.png, id=225, 643.40375pt x 524.96124pt>
+File: images/separateThreads2.png Graphic file (type png)
 
-<use images/separateThreads.png>
-Package pdftex.def Info: images/separateThreads.png used on input line 836.
-(pdftex.def)             Requested size: 386.95897pt x 316.33583pt.
- [47 <./images/getSolution.png>] [48 <./images/separateThreads.png>]
-<images/userInterface.png, id=234, 599.23875pt x 442.65375pt>
+<use images/separateThreads2.png>
+Package pdftex.def Info: images/separateThreads2.png used on input line 838.
+(pdftex.def)             Requested size: 411.14528pt x 335.4694pt.
+ [47 <./images/algorithmFlowDiagram.png>]
+[48 <./images/separateThreads2.png>] [49]
+<images/userInterface.png, id=237, 599.23875pt x 442.65375pt>
 File: images/userInterface.png Graphic file (type png)
 
 <use images/userInterface.png>
-Package pdftex.def Info: images/userInterface.png used on input line 857.
+Package pdftex.def Info: images/userInterface.png used on input line 859.
 (pdftex.def)             Requested size: 483.69687pt x 357.31151pt.
- [49 <./images/userInterface.png>] [50] [51]
-<images/classDiagram.png, id=245, 1117.17375pt x 739.76375pt>
+ [50 <./images/userInterface.png>] [51] [52]
+<images/classDiagram.png, id=249, 1117.17375pt x 739.76375pt>
 File: images/classDiagram.png Graphic file (type png)
 
 <use images/classDiagram.png>
-Package pdftex.def Info: images/classDiagram.png used on input line 890.
+Package pdftex.def Info: images/classDiagram.png used on input line 892.
 (pdftex.def)             Requested size: 677.17265pt x 448.42197pt.
- [52
+ [53
 
- <./images/classDiagram.png>] [53
+ <./images/classDiagram.png>] [54
 
-] (thesis.bbl [54] [55]) [56] <images/servoSpecs.png, id=264, 339.1872pt x 362.
-3136pt>
+] [55]
+<images/amplitudeResponse.png, id=260, 687.0468pt x 426.393pt>
+File: images/amplitudeResponse.png Graphic file (type png)
+
+<use images/amplitudeResponse.png>
+Package pdftex.def Info: images/amplitudeResponse.png used on input line 950.
+(pdftex.def)             Requested size: 386.95897pt x 240.15776pt.
+ [56]
+<images/phaseResponse.png, id=264, 684.156pt x 419.6478pt>
+File: images/phaseResponse.png Graphic file (type png)
+
+<use images/phaseResponse.png>
+Package pdftex.def Info: images/phaseResponse.png used on input line 963.
+(pdftex.def)             Requested size: 386.95897pt x 237.35757pt.
+
+<images/stepResponse.png, id=265, 713.064pt x 352.1958pt>
+File: images/stepResponse.png Graphic file (type png)
+
+<use images/stepResponse.png>
+Package pdftex.def Info: images/stepResponse.png used on input line 971.
+(pdftex.def)             Requested size: 483.69687pt x 238.91495pt.
+ [57 <./images/amplitudeResponse.png> <./images/phaseResponse.png>] [58 <./imag
+es/stepResponse.png>] (thesis.bbl [59] [60])
+[61] <images/servoSpecs.png, id=286, 339.1872pt x 362.3136pt>
 File: images/servoSpecs.png Graphic file (type png)
 
 <use images/servoSpecs.png>
-Package pdftex.def Info: images/servoSpecs.png used on input line 934.
+Package pdftex.def Info: images/servoSpecs.png used on input line 999.
 (pdftex.def)             Requested size: 386.95897pt x 413.37903pt.
- [57 <./images/servoSpecs.png>] (thesis.aux) ) 
+ [62 <./images/servoSpecs.png>] (thesis.aux) ) 
 Here is how much of TeX's memory you used:
- 6228 strings out of 493334
- 92309 string characters out of 3139225
- 175963 words of memory out of 3000000
- 9586 multiletter control sequences out of 15000+200000
+ 6246 strings out of 493334
+ 92839 string characters out of 3139225
+ 175996 words of memory out of 3000000
+ 9601 multiletter control sequences out of 15000+200000
  10038 words of font info for 36 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,11n,39p,1479b,588s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1057,9 +1081,9 @@ ublic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
 sfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.
 pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on thesis.pdf (60 pages, 10175667 bytes).
+Output written on thesis.pdf (65 pages, 10305190 bytes).
 PDF statistics:
- 318 PDF objects out of 1000 (max. 8388607)
+ 340 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 196 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 211 words of extra memory for PDF output out of 10000 (max. 10000000)
 

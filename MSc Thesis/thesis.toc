@@ -43,25 +43,26 @@
 \contentsline {subsubsection}{\numberline {5.3.1}Acquiring Target Position Relative to Orientation of Base}{42}
 \contentsline {subsubsection}{\numberline {5.3.2}Gesturing Algorithm for Distant Targets}{44}
 \contentsline {subsubsection}{\numberline {5.3.3}Running with a Live Target in Real Time}{47}
-\contentsline {subsection}{\numberline {5.4}Program Design}{49}
-\contentsline {section}{\numberline {6}Evaluation}{53}
-\contentsline {subsection}{\numberline {6.1}Experimental Setup}{53}
-\contentsline {subsubsection}{\numberline {6.1.1}Response Performance}{53}
-\contentsline {subsubsection}{\numberline {6.1.2}Effectiveness and Accuracy of Gesturing}{53}
-\contentsline {subsubsection}{\numberline {6.1.3}Alleviation of Cognitive Workload in Users}{53}
-\contentsline {section}{\numberline {7}Results}{53}
-\contentsline {subsection}{\numberline {7.1}Response Performance}{53}
-\contentsline {subsubsection}{\numberline {7.1.1}Effectiveness and Accuracy of Gesturing}{53}
-\contentsline {subsubsection}{\numberline {7.1.2}Alleviation of Cognitive Workload in Users}{53}
-\contentsline {section}{\numberline {8}Discussion}{53}
-\contentsline {section}{\numberline {9}Conclusion}{53}
-\contentsline {section}{\numberline {10}Further Work and Areas of Improvement}{53}
-\contentsline {subsection}{\numberline {10.1}Physical Design}{53}
-\contentsline {subsection}{\numberline {10.2}Evaluation}{53}
-\contentsline {section}{\numberline {11}References}{54}
-\contentsline {section}{\numberline {12}Appendices}{57}
-\contentsline {subsection}{\numberline {12.1}CAD Drawings}{57}
-\contentsline {subsection}{\numberline {12.2}Servomotors}{57}
-\contentsline {subsection}{\numberline {12.3}Tracking Device}{57}
-\contentsline {subsection}{\numberline {12.4}Arduino Board}{57}
-\contentsline {subsection}{\numberline {12.5}Code Snippets}{57}
+\contentsline {subsection}{\numberline {5.4}Program Design}{50}
+\contentsline {section}{\numberline {6}Evaluation}{54}
+\contentsline {subsection}{\numberline {6.1}Experimental Procedure}{54}
+\contentsline {subsubsection}{\numberline {6.1.1}Response Performance}{54}
+\contentsline {subsubsection}{\numberline {6.1.2}Effectiveness and Accuracy of Gesturing}{55}
+\contentsline {subsubsection}{\numberline {6.1.3}Alleviation of Cognitive Workload in Users}{55}
+\contentsline {section}{\numberline {7}Results and Discussion}{56}
+\contentsline {subsection}{\numberline {7.1}Response Performance}{56}
+\contentsline {subsubsection}{\numberline {7.1.1}Frequency Response}{56}
+\contentsline {subsubsection}{\numberline {7.1.2}Step Response}{58}
+\contentsline {subsubsection}{\numberline {7.1.3}Effectiveness and Accuracy of Gesturing}{58}
+\contentsline {subsubsection}{\numberline {7.1.4}Alleviation of Cognitive Workload in Users}{58}
+\contentsline {section}{\numberline {8}Conclusion}{58}
+\contentsline {section}{\numberline {9}Further Work and Areas of Improvement}{58}
+\contentsline {subsection}{\numberline {9.1}Physical Design}{58}
+\contentsline {subsection}{\numberline {9.2}Evaluation}{58}
+\contentsline {section}{\numberline {10}References}{59}
+\contentsline {section}{\numberline {11}Appendices}{62}
+\contentsline {subsection}{\numberline {11.1}CAD Drawings}{62}
+\contentsline {subsection}{\numberline {11.2}Servomotors}{62}
+\contentsline {subsection}{\numberline {11.3}Tracking Device}{62}
+\contentsline {subsection}{\numberline {11.4}Arduino Board}{62}
+\contentsline {subsection}{\numberline {11.5}Code Snippets}{62}

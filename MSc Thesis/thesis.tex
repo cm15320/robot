@@ -295,7 +295,7 @@ The work in \cite{GreggSmithDesign} covers the development of a four degree-of-f
 \end{center}
 
 The design takes inspiration from [31] which, unlike typical cable-driven designs, employs one motor
-to provide tension to a pair of opposing wires, which reduces the the motor count to DoF ratio from 3:2 to 1:1. 
+to provide tension to a pair of opposing wires, which reduces the motor count to DoF ratio from 3:2 to 1:1. 
 An external computer is used to interface with the servomotors and the trigger, responding to external
 cues or program instructions by providing the necessary motion. In order to locate the robot spatially, an OptiTrack system made up of six strategically mounted cameras is
 used to provide motion tracking, identifying the retro-reflective markers mounted on the robot. This
@@ -778,20 +778,7 @@ In order to gesture effectively to the user, the 3D target points must be catego
 
 If the point lies at an absolute distance that falls within the range between the radius of the sphere and another minimum radius, $R_{minSphere}$, the point is not disregarded as being unachievable straight away. This minimum radius is determined by the smallest absolute tip-to-base difference from the stored calibration data (3D Pythagoras). However, if it lies outside this range, a new target point is required that is equivalent to shifting the original along the vector between itself and the base until it falls in this range. 
 
-The current target then lies within this intermediate range, and there is a further check to determine whether the coordinates of the target point relative to the base fall outside any of the recorded minimum and maximum values for the X, Y and Z dimensions. If not, then the target may be directly achievable, and the positional vector is inserted straight into the regression function to check if motor angles can be yielded, giving a solution. However in the event of this still not generating a valid solution, or if the point does fall outside any of the min/max ranges, a compromise is required. This entails selecting a new target point from the stored calibration data that is geometrically closest to the target point in question. Thus, if not able to match the point, a new point should be determined to exhibit a suitable gesture motion. The typical process for responding to a far-off point is illustrated in Figure \ref{figure:gestureSolution} and Algorithm \ref{algorithm:1}.
-
-\begin{center}
-\includegraphics[width=\textwidth]{images/gestureSolution2.png}
-\captionof{figure}{Typical steps in obtaining a compromised gesture solution from an initially unachievable point}
-\label{figure:gestureSolution}
-\end{center}
-
-
-\begin{enumerate}
-\item{The given target point is immediately disregarded as it lies at an absolute distance above the radius of the sphere.}
-\item{A new target point is formed that is the equivalent of shifting the original point along the line from itself to the base. This is done by determining the required factor to shift the target to lie on the sphere. This factor is $Shift Factor = R_{Sphere} / absolute distance$, and each coordinate of the target point is multiplied by this to give a new vector on the sphere.}
-\item{The point is still unachievable as it lies beyond the max/min range of some of the dimensions from the calibration data. The compromise is therefore to find the point in the calibration data that has the closest absolute proximity to this point and use that either as an input to the function of using the stored motor angles for this point (quicker). }
-\end{enumerate}
+The current target then lies within this intermediate range, and there is a further check to determine whether the coordinates of the target point relative to the base fall outside any of the recorded minimum and maximum values for the X, Y and Z dimensions. If not, then the target may be directly achievable, and the positional vector is inserted straight into the regression function to check if motor angles can be yielded, giving a solution. However in the event of this still not generating a valid solution, or if the point does fall outside any of the min/max ranges, a compromise is required. This entails selecting a new target point from the stored calibration data that is geometrically closest to the target point in question. Thus, if not able to match the point, a new point should be determined to exhibit a suitable gesture motion. The typical process for responding to a far-off point is illustrated in Algorithm \ref{algorithm:1} and a typical example is provided in Figure \ref{figure:gestureSolution}.
 
 \begin{algorithm}
 \begin{algorithmic}
@@ -816,11 +803,26 @@ The current target then lies within this intermediate range, and there is a furt
 \label{algorithm:1}
 \end{algorithm}
 
+\begin{center}
+\includegraphics[width=\textwidth]{images/gestureSolution2.png}
+\captionof{figure}{Typical steps in obtaining a compromised gesture solution from an initially unachievable point}
+\label{figure:gestureSolution}
+\end{center}
+
+
+\begin{enumerate}
+\item{The given target point is immediately disregarded as it lies at an absolute distance above the radius of the sphere.}
+\item{A new target point is formed that is the equivalent of shifting the original point along the line from itself to the base. This is done by determining the required factor to shift the target to lie on the sphere. This factor is $Shift Factor = R_{Sphere} / absolute distance$, and each coordinate of the target point is multiplied by this to give a new vector on the sphere.}
+\item{The point is still unachievable as it lies beyond the max/min range of some of the dimensions from the calibration data. The compromise is therefore to find the point in the calibration data that has the closest absolute proximity to this point and use that either as an input to the function of using the stored motor angles for this point (quicker). }
+\end{enumerate}
+
+
+
 With these steps of applying a rotation transformation and determining the best point to aim for relative to the base, there now exists a general algorithm from going from any given target point, expressed as relative to the base, and generating a solution in the form of angles to be applied to the servomotors, moving the arm to the required position, as outlined in  Regardless of the task or application at hand, this algorithm will be central, receiving inputs based on the situation and yielding solutions to be applied. This fundamental step sequence is illustrated in Figure \ref{figure:getSolution}.
 
 
 \begin{center}
-\includegraphics[width=0.65\textwidth]{images/getSolution.png}
+\includegraphics[width=0.75\textwidth]{images/algorithmFlowDiagram.png}
 \captionof{figure}{General algorithm procedure for taking a 3D target point relative to the base and producing the most suitable solution in the form of angles to be applied to the servomotors}
 \label{figure:getSolution}
 \end{center}
@@ -833,7 +835,7 @@ In order to have handheld robotic applications, the device must be able to run w
 
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{images/separateThreads.png}
+\includegraphics[width=0.85\textwidth]{images/separateThreads2.png}
 \captionof{figure}{Simplified processes taking place in the two different threads, showing the servos are updated after a set interval regardless of the logic}
 \label{figure:separateThreads}
 \end{center}
@@ -901,21 +903,83 @@ ADD ANY MORE FOR THE NEW CLASSES FOR BODE PLOT AND USER STUDY????XXXXX
 
 In order to evaluate the new handheld robotic device, it was important to identify the key characteristics that need to be identified so that the aims of the project can be achieved. This project is primarily focused on the design of a new device, and importantly, how it can utilise pre-acquired task knowledge to effectively cooperate with the user. Specifically, it is the alleviation of cognitive effort that is of concern, as this demonstrates the notion that operators unskilled or untrained in a certain task could achieve the objectives regardless through assistance from the robot. Therefore it is essential to highlight this ability, and as such, a user study was to be carried out to compare the completion of a mentally demanding task without mental assistance from the robot, to a physically similar task where the cognitive burden is dealt with by the device, gesturing to the user the required actions.
 
-The physical performance of the robot is of much less importance in this project, based on the design and construction taking place over a much shorter time-scale than is typical for robotics. However, is is still necessary to evaluate certain traits that would directly affect how effectively the robot can gesture (or cooperate) with the user. These traits could be dependent on the mechanical design of the robot, or the underlying algorithm and data that governs how the robot responds. Therefore, it was important to quantify the control performance of the robot in terms of step and frequency response. To complement the user study evaluation, it is also beneficial to test how effectively and accurately the robot can gesture to specific target points. Therefore an experiment was set up to ascertain how reliably desired physical locations can be conveyed to the user. 
-\subsection{Experimental Setup}
+The physical performance of the robot is of much less importance in this project, based on the design and construction taking place over a much shorter time-scale than is typical for robotics. However, it is still necessary to evaluate certain traits that would directly affect how effectively the robot can gesture (or cooperate) with the user. These traits could be dependent on the mechanical design of the robot, or the underlying algorithm and data that governs how the robot responds. Therefore, it was important to quantify the control performance of the robot in terms of step and frequency response. To complement the user study evaluation, it is also beneficial to test how effectively and accurately the robot can gesture to specific target points. Therefore an experiment was set up to ascertain how reliably desired physical locations can be conveyed to the user. 
+\subsection{Experimental Procedure}
+
 \subsubsection{Response Performance}
+In order to measure the response of the robot to various target inputs, it was necessary to constrain the robot and assign a live target that could be varied accordingly. As such, the robot was clamped in place using a vice, similar to the calibration procedure in SECTION XXXXX. The OptiTrack Duo was then set up to have a clear view of the both the base and tip of the robot. Then, in the motive software, a new rigid body was defined using a small `wand' made up of three-markers, as illustrated in FIGURE XXXXX. The pivot point of this rigid body was then set as one of the single markers, giving an actual visual indicator in the real world of the 3D point that is being tracked.
+
+PICTURE OF WAND SHOWING WHICH POINT WAS MADE PIVOT POINT? XXXXXX
+
+The absolute position of this wand, as ascertained by the optical tracking and assigned to the field of a rigid body object in the program, could then be extracted with each frame and used as the input to the general algorithm, converting it to a relative target position in the local axes of the robot and obtaining a motor angle solution. Of course, the multi-threaded technique of ascertaining the solution while simultaneously iterating the motor angles towards whatever happens to be the current solution, as covered in SECTION XXXX, is also used so that the wand could be used as a live target for the arm to follow.
+
+Once in place, the wand was held at a point deliberately outside the range of possible solutions from the robot, meaning that it had to use the closest calibration point to gesture in that direction. This point was outside the range in both the X, Y and Z dimensions so that the point that the robot moves to for gesturing is repeatable; even if there are small differences in the position of the wand, as long as it is consistently outside the range of recorded values in the same directions each time then the robot will gesture at the same point. In this case, the starting position of the wand would be up and to the right, if looking at the robot head on down the axis of the arm. The wand could then be moved vertically down to another point outside the range of solutions (to the right and down) causing the program to find another set of solutions as it moves down. As long as the wand is always kept outside the possible solutions in the X direction, it should follow a vertical path downwards to the new max range gesturing position, while remaining at its maximum X position the whole time. Again, this makes the motion more repeatable, in that as long as the wand follows roughly the same path each time, the arm should follow the same exact path. This experimental set up as well as the motions of the target and the arm is illustrated in Figure XXXX.
+
+INSERT TWO SIDE BY SIDE IMAGES OF THE ROBOT IN THE CLAMP WITH THE WAND IN THE UP RIGHT, THEN ANOTHER WITH THE ARM HELD IN THE LOWER RIGHT, SHOWING THE ARM IN ITS NEW POSITIONS WITH ARROWS TO SHOW WHICH DIRECTION THE ARM JUST MOVED XXXXXX
+
+Once this was set up and the arm could follow the motion of the target wand, gesturing when it was out of range. The subsequent steps were to record the response of the arm. This procedure necessitates the logging of the positions of the target and tip at a range of time steps. Therefore, when starting a response plot by clicking the appropriate button on the GUI, a timer would start and the robot would commence following of the target wand. At each interval of around 50ms, the positions of the wand and tip were logged. Finally, once the response plot was stopped, the recorded data was written to a csv file for graphing. 
+
+This process was carried out for two types of response, where the Y positions of the target and tip could be plotted as they are the key variables for the input motion. Firstly, a step response was performed, where the target was held still in the start position then moved rapidly down to the next point, roughly within the window of the logic delay before the program attempts to solve for the next target position. Finally, the positions were recorded while the target wand was moved up and down at a roughly constant frequency. This was then repeated at higher frequencies, until anything higher would be difficult to perform by hand while maintaining a constant rate. In total, eight different frequencies were used to perform a basic assessment of the frequency response.
+
 
 \subsubsection{Effectiveness and Accuracy of Gesturing}
 \subsubsection{Alleviation of Cognitive Workload in Users}
 MENTION THE USER STUDY CLASS OF THE PROGRAM THAT TAKES TRIGGER CLICKS AND LOGS THE ABSOLUTE POSITION OF THE TIP INTO A CSV FILE XXXXXXX
 
-
-\section{Results}
+\pagebreak
+\section{Results and Discussion}
 \subsection{Response Performance}
+\subsubsection{Frequency Response}
+
+After analysing the positional data for the results, the actual amplitude of the motions of the target and the tip of the arm could be ascertained. It was found that for the the frequency response experiment, the amplitude of the target motion was mostly constant, as intended, at around 350mm. As mentioned earlier, this amplitude was larger than the capped vertical range of motion of the arm, so that the arm moved from gesturing position to the other. The mid-point of the motion of both bodies was roughly at the same point in the Y direction, giving an equally distant target position on each side of the centre of the robot. The maximum amplitude of the arm was observed to be about 135mm, hence an extra clearance distance of around 108mm would be present on each side of the arm from the target wand when stationary at the extreme values. 
+
+The target wand was found to oscillate at a range of eight frequencies from 0.4 to 2Hz. This was calculated by measuring the average time between peaks of the target motion, giving the wavelength, and using the standard equation:
+\begin{equation}
+frequency(Hz) = \frac{1}{wavelength(seconds)}
+\end{equation}
+
+At each recording, a portion of the physical response graph would be identified where the frequency was mostly constant, as shown in EXAMPLE IN APPENDIX XXXXXXXX, from which the amplitudes of the tip could then be calculated and averaged (the amplitude of the target was roughly constant). The magnitude of the tip amplitude in relation to the target amplitude was then converted in to decibels using the average values at each frequency with the following standard equation, and the resulting bode plot for the amplitude response is shown in Figure \ref{figure:amplitudeResponse}.
+
+\begin{equation}
+magnitude(dB) = 20\log \left(\frac{tipAmp}{targetAmp}\right)
+\end{equation}
+
+SHOULD THIS BE IN RELATION TO THE MAX TIP AMPLITUDE INSTEAD OF THE AMPLITUDE OF THE TARGET, SO THAT WHEN THEY ARE EQUAL IS IS 0DB, GIVING A MORE LOGICAL REPRESENTATION, AS FAR AS THE ROBOT IS CONCERNED THE TARGET ONLY GOES FROM THE MIN TIP POS TO THE MAX TIP POS ANYWAY AFTER IT IS CONVERTED? OR DOES IT HAVE TO BE THE TARGET AMPLITUDE BECAUSE THAT'S THE WAVE AND FREQUENCY THAT THE TARGET ACTUALLY WENT THROUGH??? XXXXXXXXXX
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/amplitudeResponse.png}
+\captionof{figure}{Ampltude response (in dB) of the tip to varying target frequency.}
+\label{figure:amplitudeResponse}
+\end{center}
+
+DISCUSS THIS AMPLITUDE PLOT ONCE DECIDED WHETHER TO PLOT USING TARGET AMP OR MAX TIP AMP XXXXXXXXX
+
+The phase shift of the tip in relation to the target could also be calculated for each constant frequency portion of a recording. This was done by averaging the time between the peaks of the target and tip, to obtain a time lag in seconds, and using the following equation:
+
+
+
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/phaseResponse.png}
+\captionof{figure}{Phase shift response (in degrees) of the target motion to tip motion for varying target frequency.}
+\label{figure:phaseResponse}
+\end{center}
+
+\subsubsection{Step Response}
+
+\begin{center}
+\includegraphics[width=\textwidth]{images/stepResponse.png}
+\captionof{figure}{Physical response of the tip in the Y direction to a step input from the new target position.}
+\label{figure:stepResponse}
+\end{center}
+
+
+
+
 \subsubsection{Effectiveness and Accuracy of Gesturing}
 \subsubsection{Alleviation of Cognitive Workload in Users}
 
-\section{Discussion}
+
 \section{Conclusion}
 WERE AIMS AND OBJECTIVES MET, WHAT ELSE WAS FOUND OUT????
 \section{Further Work and Areas of Improvement}
