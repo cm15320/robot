@@ -931,7 +931,7 @@ MENTION THE USER STUDY CLASS OF THE PROGRAM THAT TAKES TRIGGER CLICKS AND LOGS T
 \subsection{Response Performance}
 \subsubsection{Frequency Response}
 
-After analysing the positional data for the results, the actual amplitude of the motions of the target and the tip of the arm could be ascertained. It was found that for the the frequency response experiment, the amplitude of the target motion was mostly constant, as intended, at around 350mm. As mentioned earlier, this amplitude was larger than the capped vertical range of motion of the arm, so that the arm moved from gesturing position to the other. The mid-point of the motion of both bodies was roughly at the same point in the Y direction, giving an equally distant target position on each side of the centre of the robot. The maximum amplitude of the arm was observed to be about 135mm, hence an extra clearance distance of around 108mm would be present on each side of the arm from the target wand when stationary at the extreme values. 
+After analysing the positional data for the results, the actual amplitude of the motions of the target and the tip of the arm could be ascertained. It was found that for the the frequency response experiment, the amplitude of the target motion was mostly constant, as intended, at around 350mm. As mentioned earlier, this amplitude was larger than the capped vertical range of motion of the arm, so that the arm moved from gesturing position to the other. The mid-point of the motion of both bodies was roughly at the same point in the Y direction, giving an equally distant target position on each side of the centre of the robot. The maximum amplitude of the arm in terms of the distance between the maximum and minimum Y positions from the calibration data (maximum cable tension) was recorded at 156mm. Hence an extra clearance distance of around 108mm would be present on each side of the arm from the target wand when stationary at the extreme values. 
 
 The target wand was found to oscillate at a range of eight frequencies from 0.4 to 2Hz. This was calculated by measuring the average time between peaks of the target motion, giving the wavelength, and using the standard equation:
 \begin{equation}
@@ -944,7 +944,7 @@ At each recording, a portion of the physical response graph would be identified 
 magnitude(dB) = 20\log \left(\frac{tipAmp}{targetAmp}\right)
 \end{equation}
 
-SHOULD THIS BE IN RELATION TO THE MAX TIP AMPLITUDE INSTEAD OF THE AMPLITUDE OF THE TARGET, SO THAT WHEN THEY ARE EQUAL IS IS 0DB, GIVING A MORE LOGICAL REPRESENTATION, AS FAR AS THE ROBOT IS CONCERNED THE TARGET ONLY GOES FROM THE MIN TIP POS TO THE MAX TIP POS ANYWAY AFTER IT IS CONVERTED? OR DOES IT HAVE TO BE THE TARGET AMPLITUDE BECAUSE THAT'S THE WAVE AND FREQUENCY THAT THE TARGET ACTUALLY WENT THROUGH??? XXXXXXXXXX
+SHOULD THIS BE IN RELATION TO THE MAX TIP AMPLITUDE INSTEAD OF THE AMPLITUDE OF THE TARGET, SO THAT WHEN THEY ARE EQUAL IS IS 0DB, GIVING A MORE LOGICAL REPRESENTATION, AS FAR AS THE ROBOT IS CONCERNED THE TARGET ONLY GOES FROM THE MIN TIP POS TO THE MAX TIP POS ANYWAY AFTER IT IS CONVERTED? OR DOES IT HAVE TO BE THE TARGET AMPLITUDE BECAUSE THAT'S THE WAVE AND FREQUENCY THAT THE TARGET ACTUALLY WENT THROUGH??? OR PUT A SEPARATE LINE ACROSS THIS GRAPH AND ANOTHER DIFFERENT COLOUR PLOT BENEATH IT TO SHOW WHAT IT WOULD BE LIKE IF USING THE MAX TIP AMPLITUDE INSTEAD OF ACTUAL TARGET AMPLITUDE XXXXXXXXXX
 
 \begin{center}
 \includegraphics[width=0.8\textwidth]{images/amplitudeResponse.png}
@@ -956,14 +956,37 @@ DISCUSS THIS AMPLITUDE PLOT ONCE DECIDED WHETHER TO PLOT USING TARGET AMP OR MAX
 
 The phase shift of the tip in relation to the target could also be calculated for each constant frequency portion of a recording. This was done by averaging the time between the peaks of the target and tip, to obtain a time lag in seconds, and using the following equation:
 
+\begin{equation}\label{equation:phaseShift}
+Phase \ shift \ (degrees) = -1 \times lag(seconds)\times Frequency(Hz)\times 360(degrees)
+\end{equation}
 
-
+This phase shift between the target and the tip of the arm was then plotted for the frequencies, as illustrated in Figure \ref{figure:phaseResponse}.
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{images/phaseResponse.png}
+\includegraphics[width=0.8\textwidth]{images/phaseResponse2.png}
 \captionof{figure}{Phase shift response (in degrees) of the target motion to tip motion for varying target frequency.}
 \label{figure:phaseResponse}
 \end{center}
+
+As shown in the phase plot, there is a considerable phase lag for the tip to respond to the target when the frequency of the target variation exceeds 1Hz, with the lag approaching 160 degrees around 2Hz. The naive view here would be to categorise the device with low performance based on these figures. However, it is important to consider the actual context that the device is intended to be used in. The device was designed with the intention of utilising a task knowledge to alleviate the mental effort of its operator. It does through the act of physically gesturing to the desired location. Therefore, in such a scenario, where the user requires the robot to gesture to the next target, it is not as critical to have a rapid response when this target changes. Situations where this physical target change may occur will be typically events where the user carries the device towards the target direction and slightly overshoots the target so the device must now gesture in the opposite direction. Such physical acts are unlikely to occur at frequencies much higher than 1Hz, and will therefore not pose serious problems to usability. 
+
+The tasks such a robot would be expected to assist with, and what it was designed to prove, would not require complex mechanical motions in a rapidly changing environment, instead benefiting more from taking away the mental workload which would otherwise be taxing. If however, physical performance was of much greater importance, the frequency response may in such case prove unsatisfactory, hindering the performance and benefits offered by the robots as a whole. For this project, it was decided to strike a balance between responsiveness and maintainability by setting the aforementioned motor delay (the delay after each individual servo is incremented by one degree before incrementing the next one) at 4 to 6ms. This was the highest delay found to still move the robot at appropriate subjectively acceptable speeds. This delay was experimented with, being reduced to as small as 1ms at one point, although reducing it beyond the selected amount was found to induce new problems. 
+
+At such small delays ($<4ms$), the rapid motion of the servos was found to vibrate the servo horn, at the centre of the pulley, free from the servo shaft, requiring instant repair. In the worst-case scenario, the servo horn was found to shear loose from the glue connecting it to the pulley, which resulted in a lengthy downtime. These two issues came about from two flawed factors of the design. The first was due to not screwing the horn to the servo at the central hub for the two rear servos due to the lack of accessibility at such close proximity. The second issue came about as the glue used for the pulleys was not high-strength on account of the rarity and potential need for re-use of the specific circular servo horns. Therefore disassembly of the pulleys was required in the event of dimensional problems or material failure, hence the deliberately moderate glue strength. 
+
+During initial testing, when the delay was reduced to a minimum, much greater speed was observed before the onset of the aforementioned problems. If more emphasis was to be placed on the physical performance, changes could be applied to the design of the robot to allow access to screw the pulleys to the rear servos, as well as replacement servo horns delivered to allow high-strength glue to be used on the pulley, addressing both of these problems. However, although these changes are relatively simple in nature, they would have added more time onto the design phase of the project, which was already strictly capped based on the scope of the time-frame. Although the robot may have endured the highest speeds for the duration of this experiment, the response was not investigated at such speeds due to the fact that a fair representation of the response performance could only be given if tested at the same speeds that will be experienced by the operators when actually using the robot in real task scenarios. An example scenario that is thought would be commonplace in such mentally assisted tasks is illustrated in Figure XXX and explained below.
+
+INSERT IMAGE OF ROBOT MOVING TO RIGHT TOWARDS A TARGET AND THEN SECOND IMAGE SHOWING HOW MUCH THE TIP OVERSHOT THE TARGET BEFORE STARTING TO MOVE INWARDS TO TARGET. XXXX
+
+It is assumed that in typical applications for this robot, a changing target would not move at a rate from the extreme tip positions at a rate above 1Hz. This is comparable to saying that in half a second, the target position would move across the range of tip motion, which in such a case would be at a speed of 0.3m/s, and the lag at such a frequency would be XXXs. In an environment where mental assistance is the primary concern and gestures are responded to, this target change relative to the base could come from moving the device past the target at a fixed orientation, rotating it so the target moves relative to the orientation of the base, or a combination of both. For simplicity the diagram assumes a fixed orientation translation of the robot towards a gestured point out of range to the right. Eventually a point will be reached where the tip and the target are equal in terms of the X dimension. This in itself will indicate to the user that robot has just passed the target position in that direction, allowing them to intuitively ascertain the general target area, which may be sufficient to locate the target if there are few possibilities in that region, or they may have to wait a little longer for more precise gesturing. Either way, they should logically stop moving. In this case, the base would continue to move after the tip passes the target for XXXXm, which is about XXXXm more than the tip would be from the base when gesturing, so the base would roughly overshoot at a maximum of XXXXm  from in line with the target when the tip starts to move and the user halts. Considering this information as a worst-case, where the robot would rarely move faster than this and would not be held so the base is pointing perpendicular to direction of travel, maximising the base overshoot, the frequency response is deemed appropriate for the context of the robot.
+
+OLD to DELETE XXXX
+in full directional target changing at greater than 1Hz. In such an event, the actual time lag found from the raw data or re-arranging Equation \eqref{equation:phaseShift}, would be about 0.3 seconds. This is how long it will take the arm to \underline{start} moving once the actual target position starts to move. 
+
+If the robot continues to move in its original direction, it will only take 0.3 seconds before the arm starts to move towards the left.
+
+
+DELETE XXXX	
 
 \subsubsection{Step Response}
 

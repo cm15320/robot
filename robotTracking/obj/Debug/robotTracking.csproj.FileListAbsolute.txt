@@ -8,4 +8,3 @@ C:\Users\Chris.Chris-PC\Documents\robotLive2\robot\robotTracking\obj\Debug\robot
 C:\Users\Chris.Chris-PC\Documents\robotLive2\robot\robotTracking\obj\Debug\robotTracking.csproj.GenerateResource.Cache
 C:\Users\Chris.Chris-PC\Documents\robotLive2\robot\robotTracking\obj\Debug\robotTracking.exe
 C:\Users\Chris.Chris-PC\Documents\robotLive2\robot\robotTracking\obj\Debug\robotTracking.pdb
-C:\Users\Chris.Chris-PC\Documents\robotLive\robot\robotTracking\bin\Debug\robotTracking.exe.config
