@@ -923,6 +923,32 @@ This process was carried out for two types of response, where the Y positions of
 
 
 \subsubsection{Effectiveness and Accuracy of Gesturing}
+
+In order to assess how effectively the robot could gesture to a target, a small experiment was to be carried out. This had to provide a means of ascertaining whether the device could accurately convey its desired location to the user, when other potential targets were nearby. As such, the user should be able to differentiate between the correct targets and its neighbours, which would be imperative in alleviating mental workload. The experiment set up for this procedure was based around moving to physical target bodies; these were selected as lightweight foam blocks. The blocks were 7cm in width and height, with the depth ranging from 3.5 to 7cm. The depth is of less importance as they were to be arranged in such a manner that the robot gestures to the centre of the front face, giving a target surface area of 49$cm^{2}$, which is thought to be a typical target area for manoeuvring physical objects in applications that don't require identifying targets in a high precision environment, such as identifying correct blocks in a construction scenario.
+
+The blocks were to be arranged in a four by four stack, giving a total of 16 blocks in a wall that was 28cm by 28cm. Then, using the technique mentioned in SECTION XXXX(the program design section), the 3D target points, corresponding to the tip of the robot being at the centre of the front face, were to be obtained for each block. In order to minimise any errors, uncertainties, or potential accuracy limitations of the OptiTrack Duo, the best position to place the camera would correspond closely to the same relative location to the device that it was at during the calibration procedure. This took place with the robot angled at about 45\degree to the front of the Duo, so that it maintained a clear view of the markers on the tip and the base at all calibration points. Therefore, so that the response of the robot does not hugely depend on how accurately the Duo can give the relative orientation of the device to when it was calibrated, it was to be placed in a similar relative position in practice. The physical setup for this experiment is thus illustrated in Figure XXXX.
+
+
+INSERT PICTURE OF THE FULL WALL OF BLOCKS, SHOWING THE ROBOT FACING THE WALL, MAYBE STRAIGHT MAYBE GESTURING TO A BLOCK, AND HAVING VIEW OF THE CAMERA, LABELLING IT AS OPTIMAL POSITION XXXXXXXX
+
+
+
+
+The position determination procedure entails tracking the tip, positioning it in the desired location, and pressing the trigger to log the current coordinates to file. However, this can have issues when considering the optimal position of the optical tracking device. The problem then arises from visibility of the tip during this target position logging procedure. With the duo positioned optimally for accuracy, it cannot maintain line-of-sight with the tip once it passes behind the wall of blocks. As such, the 3D locations had to be logged without having every block in place. A compromise then, was to assemble only the vertical stack on the furthest side. When the tip was lined up with these blocks, there are no other blocks obscuring the view from the camera, so they could be logged accordingly. Then, by pre-marking the centres of each column on the surface that the blocks sit, this end column could be shifted over by the width of one block, representing the next closest column, and the positions logged. The process is repeated until all 16 positions have been logged, before placing the actual blocks in their correct positions. This procedure is illustrated in Figure XXXXX.
+
+INSET PICTURE OF END COLUMN BEING LOGGED , WITH DASHED LINES TO SHOW POSITIONS OF WHERE NEXT COLUMN WOULD BE. MAYBE TWO SIDE BY SIDE OF COLUMN BEING MOVED OVER TO NEW POSITION, WITH TICKS WHERE THE COLUMN USED TO BE SHOW THAT THEY HAVE BEEN LOGGED XXXXX
+
+Of course, the issue of tracking the tip would then reoccur once the wall is fully in place. To move the tip towards the target position, the algorithm only needs to know this position relative to the base, which it will then utilise the calibration data to obtain a motor angle solution that should result in the tip moving to the same (or the closest to) relative point. Therefore, in order to actually respond to target inputs, the program does not need to know the actual position of the tip at all. Therefore, when carrying out this experiment, the Motive software was re-configured to only track the base of the robot, which, when positioned so the tip can move towards targets, will remain far enough from the wall so to be visible at all times by the Duo. 
+
+The logged positions were arranged in such a manner that the bottom right of the wall (as viewed by the user) would corresponding to the first position, with the next position one to the left and so on. Upon reaching the end of a row, the subsequent position in the order would be the block at the right hand edge of the next row up. This order was referred to by zero index, with the bottom right block assigned to 0 and the top left assigned to 15, so that the positions can be loaded from file into an array of 3D vectors, and the notation for the physical order will correspond to the indices of the coordinates array. 
+
+Then, when performing the experiment, the stored block positions are loaded into the array, and a new array of five integers is formed by selecting random values from 0 to 15, representing a random order of positions of blocks. A new array of five target positions is then created, by accessing the stored positions at the indices according to the array of integers (position notations). An example of this random sequencing is illustrated in Figure XXXX. The operator has no indication as to what this new sequence of five targets is, except for the arm gesturing to the next target. The user could then move the arm so that the tip reaches its desired point, and state which block index position they think is the current target. Clicking the trigger then serves to move on to the next target position in the random order, and the process is repeated until all five targets have been cycled through. Once the experiment is stopped via the GUI, only then is the random order of position indices revealed, so that the order suspected by the user can be compared with the actual order, revealing how reliably the positions were conveyed by the robot gesturing.
+
+INSERT IMAGE OF A 4 BY 4 GRID WITH BLACK NUMBERS SHOWING THE POSITIONAL ORDER OF THE BLOCKS AND BLUE DASHED LINES AROUND THE BLOCKS CHOSEN AS PART OF THE SEQUENCE, SAYING 1ST 2ND 3RD ETC IN THE UPPER LEFT OF THE BLOCK, THEN AT THE BOTTOM SHOW THE RANDOM INDEX ORDER OF THE BLOCKS XXXXXXX
+
+
+
+
 \subsubsection{Alleviation of Cognitive Workload in Users}
 MENTION THE USER STUDY CLASS OF THE PROGRAM THAT TAKES TRIGGER CLICKS AND LOGS THE ABSOLUTE POSITION OF THE TIP INTO A CSV FILE XXXXXXX
 
@@ -993,16 +1019,22 @@ For simplicity the diagram assumes a fixed orientation translation of the robot 
 
 \subsubsection{Step Response}
 
+Using the same setup as for the frequency response test, a step response experiment was also carried out. The target wand was moved as fast as possible from one extreme position to the other, and the arm was allowed to fully move to the new position and settle before the subsequent step input. The positions of both bodies along with the current timer value were then logged as before. The resulting step response in terms of absolute position against time in the Y direction is illustrated in Figure \ref{figure:stepResponse}.
+
 \begin{center}
 \includegraphics[width=\textwidth]{images/stepResponse.png}
 \captionof{figure}{Physical response of the tip in the Y direction to a step input from the new target position.}
 \label{figure:stepResponse}
 \end{center}
 
+Unlike in traditional control systems, there is no specific transfer function, expressed as an equation with the input signal, that the robot adheres to. Rather, the algorithm of setting the servo angles relies on checking the most recent solution, comparing the current angles with these values, and iterating the servos closer to the solution one degree at a time with a slight delay after each step. This process was covered in more detail in SECTION XXXXXXX. As such, with a stationary robot, the servos themselves cannot technically overshoot. Once they reach the target angles (in degrees), the program will not iterate them any further. Of course, the tip itself could overshoot past its target based on the momentum of the end effector when the servos stop moving and the flexibility of the arm. However, when the motor delay was experimented with, the range of 4 to 6ms was found to provide smooth motion without any tip overshoot upon stopping. Also, overshoot may occur as a result of the human moving the tip past the target quickly so that it has to change direction, though this is not related to the step response of the robot itself. 
 
+Given this way in which the robot responds to target positions, eliminating servo overshoot, the most comparable level of damping that the robot is subjected to, in terms of typical control system terminology, would be `over damped'. This implies that the servos could move at a greater speed than they do, while still reaching their target without any overshoot of themselves or the tip, which is a fair assumption. As such, it is common practice to quantify the rise time of the step response as the time taken for the response to move from 10\% to 90\% of its target motion. This is labelled in the step response graph. As such, this time was found for each step input that was recorded, and averaged to give a rise time value of 0.62 seconds. The total response time, that is, the time taken from the step input (one extreme to the other) until the arm moves to its new steady state position, was found to average at 1 second exactly. 
 
+If one considers the remit of such a device, with the user finishing a current operation, resulting in a new target position, the maximum time they will have to wait before the robot moves to the new gesturing position is only a second. Given the user could also intuitively see which direction it's `starting' to gesture in, the robot can therefore be said to appear suitably responsive. Of course, a more reliable evaluation of the cooperation between the operator and device can only be given by results the robot being used in practice by real users.
 
 \subsubsection{Effectiveness and Accuracy of Gesturing}
+
 \subsubsection{Alleviation of Cognitive Workload in Users}
 
 
