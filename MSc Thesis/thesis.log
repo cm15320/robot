@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.17)  9 OCT 2016 17:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.17)  9 OCT 2016 22:41
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -1030,66 +1030,90 @@ Package pdftex.def Info: images/classDiagram.png used on input line 892.
  <./images/classDiagram.png>] [54
 
 ] [55]
-[56] <images/amplitudeResponse.png, id=263, 687.0468pt x 426.393pt>
+<images/gridSequence.png, id=260, 346.896pt x 403.7484pt>
+File: images/gridSequence.png Graphic file (type png)
+
+<use images/gridSequence.png>
+Package pdftex.def Info: images/gridSequence.png used on input line 948.
+(pdftex.def)             Requested size: 241.84843pt x 281.48221pt.
+ [56] [57 <./images/gridSequence.png>] [58]
+<images/amplitudeResponse.png, id=272, 687.0468pt x 426.393pt>
 File: images/amplitudeResponse.png Graphic file (type png)
 
 <use images/amplitudeResponse.png>
-Package pdftex.def Info: images/amplitudeResponse.png used on input line 968.
+Package pdftex.def Info: images/amplitudeResponse.png used on input line 1002.
 (pdftex.def)             Requested size: 386.95897pt x 240.15776pt.
- [57] [58 <./images/amplitudeResponse.png>]
-<images/phaseResponse2.png, id=272, 684.156pt x 419.6478pt>
+ [59] [60 <./images/amplitudeResponse.png>]
+<images/phaseResponse2.png, id=280, 684.156pt x 419.6478pt>
 File: images/phaseResponse2.png Graphic file (type png)
 
 <use images/phaseResponse2.png>
-Package pdftex.def Info: images/phaseResponse2.png used on input line 986.
+Package pdftex.def Info: images/phaseResponse2.png used on input line 1020.
 (pdftex.def)             Requested size: 411.14528pt x 252.19403pt.
- [59 <./images/phaseResponse2.png>]
-<images/baseOvershoot.png, id=277, 684.6378pt x 517.935pt>
+ [61 <./images/phaseResponse2.png>]
+<images/baseOvershoot.png, id=285, 684.6378pt x 517.935pt>
 File: images/baseOvershoot.png Graphic file (type png)
 
 <use images/baseOvershoot.png>
-Package pdftex.def Info: images/baseOvershoot.png used on input line 1000.
+Package pdftex.def Info: images/baseOvershoot.png used on input line 1034.
 (pdftex.def)             Requested size: 459.51054pt x 347.62317pt.
- [60 <./images/baseOvershoot.png>]
-<images/stepResponse.png, id=282, 713.064pt x 352.1958pt>
+ [62 <./images/baseOvershoot.png>]
+<images/stepResponse.png, id=290, 713.064pt x 352.1958pt>
 File: images/stepResponse.png Graphic file (type png)
 
 <use images/stepResponse.png>
-Package pdftex.def Info: images/stepResponse.png used on input line 1017.
+Package pdftex.def Info: images/stepResponse.png used on input line 1051.
 (pdftex.def)             Requested size: 483.69687pt x 238.91495pt.
- [61 <./images/stepResponse.png>] [62] (thesis.bbl [63] [64]) [65] <images/serv
-oSpecs.png, id=301, 339.1872pt x 362.3136pt>
+ [63 <./images/stepResponse.png>]
+<images/gestureErrors.png, id=295, 355.0866pt x 348.3414pt>
+File: images/gestureErrors.png Graphic file (type png)
+
+<use images/gestureErrors.png>
+Package pdftex.def Info: images/gestureErrors.png used on input line 1065.
+(pdftex.def)             Requested size: 266.03474pt x 260.99495pt.
+ [64 <./images/gestureErrors.png>] [65]
+(thesis.bbl [66] [67]) [68]
+<images/servoSpecs.png, id=314, 339.1872pt x 362.3136pt>
 File: images/servoSpecs.png Graphic file (type png)
 
 <use images/servoSpecs.png>
-Package pdftex.def Info: images/servoSpecs.png used on input line 1049.
+Package pdftex.def Info: images/servoSpecs.png used on input line 1089.
 (pdftex.def)             Requested size: 386.95897pt x 413.37903pt.
- [66 <./images/servoSpecs.png>] (thesis.aux) ) 
+
+<images/gestureTableResults.png, id=315, 532.389pt x 294.8616pt>
+File: images/gestureTableResults.png Graphic file (type png)
+
+<use images/gestureTableResults.png>
+Package pdftex.def Info: images/gestureTableResults.png used on input line 1103
+.
+(pdftex.def)             Requested size: 386.95897pt x 214.32033pt.
+ [69 <./images/servoSpecs.png>] [70 <./images/gestureTableResults.png>] (thesis
+.aux) ) 
 Here is how much of TeX's memory you used:
- 6253 strings out of 493334
- 93019 string characters out of 3139225
- 176016 words of memory out of 3000000
- 9607 multiletter control sequences out of 15000+200000
+ 6271 strings out of 493334
+ 93506 string characters out of 3139225
+ 176050 words of memory out of 3000000
+ 9622 multiletter control sequences out of 15000+200000
  10038 words of font info for 36 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,11n,39p,1479b,588s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/font
-s/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6
-.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/
-Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program F
-iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
-sfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.
-pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on thesis.pdf (69 pages, 10656576 bytes).
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
+C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Progr
+am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 
+2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts
+/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C
+:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Progra
+m Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/M
+iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on thesis.pdf (73 pages, 10733740 bytes).
 PDF statistics:
- 355 PDF objects out of 1000 (max. 8388607)
+ 375 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 216 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 231 words of extra memory for PDF output out of 10000 (max. 10000000)
 

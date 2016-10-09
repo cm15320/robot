@@ -942,15 +942,41 @@ Of course, the issue of tracking the tip would then reoccur once the wall is ful
 
 The logged positions were arranged in such a manner that the bottom right of the wall (as viewed by the user) would corresponding to the first position, with the next position one to the left and so on. Upon reaching the end of a row, the subsequent position in the order would be the block at the right hand edge of the next row up. This order was referred to by zero index, with the bottom right block assigned to 0 and the top left assigned to 15, so that the positions can be loaded from file into an array of 3D vectors, and the notation for the physical order will correspond to the indices of the coordinates array. 
 
-Then, when performing the experiment, the stored block positions are loaded into the array, and a new array of five integers is formed by selecting random values from 0 to 15, representing a random order of positions of blocks. A new array of five target positions is then created, by accessing the stored positions at the indices according to the array of integers (position notations). An example of this random sequencing is illustrated in Figure XXXX. The operator has no indication as to what this new sequence of five targets is, except for the arm gesturing to the next target. The user could then move the arm so that the tip reaches its desired point, and state which block index position they think is the current target. Clicking the trigger then serves to move on to the next target position in the random order, and the process is repeated until all five targets have been cycled through. Once the experiment is stopped via the GUI, only then is the random order of position indices revealed, so that the order suspected by the user can be compared with the actual order, revealing how reliably the positions were conveyed by the robot gesturing.
+Then, when performing the experiment, the stored block positions are loaded into the array, and a new array of five integers is formed by selecting random values from 0 to 15, representing a random order of positions of blocks. A new array of five target positions is then created, by accessing the stored positions at the indices according to the array of integers (position notations). An example of this random sequencing is illustrated in Figure \ref{figure:gridSequence}. The operator has no indication as to what this new sequence of five targets is, except for the arm gesturing to the next target. The user could then move the arm so that the tip reaches its desired point, and state which block index position they think is the current target. Clicking the trigger then serves to move on to the next target position in the random order, and the process is repeated until all five targets have been cycled through. Once the experiment is stopped via the GUI, only then is the random order of position indices revealed, so that the order suspected by the user can be compared with the actual order, revealing how reliably the positions were conveyed by the robot gesturing.
 
-INSERT IMAGE OF A 4 BY 4 GRID WITH BLACK NUMBERS SHOWING THE POSITIONAL ORDER OF THE BLOCKS AND BLUE DASHED LINES AROUND THE BLOCKS CHOSEN AS PART OF THE SEQUENCE, SAYING 1ST 2ND 3RD ETC IN THE UPPER LEFT OF THE BLOCK, THEN AT THE BOTTOM SHOW THE RANDOM INDEX ORDER OF THE BLOCKS XXXXXXX
-
+\begin{center}
+\includegraphics[width=0.5\textwidth]{images/gridSequence.png}
+\captionof{figure}{Positional order of the wall of the blocks as observed from the front, denoted in black, and an example of a randomly generated order of positions for the experiment, denoted in blue.}
+\label{figure:gridSequence}
+\end{center}
 
 
 
 \subsubsection{Alleviation of Cognitive Workload in Users}
 MENTION THE USER STUDY CLASS OF THE PROGRAM THAT TAKES TRIGGER CLICKS AND LOGS THE ABSOLUTE POSITION OF THE TIP INTO A CSV FILE XXXXXXX
+
+Given the aims of the project, it was imperative to investigate whether the device could actually perform its intended function and further prove the potential for cooperation between humans and handheld robotics. Specifically, its ability to draw on task knowledge to interact with the user to reduce perceived mental workload must be evaluated. The most appropriate way to carry out this evaluation entails a live user study, in which participants use the robot in practice, and specify the extent to which it mentally assisted them. As such, an experiment was designed in which the users would perform two tasks using the robot to place coloured blocks in a specific order into a box. This was accomplished by attaching metal strips to seven of the foam blocks from the gesturing effectiveness experiment, and setting the program so that the electromagnet was activated and the arm held straight when the trigger was held down. Coloured stickers were then attached to the front face of the blocks to give seven unique blocks: red, orange, yellow, green, blue, white and purple, which were then placed in a straight horizontal line at the front of the table. As the physical accuracy was not under investigation here, a conservative spacing between blocks was selected at 7cm.
+
+PICTURE HERE OF THE BLOCKS ON THE TABLE AND BOX BENEATH? XXXX
+
+One of the tasks entailed dispensing the blocks in a sequence that required conscious cognitive effort in order to follow correctly, where the arm of the robot remained straight for the duration of the task. The only response to the trigger in this case was to activate the magnet. The instruction for this sequence was to place the blocks in an order that was alphabetically ascending for the \textit{third} letter of the colour. That is, A comes before B, which was made clear to the user when informing them of the sequence instruction. Only six of the blocks were to be dispensed, with the final one to be left on the table, serving as a dummy. Once the instructions were acknowledged by the user, a timer was started and the order of the blocks they dispensed was recorded, with the timer being stopped after the sixth colour entered the box. The correct order was thus:
+\begin{enumerate}
+\item{OR\underline{A}NGE}
+\item{RE\underline{D}}
+\item{GR\underline{E}EN}
+\item{WH\underline{I}TE}
+\item{YE\underline{L}LOW}
+\item{PU\underline{R}PLE}
+\end{enumerate}
+
+However, if an incorrect block was selected, it would only count as a single error. That is, after an incorrect block, the score would then be based on the correct ordering of the remaining blocks, whatever they may be. Before the task, it was important to ask the user if they were colour blind, or non-native speakers of English, and note it if so. They were then asked to verbally state what colours were laid out.
+
+For the other task, a pre-defined order of six blocks was created, as before, by moving the tip to the target positions and logging it with the trigger. Again, visibility issues were encountered when all of the blocks were laid out so markers were put in place and only one block was used to log the positions, moving it between the markers. The base was again the only rigid body tracked during the experiment, for the reasons mentioned in the gesturing effectiveness experiment. The users would then be unaware of this order, and upon commencing the task the timer would be started and the robot would gesture to the next target. When the trigger was held, the magnet would activate and the arm would straighten up for easier manoeuvring of the blocks. Once the trigger was released, the arm would then begin to gesture to the next target, until after the sixth target when the experiment would stop and the arm would remain straight. Of course, if the trigger was released accidentally, the arm would move on against the user's wish. Therefore a button was added to the GUI to effectively `undo' the trigger press and move back to the previous target. 
+
+Before the assisted task commenced, a brief demonstration was given to the user, using a different and shorter pre-defined sequence, and they briefly practised using the robot while it gestured to a target. If, in the real task, an error was made and an incorrect block was taken, difficulties may arise, where the robot could later gesture to an empty space. In this event, a spare block would be placed in the empty space for picking up. These spare blocks were uncoloured as, due to the nature of this task, the colours are unimportant as it is the order of positions that is logged. So a single erroneous selection would only count as 1 mistake, providing the following order of selections were correct.
+
+Upon completion of both tasks, a modified TLX form was then given to the participants to fill out. As covered in Section XXX (TLX), this covered the key perceptions of task load; mental demand, temporal demand, perception of performance, total effort, frustration and physical demand. The latter is of little importance in such an investigation, with the two tasks expected to be identical in this regard, but was included for completeness nonetheless. This was filled out for \underline{both} the mentally assisted task (gesturing) and the colour sequence (unassisted) task. This modified TLX is given in APPENDIX XXXX. 
+
 
 \pagebreak
 \section{Results and Discussion}
@@ -1033,9 +1059,17 @@ Given this way in which the robot responds to target positions, eliminating serv
 
 If one considers the remit of such a device, with the user finishing a current operation, resulting in a new target position, the maximum time they will have to wait before the robot moves to the new gesturing position is only a second. Given the user could also intuitively see which direction it's `starting' to gesture in, the robot can therefore be said to appear suitably responsive. Of course, a more reliable evaluation of the cooperation between the operator and device can only be given by results the robot being used in practice by real users.
 
-\subsubsection{Effectiveness and Accuracy of Gesturing}
+\subsection{Effectiveness and Accuracy of Gesturing}
 
-\subsubsection{Alleviation of Cognitive Workload in Users}
+For the gesturing effectiveness experiment, the test was repeated with one user for a total of 14 times. The stated positions, for the randomly generated list of five indices, were recorded along with the actual values printed by the program at the end of the test. Therefore, a total of 70 random target positions were issued. The resulting stated XXXXX
+
+\begin{center}
+\includegraphics[width=0.55\textwidth]{images/gestureErrors.png}
+\captionof{figure}{Recorded errors for the gesturing effectiveness experiment, shown by the matching numbers with green for the correct position and red for the stated position.}
+\label{figure:gestureErrors}
+\end{center}
+
+\subsection{Alleviation of Cognitive Workload in Users}
 
 
 \section{Conclusion}
@@ -1064,5 +1098,13 @@ WERE AIMS AND OBJECTIVES MET, WHAT ELSE WAS FOUND OUT????
 \subsection{Arduino Board}
 \subsection{Code Snippets}
 Put code for writing the motor angles to the servos, perhaps starting the new thread that just continuously writes the angles. Perhaps code for starting an experiment and tracking the bodies, getting the information out, and using them as a target. Also perhaps the regression function code? XXXXXXX
+
+\subsection{Gesturing Effectiveness Results}
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/gestureTableResults.png}
+\captionof{figure}{Recorded Gesturing Effectiveness Results}
+\label{figure:gestureResults}
+\end{center}
 
 \end{document}
