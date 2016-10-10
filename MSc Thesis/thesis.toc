@@ -55,15 +55,15 @@
 \contentsline {subsubsection}{\numberline {7.1.2}Step Response}{63}
 \contentsline {subsection}{\numberline {7.2}Effectiveness and Accuracy of Gesturing}{64}
 \contentsline {subsection}{\numberline {7.3}Alleviation of Cognitive Workload in Users}{65}
-\contentsline {section}{\numberline {8}Conclusion}{66}
-\contentsline {section}{\numberline {9}Further Work and Areas of Improvement}{67}
-\contentsline {subsection}{\numberline {9.1}Physical Design}{67}
-\contentsline {subsection}{\numberline {9.2}Evaluation}{67}
-\contentsline {section}{\numberline {10}References}{68}
-\contentsline {section}{\numberline {11}Appendices}{71}
-\contentsline {subsection}{\numberline {11.1}CAD Drawings}{71}
-\contentsline {subsection}{\numberline {11.2}Servomotors}{71}
-\contentsline {subsection}{\numberline {11.3}Tracking Device}{71}
-\contentsline {subsection}{\numberline {11.4}Arduino Board}{71}
-\contentsline {subsection}{\numberline {11.5}Code Snippets}{71}
-\contentsline {subsection}{\numberline {11.6}Gesturing Effectiveness Results}{72}
+\contentsline {section}{\numberline {8}Conclusion}{68}
+\contentsline {section}{\numberline {9}Further Work and Areas of Improvement}{68}
+\contentsline {subsection}{\numberline {9.1}Physical Design}{68}
+\contentsline {subsection}{\numberline {9.2}Evaluation}{68}
+\contentsline {section}{\numberline {10}References}{69}
+\contentsline {section}{\numberline {11}Appendices}{72}
+\contentsline {subsection}{\numberline {11.1}CAD Drawings}{72}
+\contentsline {subsection}{\numberline {11.2}Servomotors}{72}
+\contentsline {subsection}{\numberline {11.3}Tracking Device}{72}
+\contentsline {subsection}{\numberline {11.4}Arduino Board}{72}
+\contentsline {subsection}{\numberline {11.5}Code Snippets}{72}
+\contentsline {subsection}{\numberline {11.6}Gesturing Effectiveness Results}{73}
