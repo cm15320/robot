@@ -1,5 +1,21 @@
 \begin{thebibliography}{10}
 
+\bibitem{externalRobotImage}
+{Direct Industry}.
+\newblock Articulated robot, 6-axis, connecting, industrial.
+\newblock
+  \url{http://www.directindustry.com/prod/adept-technology/product-6076-396885.html},
+  2015.
+\newblock [Online; accessed September 27, 2016].
+
+\bibitem{exoskeletonImage}
+{Robotics Business Review}.
+\newblock Exoskeleton revolution: From rigid to soft to ultra softl.
+\newblock
+  \url{https://www.roboticsbusinessreview.com/exoskeleton_revolution_from_rigid_to_soft_to_ultra_soft/},
+  2014.
+\newblock [Online; accessed September 27, 2016].
+
 \bibitem{Chipalkatty2012}
 R.~Chipalkatty.
 \newblock {\em Human-In-The-Loop Control For Cooperative Human-Robot Tasks}.
@@ -277,7 +293,7 @@ C.~Li and C.D. Rahn.
 \newblock {\em Journal of Mechanical Design}, 124(2):265--271, 2002.
 
 \bibitem{GreggSmithPhd}
-.A~Gregg-Smith.
+A.~Gregg-Smith.
 \newblock {\em Cooperative Handheld Robots}.
 \newblock PhD thesis, 2016.
 \newblock unpublished thesis.

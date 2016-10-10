@@ -25,6 +25,10 @@ Repeated entry---line 507 of file mybib.bib
  : @inproceedings{yoon2009
  :                        ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 552 of file mybib.bib
+ : @misc{externalRobotImage
+ :                         ,
+I'm skipping whatever remains of this entry
 Warning--empty booktitle in Haddadin2007
 Warning--empty year in Haddadin2007
 Warning--empty booktitle in heger2006
@@ -36,4 +40,4 @@ Warning--empty year in latteur2015
 Warning--empty year in anderson1967
 Warning--empty journal in hirose1993
 Warning--empty school in GreggSmithPhd
-(There were 5 error messages)
+(There were 6 error messages)
