@@ -104,8 +104,8 @@ The overarching aim of this project is to develop a new handheld robotic device 
 \item{Design a new handheld robot using CAD. The exact design will be achieved through an iterative process of prototyping via 3D printing and physical testing. Once fully designed and dimensioned, the robot should be constructed and assembled to connect to an off-the-shelf handle.}
 \item{Develop a control system so that the actuation of the robot may be executed by a PC. This will entail using a microcontroller to sit between the robot and computer, receiving commands and controlling the actuation accordingly.}
 \item{Interface the robot with an external optical tracking system, so that the position of the robot relative to target positions can be determined. This will utilise existing infrastructure at the University, namely the \textit{OptiTrack} motion capture system, and the libraries and API included will dictate that the development language will be C\#.}
-\item{Implement an algorithm so that the robot may move to its intended target, or indicate the general position to the user when it is out of reach.}
-\item{Perform an evaluation to assess the robot's ability to successfully indicate a desired position, cooperating with an operator to alleviate cognitive workload. This will entail a brief set of experiments involving the responsiveness and gesturing effectiveness of the robot, before a small user study to compare the benefits of using the device in an otherwise mentally demanding task.}
+\item{Design and implement a general algorithm so that the robot may move to its intended target, or indicate the general position to the user when it is out of reach.}
+\item{Perform an evaluation to assess the robot's ability to successfully indicate a desired position, cooperating with an operator to alleviate cognitive workload. This will entail a brief set of experiments involving the responsiveness and gesturing effectiveness of the robot, before a small user study to compare the benefits of receiving assistance from the device in an otherwise mentally demanding task.}
 \end{enumerate}
 
 \subsection{Added Value}
@@ -429,29 +429,9 @@ The spatial guidance experiment in \cite{GreggSmithFeedback} has yielded useful 
 
 When investigating task effectiveness, it is essential to quantify the perceived workload of the performer. This is especially true when researching methods that may improve the task performance. The established means of this quantification is the use of the NASA TLX (Task Load Index). A multi-dimensional scaling was introduced in \cite{hart1988} under the belief that subjective workload is in fact measurable, and has since become widely accepted. Subjective responses can thus be reliably evaluated to meaningful ratings. The six key rating scales associated with the index are mental demand, physical demand, temporal demand, performance, effort and frustration level. 
 
-This TLX methodology was employed on each of the experiments that have been carried out for handheld robotics thus far \cite{GreggSmithDesign} \cite{GreggSmithFeedback}, yielding valuable information regarding the subjective workload of cooperative tasks with the robot. As such, it is logical that a similar technique will be used on the new experiment. An ethics approval agreement is already in place that will span the duration of the project. This will allow the undertaking of studies with human participants, concluding with them filling out a TLX form. 
+This TLX methodology was employed on each of the experiments that have been carried out for handheld robotics thus far \cite{GreggSmithDesign} \cite{GreggSmithFeedback}, yielding valuable information regarding the subjective workload of cooperative tasks with the robot. As such, it is logical that a similar technique will be used on the new experiment. An ethics approval agreement is already in place that will span the duration of the project. This will allow the undertaking of studies with human participants, concluding with them filling out a tailored TLX form. 
 \pagebreak
 
-
-
-
-\section{Summary}
-
-NEED TO DELETE THIS AS NOT RELEVANT, WILL BE A CONCLUSIONS AND/OR SUMMARY AT THE END OF THE DOCUMENT???? XXXXXX
-
-A review of existing literature was carried out in order to better understand the area in which this project aims to contribute to. Most notably, the current work regarding handheld robotics at the University of Bristol was looked into. This is especially relevant as it formed the groundwork on which this project will be based,  providing crucial details of the apparatus that will be used. Particular focus was given to the design process which has led to the robot's current state and the evaluations of its performance and cooperation. 
-
-Coinciding with this is the kinematics information on which the current robot is based. It was necessary to understand this as the approach used for the robot control will need to be exploited to perform any task scenarios which make up the evaluation. The recent study on the methods of feedback for the robot in \cite{GreggSmithFeedback} has enabled confidence when choosing how best to convey spatial information to the user. This is of obvious importance, as the robot will have to interact with the user to to indicate where it should next be located during the task, regardless of the specifics of the experiment. It may also become more pertinent throughout the development, if objects are out of line of sight.
-
-A brief review was performed of the field of human in-the-loop operation. Despite being mostly based around external robots that require human input, it still provides useful insight into the way that humans interact with shared robotic tasks. An area of interest that was found dealt with `sliding autonomy' in which the degree of autonomy the robot exhibits can be fine tuned in a system of transfer of control. This led to improvements in task performance by combining the efficiency of the autonomous agent and the reliability of the human perspective, aiming to determine an optimal balance. This may be worth investigating in the future as a means of potentially locating a more efficient degree of autonomy for certain tasks. 
-
-Another approach taken dealt with the weighting of inputs, in which both the human and the robot provided an input, and the singular operational result was formed of a combination of the two. Although this may not be applicable to precise operations, the idea of weighing two inputs based on a current situation may prove beneficial in selecting the operation. For instance a human user could indicate somehow that the situation has changed and the robot must carry out a certain operation, regardless of the task specification.
-
-Furthermore, a brief overview was provided for robots in construction related tasks. This proved to be rewarding in that papers were found that provide a simplified construction environment for testing, albeit on a much smaller scale. The idea of passive structure blocks which easily fit together will most likely be employed on the design of the experiment, and the methods in which the blocks were produced (foam cutting around a template) will also be looked at in detail as a cheap and effective solution. A number of alternative designs were found for such self aligning assembly blocks, providing a basis of inspiration for the new experiment.
-
-
-\pagebreak
-\pagebreak
 
 \section{Design of New Handheld Robotic Device}
 
@@ -593,11 +573,7 @@ The electromagnet requires 9V for generating adequate magnetic force. So in orde
 
 Of course, the optical tracking system also interfaces with the controlling PC in order to receive the necessary tracking information. This is shown in the schematic for completeness. To send commands and receive information from the Arduino, a serial connection is set up in C\# using the SerialPort class. Once a connection is established, commands are sent in the form of a buffer of bytes, which are interpreted and responded to by the Arduino sketch. These commands include setting the position of a servomotor and turning on the power for the electromagnet; an example of this process with the program command and Arduino response is shown in Appendix XXXXXX.
 
-All of the components were then assembled in place using an Arduino Proto-Shield and a mini breadboard. This was set up in a manner that allowed the battery packs and servomotors to be easily interchanged as required, whereas the control circuitry was fixed in place, as illustrated in Figure XXXXXX.
-
-INSERT PICTURE OF NEATLY ASSEMBLED CONTROL CIRCUITRY ON THE ROBOT WITH THE PROTOSHIELD AND MINI BREADBOARD ETC XXXXXXXXXXXX
-
-The finalised construction of the new handheld robotic device is thus illustrated in XXXXXXX.
+All of the components were then assembled in place using an Arduino Proto-Shield and a mini breadboard. This was set up in a manner that allowed the battery packs and servomotors to be easily interchanged as required, whereas the control circuitry was fixed in place. The finalised construction of the new handheld robotic device is thus illustrated in XXXXXXX.
 
 INSERT FULL PICTURE OF THE ROBOT AS A WHOLE, MAYBE WITH CLOSE UPS OF THE BATTERIES, CIRCUITRY, AND END EFFECTOR ETC AS SIDE IMAGES IN A COLLAGE XXXXXXXXXXXXXX
 
@@ -674,6 +650,8 @@ INSERT IMAGES XXXXXXX
 
 The calibration sampling is then performed at a chosen resolution (number of degrees interval) by stepping through the full range of motion for one servo for each step of a `parent' servo. Thus if each servo (apart from the last in line) has a `child` servo, the motions are performed recursively, with the servo stepping once, then its child covering the full range, with its grandchild then covering the full range for each step of its child and so on. Hence a recursive function was written as shown in Figure XXXXXX INSERT CODE OF CALIBRATE FUNCTION AND PUT IN BODY OR APPENDIX?? XXXXX. The function is written such that after each step of a motor, its child motor then covers the range of motion in the opposite direction to its previous one. This is to reduce the number of times a motor has to move all the way back to the start of its range before stepping again, making the motion smoother in general and reducing calibration time. 
 
+The state-space of the arm was initially sampled at a chosen resolution of five points over a total range of 60\degree per servo, giving a total sample number of $5^4 = 625$ calibration points. This gave a suitable range of motion, with an improvement of 20\degree over the device in \cite{GreggSmithDesign}. Higher ranges were initially used without any long term issues, although temporary deformation of the foam arm meant that the cables need to be re-tensioned, which was especially time consuming. A one second pause was issued after each calibration step to ensure the tip was steady before the position was logged. Hence this calibration took just over 10 minutes. Of course, higher accuracy could be obtained through more samples, with an increase in time, but this was kept short due to the fact that it needed to be repeated a lot with small design changes. Also, a meaningful increase in accuracy would require numerous extra sample points, quickly increasing the required time to well over an hour, which introduces other problems such as battery issues and gradual deformation.
+
 INSERT CODE IMAGE OR PUT IN APPENDIX XXXXX	
 
 
@@ -681,11 +659,8 @@ INSERT CODE IMAGE OR PUT IN APPENDIX XXXXX
 
 
 \subsubsection{Calibration Results}
-In order to find an appropriate bandwidth for the regression function, it was first necessary to obtain calibration data through sampling. Once enough data is available to perform the regression, the function can be tested against other sampled data, not covered in the initial calibration data, referred to as the `test data'. By comparing the output of the function for different bandwidth values against the values of the test data, an absolute positional error can be determined. 
+In order to find an appropriate bandwidth for the regression function, it was first necessary to obtain calibration data through sampling. Once enough data is available to perform the regression, the function can be tested against other sampled data, not covered in the initial calibration data, referred to as the `test data'. By comparing the output of the function for different bandwidth values against the values of the test data, an absolute positional error can be determined. The surface covered by this calibration procedure is illustrated in the Figure XXXX, displaying alternate views to better represent the curved shape of the area covered, similar to a portion on a sphere.
 
-FOLLOWING TWO PARAGRAPHS SHOULD REALLY BE IN THE CALIBRATION PROCEDURE SECTION NOT THE RESULTS XXXXXX
-
-The state-space of the arm was initially sampled at a chosen resolution of five points over a total range of 60\degree per servo, giving a total sample number of $5^4 = 625$ calibration points. This gave a suitable range of motion, with an improvement of 20\degree over the device in \cite{GreggSmithDesign}. Higher ranges were initially used without any long term issues, although temporary deformation of the foam arm meant that the cables need to be re-tensioned, which was especially time consuming. A one second pause was issued after each calibration step to ensure the tip was steady before the position was logged. Hence this calibration took just over 10 minutes. Of course, higher accuracy could be obtained through more samples, with an increase in time, but this was kept short due to the fact that it needed to be repeated a lot with small design changes. Also, a meaningful increase in accuracy would require numerous extra sample points, quickly increasing the required time to well over an hour, which introduces other problems such as battery issues and gradual deformation. The surface covered by this calibration procedure is illustrated in the Figure XXXX, displaying alternate views to better represent the curved shape of the area covered, similar to a portion on a sphere.
 
 
 MAYBE JUST SHOW THE TOP AND BOTTOM CALIBRATION SURFACE PLOT OR EVEN JUST TOP? XXXXXXXXX
@@ -697,6 +672,8 @@ MAYBE JUST SHOW THE TOP AND BOTTOM CALIBRATION SURFACE PLOT OR EVEN JUST TOP? XX
 \label{figure:surfacePlot}
 \end{center}
 
+
+FOLLOWING PARAGRAPH IN THE CALIBRATION PROCEDURE SECTION NOT THE RESULTS?? XXXXXX
 
 The number of test data points was considerably smaller, with the primary aim of just collecting data for motor angle vectors that were not covered in the initial sampling. Hence $3^4 = 81$ samples were obtained, with starting position and step selected to deliberately avoid any calibration samples. For the comparison between the function output and the test data, the motor angles were to be the input, thus comparing the output positional values with the recorded points for the same motor angles. This `forward' approach was used for two reasons. The first is because the errors could be compared in terms of millimetres in space, which is more meaningful than servo degrees. The other reason is due to the fact that a given 3D position could potentially be achieved (or very close to) by more than one configuration of servo angles, whereas there is only one matching position for a given angle configuration. The 3D points for the calibration and the test points are illustrated in Figure \ref{figure:calibrationTestPoints}. 
 
@@ -754,7 +731,7 @@ This equation gives the rotation matrix for rotation about Z, then Y, then X axe
 
 
 \begin{center}
-\includegraphics[width=0.83\textwidth]{images/rotationExampleAll.jpg}
+\includegraphics[width=0.83\textwidth]{images/rotationExample.png}
 \captionof{figure}{Example showing how the position and orientation of a point changes with base rotation}
 \label{figure:rotationExample}
 \end{center}
