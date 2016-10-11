@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.17)  11 OCT 2016 00:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.17)  11 OCT 2016 15:50
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -612,542 +612,612 @@ Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
 \ALC@tlm=\skip53
 \algorithmicindent=\skip54
 )
-(thesis.aux)
-\openout1 = `thesis.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-
-*geometry* driver: auto-detecting
-*geometry* detected driver: pdftex
-*geometry* verbose mode - [ preamble ] result:
-* driver: pdftex
-* paper: a4paper
-* layout: <same size as paper>
-* layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
-* h-part:(L,W,R)=(56.9055pt, 483.69687pt, 56.9055pt)
-* v-part:(T,H,B)=(56.9055pt, 731.23584pt, 56.9055pt)
-* \paperwidth=597.50787pt
-* \paperheight=845.04684pt
-* \textwidth=483.69687pt
-* \textheight=731.23584pt
-* \oddsidemargin=-15.36449pt
-* \evensidemargin=-15.36449pt
-* \topmargin=-52.36449pt
-* \headheight=12.0pt
-* \headsep=25.0pt
-* \topskip=11.0pt
-* \footskip=30.0pt
-* \marginparwidth=59.0pt
-* \marginparsep=10.0pt
-* \columnsep=10.0pt
-* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
-* \hoffset=0.0pt
-* \voffset=0.0pt
-* \mag=1000
-* \@twocolumnfalse
-* \@twosidefalse
-* \@mparswitchfalse
-* \@reversemarginfalse
-* (1in=72.27pt=25.4mm, 1cm=28.453pt)
-
-("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count117
-\scratchdimen=\dimen147
-\scratchbox=\box31
-\nofMPsegments=\count118
-\nofMParguments=\count119
-\everyMPshowfont=\toks29
-\MPscratchCnt=\count120
-\MPscratchDim=\dimen148
-\MPnumerator=\count121
-\makeMPintoPDFobject=\count122
-\everyMPtoPDFconversion=\toks30
-) ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty"
-Package: pdftexcmds 2016/05/21 v0.22 Utility functions of pdfTeX for LuaTeX (HO
-)
-
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty"
-Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-)
-Package pdftexcmds Info: LuaTeX not detected.
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)
-("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
-Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty"
-Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
-
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvdefinekeys.sty"
-Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
-))
-("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
-Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
-
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvsetkeys.sty"
-Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
-
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\etexcmds.sty"
-Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-)))
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-38.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 456.
-)
-LaTeX Info: Redefining \celsius on input line 32.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 32.
-
-
-
-Package gensymb Warning: Not defining \perthousand.
-
-LaTeX Info: Redefining \ohm on input line 32.
-Package gensymb Info: Using \Omega for \ohm on input line 32.
-
-Package gensymb Warning: Not defining \micro.
-
-Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: float package is loaded.
-Package caption Info: End \AtBeginDocument code.
-<bristol.png, id=1, 889.3225pt x 256.96pt>
-File: bristol.png Graphic file (type png)
- <use bristol.png>
-Package pdftex.def Info: bristol.png used on input line 37.
-(pdftex.def)             Requested size: 290.22107pt x 83.85603pt.
- [1
-
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <./bristol.png>] [1] [2] (
-thesis.toc
-[1])
-\tf@toc=\write3
-\openout3 = `thesis.toc'.
-
- [2] <images/introImage.png, id=25, 971.12813pt x 398.23781pt>
-File: images/introImage.png Graphic file (type png)
-
-<use images/introImage.png>
-Package pdftex.def Info: images/introImage.png used on input line 82.
-(pdftex.def)             Requested size: 435.32422pt x 178.51262pt.
- [3 <./images/introImage.png>] [4]
-Overfull \hbox (13.29878pt too wide) in paragraph at lines 118--120
-\OT1/cmr/m/n/10.95 ROBOTS ARE AND WHAT IS HOPED WILL BE AC-COM-PLISHED IN THIS 
-PROJECT???XXXXXX
- []
-
-[5] <humanoid.png, id=38, 1021.8175pt x 766.865pt>
-File: humanoid.png Graphic file (type png)
- <use humanoid.png>
-Package pdftex.def Info: humanoid.png used on input line 133.
-(pdftex.def)             Requested size: 232.17242pt x 174.23389pt.
- [6 <./humanoid.png>] [7] <jahir.png, id=45, 614.295pt x 455.7025pt>
-File: jahir.png Graphic file (type png)
- <use jahir.png>
-Package pdftex.def Info: jahir.png used on input line 160.
-(pdftex.def)             Requested size: 299.8897pt x 222.4687pt.
-
-[8 <./jahir.png>] <cognitivearchitecture.png, id=49, 602.25pt x 539.01375pt>
-File: cognitivearchitecture.png Graphic file (type png)
-
-<use cognitivearchitecture.png>
-Package pdftex.def Info: cognitivearchitecture.png used on input line 172.
-(pdftex.def)             Requested size: 241.84843pt x 216.45703pt.
- [9 <./cognitivearchitecture.png>]
-<buildingrobot.png, id=53, 1717.41624pt x 614.295pt>
-File: buildingrobot.png Graphic file (type png)
- <use buildingrobot.png>
-Package pdftex.def Info: buildingrobot.png used on input line 204.
-(pdftex.def)             Requested size: 290.22107pt x 103.80075pt.
-
-[10 <./buildingrobot.png>] <uavmanipulator.png, id=58, 847.165pt x 542.025pt>
-File: uavmanipulator.png Graphic file (type png)
-
-<use uavmanipulator.png>
-Package pdftex.def Info: uavmanipulator.png used on input line 218.
-(pdftex.def)             Requested size: 241.84843pt x 154.7351pt.
- [11 <./uavmanipulator.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 233.
-
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 233.
-
-<droxel.png, id=62, 914.41624pt x 379.4175pt>
-File: droxel.png Graphic file (type png)
- <use droxel.png>
-Package pdftex.def Info: droxel.png used on input line 241.
-(pdftex.def)             Requested size: 241.84843pt x 100.34831pt.
-
-<cid.png, id=63, 582.175pt x 254.9525pt>
-File: cid.png Graphic file (type png)
- <use cid.png>
-Package pdftex.def Info: cid.png used on input line 245.
-(pdftex.def)             Requested size: 241.84843pt x 105.91223pt.
-
-<rcid.png, id=64, 509.905pt x 254.9525pt>
-File: rcid.png Graphic file (type png)
- <use rcid.png>
-Package pdftex.def Info: rcid.png used on input line 249.
-(pdftex.def)             Requested size: 241.84843pt x 120.92473pt.
- [12 <./droxel.png> <./cid.png> <./rcid.png>] [13] <laparascopic.png, id=72, 99
-5.72pt x 680.5425pt>
-File: laparascopic.png Graphic file (type png)
-
-<use laparascopic.png>
-Package pdftex.def Info: laparascopic.png used on input line 282.
-(pdftex.def)             Requested size: 241.84843pt x 165.29614pt.
- [14 <./laparascopic.png>]
-<images/mark1.png, id=76, 916.42375pt x 407.5225pt>
-File: images/mark1.png Graphic file (type png)
- <use images/mark1.png>
-Package pdftex.def Info: images/mark1.png used on input line 296.
-(pdftex.def)             Requested size: 290.22107pt x 129.05428pt.
-
-[15 <./images/mark1.png>] [16]
-<images/robotVariation.png, id=85, 816.80156pt x 234.8775pt>
-File: images/robotVariation.png Graphic file (type png)
-
-<use images/robotVariation.png>
-Package pdftex.def Info: images/robotVariation.png used on input line 342.
-(pdftex.def)             Requested size: 483.69687pt x 139.0926pt.
- [17 <./images/robotVariation.png>]
-<painting.png, id=90, 1019.81pt x 368.37625pt>
-File: painting.png Graphic file (type png)
- <use painting.png>
-Package pdftex.def Info: painting.png used on input line 362.
-(pdftex.def)             Requested size: 241.84843pt x 87.36098pt.
-
-<tilingtask.png, id=91, 442.65375pt x 174.6525pt>
-File: tilingtask.png Graphic file (type png)
- <use tilingtask.png>
-Package pdftex.def Info: tilingtask.png used on input line 373.
-(pdftex.def)             Requested size: 314.40001pt x 124.05476pt.
- [18 <./painting.png> <./tilingtask.png>]
-<tlxscores.png, id=95, 851.18pt x 549.05125pt>
-File: tlxscores.png Graphic file (type png)
- <use tlxscores.png>
-Package pdftex.def Info: tlxscores.png used on input line 381.
-(pdftex.def)             Requested size: 362.77264pt x 234.00974pt.
- [19 <./tlxscores.png>] <vrrobot.png, id=99, 1181.41376pt x 663.47874pt>
-File: vrrobot.png Graphic file (type png)
- <use vrrobot.png>
-Package pdftex.def Info: vrrobot.png used on input line 408.
-(pdftex.def)             Requested size: 266.03474pt x 149.39775pt.
-
-[20 <./vrrobot.png>] [21]
-<images/initialConcept.png, id=106, 566.20557pt x 402.64714pt>
-File: images/initialConcept.png Graphic file (type png)
-
-<use images/initialConcept.png>
-Package pdftex.def Info: images/initialConcept.png used on input line 447.
-(pdftex.def)             Requested size: 362.77264pt x 257.98204pt.
- [22 <./images/initialConcept.png>]
-<images/cubicConcept.png, id=112, 568.02869pt x 425.51495pt>
-File: images/cubicConcept.png Graphic file (type png)
-
-<use images/cubicConcept.png>
-Package pdftex.def Info: images/cubicConcept.png used on input line 459.
-(pdftex.def)             Requested size: 362.77264pt x 271.76375pt.
- [23 <./images/cubicConcept.png>]
-Overfull \hbox (20.21625pt too wide) in paragraph at lines 470--471
-\OT1/cmr/m/n/10.95 SIGN OF THE LONGER LINK-AGE WITH MORE HOLES ETC AND THE BOLT
- HOLES XXXXXXXX 
- []
-
-<images/halvesConcept.png, id=117, 907.13907pt x 536.0025pt>
-File: images/halvesConcept.png Graphic file (type png)
-
-<use images/halvesConcept.png>
-Package pdftex.def Info: images/halvesConcept.png used on input line 478.
-(pdftex.def)             Requested size: 362.77264pt x 214.34813pt.
- [24]
-<images/baseShape.png, id=121, 837.1275pt x 596.2275pt>
-File: images/baseShape.png Graphic file (type png)
-
-<use images/baseShape.png>
-Package pdftex.def Info: images/baseShape.png used on input line 489.
-(pdftex.def)             Requested size: 362.77264pt x 258.37431pt.
- [25 <./images/halvesConcept.png>]
-<images/servoArmChange.png, id=126, 621.82312pt x 453.94594pt>
-File: images/servoArmChange.png Graphic file (type png)
-
-<use images/servoArmChange.png>
-Package pdftex.def Info: images/servoArmChange.png used on input line 501.
-(pdftex.def)             Requested size: 386.95897pt x 282.48949pt.
- [26 <./images/baseShape.png>]
-<images/pulleyChange.png, id=131, 675.27281pt x 404.26031pt>
-File: images/pulleyChange.png Graphic file (type png)
-
-<use images/pulleyChange.png>
-Package pdftex.def Info: images/pulleyChange.png used on input line 509.
-(pdftex.def)             Requested size: 386.95897pt x 231.66447pt.
- [27 <./images/servoArmChange.png> <./images/pulleyChange.png>] <images/pulleyD
-esign.png, id=137, 862.72313pt x 402.75468pt>
-File: images/pulleyDesign.png Graphic file (type png)
-
-<use images/pulleyDesign.png>
-Package pdftex.def Info: images/pulleyDesign.png used on input line 518.
-(pdftex.def)             Requested size: 386.95897pt x 180.64795pt.
-
-<images/slackReduction.png, id=138, 768.9528pt x 489.9906pt>
-File: images/slackReduction.png Graphic file (type png)
-
-<use images/slackReduction.png>
-Package pdftex.def Info: images/slackReduction.png used on input line 531.
-(pdftex.def)             Requested size: 386.95897pt x 246.57974pt.
- [28 <./images/pulleyDesign.png>]
-<images/rendering.png, id=144, 1059.96pt x 454.8192pt>
-File: images/rendering.png Graphic file (type png)
-
-<use images/rendering.png>
-Package pdftex.def Info: images/rendering.png used on input line 547.
-(pdftex.def)             Requested size: 483.69687pt x 207.55377pt.
- [29 <./images/slackReduction.png>] [30 <./images/rendering.png>] <images/newSc
-hematic.png, id=155, 550.055pt x 457.71pt>
-File: images/newSchematic.png Graphic file (type png)
-
-<use images/newSchematic.png>
-Package pdftex.def Info: images/newSchematic.png used on input line 569.
-(pdftex.def)             Requested size: 459.51054pt x 382.37856pt.
- [31 <./images/newSchematic.png>] [32]
-<images/duoAxes.png, id=164, 723.45282pt x 290.58563pt>
-File: images/duoAxes.png Graphic file (type png)
-
-<use images/duoAxes.png>
-Package pdftex.def Info: images/duoAxes.png used on input line 591.
-(pdftex.def)             Requested size: 386.95897pt x 155.42851pt.
- [33 <./images/duoAxes.png>] [34]
-Overfull \hbox (8.35727pt too wide) in paragraph at lines 644--645
-\OT1/cmr/m/n/10.95 TWO DIF-FER-ENT PO-SI-TIONS TO SHOW DIF-FER-ENT DATA POINTS 
-BE-ING LOGGED XXXXX 
- []
-
-[35] <images/surfacePlotTogether.png, id=179, 394.1124pt x 615.2586pt>
-File: images/surfacePlotTogether.png Graphic file (type png)
-
-<use images/surfacePlotTogether.png>
-Package pdftex.def Info: images/surfacePlotTogether.png used on input line 670.
-
-(pdftex.def)             Requested size: 435.32422pt x 679.62175pt.
- [36] [37 <./images/surfacePlotTogether.png>] <images/calibrationTestPoints.png
-, id=187, 679.338pt x 379.6584pt>
-File: images/calibrationTestPoints.png Graphic file (type png)
-
-<use images/calibrationTestPoints.png>
-Package pdftex.def Info: images/calibrationTestPoints.png used on input line 68
-2.
-(pdftex.def)             Requested size: 459.51054pt x 256.8087pt.
- [38 <./images/calibrationTestPoints.png>] <images/bandwidthPlot.png, id=192, 7
-19.68875pt x 474.27188pt>
-File: images/bandwidthPlot.png Graphic file (type png)
-
-<use images/bandwidthPlot.png>
-Package pdftex.def Info: images/bandwidthPlot.png used on input line 699.
-(pdftex.def)             Requested size: 435.32422pt x 286.88834pt.
- [39 <./images/bandwidthPlot.png>]
-<images/rotationExample.png, id=197, 351.714pt x 619.113pt>
-File: images/rotationExample.png Graphic file (type png)
-
-<use images/rotationExample.png>
-Package pdftex.def Info: images/rotationExample.png used on input line 734.
-(pdftex.def)             Requested size: 401.46928pt x 706.74086pt.
- [40] [41 <./images/rotationExample.png>]
-<images/tipSphere2.png, id=206, 450.9648pt x 441.8106pt>
-File: images/tipSphere2.png Graphic file (type png)
-
-<use images/tipSphere2.png>
-Package pdftex.def Info: images/tipSphere2.png used on input line 752.
-(pdftex.def)             Requested size: 338.58632pt x 331.7279pt.
- [42]
-<images/gestureSolution2.png, id=210, 1616.439pt x 539.1342pt>
-File: images/gestureSolution2.png Graphic file (type png)
-
-<use images/gestureSolution2.png>
-Package pdftex.def Info: images/gestureSolution2.png used on input line 785.
-(pdftex.def)             Requested size: 483.69687pt x 161.33018pt.
- [43 <./images/tipSphere2.png>]
-<images/algorithmFlowDiagram.png, id=215, 586.19pt x 847.165pt>
-File: images/algorithmFlowDiagram.png Graphic file (type png)
-
-<use images/algorithmFlowDiagram.png>
-Package pdftex.def Info: images/algorithmFlowDiagram.png used on input line 803
-.
-(pdftex.def)             Requested size: 362.77264pt x 524.28029pt.
- [44 <./images/gestureSolution2.png
-
-pdfTeX warning: pdflatex (file ./images/gestureSolution2.png): large interlaced
- PNG might cause out of memory (use non-interlaced PNG to fix this)
->] <images/separateThreads2.png, id=220, 643.40375pt x 524.96124pt>
-File: images/separateThreads2.png Graphic file (type png)
-
-<use images/separateThreads2.png>
-Package pdftex.def Info: images/separateThreads2.png used on input line 816.
-(pdftex.def)             Requested size: 411.14528pt x 335.4694pt.
- [45 <./images/algorithmFlowDiagram.png>]
-[46 <./images/separateThreads2.png>] [47]
-<images/userInterface.png, id=233, 599.23875pt x 442.65375pt>
-File: images/userInterface.png Graphic file (type png)
-
-<use images/userInterface.png>
-Package pdftex.def Info: images/userInterface.png used on input line 837.
-(pdftex.def)             Requested size: 483.69687pt x 357.31151pt.
- [48 <./images/userInterface.png>] [49] [50]
-<images/classDiagram.png, id=244, 1117.17375pt x 739.76375pt>
-File: images/classDiagram.png Graphic file (type png)
-
-<use images/classDiagram.png>
-Package pdftex.def Info: images/classDiagram.png used on input line 870.
-(pdftex.def)             Requested size: 677.17265pt x 448.42197pt.
- [51
-
- <./images/classDiagram.png>] [52
-
-] [53]
-<images/gridSequence.png, id=256, 346.896pt x 403.7484pt>
-File: images/gridSequence.png Graphic file (type png)
-
-<use images/gridSequence.png>
-Package pdftex.def Info: images/gridSequence.png used on input line 926.
-(pdftex.def)             Requested size: 241.84843pt x 281.48221pt.
- [54] [55 <./images/gridSequence.png>]
-Overfull \hbox (31.6224pt too wide) in paragraph at lines 955--956
-\OT1/cmr/m/n/10.95 CLED OR SOME-THING TO IL-LUS-TRATE IT IS THE NEXT ONE IN THE
- SE-QUENCE XXXXXXXXXX 
- []
-
-[56] <images/amplitudeResponse.png, id=267, 687.0468pt x 426.393pt>
-File: images/amplitudeResponse.png Graphic file (type png)
-
-<use images/amplitudeResponse.png>
-Package pdftex.def Info: images/amplitudeResponse.png used on input line 985.
-(pdftex.def)             Requested size: 386.95897pt x 240.15776pt.
- [57] [58 <./images/amplitudeResponse.png>]
-<images/phaseResponse2.png, id=276, 684.156pt x 419.6478pt>
-File: images/phaseResponse2.png Graphic file (type png)
-
-<use images/phaseResponse2.png>
-Package pdftex.def Info: images/phaseResponse2.png used on input line 1003.
-(pdftex.def)             Requested size: 411.14528pt x 252.19403pt.
- [59 <./images/phaseResponse2.png>]
-<images/baseOvershoot.png, id=281, 684.6378pt x 517.935pt>
-File: images/baseOvershoot.png Graphic file (type png)
-
-<use images/baseOvershoot.png>
-Package pdftex.def Info: images/baseOvershoot.png used on input line 1017.
-(pdftex.def)             Requested size: 459.51054pt x 347.62317pt.
- [60 <./images/baseOvershoot.png>]
-<images/stepResponse.png, id=286, 713.064pt x 352.1958pt>
-File: images/stepResponse.png Graphic file (type png)
-
-<use images/stepResponse.png>
-Package pdftex.def Info: images/stepResponse.png used on input line 1034.
-(pdftex.def)             Requested size: 483.69687pt x 238.91495pt.
- [61 <./images/stepResponse.png>]
-<images/gestureErrors.png, id=291, 355.0866pt x 348.3414pt>
-File: images/gestureErrors.png Graphic file (type png)
-
-<use images/gestureErrors.png>
-Package pdftex.def Info: images/gestureErrors.png used on input line 1050.
-(pdftex.def)             Requested size: 266.03474pt x 260.99495pt.
- [62 <./images/gestureErrors.png>]
-<images/boxPlot.png, id=296, 612.8496pt x 362.3136pt>
-File: images/boxPlot.png Graphic file (type png)
- <use images/boxPlot.png>
-Package pdftex.def Info: images/boxPlot.png used on input line 1068.
-(pdftex.def)             Requested size: 362.77264pt x 214.47081pt.
-
-[63] <images/studyScore.png, id=300, 512.6352pt x 306.9066pt>
-File: images/studyScore.png Graphic file (type png)
-
-<use images/studyScore.png>
-Package pdftex.def Info: images/studyScore.png used on input line 1083.
-(pdftex.def)             Requested size: 386.95897pt x 231.66856pt.
- [64 <./images/boxPlot.png>]
-<images/tlxResults.png, id=306, 651.8754pt x 276.0714pt>
-File: images/tlxResults.png Graphic file (type png)
-
-<use images/tlxResults.png>
-Package pdftex.def Info: images/tlxResults.png used on input line 1097.
-(pdftex.def)             Requested size: 483.69687pt x 204.8541pt.
- [65 <./images/studyScore.png>] [66 <./images/tlxResults.png>] [67] [68] (thesi
-s.bbl
-Underfull \hbox (badness 4899) in paragraph at lines 12--18
-[]\OT1/cmr/m/n/10.95 Robotics Busi-ness Re-view.  Ex-oskele-ton rev-o-lu-tion: 
-From rigid to soft to ul-tra
- []
-
-
-Underfull \hbox (badness 1424) in paragraph at lines 12--18
-\OT1/cmr/m/n/10.95 softl.  $\OT1/cmtt/m/n/10.95 https : / / www . roboticsbusin
-essreview . com / exoskeleton _ revolution _ from _ rigid _
- []
-
-[69] [70]) [71] <images/servoSpecs.png, id=332, 339.1872pt x 362.3136pt>
-File: images/servoSpecs.png Graphic file (type png)
-
-<use images/servoSpecs.png>
-Package pdftex.def Info: images/servoSpecs.png used on input line 1155.
-(pdftex.def)             Requested size: 386.95897pt x 413.37903pt.
-
-<images/gestureTableResults.png, id=333, 532.389pt x 294.8616pt>
-File: images/gestureTableResults.png Graphic file (type png)
-
-<use images/gestureTableResults.png>
-Package pdftex.def Info: images/gestureTableResults.png used on input line 1169
-.
-(pdftex.def)             Requested size: 386.95897pt x 214.32033pt.
- [72 <./images/servoSpecs.png>] [73 <./images/gestureTableResults.png>] (thesis
-.aux) ) 
+(thesis.aux
+! Text line contains an invalid character.
+l.2  
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2   
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2    
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2     
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2      
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2       
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2        
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2         
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2          
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2            
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2             
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2              
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2               
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                 
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                  
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                   
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                    
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                     
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                      
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                       
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                        
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                         
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                          
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                            
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                             
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                              
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                               
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                 
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                  
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                   
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                    
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                     
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                      
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                       
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                        
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                         
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                          
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                            
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                             
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                              
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2                                               
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.2 ...                                           
+                                                                            ...
+(That makes 100 errors; please try again.) 
 Here is how much of TeX's memory you used:
- 6290 strings out of 493334
- 93961 string characters out of 3139225
- 176089 words of memory out of 3000000
- 9639 multiletter control sequences out of 15000+200000
- 10038 words of font info for 36 fonts, out of 3000000 for 9000
+ 5134 strings out of 493334
+ 74454 string characters out of 3139225
+ 153013 words of memory out of 3000000
+ 8593 multiletter control sequences out of 15000+200000
+ 3940 words of font info for 15 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,11n,39p,1499b,588s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
-C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Progr
-am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
-onts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-mr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C
-:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Progra
-m Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/M
-iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/
-type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on thesis.pdf (76 pages, 11407654 bytes).
-PDF statistics:
- 392 PDF objects out of 1000 (max. 8388607)
- 0 named destinations out of 1000 (max. 500000)
- 246 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36i,0n,38p,16679b,38s stack positions out of 5000i,500n,10000p,200000b,50000s
 
+!  ==> Fatal error occurred, no output PDF file produced!
