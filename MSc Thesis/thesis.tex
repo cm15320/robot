@@ -854,7 +854,33 @@ The upper left and right corners provide buttons for connecting to the Motive op
 
 Other buttons are provided for both testing and essential processes. The calibration procedure is initiated, stopped and paused (in case of battery failure)for both the main calibration data as well as the test sampling, using the corresponding buttons. There's also a button for reading stored calibration data into memory, without which the regression function would be impossible. The process mentioned in SECTION XXXXXX for discovering the most appropriate bandwidth value can also be carried out here. There is a live spreadsheet section in order to display the current tracking data being recorded, such as the position and orientation of the various rigid bodies and associated markers. Similarly, labels have been added to display values that have been calculated from this tracking data, such as the absolute distance from tip to base. 
 
-A number of buttons were integrated in order to easily control the various features of the program. The callbacks attached to these buttons were responsible for altering the GUI appropriately, such as activating other dependent buttons, and initiating the work for the corresponding action. This mostly entailed calling a wrapper function that set up a new thread if required and call the methods in which the bulk of the computational effort is done, passing in any necessary parameters such as user entered information on the GUI.
+A number of buttons were integrated in order to easily control the various features of the program. The callbacks attached to these buttons were responsible for altering the GUI appropriately, such as activating other dependent buttons, and initiating the work for the corresponding action. This mostly entailed calling a wrapper function that set up a new thread if required and call the methods in which the bulk of the computational effort is done, passing in any necessary parameters such as user entered information on the GUI. The key features of the program are listed in Table XXXXX.
+
+\begin{center}
+\captionof{table}{List of stated positions and corresponding real positions, showing percentage success.}
+\label{table:keyFeatures}
+\begin{tabularx}{0.9\textwidth}{|p{10em}|X|}
+\hline
+\textbf{Feature} & \textbf{Description}
+\\
+\hline
+Motion Test & Simply undergoes a brief procedure of setting each servo to a value either side of its neutral position to ensure they are all connected and working.
+\\
+\hline
+Servo Offsets & Allows offsets to be written to the two servos responsible for vertical motion, to compensate any `leaning' when placed horizontally. Values can be entered and applied, added onto each instruction to the corresponding motor. Can also be stored to file and read in on start-up.
+\\
+\hline
+Calibration and Test Points & Runs the procedure associated with recursively iterating the servo angles for each procedure, and saving the tracked data to file accordingly. The calibration can be paused or stopped at any time, if any mechanical parts require attention. It pauses automatically if it doesn't detect recent motion, implying the batteries need replacing. Of course, the calibration data must be read in from file before any use of the regression function.
+\\
+\hline
+Regression Test & Allows the user to enter in a set of inputs and test the regression function to ascertain either the servo angle solution, or the positional solution, for a specific bandwidth. This is especially useful for debugging, and can reveal issues with the stored calibration data.
+\\
+\hline
+Test trigger & Simply XXXX
+
+\end{tabularx}
+\end{center}
+
 
 RID OF THESE AND PUT IN A TABLE CALLED KEY PROGRAM FEATURES AFTER THE CLASS DIAGRAM PAGE XXXX
 \begin{itemize}
@@ -1245,12 +1271,5 @@ Overall the study revealed smaller perceptions of effort for all the parameters,
 \subsection{Code Snippets}
 Put code for writing the motor angles to the servos, perhaps starting the new thread that just continuously writes the angles. Perhaps code for starting an experiment and tracking the bodies, getting the information out, and using them as a target. Also perhaps the regression function code? XXXXXXX
 
-\subsection{Gesturing Effectiveness Results}
-
-\begin{center}
-\includegraphics[width=0.8\textwidth]{images/gestureTableResults.png}
-\captionof{figure}{Recorded Gesturing Effectiveness Results}
-\label{figure:gestureResults}
-\end{center}
 
 \end{document}

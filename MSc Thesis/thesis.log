@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.17)  12 OCT 2016 00:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.17)  12 OCT 2016 00:49
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -1018,97 +1018,101 @@ File: images/userInterface.png Graphic file (type png)
 <use images/userInterface.png>
 Package pdftex.def Info: images/userInterface.png used on input line 846.
 (pdftex.def)             Requested size: 483.69687pt x 307.61327pt.
- [48 <./images/userInterface.png>] [49] [50]
-<images/classDiagram2.png, id=246, 1117.17375pt x 749.80125pt>
+ [48 <./images/userInterface.png>]
+Underfull \hbox (badness 2020) in paragraph at lines 881--881
+[]|\OT1/cmr/m/n/10.95 Calibration and Test
+ []
+
+[49] [50] [51] <images/classDiagram2.png, id=249, 1117.17375pt x 749.80125pt>
 File: images/classDiagram2.png Graphic file (type png)
 
 <use images/classDiagram2.png>
-Package pdftex.def Info: images/classDiagram2.png used on input line 887.
+Package pdftex.def Info: images/classDiagram2.png used on input line 913.
 (pdftex.def)             Requested size: 677.17265pt x 454.5064pt.
- [51
+ [52
 
- <./images/classDiagram2.png>] [52
+ <./images/classDiagram2.png>] [53
 
-] [53]
-<images/gridSequence.png, id=258, 346.896pt x 403.7484pt>
+] [54]
+<images/gridSequence.png, id=261, 346.896pt x 403.7484pt>
 File: images/gridSequence.png Graphic file (type png)
 
 <use images/gridSequence.png>
-Package pdftex.def Info: images/gridSequence.png used on input line 943.
+Package pdftex.def Info: images/gridSequence.png used on input line 969.
 (pdftex.def)             Requested size: 241.84843pt x 281.48221pt.
- [54] [55 <./images/gridSequence.png>]
-Overfull \hbox (31.6224pt too wide) in paragraph at lines 972--973
+ [55] [56 <./images/gridSequence.png>]
+Overfull \hbox (31.6224pt too wide) in paragraph at lines 998--999
 \OT1/cmr/m/n/10.95 CLED OR SOME-THING TO IL-LUS-TRATE IT IS THE NEXT ONE IN THE
  SE-QUENCE XXXXXXXXXX 
  []
 
-[56] [57] <images/amplitudeResponse.png, id=272, 687.0468pt x 426.393pt>
+[57] [58] <images/amplitudeResponse.png, id=276, 687.0468pt x 426.393pt>
 File: images/amplitudeResponse.png Graphic file (type png)
 
 <use images/amplitudeResponse.png>
-Package pdftex.def Info: images/amplitudeResponse.png used on input line 1001.
+Package pdftex.def Info: images/amplitudeResponse.png used on input line 1027.
 (pdftex.def)             Requested size: 386.95897pt x 240.15776pt.
- [58 <./images/amplitudeResponse.png>]
-<images/phaseResponse2.png, id=278, 684.156pt x 419.6478pt>
+ [59 <./images/amplitudeResponse.png>]
+<images/phaseResponse2.png, id=281, 684.156pt x 419.6478pt>
 File: images/phaseResponse2.png Graphic file (type png)
 
 <use images/phaseResponse2.png>
-Package pdftex.def Info: images/phaseResponse2.png used on input line 1023.
+Package pdftex.def Info: images/phaseResponse2.png used on input line 1049.
 (pdftex.def)             Requested size: 411.14528pt x 252.19403pt.
- [59] [60 <./images/phaseResponse2.png>]
-<images/baseOvershoot.png, id=286, 684.6378pt x 517.935pt>
+ [60] [61 <./images/phaseResponse2.png>]
+<images/baseOvershoot.png, id=289, 684.6378pt x 517.935pt>
 File: images/baseOvershoot.png Graphic file (type png)
 
 <use images/baseOvershoot.png>
-Package pdftex.def Info: images/baseOvershoot.png used on input line 1037.
+Package pdftex.def Info: images/baseOvershoot.png used on input line 1063.
 (pdftex.def)             Requested size: 459.51054pt x 347.62317pt.
- [61 <./images/baseOvershoot.png>]
-<images/stepResponse.png, id=291, 713.064pt x 352.1958pt>
+ [62 <./images/baseOvershoot.png>]
+<images/stepResponse.png, id=294, 713.064pt x 352.1958pt>
 File: images/stepResponse.png Graphic file (type png)
 
 <use images/stepResponse.png>
-Package pdftex.def Info: images/stepResponse.png used on input line 1054.
+Package pdftex.def Info: images/stepResponse.png used on input line 1080.
 (pdftex.def)             Requested size: 483.69687pt x 238.91495pt.
- [62 <./images/stepResponse.png>]
-Overfull \hbox (3.26755pt too wide) in paragraph at lines 1121--1121
+ [63 <./images/stepResponse.png>]
+Overfull \hbox (3.26755pt too wide) in paragraph at lines 1147--1147
  []|\OT1/cmr/bx/n/10.95 Errors| 
  []
 
-<images/gestureErrors.png, id=296, 355.0866pt x 348.3414pt>
+<images/gestureErrors.png, id=299, 355.0866pt x 348.3414pt>
 File: images/gestureErrors.png Graphic file (type png)
 
 <use images/gestureErrors.png>
-Package pdftex.def Info: images/gestureErrors.png used on input line 1126.
+Package pdftex.def Info: images/gestureErrors.png used on input line 1152.
 (pdftex.def)             Requested size: 266.03474pt x 260.99495pt.
- [63] [64 <./images/gestureErrors.png>]
-<images/boxPlot.png, id=305, 512.1534pt x 306.9066pt>
+ [64] [65 <./images/gestureErrors.png>]
+<images/boxPlot.png, id=308, 512.1534pt x 306.9066pt>
 File: images/boxPlot.png Graphic file (type png)
  <use images/boxPlot.png>
-Package pdftex.def Info: images/boxPlot.png used on input line 1144.
+Package pdftex.def Info: images/boxPlot.png used on input line 1170.
 (pdftex.def)             Requested size: 386.95897pt x 231.89336pt.
 
-[65 <./images/boxPlot.png>]
-<images/studyScore.png, id=310, 512.6352pt x 306.9066pt>
+[66 <./images/boxPlot.png>]
+<images/studyScore.png, id=313, 512.6352pt x 306.9066pt>
 File: images/studyScore.png Graphic file (type png)
 
 <use images/studyScore.png>
-Package pdftex.def Info: images/studyScore.png used on input line 1159.
+Package pdftex.def Info: images/studyScore.png used on input line 1185.
 (pdftex.def)             Requested size: 386.95897pt x 231.66856pt.
 
-<images/boxPlotTaskError.png, id=311, 512.6352pt x 307.3884pt>
+<images/boxPlotTaskError.png, id=314, 512.6352pt x 307.3884pt>
 File: images/boxPlotTaskError.png Graphic file (type png)
 
 <use images/boxPlotTaskError.png>
-Package pdftex.def Info: images/boxPlotTaskError.png used on input line 1165.
+Package pdftex.def Info: images/boxPlotTaskError.png used on input line 1191.
 (pdftex.def)             Requested size: 386.95897pt x 232.03226pt.
- [66 <./images/studyScore.png> <./images/boxPlotTaskError.png>] <images/tlxResu
-lts.png, id=317, 651.8754pt x 276.0714pt>
+ [67 <./images/studyScore.png> <./images/boxPlotTaskError.png>] <images/tlxResu
+lts.png, id=320, 651.8754pt x 276.0714pt>
 File: images/tlxResults.png Graphic file (type png)
 
 <use images/tlxResults.png>
-Package pdftex.def Info: images/tlxResults.png used on input line 1179.
+Package pdftex.def Info: images/tlxResults.png used on input line 1205.
 (pdftex.def)             Requested size: 483.69687pt x 204.8541pt.
- [67 <./images/tlxResults.png>] [68] [69] [70]
+ [68 <./images/tlxResults.png>] [69] [70] [71]
 (thesis.bbl
 Underfull \hbox (badness 4899) in paragraph at lines 12--18
 []\OT1/cmr/m/n/10.95 Robotics Busi-ness Re-view.  Ex-oskele-ton rev-o-lu-tion: 
@@ -1121,47 +1125,42 @@ Underfull \hbox (badness 1424) in paragraph at lines 12--18
 essreview . com / exoskeleton _ revolution _ from _ rigid _
  []
 
-[71] [72] [73]) [74] <images/servoSpecs.png, id=345, 339.1872pt x 362.3136pt>
+[72] [73] [74]) [75] <images/servoSpecs.png, id=348, 339.1872pt x 362.3136pt>
 File: images/servoSpecs.png Graphic file (type png)
 
 <use images/servoSpecs.png>
-Package pdftex.def Info: images/servoSpecs.png used on input line 1237.
+Package pdftex.def Info: images/servoSpecs.png used on input line 1263.
 (pdftex.def)             Requested size: 386.95897pt x 413.37903pt.
+ [76 <./images/servoSpecs.png>] (thesis.aux)
 
-<images/gestureTableResults.png, id=346, 532.389pt x 294.8616pt>
-File: images/gestureTableResults.png Graphic file (type png)
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-<use images/gestureTableResults.png>
-Package pdftex.def Info: images/gestureTableResults.png used on input line 1251
-.
-(pdftex.def)             Requested size: 386.95897pt x 214.32033pt.
- [75 <./images/servoSpecs.png>] [76 <./images/gestureTableResults.png>] (thesis
-.aux) ) 
+ ) 
 Here is how much of TeX's memory you used:
- 6307 strings out of 493334
- 94375 string characters out of 3139225
- 202129 words of memory out of 3000000
- 9654 multiletter control sequences out of 15000+200000
+ 6302 strings out of 493334
+ 94209 string characters out of 3139225
+ 202126 words of memory out of 3000000
+ 9650 multiletter control sequences out of 15000+200000
  10038 words of font info for 36 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,11n,39p,1600b,588s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
-C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Progr
-am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
-onts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-mr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C
-:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Progra
-m Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/M
-iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/
-type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on thesis.pdf (79 pages, 11620600 bytes).
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.p
+fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Pro
+gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmtt10.pfb>
+Output written on thesis.pdf (79 pages, 11598573 bytes).
 PDF statistics:
- 406 PDF objects out of 1000 (max. 8388607)
+ 404 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 256 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 251 words of extra memory for PDF output out of 10000 (max. 10000000)
 
