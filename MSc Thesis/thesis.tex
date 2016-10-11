@@ -700,20 +700,21 @@ Due to the nature of the kernel function, large differential values (the $x - x_
 x^{\prime} = \frac{x - x_{min}}{x_{max} - x_{min}}
 \end{equation}
 
-The function was thus used for each of the 81 angle configurations covered by the test data, giving a mean positional error (mm) between the output and test data values. This was then repeated for a range of bandwidth values and plotted to determine the most suitable value to minimise error, as illustrated in Figure \ref{figure:bandwidthPlot}.
+The regression function was thus used for each of the 81 angle configurations covered by the test data, giving a mean positional error (mm) between the output and the actual values from the test data. This was then repeated for 400 bandwidth values at an increment of 0.002 and plotted to determine the most suitable value to minimise error, as illustrated in Figure \ref{figure:bandwidthPlot}.
 
 
 \begin{center}
-\includegraphics[width=0.9\textwidth]{images/bandwidthPlot.png}
+\includegraphics[width=0.9\textwidth]{images/newBandwidth.png}
 \captionof{figure}{Mean positional error at various bandwidths for the output of the regression function compared with the corresponding real positional data}
 \label{figure:bandwidthPlot}
 \end{center}
 
-AS SHOWN IN THE GRAPH, THE OPTIMAL BANDWIDTH IS AT ABOUT 0.0008, WHICH GIVES A MINIMAL ERROR OF ~8MM. THERE ARE A NUMBER OF REASONS WHY THIS ERROR IS NOT SMALLER THAN IT IS, SUCH AS THE FOAM DEFORMING SLIGHTLY AFTER EACH CALIBRATION PROCEDURE AND THE NUMBER OF SAMPLES NOT BEING PARTICULARLY HIGH. FURTHER DESIGN CHANGES TO MITIGATE THIS OUTSIDE OF THE SCOPE OF PROJECT, EXPECTED WITH LESS RIGID ARM ANYWAY, MITIGATION ACTION WAS TO NOT USE BLOCKS THAT WOULD BE SMALLER IN SIZE THAN THIS ERROR ETC ETC. XXXXXXXXXXX
-Low bandwidth shows high non-linearity as expected due to arm material etc
 
+As shown in the plot, the optimal bandwidth (at the trough) occurs at a value of around 0.142, which yields an average error 7.8mm. This bandwidth value can be considered relatively low, implying a high degree of non-linearity. This is expected for such a flexible structure, especially with four determining dimensions (the motor angles). The average error at this optimum value is not indicative of a high precision device. However, this physical capabilities of the robot are of much less concern in this project, and must just be sufficient so that the device can cooperate with the user in a manner to lend mental assistance. As such, this error is acceptable for the intended purpose of the device. 
 
-CHANGE THIS TO SHOW THE OPTIMAL BANDWIDTH VALUE WHEN ACTUALLY USING THE FEATURE SCALING, NOT DIVIDING BY 10000? XXXXX
+Of course, if desired, actions could be taken to reduce this error, improving the physical accuracy of the robot in reaching a target point. The calibration procedure could be repeated at a higher sampling rate, such as 11 motor angle iterations per recursive call (total of 11$^4$ samples).  In this instance, the added precision afforded by more calibration points would be of small benefit to this application when compared with the increased computational time required to carry out the regression function, causing more demand on the program and potentially affecting the responsiveness of the device. This effect could be mitigated by the introduction of a KD tree to search only for the closest calibration points, and only using these in the regression function, as covered in \cite{GreggSmithPhd}. However, for the scope of this project, and the required function of this device, such steps would be unnecessary.
+
+The values found in this calibration procedure were then stored, and the optimal bandwidth figure was to be used as a constant in the program for performing the kernel regression function. The estimated error was also considered in experimental choices, knowing that any target regions that need to be reached reliably must be conservatively larger than this error figure in all three dimensions each side of the absolute centre. 
 
 \pagebreak 
 \subsection{Algorithm for Responding to Three-Dimensional State Targets}
@@ -837,7 +838,7 @@ PUT CODE FOR DIFFERENT THREAD STUFF IN APPENDIX? XXX
 
 \pagebreak
 \subsection{Program Design}
-The developed program for using the robot was built around the fundamentals of the Motive software and the NatNet library. An example was provided that simply sets up a connection between the tracking program and displays the tracked data in a spreadsheet. This example took the form of Windows Form Application, due to the usefulness of a Graphical User Interface (GUI) with buttons and options to start/stop tracking etcetera. Hence the developed application was of the same type, adapting the example tracking code and removing and adding features as necessary for the specific purpose of tracking and controlling the robot. This entailed creating new classes that deal with interfacing with the robot as well as the logic involved with the calibration, target selection and solving processes. 
+The developed program for using the robot was built around the fundamentals of the Motive software and the NatNet library. An example was provided that simply sets up a connection between the tracking program and displays the tracked data in a spreadsheet. This example took the form of Windows Form Application, due to the usefulness of a Graphical User Interface (GUI) with buttons and options to start/stop tracking etcetera. Hence the developed application was of the same type, re-using the necessary functions for setting up the connection with the Motive program and extracting the tracking data. Features were then added as necessary for the specific purpose of tracking and controlling the robot. This entailed creating new classes that deal with interfacing with the robot as well as the logic involved with the calibration, target selection and solution generation processes. 
 
 Small tests were also added to the program so that the motion of the robot or acquiring of a solution from the regression for instance could be tested without having to fully connect to the optical tracking etcetera. This would use dummy variables where necessary just to quickly perform tests. The general process of adding a new feature to the program would entail adding a button to the GUI and attaching methods to the callback associated with it. It is often necessary to have this functionality run in a separate thread so as not to hinder the updating of data or the user interface itself (rendering it unresponsive while the operation is carried out). Hence it was essential to ensure thread safety, using a shared syncLock object when accessing shared objects, as well as delegating any user interface changes to the thread responsible for updating it. This simple user interface is illustrated in Figure \ref{figure:userInterface}.
 
@@ -851,7 +852,11 @@ USE UPDATED SCREENSHOT WHEN ACTUALLY CONNECTED
 
 The upper left and right corners provide buttons for connecting to the Motive optical tracking software and the Arduino for robot control respectively. As the typical procedures regarding controlling the robot depend on analysing tracking data and sending instructions accordingly, both connections must be established before any practical operations can be performed. Hence full connection is required to start an `experiment', which entails creating an Experiment object based on the information provided from both connections. However, as alluded to earlier, a `dummy experiment' will be created without full connection in order to provide some basic functionality so that simple motion and logic tests can be carried out without having to set up and connect to the external infrastructure associated with motion tracking. 
 
-Other buttons are provided for both testing and essential processes. The calibration procedure is initiated, stopped and paused (in case of battery failure)for both the main calibration data as well as the test sampling, using the corresponding buttons. There's also a button for reading stored calibration data into memory, without which the regression function would be impossible. The process mentioned in SECTION XXXXXX for discovering the most appropriate bandwidth value can also be carried out here. There is a live spreadsheet section in order to display the current tracking data being recorded, such as the position and orientation of the various rigid bodies and associated markers. Similarly, labels have been added to display values that have been calculated from this tracking data, such as the absolute distance from tip to base and relative orientation. Moreover, buttons are present for performing the following test scenarios, which were especially useful during development:
+Other buttons are provided for both testing and essential processes. The calibration procedure is initiated, stopped and paused (in case of battery failure)for both the main calibration data as well as the test sampling, using the corresponding buttons. There's also a button for reading stored calibration data into memory, without which the regression function would be impossible. The process mentioned in SECTION XXXXXX for discovering the most appropriate bandwidth value can also be carried out here. There is a live spreadsheet section in order to display the current tracking data being recorded, such as the position and orientation of the various rigid bodies and associated markers. Similarly, labels have been added to display values that have been calculated from this tracking data, such as the absolute distance from tip to base. 
+
+A number of buttons were integrated in order to easily control the various features of the program. The callbacks attached to these buttons were responsible for altering the GUI appropriately, such as activating other dependent buttons, and initiating the work for the corresponding action. This mostly entailed calling a wrapper function that set up a new thread if required and call the methods in which the bulk of the computational effort is done, passing in any necessary parameters such as user entered information on the GUI.
+
+RID OF THESE AND PUT IN A TABLE CALLED KEY PROGRAM FEATURES AFTER THE CLASS DIAGRAM PAGE XXXX
 \begin{itemize}
 \item{Performing a basic set of movement instructions for testing the servomotors, as well as zeroing them again}
 \item{Performing the regression function for an input of either the desired position or the actual motor angles for user entered values}
@@ -861,6 +866,10 @@ Other buttons are provided for both testing and essential processes. The calibra
 \item{Moving to a tracked target object which is also in view of the tracking system}
 \end{itemize}
 
+
+
+\pagebreak
+
 The core classes of the program are illustrated in Figure \ref{figure:classDiagram}. Note that only the essential fields and methods that dictate how the program operates are shown, with the boilerplate NatNet methods, the smaller sub-methods and the less critical methods for testing and set up all excluded for simplicity.
 \begin{enumerate}
 \item{RobotTracker - The starting class that was built upon from the original NatNet code for interfacing with a tracking system via a simple Windows Form Application. This class is responsible for initiating the connection with the tracking system, as well as dealing with the corresponding data it receives. On top of this, it contains objects for the other main classes and methods that instantiate and utilise them. This is mostly achieved through callback methods associated with the user interface buttons, giving control to the user.}
@@ -868,15 +877,15 @@ The core classes of the program are illustrated in Figure \ref{figure:classDiagr
 \item{DataPoint - An object to store the motor angle vector and its corresponding relative tip-to-base position and orientation values as recorded by the tracking system. Many of these objects will make up the calibration data, and the values contained within them will be used when the regression function is performed, depending on the type of input/output. Serializable as with CalibrationData.}
 \item{CalibrationData - A collection of DataPoint objects, that can be accessed as if it were an array with an index, adding and removing points as necessary. Of course, this will be serializable as it will need to be written to and read from disk.}
 \item{RobotControl - This class is responsible for physically controlling the robot via its connection to the Arduino which in turn controls the servomotors. A connection is established with the Arduino and values are sent via serial connection, which are subsequently interpreted by the Arduino script and servo signals are applied accordingly. As mentioned in Section XXXXX, the values of the current motor angles are compared with their targets, and iterated one degree closer if required before being written to the servomotors together.}
+\item{UserStudy - This class is used for carrying out a user study with participants. It is designed to extract pre-saved 3D positions value from file and load them into an array for the robot to access in order. It is constantly updated and informed of the trigger status and the base position to determine the target position relative to the base and whether to move on to the next target (if trigger pressed).}
 \end{enumerate}
 
-ADD ANY MORE FOR THE NEW CLASSES FOR BODE PLOT AND USER STUDY????XXXXX
 
 \begin{landscape}
 
 \begin{center}
-\includegraphics[width=1.4\textwidth]{images/classDiagram.png}
-\captionof{figure}{Core classes and their associated fields and methods that are central to how the program runs.}
+\includegraphics[width=1.4\textwidth]{images/classDiagram2.png}
+\captionof{figure}{Core classes and their associated fields and methods that are most central to how the program runs.}
 \label{figure:classDiagram}
 \end{center}
 
@@ -889,7 +898,7 @@ ADD ANY MORE FOR THE NEW CLASSES FOR BODE PLOT AND USER STUDY????XXXXX
 
 In order to evaluate the new handheld robotic device, it was important to identify the key characteristics that need to be identified so that the aims of the project can be achieved. This project is primarily focused on the design of a new device, and importantly, how it can utilise pre-acquired task knowledge to effectively cooperate with the user. Specifically, it is the alleviation of cognitive effort that is of concern, as this demonstrates the notion that operators unskilled or untrained in a certain task could achieve the objectives regardless through assistance from the robot. Therefore it is essential to highlight this ability, and as such, a user study was to be carried out to compare the completion of a mentally demanding task without mental assistance from the robot, to a physically similar task where the cognitive burden is dealt with by the device, gesturing to the user the required actions.
 
-The physical performance of the robot is of much less importance in this project, based on the design and construction taking place over a much shorter time-scale than is typical for robotics. However, it is still necessary to evaluate certain traits that would directly affect how effectively the robot can gesture (or cooperate) with the user. These traits could be dependent on the mechanical design of the robot, or the underlying algorithm and data that governs how the robot responds. Therefore, it was important to quantify the control performance of the robot in terms of step and frequency response. To complement the user study evaluation, it is also beneficial to test how effectively and accurately the robot can gesture to specific target points. Therefore an experiment was set up to ascertain how reliably desired physical locations can be conveyed to the user. 
+The physical performance of the robot is of much less importance in this project, based on the design and construction taking place over a much shorter time-scale than is typical for robotics. However, it is still necessary to evaluate certain traits that would directly affect how effectively the robot can gesture (or cooperate) with the user. As such, it was necessary to determine whether the response characteristics of the robot were sufficient enough to actually carry out a user study test. For instance an excessive lag at typical frequencies could seriously hinder the cooperation with the user and, in turn, the task performance. These traits could be dependent on the mechanical design of the robot, or the underlying algorithm and data that governs how the robot responds. Therefore, it was important to quantify the control performance of the robot in terms of step and frequency response. To complement the user study evaluation, it is also beneficial to test how effectively and accurately the robot can gesture to specific target points. Therefore an experiment was set up to ascertain how reliably desired physical locations can be conveyed to the user. 
 \subsection{Experimental Procedure}
 
 \subsubsection{Response Performance}
@@ -955,9 +964,9 @@ One of the tasks entailed dispensing the blocks in a sequence that required cons
 \item{PU\underline{R}PLE}
 \end{enumerate}
 
-However, if an incorrect block was selected, it would only count as a single error. That is, after an incorrect block, the score would then be based on the correct ordering of the remaining blocks, whatever they may be. Before the task, it was important to ask the user if they were colour blind, or non-native speakers of English, and note it if so. They were then asked to verbally state what colours were laid out. This task served to simulate a mentally taxing set of operations, where the user must apply cognitive effort in order to perform successfully. REFERENCE HERE FROM A PAPER ON ATTENTIVENESS XXXXX.
+However, if an incorrect block was selected, it would only count as a single error. That is, after an incorrect block, the score would then be based on the correct ordering of the remaining blocks, whatever they may be. Before the task, it was important to ask the user if they were colour blind, or non-native speakers of English, and note it if so. They were then asked to verbally state what colours were laid out. This task served to simulate a mentally taxing set of operations, where the user must apply cognitive effort in order to perform successfully. The nature of this task took inspiration from the fact that typical sorting tasks have been shown to result in cerebral activation of the frontal lobe in healthy persons \cite{volz1997}, the area of the brain responsible for problems solving and memory. These mental function are thought to be the most pragmatic to assist with in order to alleviate perceived workload, and potentially improve performance. Note that this task was designed to be generally achievable through a degree of mental effort, not so challenging as to cause difficulties in actually completing the task correctly. This is because the investigation is more focused on how the device can actually cooperate and provide mental assistance to improve performance and/or alleviate effort, as opposed to enabling the completion of tasks that would otherwise be impossible in users.
 
-For the assisted task, a pre-defined order of six blocks was created, as before, by moving the tip to the target positions and logging it with the trigger. Again, visibility issues were encountered when all of the blocks were laid out so markers were put in place and only one block was used to log the positions, moving it between the markers. The base was again the only rigid body tracked during the experiment, for the reasons mentioned in the gesturing effectiveness experiment. The users would then be unaware of this order, and upon commencing the task the timer would be started and the robot would gesture to the next target. When the trigger was held, the magnet would activate and the arm would straighten up for easier manoeuvring of the blocks. Once the trigger was released, the arm would then begin to gesture to the next target, until after the sixth target when the experiment would stop and the arm would remain straight. Of course, if the trigger was released accidentally, the arm would move on against the user's wish. Therefore a button was added to the GUI to effectively `undo' the trigger press and move back to the previous target. 
+For the assisted task, a pre-defined order of six blocks was created, as before, by moving the tip to the target positions and logging it with the trigger. Although the initial selection of this order was random, it was held constant as to be the same for each participant. Again, visibility issues were encountered when all of the blocks were laid out so markers were put in place and only one block was used to log the positions, moving it between the markers. The base was again the only rigid body tracked during the experiment, for the reasons mentioned in the gesturing effectiveness experiment. The users would then be unaware of this order, and upon commencing the task the timer would be started and the robot would gesture to the next target. When the trigger was held, the magnet would activate and the arm would straighten up for easier manoeuvring of the blocks. Once the trigger was released, the arm would then begin to gesture to the next target, until after the sixth target when the experiment would stop and the arm would remain straight. Of course, if the trigger was released accidentally, the arm would move on against the user's wish. Therefore a button was added to the GUI to effectively `undo' the trigger press and move back to the previous target. 
 
 
 IMAGE HERE OF THE ROBOT GESTURING TOWARDS A BLOCK, WITH THE BLOCK CIRCLED OR SOMETHING TO ILLUSTRATE IT IS THE NEXT ONE IN THE SEQUENCE XXXXXXXXXX
@@ -981,13 +990,12 @@ The target wand was found to oscillate at a range of eight frequencies from 0.4 
 frequency(Hz) = \frac{1}{wavelength(seconds)}
 \end{equation}
 
-At each recording, a portion of the physical response graph would be identified where the frequency was mostly constant, as shown in EXAMPLE IN APPENDIX XXXXXXXX, from which the amplitudes of the tip could then be calculated and averaged (the amplitude of the target was roughly constant). The magnitude of the tip amplitude in relation to the target amplitude was then converted in to decibels using the average values at each frequency with the following standard equation, and the resulting bode plot for the amplitude response is shown in Figure \ref{figure:amplitudeResponse}.
+At each recording, a portion of the physical response graph would be identified where the frequency was mostly constant, as shown in EXAMPLE HERE OR IN APPENDIX?? XXXXXXXX, from which the amplitudes of the tip could then be calculated and averaged (the amplitude of the target was roughly constant). The magnitude of the tip amplitude in relation to the target amplitude was then converted in to decibels using the average values at each frequency with the following standard equation, and the resulting bode plot for the amplitude response is shown in Figure \ref{figure:amplitudeResponse}.
 
 \begin{equation}
 magnitude(dB) = 20\log \left(\frac{tipAmp}{targetAmp}\right)
 \end{equation}
 
-SHOULD THIS BE IN RELATION TO THE MAX TIP AMPLITUDE INSTEAD OF THE AMPLITUDE OF THE TARGET, SO THAT WHEN THEY ARE EQUAL IS IS 0DB, GIVING A MORE LOGICAL REPRESENTATION, AS FAR AS THE ROBOT IS CONCERNED THE TARGET ONLY GOES FROM THE MIN TIP POS TO THE MAX TIP POS ANYWAY AFTER IT IS CONVERTED? OR DOES IT HAVE TO BE THE TARGET AMPLITUDE BECAUSE THAT'S THE WAVE AND FREQUENCY THAT THE TARGET ACTUALLY WENT THROUGH??? OR PUT A SEPARATE LINE ACROSS THIS GRAPH AND ANOTHER DIFFERENT COLOUR PLOT BENEATH IT TO SHOW WHAT IT WOULD BE LIKE IF USING THE MAX TIP AMPLITUDE INSTEAD OF ACTUAL TARGET AMPLITUDE XXXXXXXXXX
 
 \begin{center}
 \includegraphics[width=0.8\textwidth]{images/amplitudeResponse.png}
@@ -995,11 +1003,15 @@ SHOULD THIS BE IN RELATION TO THE MAX TIP AMPLITUDE INSTEAD OF THE AMPLITUDE OF 
 \label{figure:amplitudeResponse}
 \end{center}
 
-DISCUSS THIS AMPLITUDE PLOT ONCE DECIDED WHETHER TO PLOT USING TARGET AMP OR MAX TIP AMP XXXXXXXXX
+The amplitude response of shown by the graph appears to be particularly small compared to the input amplitude. Typically, it would be expected that the amplitude (in dB) would be zero, or close to, with small frequencies, which is not the case in this response. However, it is important to note that due to the nature of the experiment, it is impossible for the amplitude of the output compared to the input to be 0dB. This is due to the fact that the physical amplitude that the target wand was oscillated at was greater than the maximum amplitude of the arm, at least with the imposed limitations. Therefore, the dashed line has been plotted on the response graph to indicate the theoretical maximum amplitude of the tip compared to the wand. The reason for this was to be certain that the arm is covering its full motion, by exceeding its range above and below so that it had to gesture to its extreme positions.
 
+This maximum amplitude would be around -7.3dB, where the peak to trough distance of the tip is the same as the difference between the max and minimum recorded Y values from the calibration data. As seen in the response graph, this maximum is never reached, even when the frequency of the target oscillation is reduced to a point where the response appears to plateau. There are a number of reasons why this is the case. The first possibility is that the frequency has not been reduced enough to observe maximum amplitude response, however, this is not the case as at the lower frequencies, the arm motion was observed to be complete, coming to a full stop at the peak and trough before the target moved past it again. Another reason is that the max and minimum Y values from the calibration corresponded to when the tip was at different local X coordinates e.g. pointing to the left, not the right, as in this test. Again, this is unlikely due to the local and global Y axes being the same during the calibration procedure (base was clamped horizontally). Also, the issued servo angles would have been symmetrical about the arm axis, so the servos responsible for vertical motion would have been at the same values at some point for gesturing towards the left and right. 
 
-\pagebreak
-The phase shift of the tip in relation to the target could also be calculated for each constant frequency portion of a recording. This was done by averaging the time between the peaks of the target and tip, to obtain a time lag in seconds, and using the following equation:
+The most likely cause of this maximum amplitude not being met is due to a gradual loss of tension in the cables, highlighting one of the main weakness of cable driven systems. The actual amplitude at the lower frequencies for the plateau was -8.3dB, being about 1dB shy of the maximum possible. This corresponded to an amplitude reduction of about 7mm. This value can thus contribute to inaccuracies in positioning, particularly at the extreme positioning. As this figure is not dissimilar from the error associated with the kernel regression testing, it is essential that the cables must be checked for tension before every user study test. This result was also the inspiration behind the development of the program feature that applied an offset to the arm so that it was straight when the servos were zeroed.
+
+The actual value of the amplitude appears to drop off at around 0.7Hz reaching a value of -16dB (9dB below the max potential here) at around 1Hz. For this device and its intended applications, of mental assistance rather than physical precision, it is not expected to be used with a target that fluctuates between the maximum range at a rate above 1Hz. Therefore, as long as the robot maintains an easily perceptible amplitude at this frequency, which it does (around 56mm) then it is not a worry for the user study. The clear act of the arm moving in one direction is in itself an indication of the direction it will gesture to, and the motion towards the exact target point will not be attempted anyway until there is no relative motion, hence a frequency of 0Hz.
+
+In this regard, the amplitude response is sufficient, at least for the intention of carrying out a user study. What is of more importance however, is the phase response, as an especially high lag for the arm will hinder the responsiveness of the device, and more importantly, contribute to user frustration. The phase shift of the tip in relation to the target could also be calculated for each constant frequency portion of a recording. This was done by averaging the time between the peaks of the target and tip, to obtain a time lag in seconds, and using the following equation:
 
 \begin{equation}\label{equation:phaseShift}
 Phase \ shift \ (degrees) = -1 \times lag(seconds)\times Frequency(Hz)\times 360(degrees)
@@ -1044,7 +1056,7 @@ Using the same set-up as for the frequency response test, a step response experi
 \label{figure:stepResponse}
 \end{center}
 
-Unlike in traditional control systems, there is no specific transfer function, expressed as an equation with the input signal, that the robot adheres to. Rather, the algorithm of setting the servo angles relies on checking the most recent solution, comparing the current angles with these values, and iterating the servos closer to the solution one degree at a time with a slight delay after each step. This process was covered in more detail in SECTION XXXXXXX. As such, with a stationary robot, the servos themselves cannot technically overshoot. Once they reach the target angles (in degrees), the program will not iterate them any further. Of course, the tip itself could overshoot past its target based on the momentum of the end effector when the servos stop moving and the flexibility of the arm. However, when the motor delay was experimented with, the range of 4 to 6ms was found to provide smooth motion without any tip overshoot upon stopping. Also, overshoot may occur as a result of the human moving the tip past the target quickly so that it has to change direction, though this is not related to the step response of the robot itself. 
+Rather than receiving an input and setting immediately jumping to a servo configuration, the algorithm of setting the angles relies on checking the most recent solution, comparing this with the current values, and iterating the servos closer to the solution one degree at a time with a slight delay after each step. This process was covered in more detail in SECTION XXXXXXX. As such, with a stationary robot, the servos themselves cannot technically overshoot. Once they reach the target angles (in degrees), the program will not iterate them any further. Of course, the tip itself could overshoot past its target based on the momentum of the end effector when the servos stop moving and the flexibility of the arm. However, when the motor delay was experimented with, the range of 4 to 6ms was found to provide smooth motion without any tip overshoot upon stopping. Also, overshoot may occur as a result of the human moving the tip past the target quickly so that it has to change direction, though this is not related to the step response of the robot itself. 
 
 Given this way in which the robot responds to target positions, eliminating servo overshoot, the most comparable level of damping that the robot is subjected to, in terms of typical control system terminology, would be `over damped'. This implies that the servos could move at a greater speed than they do, while still reaching their target without any overshoot of themselves or the tip, which is a fair assumption. As such, it is common practice to quantify the rise time of the step response as the time taken for the response to move from 10\% to 90\% of its target motion. This is labelled in the step response graph. As such, this time was found for each step input that was recorded, and averaged to give a rise time value of 0.62 seconds. The total response time, that is, the time taken from the step input (one extreme to the other) until the arm moves to its new steady state position, was found to average at 1 second exactly. 
 
@@ -1052,7 +1064,63 @@ If one considers the remit of such a device, with the user finishing a current o
 
 \subsection{Effectiveness and Accuracy of Gesturing}
 
-For the gesturing effectiveness experiment, the test was repeated with one user for a total of 14 times. The stated positions, for the randomly generated list of five indices, were recorded along with the actual values printed by the program at the end of the test. Therefore, a total of 70 random target positions were issued. The entire stated positions compared with the actual positions for each repetition of the test is given in APPENDIX XXXXX, and a visual representation of the incorrect statements in relation to the actual position is illustrated in Figure \ref{figure:gestureErrors}.
+For the gesturing effectiveness experiment, the test was repeated with one user for a total of 14 times. The stated positions, for the randomly generated list of five indices, were recorded along with the actual values printed by the program at the end of the test. Therefore, a total of 70 random target positions were issued. The entire stated positions compared with the actual positions for each repetition of the test are listed in Table \ref{table:gesturing}, and a visual representation of the incorrect statements in relation to the actual position is illustrated in Figure \ref{figure:gestureErrors}.
+
+\begin{center}
+\captionof{table}{List of stated positions and corresponding real positions, showing percentage success.}
+\label{table:gesturing}
+\begin{tabularx}{\textwidth}{|*5{>{\centering\arraybackslash}X} | *5{>{\centering\arraybackslash}X} |>{\centering\arraybackslash} X|}
+\hline
+\multicolumn{5}{|c|}{\textbf{Stated}} & \multicolumn{5}{c|}{\textbf{Real}} & \textbf{Errors}\\
+\hline
+10 & 5 & 14 & 13 & 5 & 10 & 1 & 14 & 13 & 5 & 1 
+\\
+\hline 
+0 & 9 & 3 & 7 & 15 & 0 & 9 & 3 & 11 & 15 & 1
+\\
+\hline
+7 & 13 & 10 & 9 & 15 & 3 & 13 & 10 & 9 & 15 & 1
+\\
+\hline
+5 & 0 & 11 & 2 & 4 & 5 & 0 & 11 & 2 & 4 & 0
+\\
+\hline
+12 & 7 & 8 & 5 & 14 & 12 & 7 & 8 & 5 & 14 & 0
+\\
+\hline  
+10 & 13 & 7 & 5 & 3 & 10 & 13 & 7 & 5 & 3 & 0
+\\
+\hline
+2 & 9 & 0 & 14 & 10 & 2 & 9 & 0 & 14 & 10 & 0
+\\
+\hline
+3 & 4 & 8 & 15 & 13 & 3 & 4 & 8 & 15 & 13 & 0
+\\
+\hline
+5 & 0 & 13 & 15 & 9 & 5 & 0 & 13 & 15 & 9 & 0
+\\
+\hline
+3 & 12 & 11 & 4 & 7 & 3 & 12 & 11 & 4 & 7 & 0
+\\
+\hline
+5 & 15 & 0 & 3 & 10 & 1 & 15 & 0 & 3 & 10 & 1
+\\
+\hline
+4 & 10 & 12 & 9 & 0 & 4 & 10 & 12 & 13 & 0 & 1
+\\
+\hline
+11 & 14 & 10 & 9 & 7 & 11 & 14 & 10 & 9 & 7 & 0
+\\
+\hline
+\multicolumn{3}{|l|}{\textbf{Total Errors}} & \multicolumn{2}{c|}{\textbf{5}}
+\\
+\cline{0-4}
+\multicolumn{3}{|l|}{\textbf{Percentage Success}} & \multicolumn{2}{c|}{\textbf{92.9\%}}
+\\
+\cline{0-4}
+\end{tabularx}
+\newline
+\end{center}
 
 \begin{center}
 \includegraphics[width=0.55\textwidth]{images/gestureErrors.png}
@@ -1073,7 +1141,7 @@ Thus, given the fact that the user study was to be performed with greater block 
 The user study to determine how effectively the device could alleviate cognitive effort was carried out with 10 participants. The time taken to complete both the gesturing assisted task and the instructed sequence task was recorded. The recorded times are illustrated in the form of a box and whisker plot in Figure \ref{figure:boxPlot}.
 
 \begin{center}
-\includegraphics[width=0.75\textwidth]{images/boxPlot.png}
+\includegraphics[width=0.8\textwidth]{images/boxPlot.png}
 \captionof{figure}{Box plots for the completion time of the non-assisted and assisted tasks (lower is better).}
 \label{figure:boxPlot}
 \end{center}
@@ -1084,7 +1152,7 @@ Once a demonstration and brief practice was carried out with the robot, the oper
 
 Conversely, greater differences among participants were expected in terms of attentiveness and mental response time and as such, more variation in the completion time of the mental sequencing task. This was proved to be the case by the comparatively taller box plot. The greater range between times may have come about due to the aforementioned cognitive differences, or even because of varying levels of confidence. That is, some users may pause and wait longer until they are absolutely sure of the next block in the sequence, whereas others may take action as soon as they have an idea, which, in turn, may hinder task fulfilment. The completion time box plot shows that the box for the assisted task is considerably lower than for the non-assisted, with no overlap between the boxes, and only a slight overlap of the lower whisker of the non-assisted task with the box of the assisted task. Performing a `t-test' on these results yields a value for the completion times of \textbf{5.02}. The degrees of freedom in this case (number of samples in each set minus 2) is 18, and the risk level is assumed to be 0.05 (as per rule of thumb). This t-test result can then be looked up in a standard table of significance \cite{ttable}, where it is found to be considerably greater than the required value of \textbf{2.10}. This implies a statistically significant difference between the two modes and the completion time, and that a strong improvement can be achieved through using the robot for assisting in a task that could otherwise be classed as mentally demanding. 
 
-The actual scores, ranked out of number of correctly ordered blocks for whatever remained, is illustrated in Figure \ref{figure:studyScore} for each participant. 
+The box actual scores, ranked out of number of correctly ordered blocks for whatever remained, are illustrated in Figure \ref{figure:studyScore} for each participant. The appropriate box plot for these results is then illustrated in Figure \ref{figure:boxPlotTaskError}.
 
 
 \begin{center}
@@ -1093,13 +1161,19 @@ The actual scores, ranked out of number of correctly ordered blocks for whatever
 \label{figure:studyScore}
 \end{center}
 
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/boxPlotTaskError.png}
+\captionof{figure}{Box and whisker plot for the number of errors observed in the non-assisted sequencing task, note that as there were no errors for the assisted task, a box plot cannot be shown.}
+\label{figure:boxPlotTaskError}
+\end{center}
+
 It can be seen that all participants achieved the maximum score for the mentally assisted task, whereas all but three did likewise for the non-assisted task, with corresponding scores of 4, 3 and 3. On the surface, this suggests that the actual successful completion of the task could benefit through operating the device. This could prove highly beneficial in practice, where costly mistakes, and the associated rectification time, could be vastly reduced. The t-test result for comparing the number of errors in the two datasets was found to be \textbf{1.92}, and the required value for statistical significance, found the same way as before, was again \textbf{2.10}. In this case, the difference is considered not quite statistically different. This is not surprising, as the reduction of errors was not the sole focus of the study, and the non-assisted task was designed not to be so hard as to cause difficulty in actually achieving the objective, but to assess whether the robot can effectively assist in mental tasks. Of course, a much larger dataset would be required to determine any potential extent of error reduction, with increased mental task variety and duration being focused on in particular. Therefore further investigation may be warranted into specific tasks where the robot can actually prevent human mistakes through cognitive assistance, rather than just improve performance through reducing mental workload and completion time.
 
 
 From a performance perspective, the results were as hypothesised, highlighting the potential usefulness of handheld robotics. The spread of completion times were much smaller when relying on mental assistance. This demonstrates the theory that handheld robots can mitigate for the variations in specific task training and skill level for operators, implying that they possess the potential for unskilled users to carry out operations previously reserved for those with considerable experience. Moreover, there appeared to be an overall improvement in completion time for the task through receiving mental assistance, which lends itself to improved performance, particularly in time-critical applications. Of course, in order to state whether the actual performance can be replicated, it is necessary to look not only at the times and their variation among users but also the correctness of the task, which in this short task and dataset, did suggest potential for benefit through use of the robot.
 
 
-The other key parameter to investigate, when evaluating how effectively the robot can cooperate with the user to alleviate mental workload, is the perceived effort of the participants. The performance gains are of little benefit if the user finds the robot taxing to operate, causing frustration and little incentive for reuse. This was obtained via the TLX form that they filled out upon completion of both the tasks, which asked them to rank each task on a scale of discrete points for the factors thought of as most indicative of subjective effort, as covered in \cite{hart1988}. The responses from the participants were then averaged for each category within within each task, and are illustrated in Figure XXX.
+The other key parameter to investigate, when evaluating how effectively the robot can cooperate with the user to alleviate mental workload, is the perceived effort of the participants. The performance gains are of little benefit if the user finds the robot taxing to operate, causing frustration and little incentive for reuse. This was obtained via the TLX form that they filled out upon completion of both the tasks, which asked them to rank each task on a scale of discrete points for the factors thought of as most indicative of subjective effort, as covered in \cite{hart1988}. The responses from the participants were then averaged for each category within within each task, and are illustrated in Figure \ref{figure:tlxResults}.
 
 \begin{center}
 \includegraphics[width=\textwidth]{images/tlxResults.png}
@@ -1107,13 +1181,13 @@ The other key parameter to investigate, when evaluating how effectively the robo
 \label{figure:tlxResults}
 \end{center}
 
-As seen from the plot, the TLX scores are smaller for each category when the robot provides gesturing assistance. This correlates to an all-round smaller perception of workload. In terms of physically operating the robot, the scores are virtually identical, as was expected due to the fact that the robot has to be used to move the blocks regardless, and the addition of mental assistance does provide any reduction in total physical motion requirements. The only logical reason, in this scenario, why one would rank the workload as smaller when mental assistance is provided, would be because the total time holding the robot is typically less due to the reduced completion time. The actual scores for these physical perceptions were still relatively low, with this being the smallest type of effort perception for the non-assisted type. 
+As seen from the plot, the TLX scores are smaller for each category when the robot provides gesturing assistance, suggesting the all-round workload was subjectively smaller for the participants. The combined TLX scores were found from summing the individual scores (each out of 100) to give a total score out of 600. The t-test value was then found calculated for the ten samples as \textbf{6.71}, which comparing with the same value as before (\textbf{2.1}), proves that the reduction in total perceived workload is extremely statistically significant for receiving mental assistance from the device. In terms of physically operating the robot, the scores are virtually identical, as was expected due to the fact that the robot has to be used to move the blocks regardless, and the addition of mental assistance does provide any reduction in total physical motion requirements. The only logical reason, in this scenario, why one would rank the workload as smaller when mental assistance is provided, would be because the total time holding the robot is typically less due to the reduced completion time. The actual scores for these physical perceptions were still relatively low, with this being the smallest type of effort perception for the non-assisted type. 
 
 The performance, where lower is considered better, implies that the users were satisfied with how they completed the task when gesturing was provided, being confident that the order they dispensed of the blocks was correct, even though a dummy block would still be left on the table. This was demonstrated by it having the lowest TLX score for the assisted task. It is still relatively low even for the non-assisted task, at a score of around 40\%, which would fall on the left side of the scale closer to high performance than low. Of course, all the participants did achieve the correct order for the gestured task, hence their confidence in their performance. With the non-assisted task however, the users are likely to realize they have made a mistake as the task progresses and they notice a block remains with a lexicographically smaller third letter than of one of the previously dispensed blocks. For this reason, and for the comparatively longer time to complete the task on average, it is not surprising that the participants rated this with a higher score for no assistance. 
 
 The highest TLX score for the assisted task occurred for the temporal workload, which was a measure of how rushed the user felt in completing the task. This came out at about 35\%. Perhaps the reason for this high score relative to the others for the assisted task was due to the nature of the instructions for the task. It was observed that when the users were practising with the device when it gestured, they tended to spend a long time moving from one side of a correct block to the other, as the device alternated its varying position. This could be down to them wanting to be certain that the block was correct, or even out of intrigue in the device operation. Therefore, they were instructed to act as quickly as possible for both tasks, so as to not skew the results unnecessarily. Hence if the arm gestured to the right and only one block remained in that direction, they would immediately collect it, as opposed to narrowing in on the target. This instruction to operate quickly, without being rash and not having confidence in the score, may have contributed to the relatively higher score. Nevertheless, it is still about half of the corresponding score for the non-assisted task.
 
-The three remaining parameters are all closely linked, particularly mental effort and overall effort required to achieve the level of performance. These are virtually synonymous, except that one may say it was mentally demanding to follow the instructions, while the overall effort to achiever \underline{their} level of performance may have been smaller. For instance, they could struggle to follow the instructions, and after making a mistake may have just rushed towards the end of the task with less regard for performance given they already cannot achieve the maximum score. This could explain why overall, the users stated that it was less effort to obtain the performance they actually did for the non-assisted task, than the mental effort required to carry out the steps correctly. For the assisted task, these two parameters were similar at around 21 and 24\% for overall and mental effort respectively. However, arguably the most important figure here is the difference in mental effort score for assisted and non-assisted task, as this was a primary focus for the project. This turned out to be the highest difference amongst the parameters, at around 61\%, and the value for the non-assisted task was the highest TLX score overall. The implications of this are: that the mental operation required for the non-assisted task, ordering of third letters of colour, was particularly taxing, and, that a great deal of this mental effort is alleviated through use of the device.
+The three remaining parameters are all closely linked, particularly mental effort and overall effort required to achieve the level of performance. These are virtually synonymous, except that one may say it was mentally demanding to follow the instructions, while the overall effort to achiever \underline{their} level of performance may have been smaller. For instance, they could struggle to follow the instructions, and after making a mistake may have just rushed towards the end of the task with less regard for performance given they already cannot achieve the maximum score. This could explain why overall, the users stated that it was less effort to obtain the performance they actually did for the non-assisted task, than the mental effort required to carry out the steps correctly. For the assisted task, these two parameters were similar at around 21 and 24\% for overall and mental effort respectively. However, arguably the most important metric here is the difference in mental effort score for assisted and non-assisted task, as this was a primary focus for the project. This turned out to be the highest difference amongst the parameters, at around 61\%, and the value for the non-assisted task was the highest TLX score overall. The implications of this are: that the mental operation required for the non-assisted task, ordering of third letters of colour, was particularly taxing, and, that a great deal of this mental effort is alleviated through use of the device.
 
 The frustration experienced by the user was also relatively small, at around 21\%, for when assistance was provided, which was a difference of 43\% compared with when not. It is essential to the usefulness of the device that this frustration value, when cooperating with the robot, is low. This is because with high subjective frustration, it will be tiresome and unpleasant for a user to operate the device over a long period of time. This figure then, is acceptably low. However, it is thought that physical improvements could be made to the design to further reduce both this figure and that of the physical effort perception values. One user remarked that the distribution of the weigth of the robot meant holding it further down the strimmer base with one hand than would be ideal, resulting in `leaning over' further. With more focus on the ergonomics, more complex cable routing could be employed to allow the servos, an two 6-Volt battery packs to be shifted closer to the handle, moving the vast majority of the weight to the user to soothe this issue.
 

@@ -1382,7 +1382,7 @@ namespace robotTracking
         {
             bool success;
             success = getData(testDataFilename);
-            testDataToCSV();
+            //testDataToCSV();
 
             return success;
 
@@ -1820,9 +1820,9 @@ namespace robotTracking
         public void getBandwidthErrorPlot()
         {
             float alpha = 0.000f;
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 400; i++)
             {
-                alpha += 0.001f;
+                alpha += 0.002f;
                 testAlphaValueFindPositions(alpha);
                 //testAlphaValueFindMotors(alpha);
             }
