@@ -57,7 +57,33 @@
 \end{titlepage}
 
 \renewcommand{\thepage}{\roman{page}}% Roman numerals for page counter
+
+
+
 \section*{Executive Summary}
+
+Typically, the field of robotics can be categorised by two established areas; external robots and wearable technology. However, in recent years, a new field has emerged which bridges the gap between these domains, namely `Handheld Robotics'. The primary focus of this field is the augmentation of human-oriented tasks, combining the intuitiveness offered by humans with the precision and processing power of robotics. Research into this area has been conducted at the University of Bristol, where devices have been developed and early investigations carried out into the cooperation with the user.
+
+It is thought that through pre-acquired task knowledge and effective cooperation with the user, such devices may facilitate improved performance in users who lack skill or training in the operation at hand. This project aimed to develop the field further, by designing a novel device and highlighting the potential of handheld robotics to alleviate cognitive workload in mentally demanding tasks. This is a specific area that has not received much focus in the previous investigations. As such, the project can be classified as 50\% Type I (software/hardware development) and 50\% Type II (investigation). In order to achieve the aim, a number of objectives were implemented:
+\begin{itemize}
+\item{A novel device was designed and built, incorporating a highly flexible cable-driven continuum structure for added versatility in unstructured environments and withstanding collisions.}
+\item{A control system was incorporated in order to actuate the various components of the device as required.}
+\item{A program was developed in C\# to interface both with the device and an external optical tracking system (OptiTrack Duo), so that control could be carried out based on the positional data of the device and its targets.}
+\item{An algorithm was developed around obtaining an appropriate input to a kernel regression method in order to obtain a solution for the servomotor angles to manoeuvre the tip of the robot towards its target in real time.}
+\item{A number of experiments were designed in order to evaluate the device and whether it could successfully cooperate with the user to provide cognitive assistance in an otherwise mentally taxing task, potentially improving performance.}
+\end{itemize}  
+
+These steps were carried out in order, with the program development occurring in tandem, to lead up to the final evaluation. This was performed to test the theory that handheld robotics possess the potential to reduce perceived mental workload of the user and improve task performance. The evaluation itself took the form of a user study with ten participants carrying out one task with mental assistance and one without, although a number of performance investigations were carried out prior to this in order to assess the robot's suitability to operation in practice. A number of key findings were made throughout this project, providing a significant contribution to the relatively small existing body of work:
+\begin{itemize}
+\item{The robot proved suitably responsive for the required application of use with a human operator.}
+\item{The device and the algorithm it employed proved capable of effectively gesturing a desired target location to a user, within the limits required for the user study.}
+\item{The completion time of the tasks was shown to exhibit a statistically significant reduction through receiving mental assistance from the robot.}
+\item{While a small number of user errors were observed in the non-assisted task, none occurred for when mental assistance was provided.}
+\item{The overall perception of workload from the users was shown to significantly reduce through using the device in an otherwise cognitively demanding task. In particular, the mental effort was shown to exhibit the largest reduction.}
+\end{itemize}
+
+Given these findings it was concluded that handheld robots do possess a strong potential to improve task performance and reduce subjective workload through the provision of cognitive assistance. This further highlighted the usefulness of such devices, warranting deeper investigation into their potential real-world applications. 
+
 \pagebreak
 
 \section*{Acknowledgements}
@@ -415,16 +441,6 @@ The robot itself possessed a 6-DoF pose in world space, while the joint angles c
 
 The results of the completion time and the TLX combined scores in \cite{GreggSmithFeedback} indicate that all forms of feedback (augmented reality, virtual reality, mounted screen and gesturing) are shown to improve performance compared to the handheld wand. Although the gesturing mode itself does not show as great a performance difference as the visual methods, it does show an improvement nonetheless, justifying it as a viable option. As such, feedback through gesturing was the chosen option for this project, given its feasibility in the time-frame compated to the alternatives. The visual feedback methods themselves exhibited little difference between them. These strong results demonstrate the effectiveness of the robot in assisted tasks, outlining its potential for use in the tool space.
 	
-\subsubsection{Added Value}
-
-TALK ABOUT ADDED VALUE OF DESIGN AND EXPERIMENT IN GENERAL. IE DEMONSTRATES THE DESIGN PROCESS THOROUGHLY FOR THIS TYPE OF FLEXIBLE TUBE CABLE DRIVEN ARM, ALLOWING OTHERS TO FOLLOW SUIT. ALSO SHOWS HOW THE FLEXIBLE TUBE IDEA IN GENERAL WORKS, ADVANTAGES AND DISADVANTAGES AS THIS HAS NEVER BEEN TESTED BEFORE. THEN OF COURSE ANY EXPERIMENTAL DETAILS. FURTHERS THE KNOWLEDGE OF HANDHELD ROBOTICS IN GENERAL AND ISSUES, AREAS OF OPPORTUNITY IT MAY FACE, PARTICULARLY FOR A CHEAPER, SHORTER TERM DESIGN THAN THE FULL 6 DOF MODEL
-
-The objectives of the current project entail interacting with physical objects in a 3D representative environment, which differs from the physical interaction task performed in \cite{GreggSmithDesign}. The tiling task, although in reality involved relocating 3D objects, can be represented by a 2D environment. The task knowledge did not involve the depth of the tiles, and therefore they could be assumed to be a perfect disk with zero depth. The user would lower the robot until the discs were picked up or placed, whereas the two dimensions the robot focused on were in the x and y axes; lining up the end effector with the centre of the chequerboard positions.
-
-Alternatively, this project aims to evaluate tasks performed in a 3D rich environment, interacting with objects of known width, height and depth, which must be placed accordingly to simulate a simplified construction environment. A different end effector will be designed, and although it may possess similarities to that used in the tiling task (electromagnet based) it will require an alternative mechanism to consider true 3D space. That is, the alignment of the objects will be important so the end effector must be such that different angles of approach will not cause alignment issues. Moreover, the work in \cite{GreggSmithDesign} focused more on generic tasks that would require no specific skill and be of little difficulty to the average person. As this project is investigating a more definitive scenario (building environment), the robot used in the new tasks will likely possess task knowledge and capabilities exceeding those of an unskilled worker. This coincides with the idea of enabling complex task completion by those without conventional training in that area, such as crowd-sourced building projects.
-
-The spatial guidance experiment in \cite{GreggSmithFeedback} has yielded useful information regarding the development of handheld robotics in general, considering the importance of effectively conveying preferences to the user. For the current project, the guidance provided to the robot to the user will certainly play a big part in performing the experiment. This is especially so if mental attributes are added to the task to make it harder for the user to complete without assistance. Thus, if the tasks contain elements where the target objects are not immediately visible to the user, one of the three visual feedback methods demonstrated in this paper can be used with confidence. The use of the path planning algorithm in \cite{GreggSmithFeedback} to come up with a suitable 5-DoF pose will also be a key component of the new experiment.
-
 
 \subsubsection{Task Load Index (TLX) and Perceived Effort}
 
@@ -1232,33 +1248,29 @@ The frustration experienced by the user was also relatively small, at around 21\
 
  
 
+\pagebreak
+\section{Conclusions}
 
-\section{Conclusion}
-WERE AIMS AND OBJECTIVES MET, WHAT ELSE WAS FOUND OUT????
+A project was undertaken concerned with contributing to the relatively small field of handheld robotics, with a particular focus on their ability to alleviate the cognitive workload of users in otherwise mentally demanding tasks. In order to evaluate this potential, a new device was designed and constructed, incorporating novel features over previous designs. This process comprised of iteratively designing multiple parts in CAD, and prototyping them through 3D printing, until a suitable configuration was selected. The  final design consisted of a cable driven flexible continuum arm, incorporating four servomotors in a housing, which was mounted to the base of a strimmer for handheld use. An electromagnet was implemented for the end effector, and the trigger of the strimmer was to be used as an input signal from the user. A system was then designed in order to connect the robot to an external PC, allowing for controlled actuation of the servos via an Arduino. A program was developed in tandem, with the purpose of interfacing with the both the robot and an external optical tracking system, controlling the robot accordingly.
 
-A project was undertaken concerned with adding breadth to the relatively small field of handheld robotics and, in particular, their ability to alleviate the cognitive workload of users in otherwise mentally demanding tasks. As such, a new device was to be built so that it may be evaluated in terms of its ability to provide this mental assistance, and cooperate effectively with a user. This was to be novel compared to existing design, to provide more benefit to the existing body of work. Inspiration was taken from a similar design, with the intention of adding greater range of motion and more versatility in terms of non-structured environments and withstanding collisions....
+Once the device was built, and the program at a stage to manipulate tracking data and control the robot, an algorithm was designed so that the robot could perform its required function of manoeuvring the tip towards 3D target positions. This was based around the use of a kernel regression function to interpolate between existing data points to achieve a servo angle configuration solution for the required relative tip position. As such, a calibration procedure was carried out to obtain the relevant data, and ascertain the optimal bandwidth for the function. Other key stages of the algorithm involved converting the target point to the same orientation of the base for input to the function. If the target was unattainable, the robot was to gesture in its direction the best it could to cooperate its location to the user. The final program then allowed the robot to move towards a target in real time, constantly updating the target based on data from the tracking system and responding by moving the servos towards the solution angles in a separate thread. 
 
-A novel cooperative handheld robotic device was designed and constructed to incorporate an ultra flexible continuum structure as its arm...
+In order to evaluate the robots ability perform its intended purpose of cooperating with the user to relieve cognitive workload in mentally demanding tasks, it was decided to carry out a user study. However, before this could be accomplished, it was necessary to ascertain whether the robot could perform suitably in terms of physically moving to targets, otherwise user operation would not be possible. As such, two experiments were designed to assess its responsiveness and its ability to effectively gesture. The first entailed clamping the device and setting it to follow a target body live. This target was then oscillated at different rates vertically in front of the device, and the positional information of the tip and target was logged at a set time interval, allowing the frequency and step response to be plotted. The resulting figures indicated that the robot was suitably responsive and could operate at speeds typically expected for the user study. The gesturing test comprised creating a wall out of the foam blocks to be used for the user study, and measuring how effectively the robot could gesture to a random order of blocks by comparing stated positions from the user with the actual order upon completion. This revealed a total accuracy of 92.9\%, with all the errors occurring as a result of uncertainties in the vertical direction. As the blocks were to be placed horizontally for the user study, and at larger spacing, this was deemed suitably effective.
 
-The device was controlled via...
+The user study entailed ten participants undertaking two tasks, using the robot to move coloured foam blocks into a box in a specific order. One of the tasks required that the user order the blocks according to an instructed sequence that required applied mental effort to complete, based on the alphabetical order of the third letter of the colour. For this non-assisted task, the arm of the robot remained straight, and the only action of the trigger was to activate the electromagnet. The other task incorporated assistance from the robot, where a pre-defined sequence of the blocks was unknown to the user, and the device was to gesture to the appropriate blocks in the correct order. Upon completion of both tasks, the users filled out a Task Load Index (TLX) form to assess perceived workload. The completion time, number of task errors and the relevant TLX scores (individual and combined) could then be analysed to evaluate the performance improvements offered by the mental assistance of the robot.
 
-The chosen method to use to ascertain the servo angles the device should be set to in order to move the tip to a required target was centred around a kernel regression method....
+The non-assisted task was designed to be completely achievable through conscious cognitive effort, therefore the key performance parameter was the completion time. This was found to be shorter for the mentally assisted time, and the reduction was proved to be statistically significant through a t-test value. A box and whisker plot for the two tasks in terms of completion time also revealed a much smaller spread of data for the assisted task. This lends weight to the potential of the device to remove disparity between ability amongst users, allowing untrained or unskilled persons to perform similarly through use of a handheld robot. The larger spread for the non-assisted task demonstrates general differences in cognitive ability amongst participants. Whilst no errors were observed in the assisted task, a few were distributed amongst three users for the non-assisted task. However, a t-test showed this difference to be not quite statistically significant, which was not surprising based on the aforementioned design of the task.
 
-As such, a calibration procedure was carried out which....
+The TLX results indicated a smaller perceived workload for the assisted task in each of the six categories: mental, physical, frustration, performance, effort and temporal. The difference in combined TLX scores between the two tasks was shown to be extremely statistically significant for the t-test, implying that subjectively, the effort required for such a task is considerably lower when receiving mental assistance from the device. As expected, there was only small differences between the two for factors that were inherently similar for both tasks, such as physical and performance (in terms of errors). However, for the rest of the categories, larger differences were observed between the two tasks. In order for the device to have practical applications, it was imperative that the perceived frustration remained low, otherwise the long-term use would suffer. This appeared to be the case from the results, and was much smaller than for the non-assisted task, implying that the device can be operated to share mental effort and potentially improve performance without introducing new user-experience problems.
 
-An algorithm was designed in order for the arm to respond most effectively to an absolute target in 3D space, based on the position and orientation of the device..
-
-A program was developed with various features that enabled the algorithm to be carried out in real time to allow the device to responsively carry out its required operations, so that it may cooperate with an operator to achieve....
-
-In order to determine whether the device could respond in an effective time-frame, an experiment was carried out to....
+The most important metric for this specific study was the mental effort, as this was what was hoped the device would alleviate. This exhibited the biggest difference between the two tasks, indicating that the robot had been successful in cooperating with the user to lend cognitive assistance. This, combined with the improved completion time, helps prove the theory that the robot could improve all-round performance in mental tasks, and further outlines the potential for cooperative handheld robotics as a whole. With this, the aims and objectives of the project were accomplished, and further exploration has been contributed to the field, where the findings may be drawn upon during future developments. 
 
 
-Once the device was deemed to be suitably responsiveness, the effectiveness of its ability to gesture to a required target was investigated....
-
-Finally, a user study was carried out in which participants performed two tasks....
-Overall the study revealed smaller perceptions of effort for all the parameters, with large differences in particular for the mental effort and frustration, which are of critical importance to an effective cooperation between user and device. Along with this, the robot was observed to improve upon task completion time when taking on the mental burden of indicating a sequence of objects to move. Moreover, the variation between users when operating the device with assistance is much smaller than with not.
 
 
+ 
+
+\pagebreak
 \section{Further Work and Areas of Improvement}
 \subsection{Physical Design}
 \subsection{Evaluation}

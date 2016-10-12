@@ -5,11 +5,11 @@
 \contentsline {subsection}{\numberline {1.3}Aims and Objectives}{4}
 \contentsline {subsection}{\numberline {1.4}Added Value}{5}
 \contentsline {subsection}{\numberline {1.5}Document Overview}{5}
-\contentsline {section}{\numberline {2}Background and Context}{5}
-\contentsline {subsection}{\numberline {2.1}Robotics with Humans In-The-Loop}{5}
+\contentsline {section}{\numberline {2}Background and Context}{6}
+\contentsline {subsection}{\numberline {2.1}Robotics with Humans In-The-Loop}{6}
 \contentsline {subsubsection}{\numberline {2.1.1}Safety}{6}
 \contentsline {subsubsection}{\numberline {2.1.2}Autonomy Study}{7}
-\contentsline {subsubsection}{\numberline {2.1.3}Collaboration with Assistive Robotics}{7}
+\contentsline {subsubsection}{\numberline {2.1.3}Collaboration with Assistive Robotics}{8}
 \contentsline {subsection}{\numberline {2.2}Robotics in Building Environments}{10}
 \contentsline {subsubsection}{\numberline {2.2.1}Mobile Robots}{10}
 \contentsline {subsubsection}{\numberline {2.2.2}Drone-Based Assembly}{11}
@@ -22,8 +22,7 @@
 \contentsline {subsubsection}{\numberline {2.4.1}Painting Task}{17}
 \contentsline {subsubsection}{\numberline {2.4.2}Tiling Task}{18}
 \contentsline {subsubsection}{\numberline {2.4.3}Spatial Guidance Task}{19}
-\contentsline {subsubsection}{\numberline {2.4.4}Added Value}{20}
-\contentsline {subsubsection}{\numberline {2.4.5}Task Load Index (TLX) and Perceived Effort}{21}
+\contentsline {subsubsection}{\numberline {2.4.4}Task Load Index (TLX) and Perceived Effort}{20}
 \contentsline {section}{\numberline {3}Design of New Handheld Robotic Device}{22}
 \contentsline {subsection}{\numberline {3.1}Physical Design Process}{22}
 \contentsline {subsubsection}{\numberline {3.1.1}General Shape Concepts}{22}
@@ -53,14 +52,14 @@
 \contentsline {subsubsection}{\numberline {6.1.2}Step Response}{63}
 \contentsline {subsection}{\numberline {6.2}Effectiveness and Accuracy of Gesturing}{64}
 \contentsline {subsection}{\numberline {6.3}Alleviation of Cognitive Workload in Users}{66}
-\contentsline {section}{\numberline {7}Conclusion}{70}
-\contentsline {section}{\numberline {8}Further Work and Areas of Improvement}{71}
-\contentsline {subsection}{\numberline {8.1}Physical Design}{71}
-\contentsline {subsection}{\numberline {8.2}Evaluation}{71}
-\contentsline {section}{\numberline {9}References}{72}
-\contentsline {section}{\numberline {10}Appendices}{76}
-\contentsline {subsection}{\numberline {10.1}CAD Drawings}{76}
-\contentsline {subsection}{\numberline {10.2}Servomotors}{76}
-\contentsline {subsection}{\numberline {10.3}Tracking Device}{76}
-\contentsline {subsection}{\numberline {10.4}Arduino Board}{76}
-\contentsline {subsection}{\numberline {10.5}Code Snippets}{76}
+\contentsline {section}{\numberline {7}Conclusions}{71}
+\contentsline {section}{\numberline {8}Further Work and Areas of Improvement}{73}
+\contentsline {subsection}{\numberline {8.1}Physical Design}{73}
+\contentsline {subsection}{\numberline {8.2}Evaluation}{73}
+\contentsline {section}{\numberline {9}References}{74}
+\contentsline {section}{\numberline {10}Appendices}{78}
+\contentsline {subsection}{\numberline {10.1}CAD Drawings}{78}
+\contentsline {subsection}{\numberline {10.2}Servomotors}{78}
+\contentsline {subsection}{\numberline {10.3}Tracking Device}{78}
+\contentsline {subsection}{\numberline {10.4}Arduino Board}{78}
+\contentsline {subsection}{\numberline {10.5}Code Snippets}{78}
