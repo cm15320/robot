@@ -93,7 +93,7 @@ A proposed solution to bridge the gap between the two established forms of robot
 
 Task knowledge refers to the robot being context aware, that is, it knows what operations need to be performed as well as the current state of progression through the task. This can act to alleviate the cognitive burden on the user, or to share it, with the user focusing on other aspects of the task than the robot. Most importantly, it enables a degree of cooperation between the user and device, in which the robot indicates its preference of simple actions to be performed by the user, such as repositioning it. In turn, the more precise or demanding operations are carried out by the device. Such a cooperation can lead to reductions in perceived workload by the user, be it physically or mentally, as well as improved task performance. This amalgamation of human intuitiveness and robotic efficiency through task knowledge may lead to unprecedented flexibility in the field of robotics.
 
-The \textit{Handheld Robotics Project} at the University of Bristol has begun to lay the groundwork for the development of the field, investigating certain characteristics of two initial prototypes, namely the degree of cooperation with the user and the kinematics in general. This early work has warranted further investigation into the field, highlighting the potential for handheld robotics in general. As such, it is worth looking into alternative device configurations, whether in terms of cost, lead time, or general mechanical design. At such an early stage in its progression, further contribution to the breadth of the field can provide invaluable knowledge when developing it further, creating new devices or applications to improve their viability in the real world. As such, it was decided to design and build an alternative device to those existing currently, on a smaller time-scale at a reduced cost, and attempt to evaluate its performance. It is hoped this will shed more light on the potential of handheld robotics, as well as highlight areas of strengths and possible issues.
+The \textit{Handheld Robotics Project} at the University of Bristol has begun to lay the groundwork for the development of the field, investigating certain characteristics of two initial prototypes, namely the degree of cooperation with the user and the kinematics in general. This early work has warranted further investigation into the field, highlighting the potential for handheld robotics in general. As such, it is worth looking into alternative device configurations, whether in terms of cost, lead time, or general mechanical design. At such an early stage in its progression, further contribution to the breadth of the field can provide invaluable knowledge when developing it further, creating new devices or applications to improve their viability in the real world. As such, it was decided to design and build an alternative device to those existing currently, on a smaller time-scale at a reduced cost, and attempt to evaluate its performance with regard to providing mental assistance through cooperation with the user; a relatively unexplored aspect. It is hoped this will shed more light on the potential of handheld robotics, as well as highlight areas of strengths and possible issues.
 
 
 
@@ -109,15 +109,16 @@ The overarching aim of this project is to develop a new handheld robotic device 
 \end{enumerate}
 
 \subsection{Added Value}
-HERE OR IN ITS OWN SECTION IN THE BACKGROUND AND CONTEXT???XXXXXX
+The design of this device, while taking inspiration from existing work, will focus on incorporating novel features to offer potential improvements over previous applications. Specifically, this will involve improving the range of motion over comparable designs, and adding extra versatility in terms of operating in unstructured environments, where withstanding collisions is essential. This will take the form of employing an ultra flexible and impact resistant continuum structure as the actuated component of the device. Although work has been undertaken regarding the benefits of such structures in robotics, there has been little with regard to their application in the handheld domain.
+
+The specific application of this new device is focused around cooperating with the user to alleviate cognitive workload during mentally demanding tasks. This aspect has not been a key focus in existing work pertaining to handheld robotics. Instead, past studies have concentrated on the cooperation between the user and device with an emphasis on the physical component. The notion that such devices hold the potential to assist and improve task performance, particularly in users who are comparatively unskilled or untrained, can be investigated more thoroughly if the mental factor is also considered. This is due to the range of potential applications for handheld robots not being limited to operations based solely around physical activity. Rather, it is thought that mentally taxing tasks also in the physical environment could benefit from such a cooperative device.
 
 \subsection{Document Overview}
-This thesis serves to cover the work accomplished throughout the project. Firstly, a background and context will be provided for existing areas of robotics in which the handheld domain may incorporate ideas or provide a potential improvement in the future. On top of this, a review will be provided of the current status of handheld robotics in general, with a focus on the work undertaken at the University of Bristol that is most relevant to this project. The design process of the robot will then be explained, along with the control system, the interfacing with the optical tracking system and the algorithm responsible for the robot's response to targets. The stages involved with evaluating its performance and potential in cooperating with the user to alleviate mental effort will be explained. Finally, the corresponding results will be presented and discussed to ascertain the capability of the device with regard to its purpose.
+This thesis serves to cover the work accomplished throughout the project. Firstly, a background and context will be provided for existing areas of robotics in which the handheld domain may incorporate ideas, or provide a potential to improve in the future. On top of this, a review will be provided of the current status of handheld robotics in general, with a focus on the work undertaken at the University of Bristol that pertains closely to this project.
 
-\subsection{Summary}
-NECESSARY TO HAVE A SMALL SUMMARY TO THE INTRO SAYING WHAT HANHDELD ROBOTS ARE AND WHAT IS HOPED WILL BE ACCOMPLISHED IN THIS PROJECT???XXXXXX
+The process associated with the design of the robot will be covered, including the control system, the interfacing with the optical tracking system and the algorithm central to the robot's ability to perform its required operations. An overview will be given of the program that was developed to run the robot in practice. The stages involved with evaluating the performance of the device, and its capacity to cooperate with the user to alleviate mental effort, will be detailed. Finally, the corresponding results of the experiments will be presented and discussed to ascertain the capability and potential of such a device with regard to the intended purpose. Given these unexplored aspects, and considering the relatively small existing body of work concerned with cooperative handheld robotics, it is hoped this project will make a significant contribution to the breadth and depth of the field in general.
+
 \pagebreak
-
 \section{Background and Context}
 \subsection{Robotics with Humans In-The-Loop} \label{intheloop}
 
@@ -592,7 +593,7 @@ INSERT FULL PICTURE OF THE ROBOT AS A WHOLE, MAYBE WITH CLOSE UPS OF THE BATTERI
 \label{section:natnet}
 In order to determine where in three dimensional space the robot is, as well as the relative distances between itself and other points, it is necessary to track physical objects. This was achieved using a single optical tracking device, the OptiTrack V120 Duo \cite{OptiTrackSite}. The device features two cameras in order to provide depth perception, and works as a stand-alone device unlike the syncing of several distinct cameras as used in \cite{GreggSmithDesign} and \cite{GreggSmithFeedback}. The accompanying software library however, the `NatNet SDK', as well as the actual tracking software, `OptiTrack Motive', are the same. This library was provided to run in a .NET framework environment, hence the decision to use C\# as the primary development language.
 
-The device recognises the supplied retro-reflective markers, and is able to provide six degrees of freedom tracking. It is important to not that the coordinate system used by the software (the global axes) originates from the positioning of the Duo tracking device itself, as illustrated in Figure \ref{figure:duoAxes}. Single markers can be identified in terms of their X, Y and Z positions, and can be grouped together to form `rigid bodies`. These bodies, requiring a minimum of three markers, have a designated `centre' that can be used to refer to the position of the body as a whole, and provide a pivot about which rotation can be expressed. The rotation is inherently given as a quaternion, which can be converted using built-in library functions to give euler angles in the forms of roll, pitch and yaw (rotations about the global X, Y and Z axes respectively).
+The device recognises the supplied retro-reflective markers, and is able to provide six degrees of freedom tracking. It is important to not that the coordinate system used by the software (the global axes) originates from the positioning of the Duo tracking device itself, as illustrated in Figure \ref{figure:duoAxes}. Single markers can be identified in terms of their X, Y and Z positions, and can be grouped together to form `rigid bodies`. These bodies, requiring a minimum of three markers, have a designated `pivot point' that can be used to refer to the position of the body as a whole, and provide a pivot about which rotation can be expressed. It is important that the marker configuration be asymmetrical and distinctly unique, so that the program can easily distinguish it from others and ascertain the orientation. The rotation is inherently given as a quaternion, which can be converted using built-in library functions to give euler angles in the forms of roll, pitch and yaw (rotations about the global X, Y and Z axes respectively).
 
 
 \begin{center}
@@ -840,7 +841,11 @@ PUT CODE FOR DIFFERENT THREAD STUFF IN APPENDIX? XXX
 \subsection{Program Design}
 The developed program for using the robot was built around the fundamentals of the Motive software and the NatNet library. An example was provided that simply sets up a connection between the tracking program and displays the tracked data in a spreadsheet. This example took the form of Windows Form Application, due to the usefulness of a Graphical User Interface (GUI) with buttons and options to start/stop tracking etcetera. Hence the developed application was of the same type, re-using the necessary functions for setting up the connection with the Motive program and extracting the tracking data. Features were then added as necessary for the specific purpose of tracking and controlling the robot. This entailed creating new classes that deal with interfacing with the robot as well as the logic involved with the calibration, target selection and solution generation processes. 
 
-Small tests were also added to the program so that the motion of the robot or acquiring of a solution from the regression for instance could be tested without having to fully connect to the optical tracking etcetera. This would use dummy variables where necessary just to quickly perform tests. The general process of adding a new feature to the program would entail adding a button to the GUI and attaching methods to the callback associated with it. It is often necessary to have this functionality run in a separate thread so as not to hinder the updating of data or the user interface itself (rendering it unresponsive while the operation is carried out). Hence it was essential to ensure thread safety, using a shared syncLock object when accessing shared objects, as well as delegating any user interface changes to the thread responsible for updating it. This simple user interface is illustrated in Figure \ref{figure:userInterface}.
+Connection with the optical tracking system is not possible unless the Motive program is running simultaneously, and is set up to track the necessary rigid bodies. Hence before running the new program, Motive must be started and a `project' loaded or set up. This Motive project contains the information necessary to track certain bodies, such as the exact marker configurations corresponding to specific rigid bodies, which must be labelled correctly. Certain features of the developed program require different tracking data; for example the calibration procedure only requires that the base and tip be tracked, whereas `live body following' is not possible without tracking an extra rigid body. Hence various project files were set up for the different conditions. The interface of the Motive program, while tracking the base and the tip is illustrated in Figure XXXX.
+
+POTENTIAL IMAGE OF THE MOTIVE INTERFACE HERE AND JUST SAY IN THE ABOVE PARAGRAPH THAT NEEDS TO BE OPEN AND RUNNING WITH A PROJECT LOADED, TRACKING RIGID BODIES, BEFORE THE CONNECTION TO THE ROBOT WORKS? XXXXX
+
+Small tests were also added to the program so that the motion of the robot or acquiring of a solution from the regression for instance could be tested without having to fully connect to the optical tracking etcetera. These would use dummy variables where necessary to quickly discern whether functions were performing as intended. The general process of adding a new feature to the program would entail adding a button to the GUI and attaching methods to the callback associated with it. It is often necessary to have this functionality run in a separate thread so as not to hinder the updating of data or the user interface itself (rendering it unresponsive while the operation is carried out). Hence it was essential to ensure thread safety, using a shared syncLock object when accessing shared objects, as well as delegating any user interface changes to the thread responsible for updating it. This simple user interface is illustrated in Figure \ref{figure:userInterface}.
 
 \begin{center}
 \includegraphics[width=\textwidth]{images/userInterface.png}
@@ -856,10 +861,12 @@ Other buttons are provided for both testing and essential processes. The calibra
 
 A number of buttons were integrated in order to easily control the various features of the program. The callbacks attached to these buttons were responsible for altering the GUI appropriately, such as activating other dependent buttons, and initiating the work for the corresponding action. This mostly entailed calling a wrapper function that set up a new thread if required and call the methods in which the bulk of the computational effort is done, passing in any necessary parameters such as user entered information on the GUI. The key features of the program are listed in Table XXXXX.
 
+\pagebreak
+
 \begin{center}
-\captionof{table}{List of stated positions and corresponding real positions, showing percentage success.}
+\captionof{table}{List of key features of the program and their corresponding descriptions.}
 \label{table:keyFeatures}
-\begin{tabularx}{0.9\textwidth}{|p{10em}|X|}
+\begin{tabularx}{0.95\textwidth}{|p{10em}|X|}
 \hline
 \textbf{Feature} & \textbf{Description}
 \\
@@ -876,21 +883,27 @@ Calibration and Test Points & Runs the procedure associated with recursively ite
 Regression Test & Allows the user to enter in a set of inputs and test the regression function to ascertain either the servo angle solution, or the positional solution, for a specific bandwidth. This is especially useful for debugging, and can reveal issues with the stored calibration data.
 \\
 \hline
-Test trigger & Simply XXXX
-
+Test trigger & While running, this function simply prints whether the trigger is held down and when it is released, activating the magnet if it is connected. This was used to eliminate noise from the switch, `debouncing' the trigger signal as appropriate so that it would not falsely assume it had been released.
+\\
+\hline
+Move to relative point & Allows user to input relative coordinates of the target to the base and have the tip move to this target. Can also follow this point live, so if only the base orientation is changed the tip should remain in the same physical position.
+\\
+\hline
+Move to current \newline position & Takes the actual relative coordinates of the tip and uses this as an input to the solution function. The amount the tip then moves corresponds to the error at that point between the solution and reality. Ideal condition is zero motion.
+\\
+\hline
+Follow body live & Allows live following of another tracked body named "bodyToFollow". The current relative position of this body is repeatedly used as input to solution function. The same method is employed for recording the data for the response test plots, only with the current time value and positional data written to file. Can also just move once towards to the target for small tests.
+\\
+\hline
+Generate target \newline positions & Initiates procedure whereby the arm remains straight and the user clicks the trigger to log the absolute position of the tip at the time. When stopped, all of the logged positions are then written to file, with the filename depending on which radio button is checked.
+\\
+\hline
+Perform user study & Allows a specific variant of the user study experiments to be performed, depending which radio button is checked. Stored positional data for the specific experiment is then loaded from file and used as an order of inputs to the robot. Pressing the trigger advances the current target position to the next in line. Also an undo trigger button to revert back to a previous position in the order if the trigger was pressed accidentally.
+\\
+\hline
 \end{tabularx}
 \end{center}
 
-
-RID OF THESE AND PUT IN A TABLE CALLED KEY PROGRAM FEATURES AFTER THE CLASS DIAGRAM PAGE XXXX
-\begin{itemize}
-\item{Performing a basic set of movement instructions for testing the servomotors, as well as zeroing them again}
-\item{Performing the regression function for an input of either the desired position or the actual motor angles for user entered values}
-\item{Testing the storage and retrieval of calibration data}
-\item{Moving to a relative target position, as entered by the user}
-\item{Attempting to stay at a relative target position, as entered by the user, regardless of how the base is oriented/positioned}
-\item{Moving to a tracked target object which is also in view of the tracking system}
-\end{itemize}
 
 
 
