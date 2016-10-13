@@ -1,67 +1,67 @@
 \select@language {english}
-\contentsline {section}{\numberline {1}Introduction}{3}
-\contentsline {subsection}{\numberline {1.1}Contemporary Robotics}{3}
-\contentsline {subsection}{\numberline {1.2}Motivation}{4}
-\contentsline {subsection}{\numberline {1.3}Aims and Objectives}{4}
-\contentsline {subsection}{\numberline {1.4}Added Value}{5}
-\contentsline {subsection}{\numberline {1.5}Document Overview}{5}
-\contentsline {section}{\numberline {2}Background and Context}{6}
-\contentsline {subsection}{\numberline {2.1}Robotics with Humans In-The-Loop}{6}
-\contentsline {subsubsection}{\numberline {2.1.1}Safety}{6}
-\contentsline {subsubsection}{\numberline {2.1.2}Autonomy Study}{7}
-\contentsline {subsubsection}{\numberline {2.1.3}Collaboration with Assistive Robotics}{8}
-\contentsline {subsection}{\numberline {2.2}Robotics in Building Environments}{10}
-\contentsline {subsubsection}{\numberline {2.2.1}Mobile Robots}{10}
-\contentsline {subsubsection}{\numberline {2.2.2}Scene Knowledge}{11}
-\contentsline {subsection}{\numberline {2.3}Handheld Robotics}{12}
-\contentsline {subsubsection}{\numberline {2.3.1}Medical Devices}{12}
-\contentsline {subsubsection}{\numberline {2.3.2}University of Bristol Handheld Robotics Project}{13}
-\contentsline {subsubsection}{\numberline {2.3.3}New Design Inspiration}{14}
-\contentsline {subsection}{\numberline {2.4}Designing Experiments for Handheld Robotics}{15}
-\contentsline {subsubsection}{\numberline {2.4.1}Painting Task}{15}
-\contentsline {subsubsection}{\numberline {2.4.2}Tiling Task}{16}
-\contentsline {subsubsection}{\numberline {2.4.3}Spatial Guidance Task}{17}
-\contentsline {subsubsection}{\numberline {2.4.4}Task Load Index (TLX) and Perceived Effort}{18}
-\contentsline {section}{\numberline {3}Design of New Handheld Robotic Device}{19}
-\contentsline {subsection}{\numberline {3.1}Physical Design Process}{19}
-\contentsline {subsubsection}{\numberline {3.1.1}General Shape Concepts}{19}
-\contentsline {subsubsection}{\numberline {3.1.2}Cable Routing}{22}
-\contentsline {subsubsection}{\numberline {3.1.3}Pulleys}{23}
-\contentsline {subsubsection}{\numberline {3.1.4}Final Design}{25}
-\contentsline {subsubsection}{\numberline {3.1.5}Ancillaries}{27}
-\contentsline {subsection}{\numberline {3.2}Controlling The Device}{28}
-\contentsline {section}{\numberline {4}Developed Program}{30}
-\contentsline {subsection}{\numberline {4.1}Interfacing With NatNet Optical Tracking System}{30}
-\contentsline {subsection}{\numberline {4.2}Inverse Kinematics via a Kernel Regression Method}{31}
-\contentsline {subsubsection}{\numberline {4.2.1}Calibration Procedure}{33}
-\contentsline {subsubsection}{\numberline {4.2.2}Calibration Results}{34}
-\contentsline {subsection}{\numberline {4.3}Algorithm for Responding to Three-Dimensional State Targets}{37}
-\contentsline {subsubsection}{\numberline {4.3.1}Acquiring Target Position Relative to Orientation of Base}{37}
-\contentsline {subsubsection}{\numberline {4.3.2}Gesturing Algorithm for Distant Targets}{39}
-\contentsline {subsubsection}{\numberline {4.3.3}Running with a Live Target in Real-Time}{42}
-\contentsline {subsection}{\numberline {4.4}Program Design}{44}
-\contentsline {section}{\numberline {5}Experimental Procedure}{49}
-\contentsline {subsection}{\numberline {5.1}Response Performance}{49}
-\contentsline {subsection}{\numberline {5.2}Effectiveness and Accuracy of Gesturing}{51}
-\contentsline {subsection}{\numberline {5.3}Alleviation of Cognitive Workload in Users}{53}
+\contentsline {section}{\numberline {1}Introduction}{1}
+\contentsline {subsection}{\numberline {1.1}Contemporary Robotics}{1}
+\contentsline {subsection}{\numberline {1.2}Motivation}{2}
+\contentsline {subsection}{\numberline {1.3}Aims and Objectives}{2}
+\contentsline {subsection}{\numberline {1.4}Added Value}{3}
+\contentsline {subsection}{\numberline {1.5}Document Overview}{3}
+\contentsline {section}{\numberline {2}Background and Context}{4}
+\contentsline {subsection}{\numberline {2.1}Robotics with Humans In-The-Loop}{4}
+\contentsline {subsubsection}{\numberline {2.1.1}Safety}{4}
+\contentsline {subsubsection}{\numberline {2.1.2}Autonomy Study}{5}
+\contentsline {subsubsection}{\numberline {2.1.3}Collaboration with Assistive Robotics}{6}
+\contentsline {subsection}{\numberline {2.2}Robotics in Building Environments}{8}
+\contentsline {subsubsection}{\numberline {2.2.1}Mobile Robots}{8}
+\contentsline {subsubsection}{\numberline {2.2.2}Scene Knowledge}{9}
+\contentsline {subsection}{\numberline {2.3}Handheld Robotics}{10}
+\contentsline {subsubsection}{\numberline {2.3.1}Medical Devices}{10}
+\contentsline {subsubsection}{\numberline {2.3.2}University of Bristol Handheld Robotics Project}{11}
+\contentsline {subsubsection}{\numberline {2.3.3}New Design Inspiration}{12}
+\contentsline {subsection}{\numberline {2.4}Designing Experiments for Handheld Robotics}{13}
+\contentsline {subsubsection}{\numberline {2.4.1}Painting Task}{13}
+\contentsline {subsubsection}{\numberline {2.4.2}Tiling Task}{14}
+\contentsline {subsubsection}{\numberline {2.4.3}Spatial Guidance Task}{15}
+\contentsline {subsubsection}{\numberline {2.4.4}Task Load Index (TLX) and Perceived Effort}{16}
+\contentsline {section}{\numberline {3}Design of New Handheld Robotic Device}{17}
+\contentsline {subsection}{\numberline {3.1}Physical Design Process}{17}
+\contentsline {subsubsection}{\numberline {3.1.1}General Shape Concepts}{17}
+\contentsline {subsubsection}{\numberline {3.1.2}Cable Routing}{20}
+\contentsline {subsubsection}{\numberline {3.1.3}Pulleys}{21}
+\contentsline {subsubsection}{\numberline {3.1.4}Final Design}{23}
+\contentsline {subsubsection}{\numberline {3.1.5}Ancillaries}{24}
+\contentsline {subsection}{\numberline {3.2}Controlling The Device}{25}
+\contentsline {section}{\numberline {4}Developed Program}{27}
+\contentsline {subsection}{\numberline {4.1}Interfacing With NatNet Optical Tracking System}{27}
+\contentsline {subsection}{\numberline {4.2}Inverse Kinematics via a Kernel Regression Method}{28}
+\contentsline {subsubsection}{\numberline {4.2.1}Calibration Procedure}{30}
+\contentsline {subsubsection}{\numberline {4.2.2}Calibration Results}{31}
+\contentsline {subsection}{\numberline {4.3}Algorithm for Responding to Three-Dimensional State Targets}{34}
+\contentsline {subsubsection}{\numberline {4.3.1}Acquiring Target Position Relative to Orientation of Base}{34}
+\contentsline {subsubsection}{\numberline {4.3.2}Gesturing Algorithm for Distant Targets}{36}
+\contentsline {subsubsection}{\numberline {4.3.3}Running with a Live Target in Real-Time}{39}
+\contentsline {subsection}{\numberline {4.4}Program Design}{41}
+\contentsline {section}{\numberline {5}Experimental Procedure}{46}
+\contentsline {subsection}{\numberline {5.1}Response Performance}{46}
+\contentsline {subsection}{\numberline {5.2}Effectiveness and Accuracy of Gesturing}{48}
+\contentsline {subsection}{\numberline {5.3}Alleviation of Cognitive Workload in Users}{50}
 \newpage 
-\contentsline {section}{\numberline {6}Results and Discussion}{56}
-\contentsline {subsection}{\numberline {6.1}Response Performance}{56}
-\contentsline {subsubsection}{\numberline {6.1.1}Frequency Response}{56}
-\contentsline {subsubsection}{\numberline {6.1.2}Step Response}{60}
-\contentsline {subsection}{\numberline {6.2}Effectiveness and Accuracy of Gesturing}{61}
-\contentsline {subsection}{\numberline {6.3}Alleviation of Cognitive Workload in Users}{63}
-\contentsline {section}{\numberline {7}Conclusions}{68}
-\contentsline {section}{\numberline {8}Future Work and Improvements}{70}
-\contentsline {section}{\numberline {9}References}{71}
-\contentsline {section}{Appendices}{74}
-\contentsline {section}{\numberline {A}Servomotors}{74}
-\contentsline {section}{\numberline {B}Cable}{75}
-\contentsline {section}{\numberline {C}Electromagnet}{75}
-\contentsline {section}{\numberline {D}Strimmer}{76}
-\contentsline {section}{\numberline {E}Arduino Board}{76}
-\contentsline {subsection}{\numberline {E.1}Uno}{76}
-\contentsline {subsection}{\numberline {E.2}Motor Shield}{77}
-\contentsline {subsection}{\numberline {E.3}Proto Shield}{77}
-\contentsline {section}{\numberline {F}Tracking Device}{78}
-\contentsline {section}{\numberline {G}3D Printer}{79}
+\contentsline {section}{\numberline {6}Results and Discussion}{53}
+\contentsline {subsection}{\numberline {6.1}Response Performance}{53}
+\contentsline {subsubsection}{\numberline {6.1.1}Frequency Response}{53}
+\contentsline {subsubsection}{\numberline {6.1.2}Step Response}{57}
+\contentsline {subsection}{\numberline {6.2}Effectiveness and Accuracy of Gesturing}{58}
+\contentsline {subsection}{\numberline {6.3}Alleviation of Cognitive Workload in Users}{60}
+\contentsline {section}{\numberline {7}Conclusions}{65}
+\contentsline {section}{\numberline {8}Future Work and Improvements}{67}
+\contentsline {section}{\numberline {9}References}{68}
+\contentsline {section}{Appendices}{71}
+\contentsline {section}{\numberline {A}Servomotors}{71}
+\contentsline {section}{\numberline {B}Cable}{72}
+\contentsline {section}{\numberline {C}Electromagnet}{72}
+\contentsline {section}{\numberline {D}Strimmer}{73}
+\contentsline {section}{\numberline {E}Arduino Board}{73}
+\contentsline {subsection}{\numberline {E.1}Uno}{73}
+\contentsline {subsection}{\numberline {E.2}Motor Shield}{74}
+\contentsline {subsection}{\numberline {E.3}Proto Shield}{74}
+\contentsline {section}{\numberline {F}Tracking Device}{75}
+\contentsline {section}{\numberline {G}3D Printer}{76}

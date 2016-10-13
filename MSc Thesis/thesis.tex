@@ -67,38 +67,17 @@
 
 
 
-\title{An Evaluation of Cooperative Handheld Robotics in a Simplified 3D Construction Environment}
+\title{The Design and Evaluation of Cooperative Handheld Robotic for Alleviating Cognitive Workload}
 \author{Chris Meehan}
 
 \begin{document}
 
-\begin{titlepage}
-	\centering
-	
-	\includegraphics[width=0.6\textwidth]{bristol.png}
-	\vspace{2cm}
-
-	{\huge\bfseries The Design and Evaluation of a Novel Versatile Four Degree-Of-Freedom Cooperative Handheld Robotic Device\par}
-	\vspace{1.5cm}
-
-	{\Large\itshape By Chris Meehan\par}
-	
-	Supervised by\par
-	Dr. Walterio Mayol-Cuevas
-	
-	\vspace{1.5cm}
-	
-	Department of Computer Science\par
-	University of Bristol
-
-	\vfill
-
-% Bottom of the page
-	{\large \today\par}
-\end{titlepage}
+\includepdf[pages={1-2}]{modifiedCoverSheet.pdf}
 
 
 
+\clearpage
+\setcounter{page}{1}
 
 \pagestyle{roman}
 \renewcommand{\thepage}{\roman{page}}% Roman numerals for page counter
@@ -135,12 +114,13 @@ I would also like to thank Austin Gregg-Smith, a former PhD student of a similar
 Finally, I would like to thank Richard Grafton for providing me with so much direction regarding the electrical components of the design, through which I feel I have learned a considerable amount. 
 \pagebreak
 
-\renewcommand{\thepage}{\arabic{page}}% Arabic numerals for page counter
-
-\setcounter{page}{1}% Start page number with 1
 
 \tableofcontents
 \pagebreak
+
+\renewcommand{\thepage}{\arabic{page}}% Arabic numerals for page counter
+
+\setcounter{page}{1}% Start page number with 1
 
 
 \pagestyle{mypage}
@@ -482,22 +462,14 @@ Originally, the cables were weaved through then wrapped around the tabs and held
 In order to limit the motion of one servo to arm movement in one degree of freedom, it was necessary to redesign the base structure in a manner that routed the cables to run parallel to the arm to the connection at the linkage. In order to have sufficient space to route the cables, it was decided that the staggered twin-pair servo arrangement would be better suited, allowing the servos to be positioned alternatively such that less extreme angle changes of the cables would be required. This can be accomplished by positioning two of the servos as close together as possible to pre-align the cable with the linkages to a degree, which would not be possible with a cubic arrangement. Of course, the design was then arranged in two halves, so that it may be 3D printed without any overhanging elements and need for support material. As a result, the centralised tube holder (to locate the base of the arm) was also a separate part that is located in a groove between the two halves of the base when they are secured together by four threaded rods and bolts. This arrangement is illustrated in Figure \ref{figure:halvesConcept}.
 
 \begin{center}
-\includegraphics[width=0.75\textwidth]{images/halvesConcept.png}
+\includegraphics[width=\textwidth]{images/halvesConcept.png}
 \captionof{figure}{Identical halves for the base structure, with a separate centralised part to locate the arm.}
 \label{figure:halvesConcept}
 \end{center}
 
-In this arrangement, the two rear servos are positioned close together while the front servos are further apart, creating space to run the cables of the rear servos between the front two without intersecting. A series of guidance holes are then put in place so that the cables can run parallel to the plane of their corresponding servo arms and tangentially to their starting position. These holes were positioned in the body of the tube holder itself and the housing groove on each half of the base used to locate it. Multiple holes were added so that different radius servo horns could be fitted if desired. In order to shift the direction of the cables one more time so that they run parallel to the axis of the arm, a simple square faceplate was to be fitted to the front of the base (not shown in Figure XXX). This just comprises a central hole for the arm to run through, and four smaller holes to each locate a pair of cables, aligned with the holes on the tabs of the linkages when the arm is in its neutral (straight) position.
+In this arrangement, the two rear servos are positioned close together while the front servos are further apart, creating space to run the cables of the rear servos between the front two without intersecting. A series of guidance holes are then put in place so that the cables can run parallel to the plane of their corresponding servo arms and tangentially to their starting position. These holes were positioned in the body of the tube holder itself and the housing groove on each half of the base used to locate it. Multiple holes were added so that different radius servo horns could be fitted if desired. In order to shift the direction of the cables one more time so that they run parallel to the axis of the arm, a simple square faceplate was to be fitted to the front of the base. This just comprises a central hole for the arm to run through, and four smaller holes to each locate a pair of cables, aligned with the holes on the tabs of the linkages when the arm is in its neutral (straight) position.
 
-As the cables change directions sharply at distinct points, namely the guidance holes, a reaction force will be felt at the contact point on the circumference of the holes. This force will increase linearly with the tension of the cables, which must be sufficient enough to stabilise the arm and manipulate it during servo actuation. hence wear of the cable on the rim of the hole was a concern, as this would cause added resistance to motion or, in the worst case, shear through the material so the cable is no longer routed. This was an issue apparent on the Mark I design in \cite{GreggSmithDesign}, and had to be addressed with extra attachments and rings to strengthen it against further breakages. As such, an ultra low friction cable was chosen from the offset, using a high-strength fishing wire (Appendix \ref{appendix:cable}). This exhibited no signs of wear during the phase of prototype testing, even when deliberately over-tensioned. Therefore no extra support fixtures were used and the cable ran freely over the PLA material of the base. With this, the dimensions were tweaked to move the front two servos closer together and to the rear servos, making the design more compact, and the dimensions were selected for the final design of the base, which overall were 209 x 100 x 108mm as illustrated in Figure \ref{figure:baseShape}.
-
-
-\begin{center}
-\includegraphics[width=0.75\textwidth]{images/baseShape.png}
-\captionof{figure}{Overall shape and dimensions of base structure.}
-\label{figure:baseShape}
-\end{center}
-
+As the cables change directions sharply at distinct points, namely the guidance holes, a reaction force will be felt at the contact point on the circumference of the holes. This force will increase linearly with the tension of the cables, which must be sufficient enough to stabilise the arm and manipulate it during servo actuation. hence wear of the cable on the rim of the hole was a concern, as this would cause added resistance to motion or, in the worst case, shear through the material so the cable is no longer routed. This was an issue apparent on the Mark I design in \cite{GreggSmithDesign}, and had to be addressed with extra attachments and rings to strengthen it against further breakages. As such, an ultra low friction cable was chosen from the offset, using a high-strength fishing wire (Appendix \ref{appendix:cable}). This exhibited no signs of wear during the phase of prototype testing, even when deliberately over-tensioned. Therefore no extra support fixtures were used and the cable ran freely over the PLA material of the base. With this, the dimensions were tweaked to move the front two servos closer together and to the rear servos, making the design more compact, and the dimensions were selected for the final design of the base, which overall were 209 x 100 x 108mm as illustrated in Figure \ref{figure:halvesConcept}.
 
 
 \subsubsection{Pulleys}
@@ -548,18 +520,22 @@ As more guidance linkages are added to the arm, the distance the cable must trav
 2(\frac{L}{2} + \Delta L_{2}) > L + \Delta L_{1}
 \end{equation}
 
-Therefore, there is a smaller difference between the amount of cable let out by the pulley and the extra amount taken up to follow the deflection of the arm. This means that there is less loss of tension, and thus more stability of the arm and resistance to further motion in the direction of the deflection. As such, two guidance linkages were added to the arm, at the mid-points between the two sections of the arm. A simple mounting surface for the magnetic end effector was then used as a linkage cap and glued to the tip linkage, giving a total arm length from base to tip of XXXXXXX. This completed the physical design of the mechanical aspects of the robot, including the base, the arm and the cable driving mechanism, as illustrated in Figure \ref{figure:rendering}.
+Therefore, there is a smaller difference between the amount of cable let out by the pulley and the extra amount taken up to follow the deflection of the arm. This means that there is less loss of tension, and thus more stability of the arm and resistance to further motion in the direction of the deflection. As such, two guidance linkages were added to the arm, at the mid-points between the two sections of the arm. A simple mounting surface for the magnetic end effector was then used as a linkage cap and glued to the tip linkage, giving a total arm length from base to tip of 0.32m. This completed the physical design of the mechanical aspects of the robot, including the base, the arm and the cable driving mechanism, as illustrated in Figure \ref{figure:rendering}.
 
 \begin{center}
-\includegraphics[width=\textwidth]{images/rendering.png}
+\includegraphics[width=0.8\textwidth]{images/rendering.png}
 \captionof{figure}{Rendering of the design of the base and arm of the robot}
 \label{figure:rendering}
 \end{center}
 
 \subsubsection{Ancillaries}
-Due to the nature of the project, it was unrealistic within the scope to also design a novel end effector for the robot. Therefore, it was decided to simply use an electromagnet of some form, and design the physical aspect of manipulating objects around magnetic interaction, i.e metallic strips enabling them to be picked up. The chosen option for employing an electromagnet was to use the copper coil and metallic cylinder from the central core of a small solenoid (Appendix \ref{appendix:electromagnet}). This solenoid was disassembled to obtain just the necessary components for the electromagnet, and was then fitted to the surface mount at the tip of the arm. A small groove in the metallic cylinder of the solenoid slotted onto a similar sized semi-circle bore at the front face of the surface mount (visible in Figure \ref{figure:rendering}, to prevent the cylinder from moving axially when the current flows through the coil and magnetic force is induced. The exposed end of this cylinder is then, in essence, the `grabbing' part of the robot, as it is magnetised and put in contact with metallic targets.
+Due to the nature of the project, it was unrealistic within the scope to also design a novel end effector for the robot. Therefore, it was decided to simply use an electromagnet of some form, and design the physical aspect of manipulating objects around magnetic interaction, i.e metallic strips enabling them to be picked up. The chosen option for employing an electromagnet was to use the copper coil and metallic cylinder from the central core of a small solenoid (Appendix \ref{appendix:electromagnet}). This solenoid was disassembled to obtain just the necessary components for the electromagnet, as illustrated in Figure \ref{figure:electromagnet}, and was then fitted to the surface mount at the tip of the arm. A small groove in the metallic cylinder of the solenoid slotted onto a similar sized semi-circle bore at the front face of the surface mount (visible in Figure \ref{figure:rendering}, to prevent the cylinder from moving axially when the current flows through the coil and magnetic force is induced. The exposed end of this cylinder is then, in essence, the `grabbing' part of the robot, as it is magnetised and put in contact with metallic targets.
 
-PERHAPS IMAGE OF THE DISASSEMBLED ELECTROMAGNET HERE? XXXXXXXXX
+\begin{center}
+\includegraphics[width=0.45\textwidth]{images/electromagnet.png}
+\captionof{figure}{Electromagnet formed from the disassembly of a solenoid valve}.
+\label{figure:electromagnet}
+\end{center}
 
 In order to use the robot in an intuitive, user friendly manner, it was decided to modify a conventional handheld power tool. This must be ergonomic in terms of handling the robot, while also providing a trigger or switch so that the user may send signals to the device to instigate a required action. As a result, a standard outdoor grass strimmer was procured (Appendix \ref{appendix:strimmer}) and modified to remove everything but its base (handle, trigger and shaft). A sleeve was then designed to connect the robot with this base. This was a near-cylindrical cross-section tube which was simply bolted to the bases of the robot and the strimmer, completing the handheld component of the device.
 
@@ -600,7 +576,7 @@ The device recognises the supplied retro-reflective markers, and is able to prov
 
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{images/duoAxes.png}
+\includegraphics[width=\textwidth]{images/duoAxes.png}
 \captionof{figure}{Axes as used by the OptiTrack Motive software, these global axes originate from the centre of the device, image adapted from \cite{OptiTrackSite}}
 \label{figure:duoAxes}
 \end{center}
