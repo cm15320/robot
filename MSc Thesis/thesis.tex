@@ -118,9 +118,9 @@ These steps were carried out in order, with the program development occurring in
 \begin{itemize}
 \item{The robot proved suitably responsive for the required application of use with a human operator.}
 \item{The device and the algorithm it employed proved capable of effectively gesturing a desired target location to a user, within the limits required for the user study.}
-\item{The completion time of the tasks was shown to exhibit a statistically significant reduction through receiving mental assistance from the robot.}
+\item{The completion time of the tasks was shown to exhibit a statistically significant reduction through receiving mental assistance from the robot, with a t-test result of \textbf{5.02}($>2.10$).}
 \item{While a small number of user errors were observed in the non-assisted task, none occurred when mental assistance was provided.}
-\item{The overall perception of workload from the users was shown to significantly reduce through using the device in an otherwise cognitively demanding task. In particular, the mental effort was shown to exhibit the largest reduction.}
+\item{The overall perception of workload from the users was shown to significantly reduce through using the device in an otherwise cognitively demanding task, with the difference in combined score yielding a t-test result of \textbf{6.71}($>2.10$). In particular, the mental effort was shown to exhibit the largest reduction.}
 \end{itemize}
 
 Given these findings it was concluded that handheld robots do possess a strong potential to improve task performance and reduce subjective workload through the provision of cognitive assistance. This further highlighted the usefulness of such devices, warranting deeper investigation into their potential real-world applications. 
@@ -128,6 +128,11 @@ Given these findings it was concluded that handheld robots do possess a strong p
 \pagebreak
 
 \section*{Acknowledgements}
+Firstly, I would like to thank my supervisor, Professor Walterio Mayol-Cuevas, for his patience and guidance regarding the field of robotics in general and the associated experimental methods.  
+
+I would also like to thank Austin Gregg-Smith, a former PhD student of a similar project, for his invaluable advice in both designing and controlling the robot. 
+
+Finally, I would like to thank Richard Grafton for providing me with so much direction regarding the electrical components of the design, through which I feel I have learned a considerable amount. 
 \pagebreak
 
 \renewcommand{\thepage}{\arabic{page}}% Arabic numerals for page counter
@@ -170,7 +175,7 @@ The overarching \textbf{aim} of this project is to investigate a simplified meth
 \item{Design a new handheld robot for 3D printing and the facilitation of open platform release via handheldrobotics.org. The exact design will be achieved through an iterative prototyping process comprising physical testing. Once fully designed and dimensioned, the robot should be constructed and assembled to connect to an off-the-shelf handle.}
 \item{Develop a control and calibration system so that the actuation of the robot may be executed with minimal delay via an external PC. This will entail employing an on-board microcontroller to receive commands and control the actuation accordingly.}
 \item{Design and implement a general algorithm so that the robot may move to its intended target, or indicate the general position to the user when it is out of reach.}
-\item{Perform a user study to assess the robot's ability to successfully indicate a desired position, cooperating with an operator to alleviate cognitive workload in an otherwise mentally demanding environment.}
+\item{Perform a user study to assess the robot's ability to indicate a desired position, cooperating with an operator to alleviate cognitive workload in an otherwise mentally demanding environment.}
 \end{enumerate}
 
 \subsection{Added Value}
@@ -255,8 +260,6 @@ The group uses a cognition-based perception-action closed loop as a basis for in
 
 \subsection{Robotics in Building Environments} \label{building}
 
-KEEP THIS SECTION AND JUST SHORTEN A LOT? SCENE KNOWLEDGE SECTION APPEARS RELEVANT. OR JUST DITCH COMPLETELY? XXXX
-
 From a fully autonomous perspective, using robots in construction environments is becoming an increasingly attractive proposition. Although machines have been utilised to assist in construction since the industrial revolution, there has typically been little in the way of automation. With advancements in robotics, they may be incorporated into building applications to reach unprecedented levels of speed and efficiency. Numerous investigations and demonstrations have been carried out of robots performing assembly operations from a set of known requirements, corresponding to `task knowledge'. However, most of these examples are based around two-dimensional systems, such as manipulating blocks to construct flat structures, as in \cite{werfel2006}, not considering height.
 
 The building and construction industry has been identified as an area of strong potential for handheld robotics. It is thus used as background to highlight examples where the introduction of a new field between the two established forms of robotics could prove worthwhile and beneficial. External robots, although able to possess task knowledge, are limited in this area in their ability to deal with changing requirements and their on-site mobility. Of course, the limitations of wearable technology remain their lack of adaptability to different users. These issues in particular may have a solution in handheld robotics. On top of this, the notion of unskilled workers being able to cooperate with such a device to accomplish a task may also have applicability to the construction area.
@@ -265,57 +268,12 @@ The building and construction industry has been identified as an area of strong 
 Petersen et al \cite{Petersen2011} present a hardware system in which a mobile robot manipulates blocks in three-dimensional space to match desired structures. As well as this, they also produced a high-level control scheme that could enable multiple robots to autonomously share the workload of a user-specified building task. The results were successful and the prototype robot constructed structures that were greater in height than itself, doing so via climbing, navigation and manipulation. This was accomplished without the need for complex sensing and control mechanisms by the design of the simplified interconnecting structural blocks and the way in which the robot interfaces with them, as illustrated in Figure \ref{figure:buildingrobot}. It has been suggested that there exists a future opportunity for a series of handheld robots and respective human users to work together to accomplish tasks of much higher complexity than possible from just a single device. This would bear parallels to the work in \cite{Petersen2011} in which the task knowledge is shared and updated between multiple devices accordingly.
 
 \begin{center}
-\includegraphics[width = 0.6\textwidth]{buildingrobot.png}
+\includegraphics[width = \textwidth]{buildingrobot.png}
 \captionof{figure}{Hardware system in which robot builds specified structures. Inset: Physical image of prototype atop six-block stricture. Outer image: Concept for system goal, in which multiple robots act together to distribute workload of a much larger structure. Image taken from \cite{Petersen2011}.}
 \label{figure:buildingrobot}
 \end{center}
 
-This idea of designing the structure blocks in a passive manner so that they naturally fit together, reducing sophistication in orientation, provides a neat solution to overcoming positional errors. In this project, the physical experiments and tasks to be performed is not the sole focus, as a large portion of the scope is dedicated to the design and control methodology of a new device. However, future work will address the physical performance to a greater degree, and in such case, will likely take strong inspiration from such self-aligning building blocks as observed here. One common feature that is simpler to incorporate is the use of magnets for physical interaction with robot to block. Blocks in this project will likely have to be of a much larger scale due to the realistic accuracy expectations of the design in the short-term, thus cost reduction in terms of material and manufacture will be a large consideration.
-
-\subsubsection{Drone-Based Assembly}
-With recent developments in Unmanned Aerial Vehicle (UAV) technology as a whole, it is becoming increasingly viable to deploy rotary wing platforms to interact with the physical environment. The main advantage they offer over typical ground based alternatives is improved speed and accessibility with regard to hard-to-reach regions. Moreover, using rotary wing based UAVs, such as quadcopters, over their fixed wing counterparts, allows for a more controlled operation in a tighter workspace. The design and control associated with transporting a payload with such a rotary based UAV is presented in \cite{mellinger2011}. The paper looks at different gripper designs and how successful the robot was in estimating and manipulating the mechanics of the varying payloads. Several issues arise when using UAVs to transport payloads, namely the limited weight bearing capacity and the fact that the dynamics are altered when carrying payloads. 
-
-The grippers investigated in this paper either operate by traditional clamping (impactive) or surface penetration (ingressive). However, the reduced motion of the fixed claws inevitably leads to more positional uncertainty during hovering. A solution is proposed in \cite{cano2013}, which covers the design of a 6-DoF aerial manipulator (see Figure \ref{figure:uavmanipulator}) for UAVs to assemble bar structures. This is made possible by developments in high power aerial platforms, reducing weight restrictions. The 6-DoF manipulator in the paper focuses on three main functions; the \textit{capture} (approaching and grasping the bar), the \textit{transport} (transferring load from storage to site) and the \textit{assembling} (installing to the structure).
-
-
-\begin{center}
-\includegraphics[width = 0.5\textwidth]{uavmanipulator.png}
-\captionof{figure}{Components of Aerial 6-DoF Manipulator: Base, Arm and End Effector. Image taken from \cite{cano2013}.}
-\label{figure:uavmanipulator}
-\end{center}
-
-Although this aerial design remains relatively untested in terms of control, it possesses similarities to the Mark II handheld robotic design in \cite{GreggSmithKinematics} (similar DoF but contains roll), and inspiration may be taken in the future when considering alternative end effectors for assembly-based tasks. This project aims to provide further groundwork and breadth in the design of new handheld robotics, with less focus on advancing the physical capabilities, and as such magnets are to be used for interacting with external bodies due to design simplicity. However, in the future when application and capabilities become more of a focus, new end effectors may be designed in tandem with specific assembly blocks, and each of impactive, ingressive, rollers or passive-jointed magnets would all be viable options.
-
-
-The feasibility of using rotary UAVs to construct building-scale structures is explored in \cite{latteur2015}, in which a project is outlined that envisions an alternative construction approach similar to that observed in nature. This entails the gradual addition of more material to an existing structure in a safe and precise manner. Despite the energy considerations, it was concluded that large-scale construction may be possible through drones, with the potential improving in parallel with advancements in drone technology. An issue that was identified, as was also the case in Section \ref{mobilerobots}, is the level of precision required for typical construction that is finer than afforded by fully mobile robots. Certainly in the early stages of handheld robotics, this will be a key issue as well. In this project it is avoided by considering part dimensions based on the accuracy of the robot, not the other way round. 
-
-This achievable accuracy problem is even more evident in aerial vehicles, and in \cite{latteur2015}, a similar solution was employed to \cite{Petersen2011}, mitigating positional imprecisions through the use of modular self-aligning components. Three different approaches were investigated for such a component; \textit{droxels}, conical interlocking \textit{dricks}, and rounded conical interlocking \textit{dricks}. These designs provide further inspiration for designing the assembly components for the handheld robotics construction task. In future development, when the capabilities associated with construction are more rigorously investigated, these self-aligning designs will be used as strong inspiration. However, due to the limited time-scale of this project and the comparatively smaller focus on assembly capabilities, such designs were disregarded in favour of plain blocks sized to meet the precision afforded by the new device.
-
-KEEP THIS STUFF IN OR REMOVE???? ASK WALTERIO??? XXXXXXXX
-
-\begin{itemize}
-\item{Droxels (Drone Voxels) - Voxels are three dimensional pixels, different designs can lead to strong space-filling capabilities and allow for construction of complex shapes. They are somewhat more difficult to grasp and position but possess strong potential. One of the key issues is the manufacture complexity, with 3D printing being the most viable. See Figure \ref{figure:droxel}.}
-\item{Conical Interlocking Dricks (Drone Bricks) - This option allows greater flexibility regarding positional tolerance. A lot of their potential lies in the fact that they can easily be constructed from more rigid structures such as concrete. However, unique blocks have to be designed to allow cornering. See Figure \ref{figure:cid}.}
-\item{Rounded Conical Interlocking Dricks - Similar to the standard counterpart, except with a rounded shape and two full cones on top to allow for curved walls. See Figure \ref{figure:rcid}.}
-\end{itemize}
-
-
-
-\begin{center}
-\includegraphics[width = 0.5\textwidth]{droxel.png}
-\captionof{figure}{Droxel Design, image taken from \cite{latteur2015}.}
-\label{figure:droxel}
-
-\includegraphics[width = 0.5\textwidth]{cid.png}
-\captionof{figure}{Conical Interlocking Drick (CID), image taken from \cite{latteur2015}.}
-\label{figure:cid}
-
-\includegraphics[width = 0.5\textwidth]{rcid.png}
-\captionof{figure}{Round Conical Interlocking Drick (RCID), image taken from \cite{latteur2015}.}
-\label{figure:rcid}
-
-\end{center}
-
+This idea of designing the structure blocks in a passive manner so that they naturally fit together, reducing sophistication in orientation, provides a neat solution to overcoming positional errors. In this project, the physical nature of the tasks not of primary concern, as the main focus is the evaluation of potential for mental assistance. However, physical motion will always be an element, and future work will likely address this to a greater degree. In such case, it will likely take strong inspiration from such self-aligning building blocks as observed here. A typical feature that is simpler to incorporate is the use of magnets for physical interaction with targets. Blocks in this project will be of a much larger scale due to the realistic accuracy expectations of the simplified design, so cost reduction in terms of material and manufacture will be a large consideration. Although this project is based around cognitive workload alleviation, it is likely that the experiments will incorporate abstractions from a building scenario. This is due to the nature of such tasks requiring working memory and logical sequencing to complete, both of which possess strong potential to benefit from mental assistance.
 
 
 \subsubsection{Scene Knowledge}
@@ -450,16 +408,7 @@ Manoeuvring the robot to a specific location so that it may perform its duties i
   
 As covered by A.Gregg-Smith and W.W.Mayol-Cuevas in \cite{GreggSmithFeedback}, various methods were investigated in which the robot provided spatial feedback to the user during a 3D guidance task, using the more advanced 6-DoF device. The task comprised positioning the robot so that the end effector could be aligned to within 5mm and 5 degrees of a target pose for at least 200ms. The target pose took place at a range of locations on a small side table, and was also performed with a stand-alone handheld wand in order to evaluate the benefit of using the robot in a performance and feedback sense.
 
-The seven conditions investigated are listed below, with the experimental set-up for the robot with virtual reality illustrated in Figure \ref{figure:vrrobot}.
-\begin{enumerate}
-\item{Robot provides gestures by pointing to location}
-\item{7 inch 2D screen mounted to robot, showing wireframe model of table and target point}
-\item{7 inch screen held in one hand, performing task with wand in other hand}
-\item{Augmented reality headset (with transparent lense) while using robot}
-\item{Augmented reality headset while performing task with wand}
-\item{Virtual reality headset while using robot}
-\item{Virtual reality headset while performing task with wand}
-\end{enumerate}
+The visual conditions investigated are a mounted screen, a handheld screen, an augmented reality headset and a virtual reality headset, with the set-up for the latter illustrated in Figure \ref{figure:vrrobot}. The other feedback options were from gesturing motions of the arm and using the wand with the aforementioned headsets. 
 
 In each case, an infra-red optical tracking system was used with retro-reflective markers attached to the key objects; the arm, wand, table, augmented/virtual reality headsets and the 7 inch screen. This allowed the pose of the robot to be calculated.
 
@@ -662,7 +611,7 @@ Therefore, rigid body objects can be set up to represent the robot base and tip 
 
 Once the required tracking data has been extracted, it can then be manipulated to create relative target points to the base depending on the situation. These can then be used as inputs to the regression function in order to solve for the motor angles. The tracking data at certain points is also written to an XML file during the calibration procedure for later use.
 
-\subsection{Kernel Regression Method}
+\subsection{Inverse Kinematics via a Kernel Regression Method}
 Due to the nature of the design of the robot, particularly the flexible arm in which motion from one of the core arm linkages would affect the other, solving for the kinematics is highly non-trivial. The arm itself exhibits nonlinear characteristics when flexing, rendering established forms of kinematic modelling unsuitable. A nonlinear kinematics solution was provided for a single segment of a cable driven continous backbone in \cite{li2002}, demonstrating the complexity involved in just one section. Thus, an alternative approach was taken similar to that in \cite{GreggSmithDesign}, which is unsurprising due to the parallels between the two designs; the arms are of different size and material but are both non-linear in nature and composed of multiple sections. The solution, as covered in \cite{GreggSmithDesign} and again in more detail in \cite{GreggSmithPhd} is to use a kernel regression method.
 
 The method specifically is known as the Nadayara-Watson kernel regression \cite{nadaraya1964}. It operates on the principle of using known data points to interpolate between, and yield a solution from an input that is not necessarily present in the known data. The function itself is given below in \eqref{nadaraya}. As with the Mark I design, it is safe to interpolate between the motor angles because the arm cannot self intersect.
@@ -671,9 +620,13 @@ The method specifically is known as the Nadayara-Watson kernel regression \cite{
 \bar{y}(\bar{x}) = \frac{\sum_{i=1}^{n}y_{i}K(\frac{x - x_{i}}{\alpha})}{\sum_{i=1}^{n}K(\frac{x - x_{i}}{\alpha})}
 \end{equation}
 
-Where $K$ represents a kernel function, $\alpha$ the bandwidth, $x$ the input and $y_{i}$ and $x_{i}$ the values of the stored data for the output and input values respectively. The bandwidth, as expected, will have a large effect on the output of the function. This could best be represented by a plot of the output of the function for a range of inputs at a given bandwidth. Of course, due to the number of dimensions in this case (three for the positional vector and four for the motor angles), it is not easy to give a visual representation, hence a 2D example is given in Figure XXXX for the non-linear  function $cos(\frac{x}{10}) + (\frac{x}{60})^2$. 
+Where $K$ represents a kernel function, $\alpha$ the bandwidth, $x$ the input and $y_{i}$ and $x_{i}$ the values of the stored data for the output and input values respectively. The bandwidth, as expected, will have a large effect on the output of the function. This could best be represented by a plot of the output of the function for a range of inputs at a given bandwidth. Of course, due to the number of dimensions in this case (three for the positional vector and four for the motor angles), it is not easy to give a visual representation, hence a 2D example is given in Figure \ref{figure:regressionExample} for the non-linear  function $cos(\frac{x}{10}) + (\frac{x}{60})^2$. 
 
-FIGURE ILLUSTRATING THIS EFFECT, USING 2D GRAPH AS IN AUSTIN THESIS???XXXXX
+\begin{center}
+\includegraphics[width=0.9\textwidth]{images/regressionExample.png}
+\captionof{figure}{Example of kernel regression  being applied to a 2D function, image adapted from \cite{GreggSmithPhd}. Lower bandwidth regression experiences a more accurate and smoother plot with more samples, whilst higher bandwidth remains smooth, but further away from the ground truth}
+\label{figure:regressionExample}
+\end{center}
 
 As shown in the figure, for a smoother plot, covering the areas not covered by the stored points at the expense of accuracy compared to the actual stored point values, a higher bandwidth would be expected. However, a lower bandwidth would result in a rougher, more sporadic plot, with the effect of intersecting all of the stored points exactly. As shown by the two plots, adding more samples acts to smoothen out this latter case, giving a smoother plot whilst improving the accuracy compared to the actual values. An optimal bandwidth would of course produce a minimal error for compared to the actual values of the points the sampling does not cover. High degrees of non-linearity are typically characterised by a comparatively lower optimum bandwidth.
 
@@ -707,11 +660,14 @@ This list of input and output types is similar to that observed for the table in
 \label{section:calibrationProcedure}
 
 
-DON'T FORGET IMAGES OF ROBOT IN CLAMP FOR VISUALIZATION, SHOWING IT IN TWO DIFFERENT POSITIONS TO SHOW DIFFERENT DATA POINTS BEING LOGGED XXXXX
+The procedure for obtaining the calibration data involves sending a range of different motor angle configurations to the servomotors, and recording the resulting tracking information (relative tip-to-base position and orientation). Each data point then comprised all of these values, and was written to disk for re-use in the future when using the regression function. When recording the data, it is imperative that the robot base remains stationary, so each data point is consistent with the same base position and orientation. As mentioned in Section \ref{section:natnet}, the base is said to have zero orientation about any of the global axes if it is in the orientation that it was when it was first initialised in the Motive software (as a rigid body). Hence the base was secured in a vice and then initialised in Motive (along with the tip) before beginning the procedure. This set-up is illustrated in Figure \ref{figure:calibrationSetup}. The physical orientation of the base during calibration is of little importance (as long as all points are always visible to the tracking device), as the targets will be relative to the base and converted to its local axes before input to the function anyway, as covered in more detail in Section \ref{section:relativeToBaseOrientation}.
 
-The procedure for obtaining the calibration data involves sending a range of different motor angle configurations to the servomotors, and recording the resulting tracking information (relative tip-to-base position and orientation). Each data point then comprised all of these values, and was written to disk for re-use in the future when using the regression function. When recording the data, it is imperative that the robot base remains stationary, so each data point is consistent with the same base position and orientation. As mentioned in Section \ref{section:natnet}, the base is said to have zero orientation about any of the global axes if it is in the orientation that it was when it was first initialised in the Motive software (as a rigid body). Hence the base was secured in a vice and then initialised in Motive (along with the tip) before beginning the procedure. This set-up is illustrated in Figure XXXXX. The physical orientation of the base during calibration is of little importance (as long as all points are always visible to the tracking device), as the targets will be relative to the base and converted to its local axes before input to the function anyway, as covered in more detail in Section \ref{section:relativeToBaseOrientation}.
+\begin{center}
+\includegraphics[width=0.9\textwidth]{images/calibrationSetup.png}
+\captionof{figure}{Set-up for the calibration procedure, clamping the device at an approximately 45\degree\ angle to the global axes of the OptiTrackDuo}
+\label{figure:calibrationSetup}
+\end{center}
 
-INSERT IMAGES XXXXXXX
 
 
 The calibration sampling is then performed at a chosen resolution (number of degrees interval) by stepping through the full range of motion for one servo for each step of a `parent' servo. Thus if each servo (apart from the last in line) has a `child` servo, the motions are performed recursively, with the servo stepping once, then its child covering the full range, with its grandchild then covering the full range for each step of its child and so on. The function is written such that after each step of a motor, its child motor then covers the range of motion in the opposite direction to its previous one. This is to reduce the number of times a motor has to move all the way back to the start of its range before stepping again, making the motion smoother in general and reducing calibration time. 
@@ -719,16 +675,13 @@ The calibration sampling is then performed at a chosen resolution (number of deg
 The state-space of the arm was initially sampled at a chosen resolution of five points over a total range of 60\degree per servo, giving a total sample number of $5^4 = 625$ calibration points. This gave a suitable range of motion, with an improvement of 20\degree over the device in \cite{GreggSmithDesign}. Higher ranges were initially used without any long term issues, although temporary deformation of the foam arm meant that the cables need to be re-tensioned, which was especially time consuming. A one second pause was issued after each calibration step to ensure the tip was steady before the position was logged. Hence this calibration took just over 10 minutes. Of course, higher accuracy could be obtained through more samples, with an increase in time, but this was kept short due to the fact that it needed to be repeated a lot with small design changes. Also, a meaningful increase in accuracy would require numerous extra sample points, quickly increasing the required time to well over an hour, which introduces other problems such as battery issues and gradual deformation.
 
 \subsubsection{Calibration Results}
-In order to find an appropriate bandwidth for the regression function, it was first necessary to obtain calibration data through sampling. Once enough data is available to perform the regression, the function can be tested against other sampled data, not covered in the initial calibration data, referred to as the `test data'. By comparing the output of the function for different bandwidth values against the values of the test data, an absolute positional error can be determined. The surface covered by this calibration procedure is illustrated in the Figure \ref{figure:surfacePlot}, displaying alternate views to better represent the curved shape of the area covered, similar to a portion on a sphere.
+In order to find an appropriate bandwidth for the regression function, it was first necessary to obtain calibration data through sampling. Once enough data is available to perform the regression, the function can be tested against other sampled data, not covered in the initial calibration data, referred to as the `test data'. By comparing the output of the function for different bandwidth values against the values of the test data, an absolute positional error can be determined. The surface covered by this calibration procedure is illustrated in the Figure \ref{figure:surfacePlot}, similar to a portion of a sphere.
 
-
-
-MAYBE JUST SHOW THE TOP AND BOTTOM CALIBRATION SURFACE PLOT OR EVEN JUST TOP? XXXXXXXXX
 
 
 \begin{center}
-\includegraphics[width=0.9\textwidth]{images/surfacePlotTogether.png}
-\captionof{figure}{Three alternate views of the surface plot for the 3D area covered by the calibration points, note the forward and backward spikes for when the arm took on an `S' shape, pulling the tip inwards somewhat.}
+\includegraphics[width=0.9\textwidth]{images/surfPlot.png}
+\captionof{figure}{Surface plot for the 3D area covered by the calibration points, note the forward and backward spikes for when the arm took on an `S' shape, pulling the tip inwards somewhat.}
 \label{figure:surfacePlot}
 \end{center}
 
@@ -878,7 +831,7 @@ In order to have handheld robotic applications, the device must be able to run w
 
 
 \begin{center}
-\includegraphics[width=0.85\textwidth]{images/separateThreads2.png}
+\includegraphics[width=0.8\textwidth]{images/separateThreads2.png}
 \captionof{figure}{Simplified processes taking place in the two different threads, showing the servos are updated after a set interval regardless of the logic}
 \label{figure:separateThreads}
 \end{center}
@@ -1009,9 +962,15 @@ In order to measure the response of the robot to various target inputs, it was n
 
 The absolute position of this wand, as ascertained by the optical tracking and assigned to the field of a rigid body object in the program, could then be extracted with each frame and used as the input to the general algorithm, converting it to a relative target position in the local axes of the robot and obtaining a motor angle solution. Of course, the multi-threaded technique of ascertaining the solution while simultaneously iterating the motor angles towards whatever happens to be the current solution, as covered in Section \ref{section:liveTargetRealTime}, is also used so that the wand could be used as a live target for the arm to follow.
 
-Once in place, the wand was held at a point deliberately outside the range of possible solutions from the robot, meaning that it had to use the closest calibration point to gesture in that direction. This point was outside the range in both the X, Y and Z dimensions so that the point that the robot moves to for gesturing is repeatable; even if there are small differences in the position of the wand, as long as it is consistently outside the range of recorded values in the same directions each time then the robot will gesture at the same point. In this case, the starting position of the wand would be up and to the right, if looking at the robot head on down the axis of the arm. The wand could then be moved vertically down to another point outside the range of solutions (to the right and down) causing the program to find another set of solutions as it moves down. As long as the wand is always kept outside the possible solutions in the X direction, it should follow a vertical path downwards to the new max range gesturing position, while remaining at its maximum X position the whole time. Again, this makes the motion more repeatable, in that as long as the wand follows roughly the same path each time, the arm should follow the same exact path. This experimental set up as well as the motions of the target and the arm is illustrated in Figure XXXX.
+Once in place, the wand was held at a point deliberately outside the range of possible solutions from the robot, meaning that it had to use the closest calibration point to gesture in that direction. This point was outside the range in both the X, Y and Z dimensions so that the point that the robot moves to for gesturing is repeatable; even if there are small differences in the position of the wand, as long as it is consistently outside the range of recorded values in the same directions each time then the robot will gesture at the same point. In this case, the starting position of the wand would be up and to the right, if looking at the robot head on down the axis of the arm. The wand could then be moved vertically down to another point outside the range of solutions (to the right and down) causing the program to find another set of solutions as it moves down. As long as the wand is always kept outside the possible solutions in the X direction, it should follow a vertical path downwards to the new max range gesturing position, while remaining at its maximum X position the whole time. Again, this makes the motion more repeatable, in that as long as the wand follows roughly the same path each time, the arm should follow the same exact path. This experimental set up as well as the motions of the target and the arm is illustrated in Figure \ref{figure:wandFollowing}.
 
-INSERT TWO SIDE BY SIDE IMAGES OF THE ROBOT IN THE CLAMP WITH THE WAND IN THE UP RIGHT, THEN ANOTHER WITH THE ARM HELD IN THE LOWER RIGHT, SHOWING THE ARM IN ITS NEW POSITIONS WITH ARROWS TO SHOW WHICH DIRECTION THE ARM JUST MOVED XXXXXX
+
+
+\begin{center}
+\includegraphics[width=\textwidth]{images/wandFollowing.png}
+\captionof{figure}{Tip of robot follows motion of wand, gesturing at the extreme positions}
+\label{figure:wandFollowing}
+\end{center}
 
 Once this was set up and the arm could follow the motion of the target wand, gesturing when it was out of range. The subsequent steps were to record the response of the arm. This procedure necessitates the logging of the positions of the target and tip at a range of time steps. Therefore, when starting a response plot by clicking the appropriate button on the GUI, a timer would start and the robot would commence following of the target wand. At each interval of around 50ms, the positions of the wand and tip were logged. Finally, once the response plot was stopped, the recorded data was written to a csv file for graphing. 
 
@@ -1022,17 +981,26 @@ This process was carried out for two types of response, where the Y positions of
 
 In order to assess how effectively the robot could gesture to a target, a small experiment was to be carried out. This had to provide a means of ascertaining whether the device could accurately convey its desired location to the user, when other potential targets were nearby. As such, the user should be able to differentiate between the correct targets and its neighbours, which would be imperative in alleviating mental workload. The experiment set up for this procedure was based around moving to physical target bodies; these were selected as lightweight foam blocks. The blocks were 7cm in width and height, with the depth ranging from 3.5 to 7cm. The depth is of less importance as they were to be arranged in such a manner that the robot gestures to the centre of the front face, giving a target surface area of 49$cm^{2}$, which is thought to be a typical target area for manoeuvring physical objects in applications that don't require identifying targets in a high precision environment, such as identifying correct blocks in a construction scenario.
 
-The blocks were to be arranged in a four by four stack, giving a total of 16 blocks in a wall that was 28cm by 28cm. Then, using the technique mentioned in Section \ref{section:programDesign}, the 3D target points, corresponding to the tip of the robot being at the centre of the front face, were to be obtained for each block. In order to minimise any errors, uncertainties, or potential accuracy limitations of the OptiTrack Duo, the best position to place the camera would correspond closely to the same relative location to the device that it was at during the calibration procedure. This took place with the robot angled at about 45\degree to the front of the Duo, so that it maintained a clear view of the markers on the tip and the base at all calibration points. Therefore, so that the response of the robot does not hugely depend on how accurately the Duo can give the relative orientation of the device to when it was calibrated, it was to be placed in a similar relative position in practice. The physical set-up for this experiment is thus illustrated in Figure XXXX.
+The blocks were to be arranged in a four by four stack, giving a total of 16 blocks in a wall that was 28cm by 28cm. Then, using the technique mentioned in Section \ref{section:programDesign}, the 3D target points, corresponding to the tip of the robot being at the centre of the front face, were to be obtained for each block. In order to minimise any errors, uncertainties, or potential accuracy limitations of the OptiTrack Duo, the best position to place the camera would correspond closely to the same relative location to the device that it was at during the calibration procedure. This took place with the robot angled at about 45\degree to the front of the Duo, so that it maintained a clear view of the markers on the tip and the base at all calibration points. Therefore, so that the response of the robot does not hugely depend on how accurately the Duo can give the relative orientation of the device to when it was calibrated, it was to be placed in a similar relative position in practice. The physical set-up for this experiment is thus illustrated in Figure \ref{figure:blockWall}.
 
 
-INSERT PICTURE OF THE FULL WALL OF BLOCKS, SHOWING THE ROBOT FACING THE WALL, MAYBE STRAIGHT MAYBE GESTURING TO A BLOCK, AND HAVING VIEW OF THE CAMERA, LABELLING IT AS OPTIMAL POSITION XXXXXXXX
+\begin{center}
+\includegraphics[width=0.75\textwidth]{images/blockWall.png}
+\captionof{figure}{Set-up for the gesturing effectiveness experiment}
+\label{figure:blockWall}
+\end{center}
 
 
 
 
-The position determination procedure entails tracking the tip, positioning it in the desired location, and pressing the trigger to log the current coordinates to file. However, this can have issues when considering the optimal position of the optical tracking device. The problem then arises from visibility of the tip during this target position logging procedure. With the duo positioned optimally for accuracy, it cannot maintain line-of-sight with the tip once it passes behind the wall of blocks. As such, the 3D locations had to be logged without having every block in place. A compromise then, was to assemble only the vertical stack on the furthest side. When the tip was lined up with these blocks, there are no other blocks obscuring the view from the camera, so they could be logged accordingly. Then, by pre-marking the centres of each column on the surface that the blocks sit, this end column could be shifted over by the width of one block, representing the next closest column, and the positions logged. The process is repeated until all 16 positions have been logged, before placing the actual blocks in their correct positions. This procedure is illustrated in Figure XXXXX.
+The position determination procedure entails tracking the tip, positioning it in the desired location, and pressing the trigger to log the current coordinates to file. However, this can have issues when considering the optimal position of the optical tracking device. The problem then arises from visibility of the tip during this target position logging procedure. With the duo positioned optimally for accuracy, it cannot maintain line-of-sight with the tip once it passes behind the wall of blocks. As such, the 3D locations had to be logged without having every block in place. A compromise then, was to assemble only the vertical stack on the furthest side. When the tip was lined up with these blocks, there are no other blocks obscuring the view from the camera, so they could be logged accordingly. Then, by pre-marking the centres of each column on the surface that the blocks sit, this end column could be shifted over by the width of one block, representing the next closest column, and the positions logged. The process is repeated until all 16 positions have been logged, before placing the actual blocks in their correct positions. This procedure is illustrated in Figure \ref{figure:blockColumn}.
 
-INSET PICTURE OF END COLUMN BEING LOGGED , WITH DASHED LINES TO SHOW POSITIONS OF WHERE NEXT COLUMN WOULD BE. MAYBE TWO SIDE BY SIDE OF COLUMN BEING MOVED OVER TO NEW POSITION, WITH TICKS WHERE THE COLUMN USED TO BE SHOW THAT THEY HAVE BEEN LOGGED XXXXX
+\begin{center}
+\includegraphics[width=0.72\textwidth]{images/blockColumn.png}
+\captionof{figure}{Technique used for logging the target positions of the blocks, the dashed lines shows where the column will be moved to next, with the OptiTrack maintaining visual contact}
+\label{figure:blockColumn}
+\end{center}
+
 
 Of course, the issue of tracking the tip would then reoccur once the wall is fully in place. To move the tip towards the target position, the algorithm only needs to know this position relative to the base, which it will then utilise the calibration data to obtain a motor angle solution that should result in the tip moving to the same (or the closest to) relative point. Therefore, in order to actually respond to target inputs, the program does not need to know the actual position of the tip at all. Therefore, when carrying out this experiment, the Motive software was re-configured to only track the base of the robot, which, when positioned so the tip can move towards targets, will remain far enough from the wall so to be visible at all times by the Duo. 
 
@@ -1041,7 +1009,7 @@ The logged positions were arranged in such a manner that the bottom right of the
 Then, when performing the experiment, the stored block positions are loaded into the array, and a new array of five integers is formed by selecting random values from 0 to 15, representing a random order of positions of blocks. A new array of five target positions is then created, by accessing the stored positions at the indices according to the array of integers (position notations). An example of this random sequencing is illustrated in Figure \ref{figure:gridSequence}. The operator has no indication as to what this new sequence of five targets is, except for the arm gesturing to the next target. The user could then move the arm so that the tip reaches its desired point, and state which block index position they think is the current target. Clicking the trigger then serves to move on to the next target position in the random order, and the process is repeated until all five targets have been cycled through. Once the experiment is stopped via the GUI, only then is the random order of position indices revealed, so that the order suspected by the user can be compared with the actual order, revealing how reliably the positions were conveyed by the robot gesturing.
 
 \begin{center}
-\includegraphics[width=0.5\textwidth]{images/gridSequence.png}
+\includegraphics[width=0.3\textwidth]{images/gridSequence.png}
 \captionof{figure}{Positional order of the wall of the blocks as observed from the front, denoted in black, and an example of a randomly generated order of positions for the experiment, denoted in blue.}
 \label{figure:gridSequence}
 \end{center}
@@ -1050,9 +1018,14 @@ Then, when performing the experiment, the stored block positions are loaded into
 
 \subsection{Alleviation of Cognitive Workload in Users}
 
-Given the aims of the project, it was imperative to investigate whether the device could actually perform its intended function and further prove the potential for cooperation between humans and handheld robotics. Specifically, its ability to draw on task knowledge to interact with the user to reduce perceived mental workload must be evaluated. The most appropriate way to carry out this evaluation entails a live user study, in which participants use the robot in practice, and specify the extent to which it mentally assisted them. As such, an experiment was designed in which the users would perform two tasks using the robot to place coloured blocks in a specific order into a box. This was accomplished by attaching metal strips to seven of the foam blocks from the gesturing effectiveness experiment, and setting the program so that the electromagnet was activated and the arm held straight when the trigger was held down. Coloured stickers were then attached to the front face of the blocks to give seven unique blocks: red, orange, yellow, green, blue, white and purple, which were then placed in a straight horizontal line at the front of the table. As the physical accuracy was not under investigation here, a conservative spacing between blocks was selected at 7cm.
+Given the aims of the project, it was imperative to investigate whether the device could actually perform its intended function and further prove the potential for cooperation between humans and handheld robotics. Specifically, its ability to draw on task knowledge to interact with the user to reduce perceived mental workload must be evaluated. The most appropriate way to carry out this evaluation entails a live user study, in which participants use the robot in practice, and specify the extent to which it mentally assisted them. As such, an experiment was designed in which the users would perform two tasks using the robot to place coloured blocks in a specific order into a box. This was accomplished by attaching metal strips to seven of the foam blocks from the gesturing effectiveness experiment, and setting the program so that the electromagnet was activated and the arm held straight when the trigger was held down. Coloured stickers were then attached to the front face of the blocks to give seven unique blocks: red, orange, yellow, green, blue, white and purple, which were then placed in a straight horizontal line at the front of the table. As the physical accuracy was not under investigation here, a conservative spacing between blocks was selected at 7cm. The arrangement of blocks for the user study is illustrated in Figure \ref{figure:colouredBlocks}
 
-PICTURE HERE OF THE BLOCKS ON THE TABLE AND BOX BENEATH? XXXX
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/colouredBlocks.png}
+\captionof{figure}{Arrangement of the coloured blocks, with metal strips, used for the user study.}
+\label{figure:colouredBlocks}
+\end{center}
+
 
 One of the tasks entailed dispensing the blocks in a sequence that required conscious cognitive effort in order to follow correctly, where the arm of the robot remained straight for the duration of the task. The only response to the trigger in this case was to activate the magnet. The instruction for this sequence was to place the blocks in an order that was alphabetically ascending for the \textit{third} letter of the colour. That is, A comes before B, which was made clear to the user when informing them of the sequence instruction. Only six of the blocks were to be dispensed, with the final one to be left on the table, serving as a dummy. Once the instructions were acknowledged by the user, a timer was started and the order of the blocks they dispensed was recorded, with the timer being stopped after the sixth colour entered the box. The correct order was thus:
 \begin{enumerate}
@@ -1066,11 +1039,15 @@ One of the tasks entailed dispensing the blocks in a sequence that required cons
 
 However, if an incorrect block was selected, it would only count as a single error. That is, after an incorrect block, the score would then be based on the correct ordering of the remaining blocks, whatever they may be. Before the task, it was important to ask the user if they were colour blind, or non-native speakers of English, and note it if so. They were then asked to verbally state what colours were laid out. This task served to simulate a mentally taxing set of operations, where the user must apply cognitive effort in order to perform successfully. The nature of this task took inspiration from the fact that typical sorting tasks have been shown to result in cerebral activation of the frontal lobe in healthy persons \cite{volz1997}, the area of the brain responsible for problems solving and memory. These mental function are thought to be the most pragmatic to assist with in order to alleviate perceived workload, and potentially improve performance. Note that this task was designed to be generally achievable through a degree of mental effort, not so challenging as to cause difficulties in actually completing the task correctly. This is because the investigation is more focused on how the device can actually cooperate and provide mental assistance to improve performance and/or alleviate effort, as opposed to enabling the completion of tasks that would otherwise be impossible in users.
 
-For the assisted task, a pre-defined order of six blocks was created, as before, by moving the tip to the target positions and logging it with the trigger. Although the initial selection of this order was random, it was held constant as to be the same for each participant. Again, visibility issues were encountered when all of the blocks were laid out so markers were put in place and only one block was used to log the positions, moving it between the markers. The base was again the only rigid body tracked during the experiment, for the reasons mentioned in the gesturing effectiveness experiment. The users would then be unaware of this order, and upon commencing the task the timer would be started and the robot would gesture to the next target. When the trigger was held, the magnet would activate and the arm would straighten up for easier manoeuvring of the blocks. Once the trigger was released, the arm would then begin to gesture to the next target, until after the sixth target when the experiment would stop and the arm would remain straight. Of course, if the trigger was released accidentally, the arm would move on against the user's wish. Therefore a button was added to the GUI to effectively `undo' the trigger press and move back to the previous target. The top-level process associated with the program flow for the user study is given Appendix H.4.
+For the assisted task, a pre-defined order of six blocks was created, as before, by moving the tip to the target positions and logging it with the trigger. Although the initial selection of this order was random, it was held constant as to be the same for each participant. Again, visibility issues were encountered when all of the blocks were laid out so markers were put in place and only one block was used to log the positions, moving it between the markers. The base was again the only rigid body tracked during the experiment, for the reasons mentioned in the gesturing effectiveness experiment. The users would then be unaware of this order, and upon commencing the task the timer would be started and the robot would gesture to the next target. When the trigger was held, the magnet would activate and the arm would straighten up for easier manoeuvring of the blocks. Once the trigger was released, the arm would then begin to gesture to the next target, until after the sixth target when the experiment would stop and the arm would remain straight. Of course, if the trigger was released accidentally, the arm would move on against the user's wish. Therefore a button was added to the GUI to effectively `undo' the trigger press and move back to the previous target. The top-level process associated with the program flow for the user study is given Appendix H.4. An example of the physical procedure of the assisted task is illustrated in Figure \ref{figure:assistedExample}.
 
 
-IMAGE HERE OF THE ROBOT GESTURING TOWARDS A BLOCK, WITH THE BLOCK CIRCLED OR SOMETHING TO ILLUSTRATE IT IS THE NEXT ONE IN THE SEQUENCE 
-XXXXXXXX
+
+\begin{center}
+\includegraphics[width=0.88\textwidth]{images/assistedExample.png}
+\captionof{figure}{Typical example of the assisted procedure. Upper-Left: Robot has gestured the user to the position of the red block, Upper-Right: User activates trigger and dispenses of block, Lower-Right: Robot moves onto next block in sequence, gesturing to the right, Lower-Left: User follows gesturing until reaching white block, before repeating the process until completion}
+\label{figure:assistedExample}
+\end{center}
 
 Before the assisted task commenced, a brief demonstration was given to the user, using a different and shorter pre-defined sequence, and they briefly practised using the robot while it gestured to a target. If, in the real task, an error was made and an incorrect block was taken, difficulties may arise, where the robot could later gesture to an empty space. In this event, a spare block would be placed in the empty space for picking up. These spare blocks were uncoloured as, due to the nature of this task, the colours are unimportant as it is the order of positions that is logged. So a single erroneous selection would only count as 1 mistake, providing the following order of selections were correct. This assisted task itself serves to represent the robot drawing upon task knowledge to gesture effectively. 
 
@@ -1092,15 +1069,21 @@ The target wand was found to oscillate at a range of eight frequencies from 0.4 
 frequency(Hz) = \frac{1}{wavelength(seconds)}
 \end{equation}
 
-At each recording, a portion of the physical response graph would be identified where the frequency was mostly constant, as shown in EXAMPLE HERE OR IN APPENDIX?? XXXXXXXX, from which the amplitudes of the tip could then be calculated and averaged (the amplitude of the target was roughly constant). The magnitude of the tip amplitude in relation to the target amplitude was then converted in to decibels using the average values at each frequency with the following standard equation, and the resulting bode plot for the amplitude response is shown in Figure \ref{figure:amplitudeResponse}.
+At each recording, a portion of the physical response graph would be identified where the frequency was mostly constant, as shown in the example in Figure \ref{figure:responseExample}, from which the amplitudes of the tip could then be calculated and averaged (the amplitude of the target was roughly constant). The magnitude of the tip amplitude in relation to the target amplitude was then converted in to decibels using the average values at each frequency with the following standard equation, and the resulting bode plot for the amplitude response is shown in Figure \ref{figure:amplitudeResponse}.
 
 \begin{equation}
 magnitude(dB) = 20\log \left(\frac{tipAmp}{targetAmp}\right)
 \end{equation}
 
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/responseExample.png}
+\captionof{figure}{Example of the frequency response of the tip to the input of the target position (in Y direction).}
+\label{figure:responseExample}
+\end{center}
+
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{images/amplitudeResponse.png}
+\includegraphics[width=0.88\textwidth]{images/amplitudeResponse.png}
 \captionof{figure}{Ampltude response (in dB) of the tip to varying target frequency.}
 \label{figure:amplitudeResponse}
 \end{center}
@@ -1122,7 +1105,7 @@ Phase \ shift \ (degrees) = -1 \times lag(seconds)\times Frequency(Hz)\times 360
 This phase shift between the target and the tip of the arm was then plotted for the frequencies, as illustrated in Figure \ref{figure:phaseResponse}.
 
 \begin{center}
-\includegraphics[width=0.85\textwidth]{images/phaseResponse2.png}
+\includegraphics[width=0.83\textwidth]{images/phaseResponse2.png}
 \captionof{figure}{Phase shift response (in degrees) of the target motion to tip motion for varying target frequency.}
 \label{figure:phaseResponse}
 \end{center}
@@ -1136,7 +1119,7 @@ At such small delays ($<4ms$), the rapid motion of the servos was found to vibra
 With more emphasis on the physical performance, changes could be applied to the design of the robot to allow access to screw the pulleys to the rear servos, as well as replacement servo horns delivered to allow high-strength glue to be used on the pulley, addressing both of these problems. However, these relatively simple to implement changes would have added more time onto the design phase of the project, which was already strictly capped by the project time-frame. Although the robot could potentially endure the duration of this experiment at the minimal delay, the response was not investigated at such speeds as a fair representation could only be given if tested at the same speed that will be experienced when actually using the robot in real task scenarios. An example scenario that is considered commonplace in such mentally assisted tasks is illustrated in Figure \ref{figure:baseOvershoot}.
 
 \begin{center}
-\includegraphics[width=0.95\textwidth]{images/baseOvershoot.png}
+\includegraphics[width=0.87\textwidth]{images/baseOvershoot.png}
 \captionof{figure}{Example of typical conditions expected the robot is expected to be subjected to when mentally assisting with tasks, simplified to X translation only, showing potential base overshoot.}
 \label{figure:baseOvershoot}
 \end{center}
@@ -1166,7 +1149,8 @@ If one considers the remit of such a device, with the user finishing a current o
 
 \subsection{Effectiveness and Accuracy of Gesturing}
 
-For the gesturing effectiveness experiment, the test was repeated with one user for a total of 14 times. The stated positions, for the randomly generated list of five indices, were recorded along with the actual values printed by the program at the end of the test. Therefore, a total of 70 random target positions were issued. The entire stated positions compared with the actual positions for each repetition of the test are listed in Table \ref{table:gesturing}, and a visual representation of the incorrect statements in relation to the actual position is illustrated in Figure \ref{figure:gestureErrors}.
+For the gesturing effectiveness experiment, the test was repeated with one user for a total of 14 times. The stated positions, for the randomly generated list of five indices, were recorded along with the actual values printed by the program at the end of the test. Therefore, a total of 70 random target positions were issued, with the results listed and illustreated in Table \ref{table:gesturing} and Figure \ref{figure:gestureErrors} respectively.
+
 
 \begin{center}
 \captionof{table}{List of stated positions and corresponding real positions, showing percentage success.}
@@ -1225,7 +1209,7 @@ For the gesturing effectiveness experiment, the test was repeated with one user 
 \end{center}
 
 \begin{center}
-\includegraphics[width=0.55\textwidth]{images/gestureErrors.png}
+\includegraphics[width=0.45\textwidth]{images/gestureErrors.png}
 \captionof{figure}{Recorded errors for the gesturing effectiveness experiment, shown by the matching numbers with green for the correct position and red for the stated position.}
 \label{figure:gestureErrors}
 \end{center}
@@ -1254,7 +1238,7 @@ Once a demonstration and brief practice was carried out with the robot, the oper
 
 Conversely, greater differences among participants were expected in terms of attentiveness and mental response time and as such, more variation in the completion time of the mental sequencing task was predicted. This was proved to be the case by the comparatively taller box plot. The greater range between times may have come about due to the aforementioned cognitive differences, or even because of varying levels of confidence. That is, some users may pause and wait longer until they are absolutely sure of the next block in the sequence, whereas others may take action as soon as they have an idea, which, in turn, may hinder task fulfilment. The completion time box plot shows that the box for the assisted task is considerably lower than for the non-assisted, with no overlap between the boxes, and only a slight overlap of the lower whisker of the non-assisted task with the box of the assisted task. Performing a `t-test' on these results yields a value for the completion times of \textbf{5.02}. The degrees of freedom in this case (number of samples in each set minus 2) is 18, and the risk level is assumed to be 0.05 (as per rule of thumb). This t-test result can then be looked up in a standard table of significance \cite{ttable}, where it is found to be considerably greater than the required value of \textbf{2.10}. This implies a statistically significant difference between the two modes and the completion time, and that a strong improvement can be achieved through using the robot for assisting in a task that could otherwise be classed as mentally demanding. 
 
-The box actual scores, ranked out of number of correctly ordered blocks for whatever remained, are illustrated in Figure \ref{figure:studyScore} for each participant. The appropriate box plot for these results is then illustrated in Figure \ref{figure:boxPlotTaskError}.
+The actual scores, ranked out of number of correctly ordered blocks for whatever remained, are illustrated in Figure \ref{figure:studyScore} for each participant. The appropriate box plot for these results is then illustrated in Figure \ref{figure:boxPlotTaskError}.
 
 
 \begin{center}
@@ -1264,12 +1248,13 @@ The box actual scores, ranked out of number of correctly ordered blocks for what
 \end{center}
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{images/boxPlotTaskError.png}
-\captionof{figure}{Box and whisker plot for the number of errors observed in the non-assisted sequencing task, note that as there were no errors for the assisted task, a box plot cannot be shown.}
+\includegraphics[width=0.9\textwidth]{images/boxPlotTaskError.png}
+\captionof{figure}{Box and whisker plot for the number of errors observed in the non-assisted sequencing task, note that as there were no errors for the assisted task, hence the box plot is a horizontal line.}
 \label{figure:boxPlotTaskError}
 \end{center}
 
 It can be seen that all participants achieved the maximum score for the mentally assisted task, whereas all but three did likewise for the non-assisted task, with corresponding scores of 4, 3 and 3. On the surface, this suggests that the actual successful completion of the task could benefit through operating the device. This could prove highly beneficial in practice, where costly mistakes, and the associated rectification time, could be vastly reduced. The t-test result for comparing the number of errors in the two datasets was found to be \textbf{1.92}, and the required value for statistical significance, found the same way as before, was again \textbf{2.10}. In this case, the difference is considered not quite statistically different. This is not surprising, as the reduction of errors was not the sole focus of the study, and the non-assisted task was designed not to be so hard as to cause difficulty in actually achieving the objective, but to assess whether the robot can effectively assist in mental tasks. Of course, a much larger dataset would be required to determine any potential extent of error reduction, with increased mental task variety and duration being focused on in particular. Therefore further investigation may be warranted into specific tasks where the robot can actually prevent human mistakes through cognitive assistance, rather than just improve performance through reducing mental workload and completion time.
+
 
 
 From a performance perspective, the results were as hypothesised, highlighting the potential usefulness of handheld robotics. The spread of completion times were much smaller when relying on mental assistance. This demonstrates the theory that handheld robots can mitigate for the variations in specific task training and skill level for operators, implying that they possess the potential for unskilled users to carry out operations previously reserved for those with considerable experience. Moreover, there appeared to be an overall improvement in completion time for the task through receiving mental assistance, which lends itself to improved performance, particularly in time-critical applications. Of course, in order to state whether the actual performance can be replicated, it is necessary to look not only at the times and their variation among users but also the correctness of the task, which in this short task and dataset, did suggest potential for benefit through use of the robot.
@@ -1278,12 +1263,32 @@ From a performance perspective, the results were as hypothesised, highlighting t
 The other key parameter to investigate, when evaluating how effectively the robot can cooperate with the user to alleviate mental workload, is the perceived effort of the participants. The performance gains are of little benefit if the user finds the robot taxing to operate, causing frustration and little incentive for reuse. This was obtained via the TLX form that they filled out upon completion of both the tasks, which asked them to rank each task on a scale of discrete points for the factors thought of as most indicative of subjective effort, as covered in \cite{hart1988}. The responses from the participants were then averaged for each category within within each task, and are illustrated in Figure \ref{figure:tlxResults}.
 
 \begin{center}
-\includegraphics[width=\textwidth]{images/tlxResults.png}
+\includegraphics[width=0.9\textwidth]{images/tlxResults.png}
 \captionof{figure}{Average TLX scores for each category of perceived effort for both the assisted and non-assisted task, smaller is better.}
 \label{figure:tlxResults}
 \end{center}
 
-As seen from the plot, the TLX scores are smaller for each category when the robot provides gesturing assistance, suggesting the all-round workload was subjectively smaller for the participants. The combined TLX scores were found from summing the individual scores (each out of 100) to give a total score out of 600. The t-test value was then found calculated for the ten samples as \textbf{6.71}, which comparing with the same value as before (\textbf{2.1}), proves that the reduction in total perceived workload is extremely statistically significant for receiving mental assistance from the device. In terms of physically operating the robot, the scores are virtually identical, as was expected due to the fact that the robot has to be used to move the blocks regardless, and the addition of mental assistance does provide any reduction in total physical motion requirements. The only logical reason, in this scenario, why one would rank the workload as smaller when mental assistance is provided, would be because the total time holding the robot is typically less due to the reduced completion time. The actual scores for these physical perceptions were still relatively low, with this being the smallest type of effort perception for the non-assisted type. 
+As seen from the plot, the TLX scores are smaller for each category when the robot provides gesturing assistance, suggesting the all-round workload was subjectively smaller for the participants. The combined TLX scores were found from summing the individual scores (each out of 100) to give a total score out of 600. The t-test value was then found calculated for the ten samples as \textbf{6.71}, with the total t-test values for the evaluation listed in Table XXXX. This value, when compared with the same required value as before (\textbf{2.1}), proves that the reduction in total perceived workload is extremely statistically significant for receiving mental assistance from the device. In terms of physically operating the robot, the scores are virtually identical, as was expected due to the fact that the robot has to be used to move the blocks regardless, and the addition of mental assistance does provide any reduction in total physical motion requirements. The only logical reason, in this scenario, why one would rank the workload as smaller when mental assistance is provided, would be because the total time holding the robot is typically less due to the reduced completion time. The actual scores for these physical perceptions were still relatively low, with this being the smallest type of effort perception for the non-assisted mode. 
+
+\begin{center}
+\captionof{table}{Resulting t-test values for the differences between the two tasks in each category}
+\label{table:tTestTotal}
+\begin{tabularx}{0.66\textwidth}{ | >{\centering\arraybackslash}p{15em} |>{\centering\arraybackslash}X| >{\centering\arraybackslash}X|} 
+\hline
+\textbf{Task Difference} & \textbf{t-test} & \textbf{Required}
+\\
+\hline
+Completion time & 5.02 & 2.10
+\\
+\hline
+Total Errors & 1.92 & 2.10
+\\
+\hline
+Combined TLX & 6.71 & 2.10
+\\
+\hline
+\end{tabularx}
+\end{center}
 
 The performance, where lower is considered better, implies that the users were satisfied with how they completed the task when gesturing was provided, being confident that the order they dispensed of the blocks was correct, even though a dummy block would still be left on the table. This was demonstrated by it having the lowest TLX score for the assisted task. It is still relatively low even for the non-assisted task, at a score of around 40\%, which would fall on the left side of the scale closer to high performance than low. Of course, all the participants did achieve the correct order for the gestured task, hence their confidence in their performance. With the non-assisted task however, the users are likely to realize they have made a mistake as the task progresses and they notice a block remains with a lexicographically smaller third letter than of one of the previously dispensed blocks. For this reason, and for the comparatively longer time to complete the task on average, it is not surprising that the participants rated this with a higher score for no assistance. 
 
@@ -1306,9 +1311,9 @@ In order to evaluate the robots ability perform its intended purpose of cooperat
 
 The user study entailed ten participants undertaking two tasks, using the robot to move coloured foam blocks into a box in a specific order. One of the tasks required that the user order the blocks according to an instructed sequence that required applied mental effort to complete, based on the alphabetical order of the third letter of the colour. For this non-assisted task, the arm of the robot remained straight, and the only action of the trigger was to activate the electromagnet. The other task incorporated assistance from the robot, where a pre-defined sequence of the blocks was unknown to the user, and the device was to gesture to the appropriate blocks in the correct order. Upon completion of both tasks, the users filled out a Task Load Index (TLX) form to assess perceived workload. The completion time, number of task errors and the relevant TLX scores (individual and combined) could then be analysed to evaluate the performance improvements offered by the mental assistance of the robot.
 
-The non-assisted task was designed to be completely achievable through conscious cognitive effort, therefore the key performance parameter was the completion time. This was found to be shorter for the mentally assisted time, and the reduction was proved to be statistically significant through a t-test value. A box and whisker plot for the two tasks in terms of completion time also revealed a much smaller spread of data for the assisted task. This lends weight to the potential of the device to remove disparity between ability amongst users, allowing untrained or unskilled persons to perform similarly through use of a handheld robot. The larger spread for the non-assisted task demonstrates general differences in cognitive ability amongst participants. Whilst no errors were observed in the assisted task, a few were distributed amongst three users for the non-assisted task. However, a t-test showed this difference to be not quite statistically significant, which was not surprising based on the aforementioned design of the task.
+The non-assisted task was designed to be completely achievable through conscious cognitive effort, therefore the key performance parameter was the completion time. This was found to be shorter for the mentally assisted time, and the reduction was proved to be statistically significant through a t-test value of \textbf{5.02}, which was greater than the required value for significance in each test of \textbf{2.10}. A box and whisker plot for the two tasks in terms of completion time also revealed a much smaller spread of data for the assisted task. This lends weight to the potential of the device to remove disparity between ability amongst users, allowing untrained or unskilled persons to perform similarly through use of a handheld robot. The larger spread for the non-assisted task demonstrates general differences in cognitive ability amongst participants. Whilst no errors were observed in the assisted task, a few were distributed amongst three users for the non-assisted task. However, a t-test showed this difference to be not quite statistically significant, falling short of the required value at \textbf{1.92} which was not surprising based on the aforementioned design of the task.
 
-The TLX results indicated a smaller perceived workload for the assisted task in each of the six categories: mental, physical, frustration, performance, effort and temporal. The difference in combined TLX scores between the two tasks was shown to be extremely statistically significant for the t-test, implying that subjectively, the effort required for such a task is considerably lower when receiving mental assistance from the device. As expected, there was only small differences between the two for factors that were inherently similar for both tasks, such as physical and performance (in terms of errors). However, for the rest of the categories, larger differences were observed between the two tasks. In order for the device to have practical applications, it was imperative that the perceived frustration remained low, otherwise the long-term use would suffer. This appeared to be the case from the results, and was much smaller than for the non-assisted task, implying that the device can be operated to share mental effort and potentially improve performance without introducing new user-experience problems.
+The TLX results indicated a smaller perceived workload for the assisted task in each of the six categories: mental, physical, frustration, performance, effort and temporal. The difference in combined TLX scores between the two tasks was shown to be extremely statistically significant for the t-test with a value of \textbf{6.71}, implying that subjectively, the effort required for such a task is considerably lower when receiving mental assistance from the device. As expected, there was only small differences between the two for factors that were inherently similar for both tasks, such as physical and performance (in terms of errors). However, for the rest of the categories, larger differences were observed between the two tasks. In order for the device to have practical applications, it was imperative that the perceived frustration remained low, otherwise the long-term use would suffer. This appeared to be the case from the results, and was much smaller than for the non-assisted task, implying that the device can be operated to share mental effort and potentially improve performance without introducing new user-experience problems.
 
 The most important metric for this specific study was the mental effort, as this was what was hoped the device would alleviate. This exhibited the biggest difference between the two tasks, indicating that the robot had been successful in cooperating with the user to lend cognitive assistance. This, combined with the improved completion time, helps prove the theory that the robot could improve all-round performance in mental tasks, and further outlines the potential for cooperative handheld robotics as a whole. With this, the aims and objectives of the project were accomplished, and further exploration has been contributed to the field, where the findings may be drawn upon during future developments. 
 
@@ -1318,7 +1323,12 @@ The most important metric for this specific study was the mental effort, as this
  
 
 \pagebreak
-\section{Further Work and Areas of Improvement}
+\section{Future Work and Improvements}
+There are a number of potential improvements for the work carried out in this project. Limitations in the actual design introduced difficulties in running the device for a long duration without required maintenance. In particular, this consisted of re-tensioning the cables, which generally took around 30-40 minutes to do properly. This however, is an inherent drawback to cable-driven designs, as eventual tension loss is avoidable. Although modifications were made to the linkages to reduce the frequency of re-tensioning, the act itself still required unscrewing the bolts, removing the cable from the interweaving holes, pulling it taught with needle-nose pliers before connecting it back up again. If a project of this nature was to be performed, it is strongly advisable to employ a re-tensioning method that can be done quickly, reducing the downtime of the device. Such designs were briefly explored, comprising of a lead-screw to effectively push the cable connection further away, requiring much less time in theory. If more serious maintenance was required, such as reconnecting a pulley to one of the rear servos, the downtime was severe. This was a direct result of the lack of accessibility to this inner region of the housing. With simple holes or gaps, a considerable amount of time could have been saved by reaching in to remove or reconnect components. 
+
+Although the highly flexible continuum structure of the design demonstrated its potential in terms of range of motion and resistance to accidental collisions or impacts, the material used in this case did have fundamental limitations. Over time, or when bent to extreme positions, a deformation from the starting position was observed, even when all force had been removed. As such, the arm structure itself had to be replaced three times throughout the project. It was found that by limiting the range of motion somewhat, and storing the robot in an upright position, the need for replacement could be substantially offset. Of course, with more focus on the nature of such a structure, a more premium solution should be employed that has greater resistance to deformation, such as in \cite{reinecke2016}. Methods were considered to limit this vulnerability, such as internal ribs to provide more rigidity or rods to help it move back to the starting position. However, these defeat the purpose of an elastic continuum structure. 
+
+Regarding the user study, the amount of data obtained was deemed appropriate for the scope of this project, which focuses on the potential of handheld robotics. However, if a more thorough investigation was to be carried out into the benefits of mental assistance, much more data would be required. This would entail using a wider range of participants in terms of age, sex and profession. This study was mostly performed by those working in computer science in some form or another. The actual nature of the non-assisted task here was to be achievable through mental effort. If more detail was to be obtained regarding alleviation of cognitive workload, it would be necessary to carry out a wide range of different mental tasks. These could include similar operations to this project, as well as situations where an untrained user is not expected to complete the task without assistance. Also, the combination of such cognitive tasks with more physically demanding aspects would highlight a more all-round potential of the handheld robotics. Of course, the field in general can still be considered in its infancy, therefore any further investigation into the nature of the field will prove valuable.
 
 \pagebreak
 \bibliography{mybib}
