@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfDataPoint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DataPoint>
+    <motorAngles>
+      <int>12</int>
+      <int>31</int>
+      <int>24</int>
+      <int>54</int>
+    </motorAngles>
+    <relativeTipPosition>
+      <float>13.4</float>
+      <float>51.5</float>
+      <float>145</float>
+    </relativeTipPosition>
+    <relativeTipOrientation>
+      <float>43.4</float>
+      <float>35</float>
+      <float>255</float>
+    </relativeTipOrientation>
+  </DataPoint>
+  <DataPoint>
+    <motorAngles>
+      <int>22</int>
+      <int>21</int>
+      <int>24</int>
+      <int>24</int>
+    </motorAngles>
+    <relativeTipPosition>
+      <float>23.4</float>
+      <float>21.5</float>
+      <float>245</float>
+    </relativeTipPosition>
+    <relativeTipOrientation>
+      <float>23.4</float>
+      <float>25</float>
+      <float>255</float>
+    </relativeTipOrientation>
+  </DataPoint>
+</ArrayOfDataPoint>

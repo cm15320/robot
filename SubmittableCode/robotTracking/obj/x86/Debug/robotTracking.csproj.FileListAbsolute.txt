@@ -1,0 +1,10 @@
+E:\Users\Chris\Documents\robotLive\robot\robotTracking\bin\x86\Debug\robotTracking.exe.config
+E:\Users\Chris\Documents\robotLive\robot\robotTracking\bin\x86\Debug\robotTracking.exe
+E:\Users\Chris\Documents\robotLive\robot\robotTracking\bin\x86\Debug\robotTracking.pdb
+E:\Users\Chris\Documents\robotLive\robot\robotTracking\bin\x86\Debug\NatNetML.dll
+E:\Users\Chris\Documents\robotLive\robot\robotTracking\obj\x86\Debug\robotTracking.csprojResolveAssemblyReference.cache
+E:\Users\Chris\Documents\robotLive\robot\robotTracking\obj\x86\Debug\robotTracking.RobotTracker.resources
+E:\Users\Chris\Documents\robotLive\robot\robotTracking\obj\x86\Debug\robotTracking.Properties.Resources.resources
+E:\Users\Chris\Documents\robotLive\robot\robotTracking\obj\x86\Debug\robotTracking.csproj.GenerateResource.Cache
+E:\Users\Chris\Documents\robotLive\robot\robotTracking\obj\x86\Debug\robotTracking.exe
+E:\Users\Chris\Documents\robotLive\robot\robotTracking\obj\x86\Debug\robotTracking.pdb

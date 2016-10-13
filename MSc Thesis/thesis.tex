@@ -53,9 +53,19 @@
 \newpagestyle{mypage}{%
   \headrule
   \sethead{\MakeUppercase{\thesection\quad \sectiontitle}}{}{\thesubsection\quad \subsectiontitle}
+\setfoot{}{\thepage}{}%
 }
+
+
+\newpagestyle{roman}{%
+  \setfoot{}{\thepage}{}% \setfoot{<left>}{<centre>}{<right>}
+}
+
+
+
 \settitlemarks{section,subsection,subsubsection}
-\pagestyle{empty}
+
+
 
 \title{An Evaluation of Cooperative Handheld Robotics in a Simplified 3D Construction Environment}
 \author{Chris Meehan}
@@ -87,21 +97,21 @@
 	{\large \today\par}
 \end{titlepage}
 
+
+
+
+\pagestyle{roman}
 \renewcommand{\thepage}{\roman{page}}% Roman numerals for page counter
-
-
-
 \section*{Executive Summary}
 
-Typically, the field of robotics can be categorised by two established areas; external robots and wearable technology. However, in recent years, a new field has emerged which bridges the gap between these domains, namely `Handheld Robotics'. The primary focus of this field is the augmentation of human-oriented tasks, combining the intuitiveness offered by humans with the precision and processing power of robotics. Research into this area has been conducted at the University of Bristol, where devices have been developed and early investigations carried out into the cooperation with the user.
+Typically, the field of robotics can be categorised by two established areas; external robots and wearable technology. However, in recent years, a new field has emerged which bridges the gap between these domains, namely \textit{Handheld Robotics}. The primary focus of this field is the augmentation of human-oriented tasks, combining the intuitiveness offered by humans with the precision and processing power of robotics. Research into this area has been conducted at the University of Bristol, where devices have been developed and early investigations carried out into the cooperation with the user.
 
-It is thought that through pre-acquired task knowledge and effective cooperation with the user, such devices may facilitate improved performance in users who lack skill or training in the operation at hand. This project aimed to develop the field further, by designing a novel device and highlighting the potential of handheld robotics to alleviate cognitive workload in mentally demanding tasks. This is a specific area that has not received much focus in the previous investigations. As such, the project can be classified as 50\% Type I (software/hardware development) and 50\% Type II (investigation). In order to achieve the aim, a number of objectives were implemented:
+It is thought that through pre-acquired task knowledge and effective cooperation with the user, such devices may facilitate improved performance in users who lack skill or training in the operation at hand. This project aimed to develop the field further, by investigating a simplified method of designing a novel handheld robot and evaluating the potential for such a device to alleviate cognitive workload in mentally demanding tasks. This is a specific area that has not received much focus in the previous investigations. As such, the project can be classified as 50\% Type I (software/hardware development) and 50\% Type II (investigation). In order to achieve the aim, a number of steps were undertaken:
 \begin{itemize}
 \item{A novel device was designed and built, incorporating a highly flexible cable-driven continuum structure for added versatility in unstructured environments and withstanding collisions.}
-\item{A control system was incorporated in order to actuate the various components of the device as required.}
-\item{A program was developed in C\# to interface both with the device and an external optical tracking system (OptiTrack Duo), so that control could be carried out based on the positional data of the device and its targets.}
-\item{An algorithm was developed around obtaining an appropriate input to a kernel regression method in order to obtain a solution for the servomotor angles to manoeuvre the tip of the robot towards its target in real time.}
-\item{A number of experiments were designed in order to evaluate the device and whether it could successfully cooperate with the user to provide cognitive assistance in an otherwise mentally taxing task, potentially improving performance.}
+\item{A control system was implemented through a developed program in order to actuate the various components of the device using an external PC and on-board microcontroller.}
+\item{An algorithm was formed around obtaining an appropriate input to a kernel regression method in order to obtain a solution for the servomotor angles to manoeuvre the tip of the robot towards its target in real-time.}
+\item{A number of experiments were designed and undertaken in order to evaluate the device and whether it could successfully cooperate with the user to provide cognitive assistance in an otherwise mentally taxing task, potentially improving performance.}
 \end{itemize}  
 
 These steps were carried out in order, with the program development occurring in tandem, to lead up to the final evaluation. This was performed to test the theory that handheld robotics possess the potential to reduce perceived mental workload of the user and improve task performance. The evaluation itself took the form of a user study with ten participants carrying out one task with mental assistance and one without, although a number of performance investigations were carried out prior to this in order to assess the robot's suitability to operation in practice. A number of key findings were made throughout this project, providing a significant contribution to the relatively small existing body of work:
@@ -109,7 +119,7 @@ These steps were carried out in order, with the program development occurring in
 \item{The robot proved suitably responsive for the required application of use with a human operator.}
 \item{The device and the algorithm it employed proved capable of effectively gesturing a desired target location to a user, within the limits required for the user study.}
 \item{The completion time of the tasks was shown to exhibit a statistically significant reduction through receiving mental assistance from the robot.}
-\item{While a small number of user errors were observed in the non-assisted task, none occurred for when mental assistance was provided.}
+\item{While a small number of user errors were observed in the non-assisted task, none occurred when mental assistance was provided.}
 \item{The overall perception of workload from the users was shown to significantly reduce through using the device in an otherwise cognitively demanding task. In particular, the mental effort was shown to exhibit the largest reduction.}
 \end{itemize}
 
@@ -155,13 +165,12 @@ The \textit{Handheld Robotics Project} at the University of Bristol has begun to
 
 
 \subsection{Aims and Objectives}
-The overarching aim of this project is to develop a new handheld robotic device and evaluate its performance in mentally assisting the user through task knowledge. As such, a new robot must be designed, assembled, and integrated with a control system so that it is fully operable. The functionality must be such that it enables a degree of performance evaluation. In order to implement this aim, a number of objectives must be met:
+The overarching \textbf{aim} of this project is to investigate a simplified method of developing a research oriented handheld robot, and evaluate the potential for such a device to provide mental assistance to a cognitively demanding task. As such, a new robot must be designed, assembled, and integrated with a control system so that it is fully operable. The functionality must be such that it enables a degree of performance evaluation. In order to implement this aim, a number of \textbf{objectives} must be met:
 \begin{enumerate}
-\item{Design a new handheld robot using CAD. The exact design will be achieved through an iterative process of prototyping via 3D printing and physical testing. Once fully designed and dimensioned, the robot should be constructed and assembled to connect to an off-the-shelf handle.}
-\item{Develop a control system so that the actuation of the robot may be executed by a PC. This will entail using a microcontroller to sit between the robot and computer, receiving commands and controlling the actuation accordingly.}
-\item{Interface the robot with an external optical tracking system, so that the position of the robot relative to target positions can be determined. This will utilise existing infrastructure at the University, namely the \textit{OptiTrack} motion capture system, and the libraries and API included will dictate that the development language will be C\#.}
+\item{Design a new handheld robot for 3D printing and the facilitation of open platform release via handheldrobotics.org. The exact design will be achieved through an iterative prototyping process comprising physical testing. Once fully designed and dimensioned, the robot should be constructed and assembled to connect to an off-the-shelf handle.}
+\item{Develop a control and calibration system so that the actuation of the robot may be executed with minimal delay via an external PC. This will entail employing an on-board microcontroller to receive commands and control the actuation accordingly.}
 \item{Design and implement a general algorithm so that the robot may move to its intended target, or indicate the general position to the user when it is out of reach.}
-\item{Perform an evaluation to assess the robot's ability to successfully indicate a desired position, cooperating with an operator to alleviate cognitive workload. This will entail a brief set of experiments involving the responsiveness and gesturing effectiveness of the robot, before a small user study to compare the benefits of receiving assistance from the device in an otherwise mentally demanding task.}
+\item{Perform a user study to assess the robot's ability to successfully indicate a desired position, cooperating with an operator to alleviate cognitive workload in an otherwise mentally demanding environment.}
 \end{enumerate}
 
 \subsection{Added Value}
@@ -623,9 +632,13 @@ The electromagnet requires 9V for generating adequate magnetic force. So in orde
 
 Of course, the optical tracking system also interfaces with the controlling PC in order to receive the necessary tracking information. This is shown in the schematic for completeness. To send commands and receive information from the Arduino, a serial connection is set up in C\# using the SerialPort class. Once a connection is established, commands are sent in the form of a buffer of bytes, which are interpreted and responded to by the Arduino sketch. These commands include setting the position of a servomotor and turning on the power for the electromagnet; an example of this process with the program sending instructions and the Arduino responding is shown in Appendix H.1 and H.2.
 
-All of the components were then assembled in place using an Arduino Proto-Shield (Appendix \ref{appendix:protoShield}), to solder the battery cables to, and a mini breadboard. This was set up in a manner that allowed the battery packs and servomotors to be easily interchanged as required, whereas the control circuitry was fixed in place. The finalised construction of the new handheld robotic device is thus illustrated in XXXXXXX.
+All of the components were then assembled in place using an Arduino Proto-Shield (Appendix \ref{appendix:protoShield}), to solder the battery cables to, and a mini breadboard. This was set up in a manner that allowed the battery packs and servomotors to be easily interchanged as required, whereas the control circuitry was fixed in place. The finalised construction of the new handheld robotic device is thus illustrated in Figure \ref{figure:fullDevice}.
 
-INSERT FULL PICTURE OF THE ROBOT AS A WHOLE, MAYBE WITH CLOSE UPS OF THE BATTERIES, CIRCUITRY, AND END EFFECTOR ETC AS SIDE IMAGES IN A COLLAGE XXXXXXXXXXXXXX
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/fullDevice.png}
+\captionof{figure}{Right: Fully assembled device, Lower-Left: Servomotors and pulleys, Centre-Left: On-board controller set-up, Upper-Left: Electromagnetic end effector.}
+\label{figure:fullDevice}
+\end{center}
 
 \pagebreak
 \section{Developed Program}
@@ -696,17 +709,17 @@ This list of input and output types is similar to that observed for the table in
 
 DON'T FORGET IMAGES OF ROBOT IN CLAMP FOR VISUALIZATION, SHOWING IT IN TWO DIFFERENT POSITIONS TO SHOW DIFFERENT DATA POINTS BEING LOGGED XXXXX
 
-The procedure for obtaining the calibration data involves sending a range of different motor angle configurations to the servomotors, and recording the resulting tracking information (relative tip-to-base position and orientation). Each data point then comprised all of these values, and was written to disk for re-use in the future when using the regression function. When recording the data, it is imperative that the robot base remains stationary, so each data point is consistent with the same base position and orientation. As mentioned in Section INTERFACING WITH TRACKING XXXXX, the base is said to have zero orientation about any of the global axes if it is in the orientation that it was when it was first initialised in the Motive software (as a rigid body). Hence the base was secured in a vice and then initialised in Motive (along with the tip) before beginning the procedure. This set up is illustrated in Figure XXXXX, with the identification of the base and tip in the Motive software shown in Figure XXXXX. The physical orientation of the base during calibration is of little importance (as long as all points are always visible to the tracking device), as the targets will be relative to the base and converted to its local axes before input to the function anyway, as covered in more detail in Section \ref{section:relativeToBaseOrientation}.
+The procedure for obtaining the calibration data involves sending a range of different motor angle configurations to the servomotors, and recording the resulting tracking information (relative tip-to-base position and orientation). Each data point then comprised all of these values, and was written to disk for re-use in the future when using the regression function. When recording the data, it is imperative that the robot base remains stationary, so each data point is consistent with the same base position and orientation. As mentioned in Section \ref{section:natnet}, the base is said to have zero orientation about any of the global axes if it is in the orientation that it was when it was first initialised in the Motive software (as a rigid body). Hence the base was secured in a vice and then initialised in Motive (along with the tip) before beginning the procedure. This set-up is illustrated in Figure XXXXX. The physical orientation of the base during calibration is of little importance (as long as all points are always visible to the tracking device), as the targets will be relative to the base and converted to its local axes before input to the function anyway, as covered in more detail in Section \ref{section:relativeToBaseOrientation}.
 
 INSERT IMAGES XXXXXXX
 
 
-The calibration sampling is then performed at a chosen resolution (number of degrees interval) by stepping through the full range of motion for one servo for each step of a `parent' servo. Thus if each servo (apart from the last in line) has a `child` servo, the motions are performed recursively, with the servo stepping once, then its child covering the full range, with its grandchild then covering the full range for each step of its child and so on. Hence a recursive function was written as shown in Figure XXXXXX INSERT CODE OF CALIBRATE FUNCTION AND PUT IN BODY OR APPENDIX?? XXXXX. The function is written such that after each step of a motor, its child motor then covers the range of motion in the opposite direction to its previous one. This is to reduce the number of times a motor has to move all the way back to the start of its range before stepping again, making the motion smoother in general and reducing calibration time. 
+The calibration sampling is then performed at a chosen resolution (number of degrees interval) by stepping through the full range of motion for one servo for each step of a `parent' servo. Thus if each servo (apart from the last in line) has a `child` servo, the motions are performed recursively, with the servo stepping once, then its child covering the full range, with its grandchild then covering the full range for each step of its child and so on. The function is written such that after each step of a motor, its child motor then covers the range of motion in the opposite direction to its previous one. This is to reduce the number of times a motor has to move all the way back to the start of its range before stepping again, making the motion smoother in general and reducing calibration time. 
 
 The state-space of the arm was initially sampled at a chosen resolution of five points over a total range of 60\degree per servo, giving a total sample number of $5^4 = 625$ calibration points. This gave a suitable range of motion, with an improvement of 20\degree over the device in \cite{GreggSmithDesign}. Higher ranges were initially used without any long term issues, although temporary deformation of the foam arm meant that the cables need to be re-tensioned, which was especially time consuming. A one second pause was issued after each calibration step to ensure the tip was steady before the position was logged. Hence this calibration took just over 10 minutes. Of course, higher accuracy could be obtained through more samples, with an increase in time, but this was kept short due to the fact that it needed to be repeated a lot with small design changes. Also, a meaningful increase in accuracy would require numerous extra sample points, quickly increasing the required time to well over an hour, which introduces other problems such as battery issues and gradual deformation.
 
 \subsubsection{Calibration Results}
-In order to find an appropriate bandwidth for the regression function, it was first necessary to obtain calibration data through sampling. Once enough data is available to perform the regression, the function can be tested against other sampled data, not covered in the initial calibration data, referred to as the `test data'. By comparing the output of the function for different bandwidth values against the values of the test data, an absolute positional error can be determined. The surface covered by this calibration procedure is illustrated in the Figure XXXX, displaying alternate views to better represent the curved shape of the area covered, similar to a portion on a sphere.
+In order to find an appropriate bandwidth for the regression function, it was first necessary to obtain calibration data through sampling. Once enough data is available to perform the regression, the function can be tested against other sampled data, not covered in the initial calibration data, referred to as the `test data'. By comparing the output of the function for different bandwidth values against the values of the test data, an absolute positional error can be determined. The surface covered by this calibration procedure is illustrated in the Figure \ref{figure:surfacePlot}, displaying alternate views to better represent the curved shape of the area covered, similar to a portion on a sphere.
 
 
 
@@ -719,8 +732,6 @@ MAYBE JUST SHOW THE TOP AND BOTTOM CALIBRATION SURFACE PLOT OR EVEN JUST TOP? XX
 \label{figure:surfacePlot}
 \end{center}
 
-
-FOLLOWING PARAGRAPH IN THE CALIBRATION PROCEDURE SECTION NOT THE RESULTS?? XXXXXX
 
 The number of test data points was considerably smaller, with the primary aim of just collecting data for motor angle vectors that were not covered in the initial sampling. Hence $3^4 = 81$ samples were obtained, with starting position and step selected to deliberately avoid any calibration samples. For the comparison between the function output and the test data, the motor angles were to be the input, thus comparing the output positional values with the recorded points for the same motor angles. This `forward' approach was used for two reasons. The first is because the errors could be compared in terms of millimetres in space, which is more meaningful than servo degrees. The other reason is due to the fact that a given 3D position could potentially be achieved (or very close to) by more than one configuration of servo angles, whereas there is only one matching position for a given angle configuration. The 3D points for the calibration and the test points are illustrated in Figure \ref{figure:calibrationTestPoints}. 
 
@@ -885,25 +896,28 @@ This method of splitting the two tasks into separate threads, with one of them i
 
 The developed program for using the robot was built around the fundamentals of the Motive software and the NatNet library. An example was provided that simply sets up a connection between the tracking program and displays the tracked data in a spreadsheet. This example took the form of Windows Form Application, due to the usefulness of a Graphical User Interface (GUI) with buttons and options to start/stop tracking etcetera. Hence the developed application was of the same type, re-using the necessary functions for setting up the connection with the Motive program and extracting the tracking data. Features were then added as necessary for the specific purpose of tracking and controlling the robot. This entailed creating new classes that deal with interfacing with the robot as well as the logic involved with the calibration, target selection and solution generation processes. 
 
-Connection with the optical tracking system is not possible unless the Motive program is running simultaneously, and is set up to track the necessary rigid bodies. Hence before running the new program, Motive must be started and a `project' loaded or set up. This Motive project contains the information necessary to track certain bodies, such as the exact marker configurations corresponding to specific rigid bodies, which must be labelled correctly. Certain features of the developed program require different tracking data; for example the calibration procedure only requires that the base and tip be tracked, whereas `live body following' is not possible without tracking an extra rigid body. Hence various project files were set up for the different conditions. The interface of the Motive program, while tracking the base and the tip is illustrated in Figure XXXX.
+Connection with the optical tracking system is not possible unless the Motive program is running simultaneously, and is set up to track the necessary rigid bodies. Hence before running the new program, Motive must be started and a `project' loaded or set up. This Motive project contains the information necessary to track certain bodies, such as the exact marker configurations corresponding to specific rigid bodies, which must be labelled correctly. Certain features of the developed program require different tracking data; for example the calibration procedure only requires that the base and tip be tracked, whereas `live body following' is not possible without tracking an extra rigid body. Hence various project files were set up for the different conditions. The interface of the Motive program, while tracking the base and the tip is illustrated in Figure \ref{figure:motiveInterface}.
 
-POTENTIAL IMAGE OF THE MOTIVE INTERFACE HERE AND JUST SAY IN THE ABOVE PARAGRAPH THAT NEEDS TO BE OPEN AND RUNNING WITH A PROJECT LOADED, TRACKING RIGID BODIES, BEFORE THE CONNECTION TO THE ROBOT WORKS? XXXXX
+\begin{center}
+\includegraphics[width=\textwidth]{images/motiveScreenshot2.png}
+\captionof{figure}{User interface of the Motive software, set up to track rigid bodies for the robot base and tip.}
+\label{figure:motiveInterface}
+\end{center}
+
 
 Small tests were also added to the program so that the motion of the robot or acquiring of a solution from the regression for instance could be tested without having to fully connect to the optical tracking etcetera. These would use dummy variables where necessary to quickly discern whether functions were performing as intended. The general process of adding a new feature to the program would entail adding a button to the GUI and attaching methods to the callback associated with it. It is often necessary to have this functionality run in a separate thread so as not to hinder the updating of data or the user interface itself (rendering it unresponsive while the operation is carried out). Hence it was essential to ensure thread safety, using a shared syncLock object when accessing shared objects, as well as delegating any user interface changes to the thread responsible for updating it. This simple user interface is illustrated in Figure \ref{figure:userInterface}.
 
 \begin{center}
-\includegraphics[width=\textwidth]{images/userInterface.png}
+\includegraphics[width=\textwidth]{images/gui2.png}
 \captionof{figure}{User interface of the program for controlling the current status and operations of the robot, as well as for connecting to the tracking system and reading key tracking data.}
 \label{figure:userInterface}
 \end{center}
-
-USE UPDATED SCREENSHOT WHEN ACTUALLY CONNECTED
 
 The upper left and right corners provide buttons for connecting to the Motive optical tracking software and the Arduino for robot control respectively. As the typical procedures regarding controlling the robot depend on analysing tracking data and sending instructions accordingly, both connections must be established before any practical operations can be performed. Hence full connection is required to start an `experiment', which entails creating an Experiment object based on the information provided from both connections. However, as alluded to earlier, a `dummy experiment' will be created without full connection in order to provide some basic functionality so that simple motion and logic tests can be carried out without having to set up and connect to the external infrastructure associated with motion tracking. 
 
 A number of options are provided for both testing and essential processes. The calibration procedure is initiated, stopped and paused (in case of battery failure) for both the main calibration data as well as the test sampling, using the corresponding buttons. Certain options were essential, such as reading stored calibration data into memory, without which the regression function would be impossible. The process mentioned in Section \ref{section:calibrationProcedure} for discovering the most appropriate bandwidth value can also be carried out. There is a live spreadsheet section in order to display the current tracking data being recorded, such as the position and orientation of the various rigid bodies and associated markers. Similarly, labels have been added to display values that have been calculated from this tracking data, such as the absolute distance from tip to base. 
 
-Generally, buttons were integrated in order to easily control the various features of the program. The callbacks attached to these buttons were responsible for altering the GUI appropriately, such as activating other dependent buttons, and initiating the work for the corresponding action. This mostly entailed calling a wrapper function that set up a new thread if required and call the methods in which the bulk of the computational effort is done, passing in any necessary parameters such as user entered information on the GUI. The key features of the program are listed in Table XXXXX.
+Generally, buttons were integrated in order to easily control the various features of the program. The callbacks attached to these buttons were responsible for altering the GUI appropriately, such as activating other dependent buttons, and initiating the work for the corresponding action. This mostly entailed calling a wrapper function that set up a new thread if required and call the methods in which the bulk of the computational effort is done, passing in any necessary parameters such as user entered information on the GUI. The key features of the program are listed in Table \ref{table:keyFeatures}.
 
 \pagebreak
 
@@ -977,17 +991,21 @@ The core classes of the program are illustrated in Figure \ref{figure:classDiagr
 
 
 
-\section{Evaluation}
+\section{Experimental Procedure}
 
 In order to evaluate the new handheld robotic device, it was important to identify the key characteristics that need to be identified so that the aims of the project can be achieved. This project is primarily focused on the design of a new device, and importantly, how it can utilise pre-acquired task knowledge to effectively cooperate with the user. Specifically, it is the alleviation of cognitive effort that is of concern, as this demonstrates the notion that operators unskilled or untrained in a certain task could achieve the objectives regardless through assistance from the robot. Therefore it is essential to highlight this ability, and as such, a user study was to be carried out to compare the completion of a mentally demanding task without mental assistance from the robot, to a physically similar task where the cognitive burden is dealt with by the device, gesturing to the user the required actions.
 
 The physical performance of the robot is of much less importance in this project, based on the design and construction taking place over a much shorter time-scale than is typical for robotics. However, it is still necessary to evaluate certain traits that would directly affect how effectively the robot can gesture (or cooperate) with the user. As such, it was necessary to determine whether the response characteristics of the robot were sufficient enough to actually carry out a user study test. For instance an excessive lag at typical frequencies could seriously hinder the cooperation with the user and, in turn, the task performance. These traits could be dependent on the mechanical design of the robot, or the underlying algorithm and data that governs how the robot responds. Therefore, it was important to quantify the control performance of the robot in terms of step and frequency response. To complement the user study evaluation, it is also beneficial to test how effectively and accurately the robot can gesture to specific target points. Therefore an experiment was set up to ascertain how reliably desired physical locations can be conveyed to the user. 
-\subsection{Experimental Procedure}
 
-\subsubsection{Response Performance}
-In order to measure the response of the robot to various target inputs, it was necessary to constrain the robot and assign a live target that could be varied accordingly. As such, the robot was clamped in place using a vice, similar to the calibration procedure in Section \ref{section:calibrationProcedure}. The OptiTrack Duo was then set up to have a clear view of the both the base and tip of the robot. Then, in the motive software, a new rigid body was defined using a small `wand' made up of three-markers, as illustrated in FIGURE XXXXX. The pivot point of this rigid body was then set as one of the single markers, giving an actual visual indicator in the real world of the 3D point that is being tracked.
 
-PICTURE OF WAND SHOWING WHICH POINT WAS MADE PIVOT POINT? XXXXXX
+\subsection{Response Performance}
+In order to measure the response of the robot to various target inputs, it was necessary to constrain the robot and assign a live target that could be varied accordingly. As such, the robot was clamped in place using a vice, similar to the calibration procedure in Section \ref{section:calibrationProcedure}. The OptiTrack Duo was then set up to have a clear view of the both the base and tip of the robot. Then, in the motive software, a new rigid body was defined using a small `wand' made up of three-markers, as illustrated in Figure \ref{figure:wand}. The pivot point of this rigid body was then set as one of the single markers, giving an actual visual indicator in the real world of the 3D point that is being tracked.
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{images/wand.png}
+\captionof{figure}{Wand used for live object tracking during response tests, showing which marker was used as the point to follow.}
+\label{figure:wand}
+\end{center}
 
 The absolute position of this wand, as ascertained by the optical tracking and assigned to the field of a rigid body object in the program, could then be extracted with each frame and used as the input to the general algorithm, converting it to a relative target position in the local axes of the robot and obtaining a motor angle solution. Of course, the multi-threaded technique of ascertaining the solution while simultaneously iterating the motor angles towards whatever happens to be the current solution, as covered in Section \ref{section:liveTargetRealTime}, is also used so that the wand could be used as a live target for the arm to follow.
 
@@ -1000,7 +1018,7 @@ Once this was set up and the arm could follow the motion of the target wand, ges
 This process was carried out for two types of response, where the Y positions of the target and tip could be plotted as they are the key variables for the input motion. Firstly, a step response was performed, where the target was held still in the start position then moved rapidly down to the next point, roughly within the window of the logic delay before the program attempts to solve for the next target position. Finally, the positions were recorded while the target wand was moved up and down at a roughly constant frequency. This was then repeated at higher frequencies, until anything higher would be difficult to perform by hand while maintaining a constant rate. In total, eight different frequencies were used to perform a basic assessment of the frequency response.
 
 
-\subsubsection{Effectiveness and Accuracy of Gesturing}
+\subsection{Effectiveness and Accuracy of Gesturing}
 
 In order to assess how effectively the robot could gesture to a target, a small experiment was to be carried out. This had to provide a means of ascertaining whether the device could accurately convey its desired location to the user, when other potential targets were nearby. As such, the user should be able to differentiate between the correct targets and its neighbours, which would be imperative in alleviating mental workload. The experiment set up for this procedure was based around moving to physical target bodies; these were selected as lightweight foam blocks. The blocks were 7cm in width and height, with the depth ranging from 3.5 to 7cm. The depth is of less importance as they were to be arranged in such a manner that the robot gestures to the centre of the front face, giving a target surface area of 49$cm^{2}$, which is thought to be a typical target area for manoeuvring physical objects in applications that don't require identifying targets in a high precision environment, such as identifying correct blocks in a construction scenario.
 
@@ -1030,7 +1048,7 @@ Then, when performing the experiment, the stored block positions are loaded into
 
 
 
-\subsubsection{Alleviation of Cognitive Workload in Users}
+\subsection{Alleviation of Cognitive Workload in Users}
 
 Given the aims of the project, it was imperative to investigate whether the device could actually perform its intended function and further prove the potential for cooperation between humans and handheld robotics. Specifically, its ability to draw on task knowledge to interact with the user to reduce perceived mental workload must be evaluated. The most appropriate way to carry out this evaluation entails a live user study, in which participants use the robot in practice, and specify the extent to which it mentally assisted them. As such, an experiment was designed in which the users would perform two tasks using the robot to place coloured blocks in a specific order into a box. This was accomplished by attaching metal strips to seven of the foam blocks from the gesturing effectiveness experiment, and setting the program so that the electromagnet was activated and the arm held straight when the trigger was held down. Coloured stickers were then attached to the front face of the blocks to give seven unique blocks: red, orange, yellow, green, blue, white and purple, which were then placed in a straight horizontal line at the front of the table. As the physical accuracy was not under investigation here, a conservative spacing between blocks was selected at 7cm.
 
@@ -1051,7 +1069,8 @@ However, if an incorrect block was selected, it would only count as a single err
 For the assisted task, a pre-defined order of six blocks was created, as before, by moving the tip to the target positions and logging it with the trigger. Although the initial selection of this order was random, it was held constant as to be the same for each participant. Again, visibility issues were encountered when all of the blocks were laid out so markers were put in place and only one block was used to log the positions, moving it between the markers. The base was again the only rigid body tracked during the experiment, for the reasons mentioned in the gesturing effectiveness experiment. The users would then be unaware of this order, and upon commencing the task the timer would be started and the robot would gesture to the next target. When the trigger was held, the magnet would activate and the arm would straighten up for easier manoeuvring of the blocks. Once the trigger was released, the arm would then begin to gesture to the next target, until after the sixth target when the experiment would stop and the arm would remain straight. Of course, if the trigger was released accidentally, the arm would move on against the user's wish. Therefore a button was added to the GUI to effectively `undo' the trigger press and move back to the previous target. The top-level process associated with the program flow for the user study is given Appendix H.4.
 
 
-IMAGE HERE OF THE ROBOT GESTURING TOWARDS A BLOCK, WITH THE BLOCK CIRCLED OR SOMETHING TO ILLUSTRATE IT IS THE NEXT ONE IN THE SEQUENCE XXXXXXXXXX
+IMAGE HERE OF THE ROBOT GESTURING TOWARDS A BLOCK, WITH THE BLOCK CIRCLED OR SOMETHING TO ILLUSTRATE IT IS THE NEXT ONE IN THE SEQUENCE 
+XXXXXXXX
 
 Before the assisted task commenced, a brief demonstration was given to the user, using a different and shorter pre-defined sequence, and they briefly practised using the robot while it gestured to a target. If, in the real task, an error was made and an incorrect block was taken, difficulties may arise, where the robot could later gesture to an empty space. In this event, a spare block would be placed in the empty space for picking up. These spare blocks were uncoloured as, due to the nature of this task, the colours are unimportant as it is the order of positions that is logged. So a single erroneous selection would only count as 1 mistake, providing the following order of selections were correct. This assisted task itself serves to represent the robot drawing upon task knowledge to gesture effectively. 
 
@@ -1061,6 +1080,7 @@ Upon completion of both tasks, a modified TLX form was then given to the partici
 
 
 \pagebreak
+\addtocontents{toc}{\protect\newpage}
 \section{Results and Discussion}
 \subsection{Response Performance}
 \subsubsection{Frequency Response}
@@ -1232,7 +1252,7 @@ For the non-assisted sequencing task, the upper inner fence was defined by the u
 
 Once a demonstration and brief practice was carried out with the robot, the operators should all have very similar competence in responding to the motion of the arm, which appears to be validated by small height of the box. The only differences observed in the way the operators used to robot was how some participants tended to respond to a gesture by moving the device at constant orientation, and others tended to rotate the device in the gestured direction and only then move it towards the target. However, this had no discernible differences in the completion time. 
 
-Conversely, greater differences among participants were expected in terms of attentiveness and mental response time and as such, more variation in the completion time of the mental sequencing task. This was proved to be the case by the comparatively taller box plot. The greater range between times may have come about due to the aforementioned cognitive differences, or even because of varying levels of confidence. That is, some users may pause and wait longer until they are absolutely sure of the next block in the sequence, whereas others may take action as soon as they have an idea, which, in turn, may hinder task fulfilment. The completion time box plot shows that the box for the assisted task is considerably lower than for the non-assisted, with no overlap between the boxes, and only a slight overlap of the lower whisker of the non-assisted task with the box of the assisted task. Performing a `t-test' on these results yields a value for the completion times of \textbf{5.02}. The degrees of freedom in this case (number of samples in each set minus 2) is 18, and the risk level is assumed to be 0.05 (as per rule of thumb). This t-test result can then be looked up in a standard table of significance \cite{ttable}, where it is found to be considerably greater than the required value of \textbf{2.10}. This implies a statistically significant difference between the two modes and the completion time, and that a strong improvement can be achieved through using the robot for assisting in a task that could otherwise be classed as mentally demanding. 
+Conversely, greater differences among participants were expected in terms of attentiveness and mental response time and as such, more variation in the completion time of the mental sequencing task was predicted. This was proved to be the case by the comparatively taller box plot. The greater range between times may have come about due to the aforementioned cognitive differences, or even because of varying levels of confidence. That is, some users may pause and wait longer until they are absolutely sure of the next block in the sequence, whereas others may take action as soon as they have an idea, which, in turn, may hinder task fulfilment. The completion time box plot shows that the box for the assisted task is considerably lower than for the non-assisted, with no overlap between the boxes, and only a slight overlap of the lower whisker of the non-assisted task with the box of the assisted task. Performing a `t-test' on these results yields a value for the completion times of \textbf{5.02}. The degrees of freedom in this case (number of samples in each set minus 2) is 18, and the risk level is assumed to be 0.05 (as per rule of thumb). This t-test result can then be looked up in a standard table of significance \cite{ttable}, where it is found to be considerably greater than the required value of \textbf{2.10}. This implies a statistically significant difference between the two modes and the completion time, and that a strong improvement can be achieved through using the robot for assisting in a task that could otherwise be classed as mentally demanding. 
 
 The box actual scores, ranked out of number of correctly ordered blocks for whatever remained, are illustrated in Figure \ref{figure:studyScore} for each participant. The appropriate box plot for these results is then illustrated in Figure \ref{figure:boxPlotTaskError}.
 
@@ -1305,7 +1325,7 @@ The most important metric for this specific study was the mental effort, as this
 \bibliographystyle{unsrt}
 
 \pagebreak
-\pagestyle{empty}
+\pagestyle{roman}
 
 
 \begin{appendices}

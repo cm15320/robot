@@ -98,8 +98,6 @@ void loop() {
     else if(controlCode == 7) {
       triggerInstruction(instruction);
     }
-//    delay(200);
-//    currentServo.detach();
   }
 //
 //  else  if (triggerInstruction() ) {
@@ -230,29 +228,23 @@ void respondTriggerValue() {
       Serial.print(0);
     }
 }
-
 void motorInstruction(int selectedServo, int angle) {
   switch(selectedServo) {
       case 1:
-//        myservo1.attach(9);
         currentServo = myservo1;
         break;
       case 2:
-//        myservo2.attach(10);
         currentServo = myservo2;
         break;
       case 3:
-//        myservo3.attach(11);
         currentServo = myservo3;
         break;
       case 4:
-//        myservo4.attach(6);
         currentServo = myservo4;
         break;
       default:
         break;
     }
-
     currentServo.write(angle);
 }
 
@@ -268,4 +260,5 @@ void triggerInstruction(int instruction) {
       digitalWrite(magnetControlPin, LOW);
     }
 }
+
 
