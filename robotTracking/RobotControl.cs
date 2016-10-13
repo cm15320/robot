@@ -284,13 +284,10 @@ namespace robotTracking
         }
 
 
+        // Sends the appropriate signals to the Arduino to set the motor angles
         public void setMotorAngles()
         {
             // Already eliminated extreme angles in the Experiment class and no NaN values should have been added
-
-            // Could put a different lock here (not syncLock) so can write to arduino safely, and share this lock with 
-            // the method that deals with trigger instructions
-
             byte[] instructionBuffer = new byte[2];
             int oldAngle, newAngle, toWrite;
             while (anglesNotEqual())
@@ -298,7 +295,6 @@ namespace robotTracking
                 for (int i = 0; i < 4; i++)
                 {
                     instructionBuffer[0] = Convert.ToByte(i + 1);
-                    // put lock here if needed (motoranglelock)
                     oldAngle = currentMotorAngles[i];
                     newAngle = targetMotorAngles[i];
 
@@ -313,18 +309,15 @@ namespace robotTracking
 
                     instructionBuffer[1] = Convert.ToByte(toWrite);
 
-                    lock(arduinoLock)
+                    lock(arduinoLock) // So other threads don't simultaneously write to Arduino and cause incorrect serial transmission
                     {
                         currentPort.Write(instructionBuffer, 0, 2);
                     }
 
                     Thread.Sleep(setMotorDelay);
                     updateCurrentMotorAngles(i, oldAngle);
-
                 }
             }
-            //Console.WriteLine("finished writing");
-
         }
 
         private bool anglesNotEqual()

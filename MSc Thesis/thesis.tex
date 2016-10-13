@@ -22,9 +22,40 @@
 \usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{enumitem}
+\usepackage[toc,page]{appendix}
 \usepackage{algorithm}
 \usepackage{algorithmic}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{pdfpages}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+  language=[Sharp]C,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
 \setlist{noitemsep}
+
+\usepackage{titleps,kantlipsum}
+\newpagestyle{mypage}{%
+  \headrule
+  \sethead{\MakeUppercase{\thesection\quad \sectiontitle}}{}{\thesubsection\quad \subsectiontitle}
+}
+\settitlemarks{section,subsection,subsubsection}
+\pagestyle{empty}
 
 \title{An Evaluation of Cooperative Handheld Robotics in a Simplified 3D Construction Environment}
 \author{Chris Meehan}
@@ -97,16 +128,15 @@ Given these findings it was concluded that handheld robots do possess a strong p
 \pagebreak
 
 
-
+\pagestyle{mypage}
 \section{Introduction}
 \subsection{Contemporary Robotics}
 Advancements in the field of robotics have been plentiful over recent years, stemming from increased knowledge of the subject, improved processing power, as well as mechanical and material developments. As such, the capabilities afforded by robots have also increased, enabling a range of applications that, until recently, would not have been possible. As the area has progressed since its inception, it has naturally split into two distinct categories; external robotics and wearable technology, as illustrated in Figure \ref{figure:introImage}. They are each characterised by the respective workspace in which they operate. This branching has appeared to come about due to typical robotic task requirements lending themselves to one of the two forms.
 
-KEEP THIS IMAGE?? XXXXX
 
 \begin{center}
-\includegraphics[width=0.9\textwidth]{images/introImage.png}
-\captionof{figure}{Two established forms of robotics. Left: typical external robot, image from \cite{externalRobotImage}, Right: example of wearable technology in the form of an exoskeleton, image from \cite{exoskeletonImage}.}
+\includegraphics[width=0.75\textwidth]{images/introImage.png}
+\captionof{figure}{Two established forms of robotics bridged by new `Handheld' domain, image adapted from \cite{GreggSmithDesign}.}
 \label{figure:introImage}
 \end{center}
 
@@ -157,7 +187,7 @@ Perhaps the most important factor in these situations is how the robot receives 
 The other end of the spectrum, human input must be immediately responded to in order to act safely, where it is assumed the human possesses greater threat detection. Thus safety to both the human and robot must be positively ensured \cite{Haddadin2007}. In industrial applications, the robot often operates in an isolated workspace from the human, where an extreme human input would constitute an emergency button or entering the workspace via a safety door/light gate, which the robot must respond to by halting all physical actions for human safety \cite{ISOGuards}. However, it is becoming increasingly common for the robot and human to share the same workspace, occasionally cooperating in a physical manner, such as the humanoid robot presented by Ott et al \cite{Ott2006} and illustrated in Figure \ref{figure:humanoid}, where parts can be passed between the robot and human.
 
 \begin{center}
-\includegraphics[width=0.48\textwidth]{humanoid.png}
+\includegraphics[width=0.55\textwidth]{humanoid.png}
 \captionof{figure}{Two-Arm Humanoid for Dexterous Manipulation, image from \cite{Ott2006}.}
 \label{figure:humanoid}
 \end{center}
@@ -168,9 +198,7 @@ Existing operational requirements for collaborative robots have been specified i
 The reliability offered by human controllers can rarely be matched by autonomous agents. Similarly, the efficiency afforded by robots is highly attractive in physical tasks. Finding a strong balance between the two is essential in successfully accomplishing a task. Heger et al \cite{heger2006} investigate a mode of shared control, referred to as ``Sliding Autonomy". Fundamentally, this is an analysis to find the optimal flow of control between autonomous agents and a human operator for a given task, where an operator observes the operation and intervenes when necessary. A scenario was performed based on the model where three robots work cooperatively with a human operator to assemble a physical structure, with numerous failure modes deliberately implemented. The results indicated that the cooperation compromise resulted in task efficiency similar to a fully autonomous mode, while maintaining a level of reliability associated with teleoperation systems (remote human control). The constant attention of the human, without being cognitively demanding, improved the success rate while acting as a safety net for failures that the robot alone cannot recover from.
 
 There are plenty of other investigations into the study of variable autonomy, such as in \cite{Dorais1999}, which looks into variable interactions in space missions, and in \cite{tambe2002}, which concentrates on the costs (time delays and other effects) of such transfer-of-control systems. Although this area of interchangeable control is mostly focused on with regard to external robotics, it is still relevant to the handheld field. As covered in \cite{GreggSmithDesign}, examining the varying degrees of autonomy that a handheld robot may exhibit for a given task is necessary to locate the control set-up to give optimal performance.
-A different approach was taken to shared control in \cite{Poncela2009}, where the efficiency offered by both members in the cooperation was measured at each time instant from the point of view of reactive strategy. The experiment in this paper focused on the shared navigation of a Pioneer AT robot, where the commands of both the human and the robot were weighted and linearly combined, resulting in a single motory operation, as illustrated in Figure XXXXX.
-
-OLD IMAGE HERE SHOWING MULTIPLE INPUTS AND PS3 controller OR NOT? XXXX
+A different approach was taken to shared control in \cite{Poncela2009}, where the efficiency offered by both members in the cooperation was measured at each time instant from the point of view of reactive strategy. The experiment in this paper focused on the shared navigation of a Pioneer AT robot, where the commands of both the human and the robot were weighted and linearly combined, resulting in a single motory operation.
 
 The results of this experiment showed that the weighting between the two inputs led to performance which, although not matching that offered by each member alone, did seem to combine the benefits of both when taking a range of scenarios into consideration. This is a rare situation in which the task at hand could be performed with equal skill by both human and robot, and caters to the speciality of neither. However, the approach of taking a weighting between the two inputs is interesting. 
 
@@ -341,22 +369,17 @@ This entailed sending a wide range of commands to the arm and recording the resu
 motion tracking equipment. In total, 14641 vectors of motor angles were sent, with the corresponding
 poses comprising a relative tip-to-base position and direction. A regression technique
 was then used on the results to interpolate between the points to acquire estimated poses for unrecorded
-motor vectors. This is covered in more detail in Section XXXX.
-
-MENTION K-D TREES HERE FOR ACCELERATED SEARCH AND IMPROVED COMPUTATIONAL TIME, OR MENTION IT LATER ON IN THE CALIBRATION SECTION AS AN OPTION AND FUTURE IMPROVEMENT????XXXXXX
-
-
-It is important to note that due to the limits
+motor vectors. It is important to note that due to the limits
 of the carbon-fibre backbone, the arm cannot self-intersect, therefore it is safe to interpolate
 between the motor angles.
 
-Inspiration was taken from this Mark I design in the development of the newer, flexible tube-based model, and naturally, similarities will be observed between the set-up and control processes and the external infrastructure to interface with the robot and provide track motion. The key differences originate from the different arm material/structure, having a chain reaction of required design changes. Also, with the benefit of hindsight, design and material choices that hindered this Mark I design could be avoided, while strong points could be adapted. An example of this is the issue of the friction from the cables wearing through the base material. This led to the choice of an ultra low-friction cable material, and a stronger base material, using PLA over ABS. Similarly, the approach taken to evaluate the cooperation between the user and robot was to be based around a user study which entailed a Task Load Index questionnaire to assess the perceived effort, as detailed in SECTION XXX.
+Inspiration was taken from this Mark I design in the development of the newer, flexible tube-based model, and naturally, similarities will be observed between the set-up and control processes and the external infrastructure to interface with the robot and provide track motion. The key differences originate from the different arm material/structure, having a chain reaction of required design changes. Also, with the benefit of hindsight, design and material choices that hindered this Mark I design could be avoided, while strong points could be adapted. An example of this is the issue of the friction from the cables wearing through the base material. This led to the choice of an ultra low-friction cable material, and a stronger base material, using PLA over ABS. Similarly, the approach taken to evaluate the cooperation between the user and robot was to be based around a user study which entailed a Task Load Index questionnaire to assess the perceived effort, as detailed in Section \ref{section:tlx}.
 
 1
 Subsequently, a more advanced six degrees-of-freedom device was constructed over a longer period of time, as covered extensively in \cite{GreggSmithKinematics}. This design comprised distinct solid sections connected by links, as opposed to a continuous backbone, to allow for a greater range of motion. Originally, this project's objectives comprised the design and evaluation of new applications for this device. However, the robot experienced an improbable critical failure during a capability demonstration, rendering it unrepairable within the project time-line. As such, the new direction was taken regarding the design and construction of a simpler four degrees-of-freedom device and the corresponding evaluation. Hence the details of the Mark II device have become largely irrelevant in terms of this project, and will therefore not be covered. Both the Mark I and II devices are made openly available at \cite{handheldrobotics}.
 
 \subsubsection{New Design Inspiration}
-
+\label{section:newDesignInspiration}
 Given the relatively small time-frame of this project in comparison to those typically associated with the development of new robotic devices, it was necessary to design the robot so that it may be built and evaluated within this period. As such, some initial decisions were made at the start of the design process. The first was that the robot was to be cable driven, due to already possessing four high torque servomotors that have been proven to be reliable and effective on an existing prototype. The other choice was for the arm to be of singular solid piece of material, mitigating the design complexity associated with numerous links. As such, the design began to take shape as a four degrees-of-freedom cable-driven device. 
 
 There are numerous existing designs that incorporate a single structure, cable driven arm, such as those covered in \cite{godage2011} and \cite{zhang2011}. However, these designs relied on a method in which each connecting cable was driven by a single dedicated motor. This was improved upon in \cite{yoon2009}, where a design was introduced that uses a single motor to drive a pair of opposing cables. This design was the inspiration for the first handheld robot prototype, as covered in \cite{GreggSmithDesign}. Given the similarities in the general design principles and handheld nature, inspiration was taken from the first prototype in the development of the new device.
@@ -405,7 +428,7 @@ In the two modes that comprise task knowledge, the arm moves towards the nearest
 The results from the previous two tasks indicated that the completion time was significantly improved with increasing degree of autonomy. The accuracy of the tasks however, showed little difference among the different modes. This was to be expected as the robot end effector was designed with an accuracy comparable to that of a human. The combined Task Load Index (TLX) scores also showed improvement with increasing autonomy, indicating that introducing cooperation with the robot reduces the perceived task effort. The individual TLX scores for various factors are shown for both the painting and tiling tasks in Figure \ref{figure:tlxscores}.
 
 \begin{center}
-\includegraphics[width = 0.75\textwidth]{tlxscores.png}
+\includegraphics[width = 0.55\textwidth]{tlxscores.png}
 \captionof{figure}{Individual TLX scores for both the tasks, image from \cite{GreggSmithDesign}}
 \label{figure:tlxscores}
 \end{center}
@@ -416,7 +439,7 @@ As the task accuracy exhibited little difference among the modes, and the comple
 
 Manoeuvring the robot to a specific location so that it may perform its duties is an essential element of strong cooperation. Without effectively conveying desired locations in order to proceed with the task, the usefulness of the robot is severely hindered. Thus, some form of guidance is necessitated. Fitt's law is an established method of estimating the time to reach a known destination \cite{fitts1954}, and although was originally created with a 2D perspective, it has been extended to a 3D environment, such as in 3D pointing tasks \cite{Cha2013}. In either case, the way in which information is presented to the user from a human interaction point-of-view has often been considered to affect performance \cite{soukoreff2004} \cite{MOTOYUKI1995}. 
   
-As covered by A.Gregg-Smith and W.W.Mayol-Cuevas in \cite{GreggSmithFeedback}, various methods were investigated in which the robot provided spatial feedback to the user during a 3D guidance task, using the more advanced 6-DoF device as mentioned in SECTION XXXXXXXX. The task comprised positioning the robot so that the end effector could be aligned to within 5mm and 5 degrees of a target pose for at least 200ms. The target pose took place at a range of locations on a small side table, and was also performed with a stand-alone handheld wand in order to evaluate the benefit of using the robot in a performance and feedback sense.
+As covered by A.Gregg-Smith and W.W.Mayol-Cuevas in \cite{GreggSmithFeedback}, various methods were investigated in which the robot provided spatial feedback to the user during a 3D guidance task, using the more advanced 6-DoF device. The task comprised positioning the robot so that the end effector could be aligned to within 5mm and 5 degrees of a target pose for at least 200ms. The target pose took place at a range of locations on a small side table, and was also performed with a stand-alone handheld wand in order to evaluate the benefit of using the robot in a performance and feedback sense.
 
 The seven conditions investigated are listed below, with the experimental set-up for the robot with virtual reality illustrated in Figure \ref{figure:vrrobot}.
 \begin{enumerate}
@@ -443,6 +466,7 @@ The results of the completion time and the TLX combined scores in \cite{GreggSmi
 	
 
 \subsubsection{Task Load Index (TLX) and Perceived Effort}
+\label{section:tlx}
 
 When investigating task effectiveness, it is essential to quantify the perceived workload of the performer. This is especially true when researching methods that may improve the task performance. The established means of this quantification is the use of the NASA TLX (Task Load Index). A multi-dimensional scaling was introduced in \cite{hart1988} under the belief that subjective workload is in fact measurable, and has since become widely accepted. Subjective responses can thus be reliably evaluated to meaningful ratings. The six key rating scales associated with the index are mental demand, physical demand, temporal demand, performance, effort and frustration level. 
 
@@ -454,9 +478,9 @@ This TLX methodology was employed on each of the experiments that have been carr
 
 \subsection{Physical Design Process}
 \subsubsection{General Shape Concepts}
-The initial design of the device was influenced by the availability of four Hi-Tec MS7980 servomotors (APPENDIX XXXXX). These servos, having already been proven in terms of reliability and sufficient torque provision, were thus selected to provide the necessary driving force in a cable-driven design. As a result, a number of configurations were initially explored, with the servos housed in various physical arrangements. Initial inspiration was taken from the general shape of the design in \cite{GreggSmithDesign}, in which the servos are positioned in two opposing pairs.
+The initial design of the device was influenced by the availability of four Hi-Tec MS7980 servomotors (Appendix \ref{appendix:servos}). These servos, having already been proven in terms of reliability and sufficient torque provision, were thus selected to provide the necessary driving force in a cable-driven design. As a result, a number of configurations were initially explored, with the servos housed in various physical arrangements. Initial inspiration was taken from the general shape of the design in \cite{GreggSmithDesign}, in which the servos are positioned in two opposing pairs.
 
-As covered in SECTION XXXXX (RESEARCH REVIEW SECTION ABOUT THE DESIGN INSPIRATION), the key novel feature of the new design compared with previous handheld robot devices was to be the addition of a highly flexible continuum arm. This must meet the requirements of being a singular structure, with no real material limits on deflection, as well as being highly tolerant to collisions. These features are essential for the device providing a more versatile solution than in \cite{GreggSmithDesign}, especially in unstructured evironments where impacts are common, such as a building site. Moreover, the device had to remain comparatively simple and cheap, with a much shorter lead time than the 6 degrees of freedom device in \cite{GreggSmithKinematics}, in order to be feasible within the time-frame of the project. Taking these factors into consideration, the arm structure was selected as a flexible foam tube, with an internal and external diameter of 17mm and 42mm respectively. It was found to exhibit no signs of breaking when bent to extreme positions, folding it in on itself.
+As covered in Section \ref{section:newDesignInspiration}, the key novel feature of the new design compared with previous handheld robot devices was to be the addition of a highly flexible continuum arm. This must meet the requirements of being a singular structure, with no real material limits on deflection, as well as being highly tolerant to collisions. These features are essential for the device providing a more versatile solution than in \cite{GreggSmithDesign}, especially in unstructured evironments where impacts are common, such as a building site. Moreover, the device had to remain comparatively simple and cheap, with a much shorter lead time than the 6 degrees of freedom device in \cite{GreggSmithKinematics}, in order to be feasible within the time-frame of the project. Taking these factors into consideration, the arm structure was selected as a flexible foam tube, with an internal and external diameter of 17mm and 42mm respectively. It was found to exhibit no signs of breaking when bent to extreme positions, folding it in on itself.
 
 With these components in place, prototypes were constructed of the base of the robot, with the primary purpose of housing the servos and one end of the arm. The initial concept comprised of a single structure, where the servos were mounted in two opposing pairs, all of which were a conservative distance apart from each other so that the cables could be connected directly from the servos to the arm, eliminating the need to account for friction. The arm was then located in a tubular mounting, with a smaller axially located cylinder to sit within the bore of the arm, providing more structural support. This general concept is illustrated in Figure \ref{figure:initialConcept}.
 
@@ -466,7 +490,7 @@ With these components in place, prototypes were constructed of the base of the r
 \label{figure:initialConcept}
 \end{center}
 
-At this point, the linkages to connect the arm to the servo cables were assumed to be circular discs with tabs for attaching the cables, sitting at the midpoint and tip of the arm to provide two degrees of freedom at each. This structure was then 3D printed at its initial dimensions in order to gain an insight into appropriate sizing and shape. The first issue was the physical finish of the printed part from the extrusion type 3D printer. Due to the design being a single structure with overhanging elements, a support structure was necessary to prevent collapse of the material during printing. When removing this excess material, abrasive edges were still present, making fittings such as the mounting bolts of the servos more difficult and scratching the foam when locating it within the holder, while also resulting in a generally unprofessional appearance. As such, it was decided to ensure future designs do not require support material during printing. 
+At this point, the linkages to connect the arm to the servo cables were assumed to be circular discs with tabs for attaching the cables, sitting at the midpoint and tip of the arm to provide two degrees of freedom at each. This structure was then 3D printed at its initial dimensions, using the printer given in Appendix \ref{appendix:3dprinter}, in order to gain an insight into appropriate sizing and shape. The first issue was the physical finish of the printed part from the extrusion type 3D printer. Due to the design being a single structure with overhanging elements, a support structure was necessary to prevent collapse of the material during printing. When removing this excess material, abrasive edges were still present, making fittings such as the mounting bolts of the servos more difficult and scratching the foam when locating it within the holder, while also resulting in a generally unprofessional appearance. As such, it was decided to ensure future designs do not require support material during printing. 
 
 When the servos were mounted to the base, the structure appeared unnecessarily large, where the makeshift wire reached the linkages without any points of near-intersection. Furthermore, due to the wide gap between the two horizontally configured servos, potential issues were discovered with stabilising the device through holding and manoeuvring it. Turning the device about the axis of the arm whilst these servos are particularly distant gives a much larger angular momentum than if they were close, making it more difficult for the user to turn the device in such a manner, as well as slowing it once started. Therefore, for any subsequent designs where the servos are in a twin-pair opposing configuration, the distance between the horizontal servos was to be minimised.
 
@@ -478,7 +502,7 @@ At this point, an alternative design was also considered, with the intention of 
 \label{figure:cubicConcept}
 \end{center}
 
-In conjunction with the formation of this concept, the earlier prototype from Figure \ref{figure:initialConcept} was assembled using the generic servo arms and some spare wire to drive a pair of printed rings acting as the linkages on the arm. The servos were then connected to an Arduino UNO (coverd in more detail in SECTION XXXXX) in order to issue simple positional commands to test the motion of the arm. This revealed a few traits which warranted further design changes. The most notable was the way in which the servos were connected to the linkages; whilst the `direct line' approach as shown in both of the early concepts had the advantage of being virtually frictionless, motion response issues were found as a result. 
+In conjunction with the formation of this concept, the earlier prototype from Figure \ref{figure:initialConcept} was assembled using the generic servo arms and some spare wire to drive a pair of printed rings acting as the linkages on the arm. The servos were then connected to an Arduino UNO (covered in more detail in Section \ref{section:controllingTheDevice}) in order to issue simple positional commands to test the motion of the arm. This revealed a few traits which warranted further design changes. The most notable was the way in which the servos were connected to the linkages; whilst the `direct line' approach as shown in both of the early concepts had the advantage of being virtually frictionless, motion response issues were found as a result. 
 
 When a servo actuates, the response direction of the arm is not constant with increasing servo motion. That is, the arm initially moves in the direction along the connecting cable, and as the servo moves further, so does the starting position of the cable, changing the direction of motion of the arm. This response is made more unpredictable by the fact that the linkage in question could be in different starting positions depending on the angles of the other servos. Hence the actuation of a single servo is not constrained to an arm response in a single degree of freedom. This was envisioned to cause added complexity further down the design and control process, in that it would be much more logical and easier to account for if the cables were connected in such a manner that the actuation of a single servo could be ensured to result in motion in only one degree of freedom.
 
@@ -507,7 +531,7 @@ In order to limit the motion of one servo to arm movement in one degree of freed
 
 In this arrangement, the two rear servos are positioned close together while the front servos are further apart, creating space to run the cables of the rear servos between the front two without intersecting. A series of guidance holes are then put in place so that the cables can run parallel to the plane of their corresponding servo arms and tangentially to their starting position. These holes were positioned in the body of the tube holder itself and the housing groove on each half of the base used to locate it. Multiple holes were added so that different radius servo horns could be fitted if desired. In order to shift the direction of the cables one more time so that they run parallel to the axis of the arm, a simple square faceplate was to be fitted to the front of the base (not shown in Figure XXX). This just comprises a central hole for the arm to run through, and four smaller holes to each locate a pair of cables, aligned with the holes on the tabs of the linkages when the arm is in its neutral (straight) position.
 
-As the cables change directions sharply at distinct points, namely the guidance holes, a reaction force will be felt at the contact point on the circumference of the holes. This force will increase linearly with the tension of the cables, which must be sufficient enough to stabilise the arm and manipulate it during servo actuation. hence wear of the cable on the rim of the hole was a concern, as this would cause added resistance to motion or, in the worst case, shear through the material so the cable is no longer routed. This was an issue apparent on the Mark I design in \cite{GreggSmithDesign}, and had to be addressed with extra attachments and rings to strengthen it against further breakages. As such, an ultra low friction cable was chosen from the offset, using a high-strength fishing wire (APPENDIX XXXXX). This exhibited no signs of wear during the phase of prototype testing, even when deliberately over-tensioned. Therefore no extra support fixtures were used and the cable ran freely over the PLA material of the base. With this, the dimensions were tweaked to move the front two servos closer together and to the rear servos, making the design more compact, and the dimensions were selected for the final design of the base, which overall were 209 x 100 x 108mm as illustrated in Figure \ref{figure:baseShape}.
+As the cables change directions sharply at distinct points, namely the guidance holes, a reaction force will be felt at the contact point on the circumference of the holes. This force will increase linearly with the tension of the cables, which must be sufficient enough to stabilise the arm and manipulate it during servo actuation. hence wear of the cable on the rim of the hole was a concern, as this would cause added resistance to motion or, in the worst case, shear through the material so the cable is no longer routed. This was an issue apparent on the Mark I design in \cite{GreggSmithDesign}, and had to be addressed with extra attachments and rings to strengthen it against further breakages. As such, an ultra low friction cable was chosen from the offset, using a high-strength fishing wire (Appendix \ref{appendix:cable}). This exhibited no signs of wear during the phase of prototype testing, even when deliberately over-tensioned. Therefore no extra support fixtures were used and the cable ran freely over the PLA material of the base. With this, the dimensions were tweaked to move the front two servos closer together and to the rear servos, making the design more compact, and the dimensions were selected for the final design of the base, which overall were 209 x 100 x 108mm as illustrated in Figure \ref{figure:baseShape}.
 
 
 \begin{center}
@@ -575,19 +599,20 @@ Therefore, there is a smaller difference between the amount of cable let out by 
 \end{center}
 
 \subsubsection{Ancillaries}
-Due to the nature of the project, it was unrealistic within the scope to also design a novel end effector for the robot. Therefore, it was decided to simply use an electromagnet of some form, and design the physical aspect of manipulating objects around magnetic interaction, i.e metallic strips enabling them to be picked up. The chosen option for employing an electromagnet was to use the copper coil and metallic cylinder from the central core of a small solenoid (APPENDIX XXXXX). This solenoid was disassembled to obtain just the necessary components for the electromagnet, and was then fitted to the surface mount at the tip of the arm. A small groove in the metallic cylinder of the solenoid slotted onto a similar sized semi-circle bore at the front face of the surface mount (visible in Figure \ref{figure:rendering}, to prevent the cylinder from moving axially when the current flows through the coil and magnetic force is induced. The exposed end of this cylinder is then, in essence, the `grabbing' part of the robot, as it is magnetised and put in contact with metallic targets.
+Due to the nature of the project, it was unrealistic within the scope to also design a novel end effector for the robot. Therefore, it was decided to simply use an electromagnet of some form, and design the physical aspect of manipulating objects around magnetic interaction, i.e metallic strips enabling them to be picked up. The chosen option for employing an electromagnet was to use the copper coil and metallic cylinder from the central core of a small solenoid (Appendix \ref{appendix:electromagnet}). This solenoid was disassembled to obtain just the necessary components for the electromagnet, and was then fitted to the surface mount at the tip of the arm. A small groove in the metallic cylinder of the solenoid slotted onto a similar sized semi-circle bore at the front face of the surface mount (visible in Figure \ref{figure:rendering}, to prevent the cylinder from moving axially when the current flows through the coil and magnetic force is induced. The exposed end of this cylinder is then, in essence, the `grabbing' part of the robot, as it is magnetised and put in contact with metallic targets.
 
 PERHAPS IMAGE OF THE DISASSEMBLED ELECTROMAGNET HERE? XXXXXXXXX
 
-In order to use the robot in an intuitive, user friendly manner, it was decided to modify a conventional handheld power tool. This must be ergonomic in terms of handling the robot, while also providing a trigger or switch so that the user may send signals to the device to instigate a required action. As a result, a standard outdoor grass strimmer was procured (APPENDIX XXX) and modified to remove everything but its base (handle, trigger and shaft). A sleeve was then designed to connect the robot with this base. This was a near-cylindrical cross-section tube which was simply bolted to the bases of the robot and the strimmer, completing the handheld component of the device.
+In order to use the robot in an intuitive, user friendly manner, it was decided to modify a conventional handheld power tool. This must be ergonomic in terms of handling the robot, while also providing a trigger or switch so that the user may send signals to the device to instigate a required action. As a result, a standard outdoor grass strimmer was procured (Appendix \ref{appendix:strimmer}) and modified to remove everything but its base (handle, trigger and shaft). A sleeve was then designed to connect the robot with this base. This was a near-cylindrical cross-section tube which was simply bolted to the bases of the robot and the strimmer, completing the handheld component of the device.
 
 
 \pagebreak
 \subsection{Controlling The Device}
+\label{section:controllingTheDevice}
 
-In order to properly control the device, it was necessary to implement a microcontroller to interface between the actual control program, and the robot. As such, an Arduino UNO R3 (APPENDIX XXXXX) was selected to sit between the PC that runs the program and the various electrical components of the robot (the servomotors and electromagnet). The servomotors themselves (APPENDIX XXXX) require a 6V power source, thus two 4 x AA (1.5V) battery boxes were connected in series. The position of each servo is determined by the value from the corresponding PWM (Pulse Width Modulation) pin on the Arduino. 
+In order to properly control the device, it was necessary to implement a microcontroller to interface between the actual control program, and the robot. As such, an Arduino UNO (Appendix \ref{appendix:arduinoUno}) was selected to sit between the PC that runs the program and the various electrical components of the robot (the servomotors and electromagnet). The servomotors themselves (Appendix \ref{appendix:servos}) require a 6V power source, thus two 4 x AA (1.5V) battery boxes were connected in series. The position of each servo is determined by the value from the corresponding PWM (Pulse Width Modulation) pin on the Arduino. 
 
-The electromagnet requires 9V for generating adequate magnetic force. So in order to safely control this, enabling the magnet to be switched on and off as required, it was necessary to use an Arduino Motor Shield (APPENDIX XXX). This allows a 9V battery to be connected via the $V_{in}$ and $Gnd$ terminals, with the output power and ground wires connecting to the electromagnet. A pin on the Arduino is then designated for turning this output power on and off. There are then two options for controlling this magnet, by having the trigger of the strimmer base hooked up directly on the power wire to the electromagnet, or by having it connected to a pin on the Arduino that can respond by setting the pin that controls the power output. The former option would result in the magnet being on whenever the trigger is pressed, whereas the latter option allows for much more options. These include responding in other manners from the trigger press, counting the number of trigger presses and only turning on the magnet if the device is `in range', saving battery. Hence, the second option was chosen. A schematic of this set-up is illustrated in Figure \ref{figure:schematic}.
+The electromagnet requires 9V for generating adequate magnetic force. So in order to safely control this, enabling the magnet to be switched on and off as required, it was necessary to use an Arduino Motor Shield (Appendix \ref{appendix:motorShield}). This allows a 9V battery to be connected via the $V_{in}$ and $Gnd$ terminals, with the output power and ground wires connecting to the electromagnet. A pin on the Arduino is then designated for turning this output power on and off. There are then two options for controlling this magnet, by having the trigger of the strimmer base hooked up directly on the power wire to the electromagnet, or by having it connected to a pin on the Arduino that can respond by setting the pin that controls the power output. The former option would result in the magnet being on whenever the trigger is pressed, whereas the latter option allows for much more options. These include responding in other manners from the trigger press, counting the number of trigger presses and only turning on the magnet if the device is `in range', saving battery. Hence, the second option was chosen. A schematic of this set-up is illustrated in Figure \ref{figure:schematic}.
 
 
 \begin{center}
@@ -596,9 +621,9 @@ The electromagnet requires 9V for generating adequate magnetic force. So in orde
 \label{figure:schematic}
 \end{center}
 
-Of course, the optical tracking system also interfaces with the controlling PC in order to receive the necessary tracking information. This is shown in the schematic for completeness. To send commands and receive information from the Arduino, a serial connection is set up in C\# using the SerialPort class. Once a connection is established, commands are sent in the form of a buffer of bytes, which are interpreted and responded to by the Arduino sketch. These commands include setting the position of a servomotor and turning on the power for the electromagnet; an example of this process with the program command and Arduino response is shown in Appendix XXXXXX.
+Of course, the optical tracking system also interfaces with the controlling PC in order to receive the necessary tracking information. This is shown in the schematic for completeness. To send commands and receive information from the Arduino, a serial connection is set up in C\# using the SerialPort class. Once a connection is established, commands are sent in the form of a buffer of bytes, which are interpreted and responded to by the Arduino sketch. These commands include setting the position of a servomotor and turning on the power for the electromagnet; an example of this process with the program sending instructions and the Arduino responding is shown in Appendix H.1 and H.2.
 
-All of the components were then assembled in place using an Arduino Proto-Shield and a mini breadboard. This was set up in a manner that allowed the battery packs and servomotors to be easily interchanged as required, whereas the control circuitry was fixed in place. The finalised construction of the new handheld robotic device is thus illustrated in XXXXXXX.
+All of the components were then assembled in place using an Arduino Proto-Shield (Appendix \ref{appendix:protoShield}), to solder the battery cables to, and a mini breadboard. This was set up in a manner that allowed the battery packs and servomotors to be easily interchanged as required, whereas the control circuitry was fixed in place. The finalised construction of the new handheld robotic device is thus illustrated in XXXXXXX.
 
 INSERT FULL PICTURE OF THE ROBOT AS A WHOLE, MAYBE WITH CLOSE UPS OF THE BATTERIES, CIRCUITRY, AND END EFFECTOR ETC AS SIDE IMAGES IN A COLLAGE XXXXXXXXXXXXXX
 
@@ -607,7 +632,7 @@ INSERT FULL PICTURE OF THE ROBOT AS A WHOLE, MAYBE WITH CLOSE UPS OF THE BATTERI
 
 \subsection{Interfacing With NatNet Optical Tracking System}
 \label{section:natnet}
-In order to determine where in three dimensional space the robot is, as well as the relative distances between itself and other points, it is necessary to track physical objects. This was achieved using a single optical tracking device, the OptiTrack V120 Duo \cite{OptiTrackSite}. The device features two cameras in order to provide depth perception, and works as a stand-alone device unlike the syncing of several distinct cameras as used in \cite{GreggSmithDesign} and \cite{GreggSmithFeedback}. The accompanying software library however, the `NatNet SDK', as well as the actual tracking software, `OptiTrack Motive', are the same. This library was provided to run in a .NET framework environment, hence the decision to use C\# as the primary development language.
+In order to determine where in three dimensional space the robot is, as well as the relative distances between itself and other points, it is necessary to track physical objects. This was achieved using a single optical tracking device, the OptiTrack V120 Duo \cite{OptiTrackSite}, with the technical specifications provided in Appendix \ref{appendix:duo}. The device features two cameras in order to provide depth perception, and works as a stand-alone device unlike the syncing of several distinct cameras as used in \cite{GreggSmithDesign} and \cite{GreggSmithFeedback}. The accompanying software library however, the `NatNet SDK', as well as the actual tracking software, `OptiTrack Motive', are the same. This library was provided to run in a .NET framework environment, hence the decision to use C\# as the primary development language.
 
 The device recognises the supplied retro-reflective markers, and is able to provide six degrees of freedom tracking. It is important to not that the coordinate system used by the software (the global axes) originates from the positioning of the Duo tracking device itself, as illustrated in Figure \ref{figure:duoAxes}. Single markers can be identified in terms of their X, Y and Z positions, and can be grouped together to form `rigid bodies`. These bodies, requiring a minimum of three markers, have a designated `pivot point' that can be used to refer to the position of the body as a whole, and provide a pivot about which rotation can be expressed. It is important that the marker configuration be asymmetrical and distinctly unique, so that the program can easily distinguish it from others and ascertain the orientation. The rotation is inherently given as a quaternion, which can be converted using built-in library functions to give euler angles in the forms of roll, pitch and yaw (rotations about the global X, Y and Z axes respectively).
 
@@ -622,12 +647,12 @@ The rigid bodies must be configured within the Motive program, selecting which m
 
 Therefore, rigid body objects can be set up to represent the robot base and tip which, every time a new frame is sent from the program via the callback function, can be updated so they represent the current tracking information. Similarly, other variables pertaining to these bodies, such as the relative distance between tip and base, can be set up and updated as part of the callback function once the rigid bodies themselves have been updated. As a more practical alternative, a separate thread can be set up so that, although a global variable representing the current frame of motion capture data is updated as soon as a new frame is ready, the rigid body objects or other relevant variables can be updated when desired (after a set time interval) by fetching information from the current frame of data object at any point. Of course, when doing so, it is important to put a read-lock on a shared object so that the frame can be read and data extracted safely without the event based thread updating any of the data mid-read.
 
-Once the required tracking data has been extracted, it can then be manipulated to create relative target points to the base depending on the situation. These can then be used as inputs to the regression function in order to solve for the motor angles. The tracking data at certain points is also written to an XML file during the calibration procedure, as mentioned in SECTION XXXXX. 
+Once the required tracking data has been extracted, it can then be manipulated to create relative target points to the base depending on the situation. These can then be used as inputs to the regression function in order to solve for the motor angles. The tracking data at certain points is also written to an XML file during the calibration procedure for later use.
 
 \subsection{Kernel Regression Method}
 Due to the nature of the design of the robot, particularly the flexible arm in which motion from one of the core arm linkages would affect the other, solving for the kinematics is highly non-trivial. The arm itself exhibits nonlinear characteristics when flexing, rendering established forms of kinematic modelling unsuitable. A nonlinear kinematics solution was provided for a single segment of a cable driven continous backbone in \cite{li2002}, demonstrating the complexity involved in just one section. Thus, an alternative approach was taken similar to that in \cite{GreggSmithDesign}, which is unsurprising due to the parallels between the two designs; the arms are of different size and material but are both non-linear in nature and composed of multiple sections. The solution, as covered in \cite{GreggSmithDesign} and again in more detail in \cite{GreggSmithPhd} is to use a kernel regression method.
 
-The method specifically is known as the Nadayara-Watson kernel regression \cite{nadaraya1964}. It operates on the principle of using known data points to interpolate between, and yield a solution from an input that is not necessarily present in the known data. The function itself is given below in \eqref{nadaraya}.
+The method specifically is known as the Nadayara-Watson kernel regression \cite{nadaraya1964}. It operates on the principle of using known data points to interpolate between, and yield a solution from an input that is not necessarily present in the known data. The function itself is given below in \eqref{nadaraya}. As with the Mark I design, it is safe to interpolate between the motor angles because the arm cannot self intersect.
 
 \begin{equation}\label{nadaraya}
 \bar{y}(\bar{x}) = \frac{\sum_{i=1}^{n}y_{i}K(\frac{x - x_{i}}{\alpha})}{\sum_{i=1}^{n}K(\frac{x - x_{i}}{\alpha})}
@@ -645,7 +670,7 @@ Given the way this regression works, all of the recorded points will have an eff
 K(u) = \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}u^2}
 \end{equation}
 
-With the given kernel regression function, the corresponding output values could be found for various different types of input values. The function itself does not depend on the number of dimensions, and hence the $y$ and $x$ values can be of any vector size, as long as they are consistent and each input type value is paired with a corresponding output type value within the recorded data. This is because the value used as an argument for the kernel function depends on an absolute difference between the two vectors, which will be a single number regardless of their size, giving an overall output value of the correct number of dimensions. In the given scenario of the robot and the data that is recorded, the matching output types are shown for input types in Table \ref{table:regressionOutputs}.
+With the given kernel regression function, the corresponding output values could be found for various different types of input values. The function itself does not depend on the number of dimensions, and hence the $y$ and $x$ values can be of any vector size, as long as they are consistent and each input type value is paired with a corresponding output type value within the recorded data. This is because the value used as an argument for the kernel function depends on an absolute difference between the two vectors, which will be a single number regardless of their size, giving an overall output value of the correct number of dimensions. The kernel regression function was then developed, as given in Appendix H.3, and in the given scenario of the robot and the data that is recorded, the matching output types are shown for input types in Table \ref{table:regressionOutputs}.
 
 \begin{center}
 \captionof{table}{List of corresponding output vector types for a given input vector}
@@ -666,9 +691,12 @@ This list of input and output types is similar to that observed for the table in
 
 
 \subsubsection{Calibration Procedure}
+\label{section:calibrationProcedure}
+
+
 DON'T FORGET IMAGES OF ROBOT IN CLAMP FOR VISUALIZATION, SHOWING IT IN TWO DIFFERENT POSITIONS TO SHOW DIFFERENT DATA POINTS BEING LOGGED XXXXX
 
-The procedure for obtaining the calibration data involves sending a range of different motor angle configurations to the servomotors, and recording the resulting tracking information (relative tip-to-base position and orientation). Each data point then comprised all of these values, and was written to disk for re-use in the future when using the regression function. When recording the data, it is imperative that the robot base remains stationary, so each data point is consistent with the same base position and orientation. As mentioned in Section INTERFACING WITH TRACKING XXXXX, the base is said to have zero orientation about any of the global axes if it is in the orientation that it was when it was first initialised in the Motive software (as a rigid body). Hence the base was secured in a vice and then initialised in Motive (along with the tip) before beginning the procedure. This set up is illustrated in Figure XXXXX, with the identification of the base and tip in the Motive software shown in Figure XXXXX. The physical orientation of the base during calibration is of little importance (as long as all points are always visible to the tracking device), as the targets will be relative to the base and converted to its orientation anyway, as covered in more detail in Section XXXX.
+The procedure for obtaining the calibration data involves sending a range of different motor angle configurations to the servomotors, and recording the resulting tracking information (relative tip-to-base position and orientation). Each data point then comprised all of these values, and was written to disk for re-use in the future when using the regression function. When recording the data, it is imperative that the robot base remains stationary, so each data point is consistent with the same base position and orientation. As mentioned in Section INTERFACING WITH TRACKING XXXXX, the base is said to have zero orientation about any of the global axes if it is in the orientation that it was when it was first initialised in the Motive software (as a rigid body). Hence the base was secured in a vice and then initialised in Motive (along with the tip) before beginning the procedure. This set up is illustrated in Figure XXXXX, with the identification of the base and tip in the Motive software shown in Figure XXXXX. The physical orientation of the base during calibration is of little importance (as long as all points are always visible to the tracking device), as the targets will be relative to the base and converted to its local axes before input to the function anyway, as covered in more detail in Section \ref{section:relativeToBaseOrientation}.
 
 INSERT IMAGES XXXXXXX
 
@@ -676,12 +704,6 @@ INSERT IMAGES XXXXXXX
 The calibration sampling is then performed at a chosen resolution (number of degrees interval) by stepping through the full range of motion for one servo for each step of a `parent' servo. Thus if each servo (apart from the last in line) has a `child` servo, the motions are performed recursively, with the servo stepping once, then its child covering the full range, with its grandchild then covering the full range for each step of its child and so on. Hence a recursive function was written as shown in Figure XXXXXX INSERT CODE OF CALIBRATE FUNCTION AND PUT IN BODY OR APPENDIX?? XXXXX. The function is written such that after each step of a motor, its child motor then covers the range of motion in the opposite direction to its previous one. This is to reduce the number of times a motor has to move all the way back to the start of its range before stepping again, making the motion smoother in general and reducing calibration time. 
 
 The state-space of the arm was initially sampled at a chosen resolution of five points over a total range of 60\degree per servo, giving a total sample number of $5^4 = 625$ calibration points. This gave a suitable range of motion, with an improvement of 20\degree over the device in \cite{GreggSmithDesign}. Higher ranges were initially used without any long term issues, although temporary deformation of the foam arm meant that the cables need to be re-tensioned, which was especially time consuming. A one second pause was issued after each calibration step to ensure the tip was steady before the position was logged. Hence this calibration took just over 10 minutes. Of course, higher accuracy could be obtained through more samples, with an increase in time, but this was kept short due to the fact that it needed to be repeated a lot with small design changes. Also, a meaningful increase in accuracy would require numerous extra sample points, quickly increasing the required time to well over an hour, which introduces other problems such as battery issues and gradual deformation.
-
-INSERT CODE IMAGE OR PUT IN APPENDIX XXXXX	
-
-
-
-
 
 \subsubsection{Calibration Results}
 In order to find an appropriate bandwidth for the regression function, it was first necessary to obtain calibration data through sampling. Once enough data is available to perform the regression, the function can be tested against other sampled data, not covered in the initial calibration data, referred to as the `test data'. By comparing the output of the function for different bandwidth values against the values of the test data, an absolute positional error can be determined. The surface covered by this calibration procedure is illustrated in the Figure XXXX, displaying alternate views to better represent the curved shape of the area covered, similar to a portion on a sphere.
@@ -735,12 +757,16 @@ The values found in this calibration procedure were then stored, and the optimal
 
 \pagebreak 
 \subsection{Algorithm for Responding to Three-Dimensional State Targets}
+\label{section:algorithmForResponse}
+
 Once the robot has been calibrated in such a way that there exists a suitable range of data points in which to perform the regression function, along with the selection of an appropriate bandwidth, the device may then be responsive to 3D state commands.
 The process of responding to commands is fundamentally built on inputting a positional vector, an orientation vector or a combined vector into the regression function in order to ascertain the required motor angles. This input vector is of course in regard to the tip relative to the base, as is the corresponding calibration data. The resulting motor angle vector is then issued to the servomotors via the Arduino in a controlled manner. 
 
 However, in order for this approach of obtaining servo angles from a given input to be useful in practice, it is first essential to determine the correct input to the regression function. This can depend on a variety of factors relating to the absolute 3D target point and its relation to the base of the robot, such as the current orientation of the base and the relative proximity of the target.
 
 \subsubsection{Acquiring Target Position Relative to Orientation of Base}
+\label{section:relativeToBaseOrientation}
+
 The robot is fixed in place while the optical tracking software is configured to recognise the rigid bodies formed by the retro-reflective markers associated with the base and the tip, as covered in Section \ref{section:natnet} (just say 'is configured'?. At this point, the base is said to have zero orientation about any axis (as this was the point it was first initialised in). The calibration procedure is then of course undertaken while the robot is fixed in this position. Thus, the stored relative tip-to-base calibration data for different servo angle vectors is only valid for the robot in a zero orientation state compared to the starting position. Hence, in practice, when the base has changed orientation about any of the three axes inherent to the optical tracking device, a direct input for a relative tip-to-base position will yield incorrect motor angles to meet this position. Therefore, the target position must be adjusted in order to account for the varying orientation of the base.
 
 The orientation of the base itself is initially stored as a quaternion within the rigid body object from the NatNet library \cite{natnet2016}. This is then converted to euler angles using a built-in method to represent the orientation as three angles about the tracking device's X, Y and Z axes respectively, of which the order is important. It is thus necessary convert a real target point to an equivalent point relative to the original orientation of the base (zero orientation), so that the regression function and stored calibration data can be used to yield angles that result in the correct relative position in real space. This is accomplished using a rotation matrix that accounts for the rotation ordering of the base. Given that the base orientation is represented by rotation about the X, then Y, then Z axes, the converted point will be attained by taking the actual target point relative to the base and reversing these rotation operations; that is, the negatives of the base rotation values about the Z, then Y, then X axes. The rotation matrix in \eqref{equation:rotationMatrix} is thus used to account for this axes of rotation order. 
@@ -834,7 +860,9 @@ With these steps of applying a rotation transformation and determining the best 
 
 
 
-\subsubsection{Running with a Live Target in Real Time}
+\subsubsection{Running with a Live Target in Real-Time}
+\label{section:liveTargetRealTime}
+
 In order to have handheld robotic applications, the device must be able to run with a live target in real time, always trying to move or gesture to the required position. Without this feature, the cooperation between the user and handheld robot would be seriously hindered, with the device appearing unresponsive, undermining the usefulness of the robot altogether. As such, it was imperative to set up the control of the device so that it could receive a live input, and respond accordingly to changes in its own position and orientation. This entails taking a fixed vector as a constant input, converting it to a position that is relative to both the position and orientation of the base, obtaining the solution angles vector and moving towards this target motor configuration. A simplified representation of this process is illustrated in Figure \ref{figure:separateThreads}.
 
 
@@ -844,17 +872,17 @@ In order to have handheld robotic applications, the device must be able to run w
 \label{figure:separateThreads}
 \end{center}
 
-The flow diagram shows how the control system splits this process into two threads. One thread is responsible for the logic of converting the target position and obtaining a servo configuration solution, as covered in the algorithm in the previous section. The other is solely responsible for taking the current solution for the servo configuration and iterating the servos towards this configuration (if they need to be changed). Hence these two threads share the servo configuration vector in a thread-safe manner, with the former updating it as necessary when a new solution is found, and the latter accessing it to determine how to iterate the servos towards the target. 
+The flow diagram shows how the control system splits this process into two threads. One thread is responsible for the logic of converting the target position and obtaining a servo configuration solution, as covered in the algorithm in the previous section. The other is solely responsible for taking the current solution for the servo configuration and iterating the servos towards this configuration (if they need to be changed). Hence these two threads share the servo configuration vector in a thread-safe manner, with the former updating it as necessary when a new solution is found, and the latter accessing it to determine how to iterate the servos towards the target. A typical situation where this multi-threaded technique is employed is given in Appendix H.4 for the user study code.
 
 There is a 6 millisecond delay after iterating each servo by one degree towards its target to give a smoother motion of the arm, anything less than this was found to cause a `jerked' motion that had the potential to pull a cable loose from its pulley groove. Moreover, by iterating towards the servo configuration one degree per loop with a small delay, the effects of overshoot will be greatly reduced. By rapidly advancing towards the target, the momentum of the heavier end effector (containing the magnet) means it is more likely to carry on past its target point. Also, there is a delay at the end of the logic operation to reduce computational demand and to try and minimise rapid perturbations in the target configuration from small fluctuations in the base position and orientation etcetera. This value can be varied accordingly to alter the responsiveness of the robot at the expense of these two traits. 
 
 This method of splitting the two tasks into separate threads, with one of them iterating the values as opposed to setting them directly is highly advantageous. As soon as the relative target is changed in real-time, requiring a different servo solution, the servos are instantaneously iterated towards this new solution. Thus, the arm does not continue moving towards an old target position, even when there is a more recent target; which may also be construed as minimising a form of overshoot where the tip moves past the current target position due to referring to a past target. This contributes towards the device appearing more responsive to an ever-changing requirement, which is essential for the practicality of a cooperative handheld robot. 
 
-PUT CODE FOR DIFFERENT THREAD STUFF IN APPENDIX? XXX
-
 
 \pagebreak
 \subsection{Program Design}
+\label{section:programDesign}
+
 The developed program for using the robot was built around the fundamentals of the Motive software and the NatNet library. An example was provided that simply sets up a connection between the tracking program and displays the tracked data in a spreadsheet. This example took the form of Windows Form Application, due to the usefulness of a Graphical User Interface (GUI) with buttons and options to start/stop tracking etcetera. Hence the developed application was of the same type, re-using the necessary functions for setting up the connection with the Motive program and extracting the tracking data. Features were then added as necessary for the specific purpose of tracking and controlling the robot. This entailed creating new classes that deal with interfacing with the robot as well as the logic involved with the calibration, target selection and solution generation processes. 
 
 Connection with the optical tracking system is not possible unless the Motive program is running simultaneously, and is set up to track the necessary rigid bodies. Hence before running the new program, Motive must be started and a `project' loaded or set up. This Motive project contains the information necessary to track certain bodies, such as the exact marker configurations corresponding to specific rigid bodies, which must be labelled correctly. Certain features of the developed program require different tracking data; for example the calibration procedure only requires that the base and tip be tracked, whereas `live body following' is not possible without tracking an extra rigid body. Hence various project files were set up for the different conditions. The interface of the Motive program, while tracking the base and the tip is illustrated in Figure XXXX.
@@ -873,9 +901,9 @@ USE UPDATED SCREENSHOT WHEN ACTUALLY CONNECTED
 
 The upper left and right corners provide buttons for connecting to the Motive optical tracking software and the Arduino for robot control respectively. As the typical procedures regarding controlling the robot depend on analysing tracking data and sending instructions accordingly, both connections must be established before any practical operations can be performed. Hence full connection is required to start an `experiment', which entails creating an Experiment object based on the information provided from both connections. However, as alluded to earlier, a `dummy experiment' will be created without full connection in order to provide some basic functionality so that simple motion and logic tests can be carried out without having to set up and connect to the external infrastructure associated with motion tracking. 
 
-Other buttons are provided for both testing and essential processes. The calibration procedure is initiated, stopped and paused (in case of battery failure)for both the main calibration data as well as the test sampling, using the corresponding buttons. There's also a button for reading stored calibration data into memory, without which the regression function would be impossible. The process mentioned in SECTION XXXXXX for discovering the most appropriate bandwidth value can also be carried out here. There is a live spreadsheet section in order to display the current tracking data being recorded, such as the position and orientation of the various rigid bodies and associated markers. Similarly, labels have been added to display values that have been calculated from this tracking data, such as the absolute distance from tip to base. 
+A number of options are provided for both testing and essential processes. The calibration procedure is initiated, stopped and paused (in case of battery failure) for both the main calibration data as well as the test sampling, using the corresponding buttons. Certain options were essential, such as reading stored calibration data into memory, without which the regression function would be impossible. The process mentioned in Section \ref{section:calibrationProcedure} for discovering the most appropriate bandwidth value can also be carried out. There is a live spreadsheet section in order to display the current tracking data being recorded, such as the position and orientation of the various rigid bodies and associated markers. Similarly, labels have been added to display values that have been calculated from this tracking data, such as the absolute distance from tip to base. 
 
-A number of buttons were integrated in order to easily control the various features of the program. The callbacks attached to these buttons were responsible for altering the GUI appropriately, such as activating other dependent buttons, and initiating the work for the corresponding action. This mostly entailed calling a wrapper function that set up a new thread if required and call the methods in which the bulk of the computational effort is done, passing in any necessary parameters such as user entered information on the GUI. The key features of the program are listed in Table XXXXX.
+Generally, buttons were integrated in order to easily control the various features of the program. The callbacks attached to these buttons were responsible for altering the GUI appropriately, such as activating other dependent buttons, and initiating the work for the corresponding action. This mostly entailed calling a wrapper function that set up a new thread if required and call the methods in which the bulk of the computational effort is done, passing in any necessary parameters such as user entered information on the GUI. The key features of the program are listed in Table XXXXX.
 
 \pagebreak
 
@@ -928,10 +956,10 @@ Perform user study & Allows a specific variant of the user study experiments to 
 The core classes of the program are illustrated in Figure \ref{figure:classDiagram}. Note that only the essential fields and methods that dictate how the program operates are shown, with the boilerplate NatNet methods, the smaller sub-methods and the less critical methods for testing and set up all excluded for simplicity.
 \begin{enumerate}
 \item{RobotTracker - The starting class that was built upon from the original NatNet code for interfacing with a tracking system via a simple Windows Form Application. This class is responsible for initiating the connection with the tracking system, as well as dealing with the corresponding data it receives. On top of this, it contains objects for the other main classes and methods that instantiate and utilise them. This is mostly achieved through callback methods associated with the user interface buttons, giving control to the user.}
-\item{Experiment - The class that extracts the key information from the tracking data into specific variables, and performs the logic required for ascertaining the values that need to be passed into the regression function, and performing the regression itself. This entails all of the steps outlined in Section XXXX regarding converting the target orientation and finding a sphere intersection etcetera. The calibration procedure, and the loading of the calibration data, is also performed in this class, along with other test processes.}
+\item{Experiment - The class that extracts the key information from the tracking data into specific variables, and performs the logic required for ascertaining the values that need to be passed into the regression function, and performing the regression itself. This entails all of the steps outlined in Section \ref{section:algorithmForResponse} regarding converting the target orientation and finding a sphere intersection etcetera. The calibration procedure, and the loading of the calibration data, is also performed in this class, along with other test processes.}
 \item{DataPoint - An object to store the motor angle vector and its corresponding relative tip-to-base position and orientation values as recorded by the tracking system. Many of these objects will make up the calibration data, and the values contained within them will be used when the regression function is performed, depending on the type of input/output. Serializable as with CalibrationData.}
 \item{CalibrationData - A collection of DataPoint objects, that can be accessed as if it were an array with an index, adding and removing points as necessary. Of course, this will be serializable as it will need to be written to and read from disk.}
-\item{RobotControl - This class is responsible for physically controlling the robot via its connection to the Arduino which in turn controls the servomotors. A connection is established with the Arduino and values are sent via serial connection, which are subsequently interpreted by the Arduino script and servo signals are applied accordingly. As mentioned in Section XXXXX, the values of the current motor angles are compared with their targets, and iterated one degree closer if required before being written to the servomotors together.}
+\item{RobotControl - This class is responsible for physically controlling the robot via its connection to the Arduino which in turn controls the servomotors. A connection is established with the Arduino and values are sent via serial connection, which are subsequently interpreted by the Arduino script and servo signals are applied accordingly. As mentioned in Section \ref{section:liveTargetRealTime}, the values of the current motor angles are compared with their targets, and iterated one degree closer if required before being written to the servomotors together.}
 \item{UserStudy - This class is used for carrying out a user study with participants. It is designed to extract pre-saved 3D positions value from file and load them into an array for the robot to access in order. It is constantly updated and informed of the trigger status and the base position to determine the target position relative to the base and whether to move on to the next target (if trigger pressed).}
 \end{enumerate}
 
@@ -957,11 +985,11 @@ The physical performance of the robot is of much less importance in this project
 \subsection{Experimental Procedure}
 
 \subsubsection{Response Performance}
-In order to measure the response of the robot to various target inputs, it was necessary to constrain the robot and assign a live target that could be varied accordingly. As such, the robot was clamped in place using a vice, similar to the calibration procedure in SECTION XXXXX. The OptiTrack Duo was then set up to have a clear view of the both the base and tip of the robot. Then, in the motive software, a new rigid body was defined using a small `wand' made up of three-markers, as illustrated in FIGURE XXXXX. The pivot point of this rigid body was then set as one of the single markers, giving an actual visual indicator in the real world of the 3D point that is being tracked.
+In order to measure the response of the robot to various target inputs, it was necessary to constrain the robot and assign a live target that could be varied accordingly. As such, the robot was clamped in place using a vice, similar to the calibration procedure in Section \ref{section:calibrationProcedure}. The OptiTrack Duo was then set up to have a clear view of the both the base and tip of the robot. Then, in the motive software, a new rigid body was defined using a small `wand' made up of three-markers, as illustrated in FIGURE XXXXX. The pivot point of this rigid body was then set as one of the single markers, giving an actual visual indicator in the real world of the 3D point that is being tracked.
 
 PICTURE OF WAND SHOWING WHICH POINT WAS MADE PIVOT POINT? XXXXXX
 
-The absolute position of this wand, as ascertained by the optical tracking and assigned to the field of a rigid body object in the program, could then be extracted with each frame and used as the input to the general algorithm, converting it to a relative target position in the local axes of the robot and obtaining a motor angle solution. Of course, the multi-threaded technique of ascertaining the solution while simultaneously iterating the motor angles towards whatever happens to be the current solution, as covered in SECTION XXXX, is also used so that the wand could be used as a live target for the arm to follow.
+The absolute position of this wand, as ascertained by the optical tracking and assigned to the field of a rigid body object in the program, could then be extracted with each frame and used as the input to the general algorithm, converting it to a relative target position in the local axes of the robot and obtaining a motor angle solution. Of course, the multi-threaded technique of ascertaining the solution while simultaneously iterating the motor angles towards whatever happens to be the current solution, as covered in Section \ref{section:liveTargetRealTime}, is also used so that the wand could be used as a live target for the arm to follow.
 
 Once in place, the wand was held at a point deliberately outside the range of possible solutions from the robot, meaning that it had to use the closest calibration point to gesture in that direction. This point was outside the range in both the X, Y and Z dimensions so that the point that the robot moves to for gesturing is repeatable; even if there are small differences in the position of the wand, as long as it is consistently outside the range of recorded values in the same directions each time then the robot will gesture at the same point. In this case, the starting position of the wand would be up and to the right, if looking at the robot head on down the axis of the arm. The wand could then be moved vertically down to another point outside the range of solutions (to the right and down) causing the program to find another set of solutions as it moves down. As long as the wand is always kept outside the possible solutions in the X direction, it should follow a vertical path downwards to the new max range gesturing position, while remaining at its maximum X position the whole time. Again, this makes the motion more repeatable, in that as long as the wand follows roughly the same path each time, the arm should follow the same exact path. This experimental set up as well as the motions of the target and the arm is illustrated in Figure XXXX.
 
@@ -976,7 +1004,7 @@ This process was carried out for two types of response, where the Y positions of
 
 In order to assess how effectively the robot could gesture to a target, a small experiment was to be carried out. This had to provide a means of ascertaining whether the device could accurately convey its desired location to the user, when other potential targets were nearby. As such, the user should be able to differentiate between the correct targets and its neighbours, which would be imperative in alleviating mental workload. The experiment set up for this procedure was based around moving to physical target bodies; these were selected as lightweight foam blocks. The blocks were 7cm in width and height, with the depth ranging from 3.5 to 7cm. The depth is of less importance as they were to be arranged in such a manner that the robot gestures to the centre of the front face, giving a target surface area of 49$cm^{2}$, which is thought to be a typical target area for manoeuvring physical objects in applications that don't require identifying targets in a high precision environment, such as identifying correct blocks in a construction scenario.
 
-The blocks were to be arranged in a four by four stack, giving a total of 16 blocks in a wall that was 28cm by 28cm. Then, using the technique mentioned in SECTION XXXX(the program design section), the 3D target points, corresponding to the tip of the robot being at the centre of the front face, were to be obtained for each block. In order to minimise any errors, uncertainties, or potential accuracy limitations of the OptiTrack Duo, the best position to place the camera would correspond closely to the same relative location to the device that it was at during the calibration procedure. This took place with the robot angled at about 45\degree to the front of the Duo, so that it maintained a clear view of the markers on the tip and the base at all calibration points. Therefore, so that the response of the robot does not hugely depend on how accurately the Duo can give the relative orientation of the device to when it was calibrated, it was to be placed in a similar relative position in practice. The physical set-up for this experiment is thus illustrated in Figure XXXX.
+The blocks were to be arranged in a four by four stack, giving a total of 16 blocks in a wall that was 28cm by 28cm. Then, using the technique mentioned in Section \ref{section:programDesign}, the 3D target points, corresponding to the tip of the robot being at the centre of the front face, were to be obtained for each block. In order to minimise any errors, uncertainties, or potential accuracy limitations of the OptiTrack Duo, the best position to place the camera would correspond closely to the same relative location to the device that it was at during the calibration procedure. This took place with the robot angled at about 45\degree to the front of the Duo, so that it maintained a clear view of the markers on the tip and the base at all calibration points. Therefore, so that the response of the robot does not hugely depend on how accurately the Duo can give the relative orientation of the device to when it was calibrated, it was to be placed in a similar relative position in practice. The physical set-up for this experiment is thus illustrated in Figure XXXX.
 
 
 INSERT PICTURE OF THE FULL WALL OF BLOCKS, SHOWING THE ROBOT FACING THE WALL, MAYBE STRAIGHT MAYBE GESTURING TO A BLOCK, AND HAVING VIEW OF THE CAMERA, LABELLING IT AS OPTIMAL POSITION XXXXXXXX
@@ -1003,7 +1031,6 @@ Then, when performing the experiment, the stored block positions are loaded into
 
 
 \subsubsection{Alleviation of Cognitive Workload in Users}
-MENTION THE USER STUDY CLASS OF THE PROGRAM THAT TAKES TRIGGER CLICKS AND LOGS THE ABSOLUTE POSITION OF THE TIP INTO A CSV FILE XXXXXXX
 
 Given the aims of the project, it was imperative to investigate whether the device could actually perform its intended function and further prove the potential for cooperation between humans and handheld robotics. Specifically, its ability to draw on task knowledge to interact with the user to reduce perceived mental workload must be evaluated. The most appropriate way to carry out this evaluation entails a live user study, in which participants use the robot in practice, and specify the extent to which it mentally assisted them. As such, an experiment was designed in which the users would perform two tasks using the robot to place coloured blocks in a specific order into a box. This was accomplished by attaching metal strips to seven of the foam blocks from the gesturing effectiveness experiment, and setting the program so that the electromagnet was activated and the arm held straight when the trigger was held down. Coloured stickers were then attached to the front face of the blocks to give seven unique blocks: red, orange, yellow, green, blue, white and purple, which were then placed in a straight horizontal line at the front of the table. As the physical accuracy was not under investigation here, a conservative spacing between blocks was selected at 7cm.
 
@@ -1021,7 +1048,7 @@ One of the tasks entailed dispensing the blocks in a sequence that required cons
 
 However, if an incorrect block was selected, it would only count as a single error. That is, after an incorrect block, the score would then be based on the correct ordering of the remaining blocks, whatever they may be. Before the task, it was important to ask the user if they were colour blind, or non-native speakers of English, and note it if so. They were then asked to verbally state what colours were laid out. This task served to simulate a mentally taxing set of operations, where the user must apply cognitive effort in order to perform successfully. The nature of this task took inspiration from the fact that typical sorting tasks have been shown to result in cerebral activation of the frontal lobe in healthy persons \cite{volz1997}, the area of the brain responsible for problems solving and memory. These mental function are thought to be the most pragmatic to assist with in order to alleviate perceived workload, and potentially improve performance. Note that this task was designed to be generally achievable through a degree of mental effort, not so challenging as to cause difficulties in actually completing the task correctly. This is because the investigation is more focused on how the device can actually cooperate and provide mental assistance to improve performance and/or alleviate effort, as opposed to enabling the completion of tasks that would otherwise be impossible in users.
 
-For the assisted task, a pre-defined order of six blocks was created, as before, by moving the tip to the target positions and logging it with the trigger. Although the initial selection of this order was random, it was held constant as to be the same for each participant. Again, visibility issues were encountered when all of the blocks were laid out so markers were put in place and only one block was used to log the positions, moving it between the markers. The base was again the only rigid body tracked during the experiment, for the reasons mentioned in the gesturing effectiveness experiment. The users would then be unaware of this order, and upon commencing the task the timer would be started and the robot would gesture to the next target. When the trigger was held, the magnet would activate and the arm would straighten up for easier manoeuvring of the blocks. Once the trigger was released, the arm would then begin to gesture to the next target, until after the sixth target when the experiment would stop and the arm would remain straight. Of course, if the trigger was released accidentally, the arm would move on against the user's wish. Therefore a button was added to the GUI to effectively `undo' the trigger press and move back to the previous target. 
+For the assisted task, a pre-defined order of six blocks was created, as before, by moving the tip to the target positions and logging it with the trigger. Although the initial selection of this order was random, it was held constant as to be the same for each participant. Again, visibility issues were encountered when all of the blocks were laid out so markers were put in place and only one block was used to log the positions, moving it between the markers. The base was again the only rigid body tracked during the experiment, for the reasons mentioned in the gesturing effectiveness experiment. The users would then be unaware of this order, and upon commencing the task the timer would be started and the robot would gesture to the next target. When the trigger was held, the magnet would activate and the arm would straighten up for easier manoeuvring of the blocks. Once the trigger was released, the arm would then begin to gesture to the next target, until after the sixth target when the experiment would stop and the arm would remain straight. Of course, if the trigger was released accidentally, the arm would move on against the user's wish. Therefore a button was added to the GUI to effectively `undo' the trigger press and move back to the previous target. The top-level process associated with the program flow for the user study is given Appendix H.4.
 
 
 IMAGE HERE OF THE ROBOT GESTURING TOWARDS A BLOCK, WITH THE BLOCK CIRCLED OR SOMETHING TO ILLUSTRATE IT IS THE NEXT ONE IN THE SEQUENCE XXXXXXXXXX
@@ -1030,7 +1057,7 @@ Before the assisted task commenced, a brief demonstration was given to the user,
 
 In this case, the task knowledge is just a pre-defined sequence of positions. However, this serves as a generic proxy for more specific tasks, in which, for example, the details of the task could be entered into a computer or captured via camera, to ascertain the necessary sequence of operations. Of course, in this case, the program could be set up to receive user-entered colours and corresponding positions to determine a correct order, though this would be trivial and provide no real benefit. The real focus is the robot gesturing a set of positions which are unknown to the user, whatever they may be, to reduce the mental effort of the user working them out.
 
-Upon completion of both tasks, a modified TLX form was then given to the participants to fill out. As covered in Section XXX (TLX), this covered the key perceptions of task load; mental demand, temporal demand, perception of performance, total effort, frustration and physical demand. The latter is of little importance in such an investigation, with the two tasks expected to be identical in this regard, but was included for completeness nonetheless. This was filled out for \underline{both} the mentally assisted task (gesturing) and the colour sequence (unassisted) task. This modified TLX is given in XXXX. It was hypothesised that the completion time, relative performance and perceived workload would all be improved upon with the gesturing assistance compared to the mental sequencing task.
+Upon completion of both tasks, a modified TLX form was then given to the participants to fill out. As covered in Section \ref{section:tlx}, this covered the key perceptions of task load; mental demand, temporal demand, perception of performance, total effort, frustration and physical demand. The latter is of little importance in such an investigation, with the two tasks expected to be identical in this regard, but was included for completeness nonetheless. This was filled out for \underline{both} the mentally assisted task (gesturing) and the colour sequence (unassisted) task. This modified TLX is given in XXXX. It was hypothesised that the completion time, relative performance and perceived workload would all be improved upon with the gesturing assistance compared to the mental sequencing task.
 
 
 \pagebreak
@@ -1111,7 +1138,7 @@ Using the same set-up as for the frequency response test, a step response experi
 \label{figure:stepResponse}
 \end{center}
 
-Rather than receiving an input and setting immediately jumping to a servo configuration, the algorithm of setting the angles relies on checking the most recent solution, comparing this with the current values, and iterating the servos closer to the solution one degree at a time with a slight delay after each step. This process was covered in more detail in SECTION XXXXXXX. As such, with a stationary robot, the servos themselves cannot technically overshoot. Once they reach the target angles (in degrees), the program will not iterate them any further. Of course, the tip itself could overshoot past its target based on the momentum of the end effector when the servos stop moving and the flexibility of the arm. However, when the motor delay was experimented with, the range of 4 to 6ms was found to provide smooth motion without any tip overshoot upon stopping. Also, overshoot may occur as a result of the human moving the tip past the target quickly so that it has to change direction, though this is not related to the step response of the robot itself. 
+Rather than receiving an input and setting immediately jumping to a servo configuration, the algorithm of setting the angles relies on checking the most recent solution, comparing this with the current values, and iterating the servos closer to the solution one degree at a time with a slight delay after each step. This process was covered in more detail in Section \ref{section:liveTargetRealTime}. As such, with a stationary robot, the servos themselves cannot technically overshoot. Once they reach the target angles (in degrees), the program will not iterate them any further. Of course, the tip itself could overshoot past its target based on the momentum of the end effector when the servos stop moving and the flexibility of the arm. However, when the motor delay was experimented with, the range of 4 to 6ms was found to provide smooth motion without any tip overshoot upon stopping. Also, overshoot may occur as a result of the human moving the tip past the target quickly so that it has to change direction, though this is not related to the step response of the robot itself. 
 
 Given this way in which the robot responds to target positions, eliminating servo overshoot, the most comparable level of damping that the robot is subjected to, in terms of typical control system terminology, would be `over damped'. This implies that the servos could move at a greater speed than they do, while still reaching their target without any overshoot of themselves or the tip, which is a fair assumption. As such, it is common practice to quantify the rise time of the step response as the time taken for the response to move from 10\% to 90\% of its target motion. This is labelled in the step response graph. As such, this time was found for each step input that was recorded, and averaged to give a rise time value of 0.62 seconds. The total response time, that is, the time taken from the step input (one extreme to the other) until the arm moves to its new steady state position, was found to average at 1 second exactly. 
 
@@ -1272,17 +1299,19 @@ The most important metric for this specific study was the mental effort, as this
 
 \pagebreak
 \section{Further Work and Areas of Improvement}
-\subsection{Physical Design}
-\subsection{Evaluation}
 
 \pagebreak
 \bibliography{mybib}
 \bibliographystyle{unsrt}
 
 \pagebreak
-\section{Appendices}
-\subsection{CAD Drawings}
-\subsection{Servomotors}
+\pagestyle{empty}
+
+
+\begin{appendices}
+
+\section{Servomotors}
+\label{appendix:servos}
 
 \begin{center}
 \includegraphics[width=0.8\textwidth]{images/servoSpecs.png}
@@ -1290,11 +1319,87 @@ The most important metric for this specific study was the mental effort, as this
 \label{figure:servoSpes}
 \end{center}
 
+\section{Cable}
+\label{appendix:cable}
 
-\subsection{Tracking Device}
-\subsection{Arduino Board}
-\subsection{Code Snippets}
-Put code for writing the motor angles to the servos, perhaps starting the new thread that just continuously writes the angles. Perhaps code for starting an experiment and tracking the bodies, getting the information out, and using them as a target. Also perhaps the regression function code? XXXXXXX
+\begin{center}
+\includegraphics[width=0.5\textwidth]{images/cable.png}
+\captionof{figure}{High strength fishing wire used as the cable.}
+\label{figure:cable}
+\end{center}
 
+\section{Electromagnet}
+\label{appendix:electromagnet}
+
+\begin{center}
+\includegraphics[width=0.5\textwidth]{images/solenoid.png}
+\captionof{figure}{Solenoid used for the electromagnetic end effector.}
+\label{figure:solenoid}
+\end{center}
+
+\section{Strimmer}
+\label{appendix:strimmer}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/strimmer.png}
+\captionof{figure}{Wilko 250W grass strimmer used for the base (now discontinued).}
+\label{figure:strimmer}
+\end{center}
+
+\section{Arduino Board}
+\subsection{Uno}
+\label{appendix:arduinoUno}
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{images/arduinoSpecs.png}
+\captionof{figure}{Specifications for the Arduino UNO, taken from https://www.arduino.cc/en/Main/ArduinoBoardUno}
+\label{figure:arduinoSpecs}
+\end{center}
+
+\subsection{Motor Shield}
+\label{appendix:motorShield}
+
+\begin{center}
+\includegraphics[width=0.5\textwidth]{images/motorShield.png}
+\captionof{figure}{Specifications for the Arduino Motor Shield, taken from https://www.arduino.cc/en/Main/ArduinoMotorShieldR3}
+\label{figure:motorShield}
+\end{center}
+
+\subsection{Proto Shield}
+\label{appendix:protoShield}
+
+\begin{center}
+\includegraphics[width=0.5\textwidth]{images/protoShield.png}
+\captionof{figure}{Specifications for the Arduino Proto Shield, taken from https://www.arduino.cc/en/Main/ArduinoProtoShield}
+\label{figure:protoShield}
+\end{center}
+
+
+
+\section{Tracking Device}
+\label{appendix:duo}
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/duoSpecs.png}
+\captionof{figure}{Specifications for the OptiTrack Duo used for the project, taken from http://optitrack.com/products/v120-duo/specs.html}
+\label{figure:duoSpecs}
+\end{center}
+
+
+\section{3D Printer}
+\label{appendix:3dprinter}
+
+\begin{center}
+\includegraphics[width=\textwidth]{images/3dprinter.png}
+\captionof{figure}{The 3D printer used for developing the bespoke parts was the Ultimaker 2+, taken from https://ultimaker.com/en/products/ultimaker-2-plus}
+\label{figure:ultimaker}
+\end{center}
+
+
+\pagebreak
+
+\includepdf[pages={1-4},nup=1x2,landscape=true]{images/codePages.pdf}
+
+\end{appendices}
 
 \end{document}

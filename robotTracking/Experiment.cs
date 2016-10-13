@@ -615,48 +615,25 @@ namespace robotTracking
             double[] outputVector = new double[numOutputDimensions];
             double[] sumNumerator = new double[numOutputDimensions];
             double sumDenominator = 0;
-
-            //// could be in its own function as it's not really part of the 'regression'
-            //if(inputType == RegressionInput.POSITION)
-            //{
-            //    sphereIntersectionConvert(inputVectorTarget);
-            //    getClosestCalibrationSolution(inputVectorTarget);
-            //}
-
             float[] newInputVector = getCopyVector(inputVectorTarget);
-            //Console.WriteLine("vector to have regression performed is:");
-            //for (int i = 0; i < newInputVector.Length; i++)
-            //{
-            //    Console.WriteLine(newInputVector[i]);
-            //}
-
-
+           
             if (inputType == RegressionInput.MOTORS)
             {
                 convertMotors(newInputVector, true);
             }
 
-            // If not using KD tree, loop through entire set of data
+            // loop through entire set of data
             for (int i = 0; i < storedCalibrationData.Count; i++)
             {
                 float kernelInput = getKernelInput(i, inputType, alpha, newInputVector);
                 float[] currentYValue = getcurrentYValue(i, inputType);
-                //Console.WriteLine("current vector output is  :");
-                //for (int n = 0; n < currentYValue.Length; n++)
-                //{
-                //    Console.Write(currentYValue[n] + "   ");
-                //}
-                //Console.WriteLine();
-
-                // work out the values for the numerator and denominator to be added to sum
-                //Console.WriteLine("output of kernel function is " + kernelFunction(kernelInput));
                 for (int k = 0; k < currentYValue.Length; k++)
                 {
                     sumNumerator[k] += currentYValue[k] * kernelFunction(kernelInput);
                 }
                 sumDenominator += kernelFunction(kernelInput);
-                //Console.WriteLine("sum denominator is " + sumDenominator);
             }
+
 
             for (int k = 0; k < numOutputDimensions; k++)
             {
@@ -668,15 +645,7 @@ namespace robotTracking
                 convertOutputMotors(outputVector, false);
             }
 
-            //Console.WriteLine("Vector output being returned is:");
-            //for (int i = 0; i < outputVector.Length; i++)
-            //{
-            //    Console.Write(outputVector[i] + "   ");
-            //}
-            //Console.WriteLine();
-
             return outputVector;
-
         }
 
 
@@ -1088,7 +1057,7 @@ namespace robotTracking
             }
         }
 
-
+        // Sets the user study going, starts the thread to constantly update the motor angles
         public void startStudy(UserStudyType type)
         {
             activeStudy = new UserStudy(type, randomiseGesturing);
@@ -1099,6 +1068,7 @@ namespace robotTracking
 
             experimentLive = false;
             controller.zeroMotors();
+
             Console.WriteLine("finished study");
             if(type == UserStudyType.GESTURING)
             {
@@ -1116,6 +1086,7 @@ namespace robotTracking
         }
 
 
+        // Runs user study by informing object of base position and trigger, and fetching appropriate position
         private void runUserStudy()
         {
             bool triggerPress;
@@ -1130,7 +1101,6 @@ namespace robotTracking
             relativeTargetPosition = activeStudy.getRelativeTargetPosition();
 
             runningStudy = true;
-            //activeStudy.update(basePosition, false); // update once to know the relative position
             while(runningStudy)
             {
                 triggerPress = getTrigger();
@@ -1192,12 +1162,12 @@ namespace robotTracking
         }
 
 
+        // Repeatedly sets the motor angles (delay is present within setMotorAngles function)
         private void liveExperimentThreadLoop()
         {
             while (experimentLive)
             {
                 setMotorAngles();
-                //Thread.Sleep(5);
             }
         }
 

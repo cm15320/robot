@@ -1,20 +1,10 @@
 \begin{thebibliography}{10}
 
-\bibitem{externalRobotImage}
-{Direct Industry}.
-\newblock Articulated robot, 6-axis, connecting, industrial.
-\newblock
-  \url{http://www.directindustry.com/prod/adept-technology/product-6076-396885.html},
-  2015.
-\newblock [Online; accessed September 27, 2016].
-
-\bibitem{exoskeletonImage}
-{Robotics Business Review}.
-\newblock Exoskeleton revolution: From rigid to soft to ultra softl.
-\newblock
-  \url{https://www.roboticsbusinessreview.com/exoskeleton_revolution_from_rigid_to_soft_to_ultra_soft/},
-  2014.
-\newblock [Online; accessed September 27, 2016].
+\bibitem{GreggSmithDesign}
+A.~Gregg-Smith and W.W. Mayol-Cuevas.
+\newblock The design and evaluation of a cooperative handheld robot.
+\newblock In {\em 2015 IEEE International Conference on Robotics and Automation
+  (ICRA)}, pages 1968--1975, May 2015.
 
 \bibitem{Chipalkatty2012}
 R.~Chipalkatty.
@@ -60,12 +50,6 @@ M.~Tambe, P.~Scerri, and D.V. Pynadath.
 \newblock Adjustable autonomy for the real world.
 \newblock {\em Journal of Artificial Intelligence Research}, 17(1):171--228,
   2002.
-
-\bibitem{GreggSmithDesign}
-A.~Gregg-Smith and W.W. Mayol-Cuevas.
-\newblock The design and evaluation of a cooperative handheld robot.
-\newblock In {\em 2015 IEEE International Conference on Robotics and Automation
-  (ICRA)}, pages 1968--1975, May 2015.
 
 \bibitem{Poncela2009}
 A.~Poncela, C.~Urdiales, E.~J. Perez, and F.~Sandoval.
