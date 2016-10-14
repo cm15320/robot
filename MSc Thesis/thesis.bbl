@@ -6,6 +6,9 @@ A.~Gregg-Smith and W.W. Mayol-Cuevas.
 \newblock In {\em 2015 IEEE International Conference on Robotics and Automation
   (ICRA)}, pages 1968--1975, May 2015.
 
+\bibitem{handheldrobotics}
+\url{http://handheldrobotics.org}.
+
 \bibitem{Chipalkatty2012}
 R.~Chipalkatty.
 \newblock {\em Human-In-The-Loop Control For Cooperative Human-Robot Tasks}.
@@ -103,30 +106,6 @@ K.~Petersen, R.~Nagpal, and J.~Werfel.
   construction.
 \newblock {\em Proc. Robotics: Science \& Systems VII}, 2011.
 
-\bibitem{mellinger2011}
-D.~Mellinger, Q.~Lindsey, M.~Shomin, and V.~Kumar.
-\newblock Design, modeling, estimation and control for aerial grasping and
-  manipulation.
-\newblock In {\em 2011 IEEE/RSJ International Conference on Intelligent Robots
-  and Systems}, pages 2668--2673, Sept 2011.
-
-\bibitem{cano2013}
-R.~Cano, C.~P{\'e}rez, F.~Pruano, A.~Ollero, and G.~Heredia.
-\newblock Mechanical design of a 6-dof aerial manipulator for assembling bar
-  structures using uavs.
-\newblock In {\em 2nd RED-UAS 2013 Workshop on Research, Education and
-  Development of Unmanned Aerial Systems}, 2013.
-
-\bibitem{GreggSmithKinematics}
-A.~Gregg-Smith and W.W. Mayol-Cuevas.
-\newblock Inverse kinematics and design of a novel 6-dof handheld robot arm.
-\newblock In {\em IEEE International Conference on Robotics and Automation
-  (ICRA)}, ICRA Proceedings. IEEE, February 2016.
-
-\bibitem{latteur2015}
-P.~Latteur, S.~Goessens, J.~Breton, J.~Leplat, Z.~Ma, and C.~Mueller.
-\newblock Drone-based additive manufacturing of architectural structures.
-
 \bibitem{Arkin1990}
 R.C. Arkin and R.R. Murphy.
 \newblock Autonomous navigation in a manufacturing environment.
@@ -170,8 +149,11 @@ F.~Echtler, F.Sturm, and K.Kindermann.
 \newblock In {\em Virtual and Augmented Reality Applications in Manufacturing},
   pages 333--360. Springer London, London, 2004.
 
-\bibitem{handheldrobotics}
-\url{http://handheldrobotics.org}.
+\bibitem{GreggSmithKinematics}
+A.~Gregg-Smith and W.W. Mayol-Cuevas.
+\newblock Inverse kinematics and design of a novel 6-dof handheld robot arm.
+\newblock In {\em IEEE International Conference on Robotics and Automation
+  (ICRA)}, ICRA Proceedings. IEEE, February 2016.
 
 \bibitem{godage2011}
 I.S. Godage, D.T. Branson, E.~Guglielmino, G.A. Medrano-Cerda, and D.G
