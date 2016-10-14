@@ -14,7 +14,7 @@
 \contentsline {subsubsection}{\numberline {2.2.1}Mobile Robots}{8}
 \contentsline {subsubsection}{\numberline {2.2.2}Scene Knowledge}{9}
 \contentsline {subsection}{\numberline {2.3}Handheld Robotics}{10}
-\contentsline {subsubsection}{\numberline {2.3.1}Medical Devices}{10}
+\contentsline {subsubsection}{\numberline {2.3.1}Medical Devices and Other Examples}{10}
 \contentsline {subsubsection}{\numberline {2.3.2}University of Bristol Handheld Robotics Project}{11}
 \contentsline {subsubsection}{\numberline {2.3.3}New Design Inspiration}{12}
 \contentsline {subsection}{\numberline {2.4}Designing Experiments for Handheld Robotics}{13}
@@ -65,3 +65,5 @@
 \contentsline {subsection}{\numberline {E.3}Proto Shield}{74}
 \contentsline {section}{\numberline {F}Tracking Device}{75}
 \contentsline {section}{\numberline {G}3D Printer}{76}
+\contentsline {section}{H Sample Code}{77}
+\contentsline {section}{I TLX Questionnaire}{79}
