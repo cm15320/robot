@@ -18,6 +18,8 @@ using NatNetML;
 using System.Xml.Serialization;
 using System.Windows.Media;
 
+// note that [NatNet] functions were provided by the NatNet SDK or adapeted from
+
 namespace robotTracking
 {
 
@@ -78,7 +80,7 @@ namespace robotTracking
         List<NatNetML.RigidBody> mRigidBodies = new List<RigidBody>();
         Hashtable htSkelRBs = new Hashtable();
 
-        // possibly add graph stuff here in future
+       
 
         // frame timing information
         double m_fLastFrameTimestamp = 0.0f;
@@ -126,7 +128,7 @@ namespace robotTracking
         }
 
 
-
+        //[NatNet]
         /* Normally this would be where different ip addresses could be entered etc for the connection,
          * instead we will just use the localhost ip address 127.0.0.1
          */
@@ -183,6 +185,8 @@ namespace robotTracking
             });
         }
 
+
+        //[NatNet]
         // creates a NatNet client based on the connection type
         private int CreateClient(int iConnectionType)
         {
@@ -212,6 +216,8 @@ namespace robotTracking
 
         }
 
+
+        //[NatNet]
         private void OutputMessage(string strMessage)
         {
             if (mPaused)
@@ -256,7 +262,7 @@ namespace robotTracking
         }
 
 
-
+        //[NatNet]
         // Connects to a NatNet server (Motive in this case)
         private void Connect()
         {
@@ -331,6 +337,8 @@ namespace robotTracking
 
         }
 
+
+        //[NatNet]
         private RigidBody findRigidBody(int id, int parentID = -2)
         {
             foreach (RigidBody rb in mRigidBodies)
@@ -351,6 +359,8 @@ namespace robotTracking
             return null;
         }
 
+
+        //[NatNet]
         private void Disconnect()
         {
             int nBytes = 0;
@@ -367,7 +377,7 @@ namespace robotTracking
         }
 
 
-
+        //[NatNet]
         private void SetDataPolling(bool poll)
         {
             if (poll)
@@ -389,6 +399,8 @@ namespace robotTracking
             }
         }
 
+
+        //[NatNet]
         // This method, unlike with the original natnet version, is used at the start in order
         // to get the rigid body descriptions into the mRigidBodies list so that they can then
         // be used to check for the required rigid body names (robotBase and robotTip)
@@ -496,7 +508,7 @@ namespace robotTracking
         }
 
 
-
+        //[NatNet]
         // This is a key function that updates the display of the data 
         // It is called by the update UI function
 
@@ -586,56 +598,8 @@ namespace robotTracking
                             //OutputMessage("a rigid body is not tracked in this frame");
                         }
 
-                        //dataGridView1.Rows[rowIndex].Cells[1].Value = rb.x * m_ServerToMillimeters;
-                        //dataGridView1.Rows[rowIndex].Cells[2].Value = rb.y * m_ServerToMillimeters;
-                        //dataGridView1.Rows[rowIndex].Cells[3].Value = rb.z * m_ServerToMillimeters;
-
-
-                        //// Convert quaternion to eulers.  Motive coordinate conventions: X(Pitch), Y(Yaw), Z(Roll), Relative, RHS
-                        //float[] quaternion = new float[4] { rb.qx, rb.qy, rb.qz, rb.qw };
-                        //float[] eulers = new float[3];
-                        //eulers = m_NatNet.QuatToEuler(quaternion, (int)NATEulerOrder.NAT_XYZr);
-
-                        //double xdeg = RadiansToDegrees(eulers[0]);
-                        //double ydeg = RadiansToDegrees(eulers[1]);
-                        //double zdeg = RadiansToDegrees(eulers[2]);
-
-                        //dataGridView1.Rows[rowIndex].Cells[4].Value = xdeg;
-                        //dataGridView1.Rows[rowIndex].Cells[5].Value = ydeg;
-                        //dataGridView1.Rows[rowIndex].Cells[6].Value = zdeg;
-
                         updateRigidBodyData(rb, key);
 
-                        // now must update the marker data of those tied to this rigid body
-
-                        //for (int j = 0; j < rb.nMarkers; j++)
-                        //{
-                        //    if (rb.Markers[j].ID != -1)
-                        //    {
-                        //        string name;
-                        //        RigidBody rbDef = findRigidBody(rb.ID);
-                        //        if (rbDef != null)
-                        //        {
-                        //            name = rbDef.Name;
-                        //        }
-                        //        else
-                        //        {
-                        //            name = rb.ID.ToString();
-                        //        }
-
-                        //        String strUniqueName = name + "-" + rb.Markers[j].ID.ToString();
-                        //        int keyMarker = strUniqueName.GetHashCode();
-                        //        if (htMarkers.ContainsKey(keyMarker))
-                        //        {
-                        //            int rowIndexMarker = (int)htMarkers[keyMarker];
-                        //            NatNetML.Marker m = rb.Markers[j];
-                        //            dataGridView1.Rows[rowIndexMarker].Cells[1].Value = m.x;
-                        //            dataGridView1.Rows[rowIndexMarker].Cells[2].Value = m.y;
-                        //            dataGridView1.Rows[rowIndexMarker].Cells[3].Value = m.z;
-                        //        }
-
-                        //    }
-                        //}
 
                         RigidBody rbDef = findRigidBody(rb.ID);
                         updateRigidBodyMarkerData(rb, rbDef);
@@ -699,22 +663,6 @@ namespace robotTracking
                         int rowIndex = (int)htRigidBodies[key];
                         if (rowIndex >= 0)
                         {
-                            //dataGridView1.Rows[rowIndex].Cells[1].Value = rb.x;
-                            //dataGridView1.Rows[rowIndex].Cells[2].Value = rb.y;
-                            //dataGridView1.Rows[rowIndex].Cells[3].Value = rb.z;
-
-                            //// Convert quaternion to eulers.  Motive coordinate conventions: X(Pitch), Y(Yaw), Z(Roll), Relative, RHS
-                            //float[] quat = new float[4] { rb.qx, rb.qy, rb.qz, rb.qw };
-                            //float[] eulers = new float[3];
-                            //eulers = m_NatNet.QuatToEuler(quat, (int)NATEulerOrder.NAT_XYZr);
-                            //double x = RadiansToDegrees(eulers[0]);     // convert to degrees
-                            //double y = RadiansToDegrees(eulers[1]);
-                            //double z = RadiansToDegrees(eulers[2]);
-
-                            //dataGridView1.Rows[rowIndex].Cells[4].Value = x;
-                            //dataGridView1.Rows[rowIndex].Cells[5].Value = y;
-                            //dataGridView1.Rows[rowIndex].Cells[6].Value = z;
-
                             updateRigidBodyData(rb, key);
 
                             // Marker data associated with this rigid body
@@ -796,7 +744,7 @@ namespace robotTracking
         }
 
 
-
+        //[NatNet]
         public void UpdateUI()
         {
             m_UIUpdateTimer.Stop();
@@ -861,7 +809,7 @@ namespace robotTracking
 
 
 
-
+        //[NatNet]
         public void PollData()
         {
             FrameOfMocapData data = m_NatNet.GetLastFrameOfData();
@@ -870,6 +818,7 @@ namespace robotTracking
         }
 
 
+        //[NatNet]
         public static double RadiansToDegrees(double rad)
         {
             return rad * (180.0f / Math.PI);
@@ -877,6 +826,7 @@ namespace robotTracking
         }
 
 
+        //[NatNet]
         // The callback for the NatNet server to call when a frame is ready to send
         void m_NatNet_OnFrameReady(NatNetML.FrameOfMocapData data, NatNetML.NatNetClientML client)
         {
@@ -904,12 +854,15 @@ namespace robotTracking
         }
 
 
+        //[NatNet]
         private void pollDataCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             bool isPoll = pollDataCheckbox.Checked;
             SetDataPolling(isPoll);
         }
 
+
+        //[NatNet]
         private void RobotTracker_FormClosing(object sender, FormClosingEventArgs e)
         {
             mApplicationRunning = false;
@@ -926,6 +879,7 @@ namespace robotTracking
         }
 
 
+        //[NatNet]
         // Process the frame of data in terms of the timestamp etc to check frames dropped
         // can optionally clear the queue each time one is processed 
         void ProcessFrameOfData(ref NatNetML.FrameOfMocapData data)
@@ -974,6 +928,7 @@ namespace robotTracking
 
         }
 
+        //[NatNet]
         public int LowWord(int number)
         {
             return number & 0xFFFF;
@@ -1245,21 +1200,6 @@ namespace robotTracking
             }
         }
 
-        //private void runCalibration()
-        //{
-        //    // need to then set a variable 'calibrating' to true and change the text to 'stop calibration'
-        //    // then call the stopCalibration method if the button is clicked while calibrating
-        //    // will of course need to use the invokeRequired technique if changing the text as it is on a different thread
-        //    calibrating = true;
-        //    changeCalibrationButtons(this, EventArgs.Empty);
-
-        //    experiment.calibrate();
-
-        //    calibrating = false;
-        //    changeCalibrationButtons(this, EventArgs.Empty);
-        //    OutputMessage("Finished Calibrating");
-
-        //}
 
         private void changeCalibrationButtons(object sender, EventArgs e)
         {
@@ -1376,16 +1316,6 @@ namespace robotTracking
             }
         }
 
-        //private void continueCalibrationButton_Click(object sender, EventArgs e)
-        //{
-        //    if (pausedCalibration && calibrating)
-        //    {
-        //        pausedCalibration = false;
-        //        pauseCalibrationButton.Enabled = true;
-        //        continueCalibrationButton.Enabled = false;
-        //        experiment.resumeCalibration();
-        //    }
-        //}
 
         private void runTestPointsButton_Click(object sender, EventArgs e)
         {
@@ -1960,6 +1890,8 @@ namespace robotTracking
 
     }
 
+
+    //[NatNet]
     public class QueryPerfCounter
     {
         [DllImport("KERNEL32")]
